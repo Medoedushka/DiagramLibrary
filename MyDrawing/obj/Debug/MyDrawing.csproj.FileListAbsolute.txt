@@ -1,0 +1,7 @@
+C:\Users\AMD\OneDrive\Документы\C# Projects\MyDrawing\MyDrawing\bin\Debug\MyDrawing.dll
+C:\Users\AMD\OneDrive\Документы\C# Projects\MyDrawing\MyDrawing\bin\Debug\MyDrawing.pdb
+C:\Users\AMD\OneDrive\Документы\C# Projects\MyDrawing\MyDrawing\obj\Debug\MyDrawing.csprojAssemblyReference.cache
+C:\Users\AMD\OneDrive\Документы\C# Projects\MyDrawing\MyDrawing\obj\Debug\MyDrawing.csproj.CoreCompileInputs.cache
+C:\Users\AMD\OneDrive\Документы\C# Projects\MyDrawing\MyDrawing\obj\Debug\MyDrawing.dll
+C:\Users\AMD\OneDrive\Документы\C# Projects\MyDrawing\MyDrawing\obj\Debug\MyDrawing.pdb
+C:\Users\AMD\OneDrive\Документы\C# Projects\MyDrawing\MyDrawing\bin\Debug\MyDrawing.xml
