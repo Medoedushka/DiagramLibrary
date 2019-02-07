@@ -423,7 +423,95 @@ namespace MyDrawing
 
         private void DrawAxesNames()
         {
+            if (Config.SizeOX == 0) Config.SizeOX = 9;
+            if (Config.SizeOY == 0) Config.SizeOY = 9;
 
+            Font fontOX = new Font("Arial", (float)Config.SizeOX);
+            Font fontOY = new Font("Arial", (float)Config.SizeOY);
+            SolidBrush brush = new SolidBrush(Color.Black);
+            StringFormat stringFormat = new StringFormat();
+            stringFormat.FormatFlags = StringFormatFlags.DirectionVertical;
+
+            #region Координаты для строки названия оси Ох.
+            SizeF size = g.MeasureString(Config.OXName, fontOX);
+            PointF pointOX = new PointF();
+            if (Config.OXNamePosition == TextPosition.Centre)
+            {
+                pointOX.X = LastPointOY.X + (LastPointOX.X - LastPointOY.X) / 2 - size.Width / 2;
+                pointOX.Y = Center.Y + 15;
+            }
+            else if (Config.OXNamePosition == TextPosition.Left)
+            {
+                pointOX.X = Center.X;
+                pointOX.Y = Center.Y + 15;
+            }
+            else if (Config.OXNamePosition == TextPosition.Right)
+            {
+                pointOX.X = LastPointOX.X;
+                pointOX.Y = Center.Y + 15;
+                while (pointOX.X + size.Width > LastPointOX.X)
+                {
+                    pointOX.X--;
+                }
+            }
+            #endregion
+            #region Координаты для строки названия оси Оy.
+            size = g.MeasureString(Config.OYName, fontOY);
+            PointF pointOY = new PointF();
+            if (Config.OYNamePosition == TextPosition.Centre)
+            {
+                pointOY.X = Center.X - 30;
+                pointOY.Y = Center.Y - (Center.Y - LastPointOY.Y) / 2 - size.Width / 2;
+            }
+            if (Config.OYNamePosition == TextPosition.Left)
+            {
+                pointOY.X = Center.X - 30;
+                pointOY.Y = LastPointOY.Y;
+            }
+            if (Config.OYNamePosition == TextPosition.Right)
+            {
+                pointOY.X = Center.X - 30;
+                pointOY.Y = Center.Y;
+                while (pointOY.Y + size.Width > Center.Y)
+                {
+                    pointOY.Y--;
+                }
+            }
+            #endregion
+
+            //рисование названия Ox
+            g.DrawString(Config.OXName, fontOX, brush, pointOX);
+            //рисование названия Oy
+            g.DrawString(Config.OYName, fontOY, brush, pointOY, stringFormat);
+        }
+
+        private void DrawTitle()
+        {
+            Font font = new Font("Arial", 12);
+            SolidBrush brush = new SolidBrush(Color.Black);
+            SizeF size = g.MeasureString(Title, font);
+
+            float x = 0, y = 0;
+            if (Config.TitlePosition == TextPosition.Left)
+            {
+                x = LastPointOY.X; y = LastPointOY.Y - 20;
+            }
+            else if (Config.TitlePosition == TextPosition.Centre)
+            {
+                x = LastPointOY.X + (LastPointOX.X - LastPointOY.X) / 2 - size.Width / 2;
+                y = LastPointOY.Y - 20;
+            }
+            else if (Config.TitlePosition == TextPosition.Right)
+            {
+                x = LastPointOX.X;
+                y = LastPointOY.Y - 20;
+                while (x + size.Width > LastPointOX.X)
+                {
+                    x -= 1;
+                }
+            }
+            PointF textPoint = new PointF(x, y);
+            g.DrawString(Title, font, brush, textPoint);
         }
 
         private void DrawCurrentCurve(Curves currentCurve)
@@ -462,7 +550,19 @@ namespace MyDrawing
             if (GraphCurves.Count != 0)
             {
                 DrawAxes();
-                foreach(Curves crrCurve in GraphCurves)
+                if ((Config.OXName != "" && Config.SizeOX != 0) || (Config.OYName != "" && Config.SizeOY != 0))
+                {
+                    DrawAxesNames();
+                }
+                else MessageBox.Show("При указании названия осей необходимо также указать размер шрифта хотя бы одного названия.\n" +
+                     "(SizeOX, SizeOY)", "Попытка добавить название осей.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                
+                if(Title != "")
+                {
+                    DrawTitle();
+                }
+
+                foreach (Curves crrCurve in GraphCurves)
                 {
                     DrawCurrentCurve(crrCurve);
                 }
@@ -471,111 +571,7 @@ namespace MyDrawing
             else MessageBox.Show("Отсутствуют кривые для рисования.", "Внимание",
                 MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
-        //рисует указанный график
-        /// <summary>
-        /// Производит построение осей, графика и если указаны названия графика и осей.
-        /// </summary>
-        /// <param name="thickness">толщина кривой графика.</param>
-        //public override void DrawGraphic(int thickness)
-        //{
-
-
-        //    //рисование названия осей
-        //    if ((OXName != "" && SizeOX != 0) || (OYName != "" && SizeOY != 0))
-        //    {
-        //        if (SizeOX == 0) SizeOX = 9;
-        //        if (SizeOY == 0) SizeOY = 9;
-
-        //        Font fontOX = new Font("Arial", (float)SizeOX);
-        //        Font fontOY = new Font("Arial", (float)SizeOY);
-        //        SolidBrush brush = new SolidBrush(Color.Black);
-        //        StringFormat stringFormat = new StringFormat();
-        //        stringFormat.FormatFlags = StringFormatFlags.DirectionVertical;
-
-        //        #region Координаты для строки названия оси Ох.
-        //        SizeF size = g.MeasureString(OXName, fontOX);
-        //        PointF pointOX = new PointF();
-        //        if (OXNamePosition == TextPosition.Centre)
-        //        {
-        //            pointOX.X = LastPointOY.X + (LastPointOX.X - LastPointOY.X) / 2 - size.Width / 2;
-        //            pointOX.Y = Center.Y + 15;
-        //        }
-        //        else if (OXNamePosition == TextPosition.Left)
-        //        {
-        //            pointOX.X = Center.X;
-        //            pointOX.Y = Center.Y + 15;
-        //        }
-        //        else if (OXNamePosition == TextPosition.Right)
-        //        {
-        //            pointOX.X = LastPointOX.X;
-        //            pointOX.Y = Center.Y + 15;
-        //            while (pointOX.X + size.Width > LastPointOX.X)
-        //            {
-        //                pointOX.X--;
-        //            }
-        //        }
-        //        #endregion
-        //        #region Координаты для строки названия оси Оy.
-        //        size = g.MeasureString(OYName, fontOY);
-        //        PointF pointOY = new PointF();
-        //        if (OYNamePosition == TextPosition.Centre)
-        //        {
-        //            pointOY.X = Center.X - 30;
-        //            pointOY.Y = Center.Y - (Center.Y - LastPointOY.Y) / 2 - size.Width / 2;
-        //        }
-        //        if (OYNamePosition == TextPosition.Left)
-        //        {
-        //            pointOY.X = Center.X - 30;
-        //            pointOY.Y = LastPointOY.Y;
-        //        }
-        //        if (OYNamePosition == TextPosition.Right)
-        //        {
-        //            pointOY.X = Center.X - 30;
-        //            pointOY.Y = Center.Y;
-        //            while (pointOY.Y + size.Width > Center.Y)
-        //            {
-        //                pointOY.Y--;
-        //            }
-        //        }
-        //        #endregion
-
-        //        //рисование названия Ox
-        //        g.DrawString(OXName, fontOX, brush, pointOX);
-        //        //рисование названия Oy
-        //        g.DrawString(OYName, fontOY, brush, pointOY, stringFormat);
-        //    }
-
-        //    //рисования названия графика
-        //    if (Title != "")
-        //    {
-        //        Font font = new Font("Arial", 12);
-        //        SolidBrush brush = new SolidBrush(Color.Black);
-        //        SizeF size = g.MeasureString(Title, font);
-
-        //        float x = 0, y = 0;
-        //        if (TitlePosition == TextPosition.Left)
-        //        {
-        //            x = LastPointOY.X; y = LastPointOY.Y - 20;
-        //        }
-        //        else if (TitlePosition == TextPosition.Centre)
-        //        {
-        //            x = LastPointOY.X + (LastPointOX.X - LastPointOY.X) / 2 - size.Width / 2;
-        //            y = LastPointOY.Y - 20;
-        //        }
-        //        else if (TitlePosition == TextPosition.Right)
-        //        {
-        //            x = LastPointOX.X;
-        //            y = LastPointOY.Y - 20;
-        //            while (x + size.Width > LastPointOX.X)
-        //            {
-        //                x -= 1;
-        //            }
-        //        }
-        //        PointF textPoint = new PointF(x, y);
-        //        g.DrawString(Title, font, brush, textPoint);
-        //    }
-        //}
-
+     
         //public void DrawDiagramLegend()
         //{
 
@@ -608,87 +604,15 @@ namespace MyDrawing
         public Color CurveColor { get; set; }
         public string Legend { get; set; } //легенда кривой
 
-        public Curves(PointF[] pt, int CurveThickness = 1, string Legend = "Пусто") 
+        public Curves(PointF[] pt, Color CurveColor, int CurveThickness = 1, string Legend = "Пусто") 
         {
             PointsToDraw = pt;
+            this.CurveColor = CurveColor;
             this.CurveThickness = CurveThickness;
             this.Legend = Legend;
         }
     }
 
-    public class SecondaryPointsGraphic : Diagram
-    {
-        
-        /// <summary>
-        /// Свойство содержит массив точек для построения графика.
-        /// </summary>
-        public PointF[] PointsToDraw
-        {
-            get { return pointsToDraw; }
-            set
-            {
-                if (value != null) pointsToDraw = value;
-                else throw new ArgumentOutOfRangeException();
-            }
-        }
-        PointF[] pointsToDraw; //массив точек, по которым будет строится график
-        Pen GraphPen;     //цвет для графика
-        PointsGraphic BaseGraph; //базовый график диаграммы, относительно параметров которого, 
-                                 //строятся вторичные графики
-
-
-        
-        public SecondaryPointsGraphic(PictureBox picture, PointF[] points, PointsGraphic g1)
-        { 
-            placeToDraw = picture;
-            PointsToDraw = points;
-            //CurveColor = Color.Black;
-            BaseGraph = g1;
-            g = placeToDraw.CreateGraphics();
-            g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
-            
-        }
-
-        /// <summary>
-        /// Производит построение осей, графика и если указаны названия графика и осей.
-        /// </summary>
-        /// <param name="thickness">толщина кривой графика.</param>
-        
-        //public override void DrawGraphic(int thickness = 1)
-        //{
-
-        //    int pointExist = 0; //содержит кол-во точек с ненулевыми координатами на пикчербоксе
-        //    Pen grafpen = new Pen(CurveColor, thickness);
-
-        //    PointF[] points = new PointF[PointsToDraw.Length];
-        //    for (int i = 0; i < pointsToDraw.Length; i++)
-        //    {
-
-        //        float x = (float)(BaseGraph.Center.X + PointsToDraw[i].X * BaseGraph.StepOX / BaseGraph.PriceForPointOX);
-        //        float y = (float)(BaseGraph.Center.Y - PointsToDraw[i].Y * BaseGraph.StepOY / BaseGraph.PriceForPointOY);
-        //        if (x <= BaseGraph.LastPointOX.X && y >= BaseGraph.LastPointOY.Y) //если координаты точки находятся внутри рамки 
-        //        {
-        //            points[i].X = x;
-        //            points[i].Y = y;
-        //            pointExist++;
-        //        }
-        //        else break;
-        //    }
-        //    PointF[] drawpt = new PointF[pointExist]; //массив, содержащий точки с ненулевыми координатами
-
-        //    for (int i = 0; i < pointExist; i++)
-        //    {
-        //        if (points[i].X != 0 && points[i].Y != 0)
-        //        {
-        //            drawpt[i].X = points[i].X;
-        //            drawpt[i].Y = points[i].Y;
-        //        }
-        //    }
-        //        g.DrawCurve(grafpen, drawpt);
-            
-
-        //}
-    }
 
     
 }

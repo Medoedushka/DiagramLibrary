@@ -100,10 +100,5 @@
             Устанавливает цвет кривой графика.
             </summary>
         </member>
-        <member name="P:MyDrawing.SecondaryPointsGraphic.PointsToDraw">
-            <summary>
-            Свойство содержит массив точек для построения графика.
-            </summary>
-        </member>
     </members>
 </doc>
