@@ -4,131 +4,106 @@
         <name>MyDrawing</name>
     </assembly>
     <members>
+        <member name="P:MyDrawing.Config.OXName">
+            <summary>
+            Устанавливает название оси Ox.
+            </summary>
+        </member>
+        <member name="P:MyDrawing.Config.OYName">
+            <summary>
+            Устанавливает название оси Oy.
+            </summary>
+        </member>
+        <member name="P:MyDrawing.Config.TitlePosition">
+            <summary>
+            Перечисление возможных выравниваний названия графика.
+            </summary>
+        </member>
+        <member name="P:MyDrawing.Config.OXNamePosition">
+            <summary>
+            Перечисление возможных выравниваний оси абсцисс.
+            </summary>
+        </member>
+        <member name="P:MyDrawing.Config.OYNamePosition">
+            <summary>
+            Перечисление возможных выравниваний оси ординат
+            </summary>
+        </member>
+        <member name="P:MyDrawing.Config.Grid">
+            <summary>
+            Добавление сетки на график.
+            </summary>
+        </member>
+        <member name="P:MyDrawing.Config.StepOX">
+            <summary>
+            Устанавливает расстояние между делениями на оси Ох.
+            </summary>
+        </member>
+        <member name="P:MyDrawing.Config.StepOY">
+            <summary>
+            Устанавливает расстояние между делениями на оси Оy.
+            </summary>
+        </member>
+        <member name="P:MyDrawing.Config.NumberOfSepOX">
+            <summary>
+            Устанавливает количество делений на оси Ох.
+            </summary>
+        </member>
+        <member name="P:MyDrawing.Config.NumberOfSepOY">
+            <summary>
+            Устанавливает количество делений на оси Оy.
+            </summary>
+        </member>
+        <member name="P:MyDrawing.Config.SizeOX">
+            <summary>
+            Устанавливает размер шрифта для названия оси Ox.
+            </summary>
+        </member>
+        <member name="P:MyDrawing.Config.SizeOY">
+            <summary>
+            Устанавливает размер шрифта для названия оси Oy.
+            </summary>
+        </member>
+        <member name="P:MyDrawing.Config.PriceForPointOX">
+            <summary>
+            Устанавливает цену деления оси Ox.
+            </summary>
+        </member>
+        <member name="P:MyDrawing.Config.PriceForPointOY">
+            <summary>
+            Устанавливает цену деления оси Oy.
+            </summary>
+        </member>
         <member name="P:MyDrawing.Diagram.CurveColor">
             <summary>
             Устанавливает цвет кривой графика.
             </summary>
-        </member>
-        <member name="M:MyDrawing.Diagram.SetLegend(MyDrawing.Diagram,System.String)">
-            <summary>
-            Добавляет указанный график в список графиков легенды
-            </summary>
-            <param name="diagram">объект добавляемого графика</param>
-            <param name="legend">пояснение к графику кривой</param>
         </member>
         <member name="T:MyDrawing.PointsGraphic">
             <summary>
             Предоставляет свойства и методы для рисования графика на элементе управления pictureBox.
             </summary>
         </member>
-        <member name="P:MyDrawing.PointsGraphic.OXName">
-            <summary>
-            Устанавливает название оси Ox.
-            </summary>
-        </member>
-        <member name="P:MyDrawing.PointsGraphic.OYName">
-            <summary>
-            Устанавливает название оси Oy.
-            </summary>
-        </member>
-        <member name="P:MyDrawing.PointsGraphic.TitlePosition">
-            <summary>
-            Перечисление возможных выравниваний названия графика.
-            </summary>
-        </member>
-        <member name="P:MyDrawing.PointsGraphic.OXNamePosition">
-            <summary>
-            Перечисление возможных выравниваний оси абсцисс.
-            </summary>
-        </member>
-        <member name="P:MyDrawing.PointsGraphic.OYNamePosition">
-            <summary>
-            Перечисление возможных выравниваний оси ординат
-            </summary>
-        </member>
-        <member name="P:MyDrawing.PointsGraphic.Grid">
-            <summary>
-            Добавление сетки на график.
-            </summary>
-        </member>
-        <member name="P:MyDrawing.PointsGraphic.StepOX">
-            <summary>
-            Устанавливает расстояние между делениями на оси Ох.
-            </summary>
-        </member>
-        <member name="P:MyDrawing.PointsGraphic.StepOY">
-            <summary>
-            Устанавливает расстояние между делениями на оси Оy.
-            </summary>
-        </member>
-        <member name="P:MyDrawing.PointsGraphic.NumberOfSepOX">
-            <summary>
-            Устанавливает количество делений на оси Ох.
-            </summary>
-        </member>
-        <member name="P:MyDrawing.PointsGraphic.NumberOfSepOY">
-            <summary>
-            Устанавливает количество делений на оси Оy.
-            </summary>
-        </member>
-        <member name="P:MyDrawing.PointsGraphic.SizeOX">
-            <summary>
-            Устанавливает размер шрифта для названия оси Ox.
-            </summary>
-        </member>
-        <member name="P:MyDrawing.PointsGraphic.SizeOY">
-            <summary>
-            Устанавливает размер шрифта для названия оси Oy.
-            </summary>
-        </member>
-        <member name="P:MyDrawing.PointsGraphic.PriceForPointOX">
-            <summary>
-            Устанавливает цену деления оси Ox.
-            </summary>
-        </member>
-        <member name="P:MyDrawing.PointsGraphic.PriceForPointOY">
-            <summary>
-            Устанавливает цену деления оси Oy.
-            </summary>
-        </member>
-        <member name="P:MyDrawing.PointsGraphic.PointsToDraw">
-            <summary>
-            Свойство содержит массив точек для построения графика.
-            </summary>
-        </member>
-        <member name="M:MyDrawing.PointsGraphic.#ctor(System.Windows.Forms.PictureBox,System.Drawing.PointF[])">
+        <member name="M:MyDrawing.PointsGraphic.#ctor(System.Windows.Forms.PictureBox)">
             <summary>
             
             </summary>
-            <param name="picture">название элемента управления pictureBox, на котором будет произведено построение</param>
-            <param name="DrawPoints">массив точек, по которым будет построен график.</param>
+            <param name="picture">область для рисования графика</param>
         </member>
-        <member name="M:MyDrawing.PointsGraphic.SetNormalOX">
+        <member name="M:MyDrawing.PointsGraphic.SetDefaultOX">
             <summary>
             Устанавливает параметры Ox по умолчанию.
             </summary>
         </member>
-        <member name="M:MyDrawing.PointsGraphic.SetNormalOY">
+        <member name="M:MyDrawing.PointsGraphic.SetDefaultOY">
             <summary>
             Устанавливает параметры Oy по умолчанию.
             </summary>
-        </member>
-        <member name="M:MyDrawing.PointsGraphic.DrawGraphic(System.Int32)">
-            <summary>
-            Производит построение осей, графика и если указаны названия графика и осей.
-            </summary>
-            <param name="thickness">толщина кривой графика.</param>
         </member>
         <member name="P:MyDrawing.SecondaryPointsGraphic.PointsToDraw">
             <summary>
             Свойство содержит массив точек для построения графика.
             </summary>
-        </member>
-        <member name="M:MyDrawing.SecondaryPointsGraphic.DrawGraphic(System.Int32)">
-            <summary>
-            Производит построение осей, графика и если указаны названия графика и осей.
-            </summary>
-            <param name="thickness">толщина кривой графика.</param>
         </member>
     </members>
 </doc>
