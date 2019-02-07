@@ -8,7 +8,9 @@ using System.Drawing;
 
 namespace MyDrawing
 {
-
+    /// <summary>
+    /// Содержит свойства для настройки графика.
+    /// </summary>
     public struct Config
     {
         int stepOX;       //расстояние между делениями оси абсцисс
@@ -162,7 +164,9 @@ namespace MyDrawing
         
         #endregion;
     }
-
+    /// <summary>
+    /// Определяет выравнивание текста.
+    /// </summary>
     public enum TextPosition
     {
         Left,
@@ -170,54 +174,16 @@ namespace MyDrawing
         Right
     }
 
-    public abstract class Diagram
-    {
-        protected Graphics g;
-        
-        protected PictureBox placeToDraw; //область для рисования диаграмм
-        public string Title { get; set; } //описание диаграммы
-        public int TitleSize { get; set; } //размер описания диаграммы
-        public bool AddDiagramLegend { get; set; } //добавить ли легенду диаграммы
-        public Point Center; // точка пересечения осей(график, гистограмма), центр окружности(круговая диаграмма)
-        
-        //точки рамки построение графика
-        protected Point pt1; //левая нижняя точка
-        protected Point pt2; //левая верхняя точка
-        protected Point pt3; //правая нижняя точка
-        protected Point pt4; //правая верхняя точка
-        public PointF LastPointOX; //последняя точка на оси OX, определяющая рамку
-        public PointF LastPointOY; //последняя точка на оси OY, определяющая рамку 
-
-        protected int Space_From_Top { get; set; }     //
-        protected int Space_From_Right { get; set; }   //параметры отступа границ рамки 
-        protected int Space_From_Bottom { get; set; }  //от границ pictureBox
-        protected int Space_From_Left { get; set; }    // 
-
-        
-        
-
-        public abstract void DrawGraphic(); //рисует диаграмму внутри рамке построения
-        /// <summary>
-        /// Добавляет указанный график в список графиков легенды
-        /// </summary>
-        /// <param name="diagram">объект добавляемого графика</param>
-        /// <param name="legend">пояснение к графику кривой</param>
-        //public static void SetLegend(Diagram diagram, string legend = "Пусто")
-        //{
-        //    CreatedGraphics.Add(diagram);
-        //    diagram.Legend = legend;
-        //}
-        
-    }
-
     /// <summary>
     /// Предоставляет свойства и методы для рисования графика на элементе управления pictureBox.
     /// </summary>
     public class PointsGraphic : Diagram
     {
-        // PointF[] pointsToDraw; //массив точек, по которым будет строится график
+        /// <summary>
+        /// Содержит свойства для настройки графика.
+        /// </summary>
         public Config Config;//структура, содержащая настройки осей и рамки для построения графика
-        public List<Curves> GraphCurves = new List<Curves>();
+        private List<Curves> GraphCurves = new List<Curves>();
         
         /// <summary>
         /// 
@@ -298,7 +264,7 @@ namespace MyDrawing
             {
                 double maxValue = 0;//максимальное значение среди массивов точек для каждой кривой
                 double[] MaxFromEachMass = new double[GraphCurves.Count];
-                //поиск максимального значения оси ОХ для каждой кривой 
+                //поиск максимального значения оси ОY для каждой кривой 
                 for (int i = 0; i < GraphCurves.Count; i++)
                 {
                     for (int j = 0; j < GraphCurves[i].PointsToDraw.Length; j++)
@@ -325,16 +291,10 @@ namespace MyDrawing
                  MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
        
-        //рисует оси координат
+        
         private void DrawAxes()
         {
-            if (Config.SetAxesDefault == true)
-            {
-                SetDefaultOX();
-                SetDefaultOY();
-            }
-            
-
+           
             g = placeToDraw.CreateGraphics();
             g.Clear(Color.White);
             //рисует линию сглаженной
@@ -564,9 +524,9 @@ namespace MyDrawing
             }
             g.DrawCurve(grafpen, drawpt);
         }
-
-        
-
+        /// <summary>
+        /// Рисует: график, с добавленными кривыми, названия осей и диаграммы, легенду. 
+        /// </summary>
         public override void DrawGraphic()
         {
             if (GraphCurves.Count != 0)
@@ -601,39 +561,54 @@ namespace MyDrawing
             else MessageBox.Show("Отсутствуют кривые для рисования.", "Внимание",
                 MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
-     
-        //public void DrawDiagramLegend()
-        //{
+        /// <summary>
+        /// Добавляет кривую в коллекцию для построения.
+        /// </summary>
+        /// <param name="curve"></param>
+        public void AddCurve(Curves curve)
+        {
+            bool Exist = false; // есть ли уже кривая с таким же массивом точек
+            foreach(Curves cr in GraphCurves)
+            {
+                if (cr.PointsToDraw == curve.PointsToDraw)
+                {
+                    Exist = true;
+                    break;
+                }
 
-        //    PointF StartPoint = new PointF();
-        //    StartPoint.X = LastPointOX.X + 15;
-        //    StartPoint.Y = LastPointOY.Y + 150;
-        //    int lineLengh = 15;
-        //    PointF EndPoint = new PointF(StartPoint.X + lineLengh, StartPoint.Y);
+            }
 
-        //    for (int i = 0; i < CreatedGraphics.Count; i++)
-        //    {
-        //        g.DrawLine(new Pen(CreatedGraphics[i].CurveColor,2), StartPoint, EndPoint);
-        //        string str = "-" + CreatedGraphics[i].Legend;
-        //        g.DrawString(str, new Font("Arial", 8), new SolidBrush(Color.Black), EndPoint.X + 3, EndPoint.Y - 8);
-
-        //        StartPoint.Y += 25;
-        //        EndPoint.Y += 25;
-        //    }
-
-        //}
+            if (Exist) MessageBox.Show("Добавляемая кривая: \"" + curve.Legend + "\" уже содержится в коллекции.", "Попытка добавления кривой",
+                     MessageBoxButtons.OKCancel, MessageBoxIcon.Error);
+            else
+            {
+                GraphCurves.Add(curve);
+                SetDefaultOX();
+                SetDefaultOY();
+            }
+        }
     }
-
-    public class Curves
+    /// <summary>
+    /// Представляет структуру для инициализации кривой.
+    /// </summary>
+    public struct Curves
     {
-        public PointF[] PointsToDraw { get; set; } //массив точек, по которым будет строится график
-        public int CurveThickness { get; set; } //толщина кривой графика
+        /// <summary>
+        /// Массив точек кривой.
+        /// </summary>
+        public PointF[] PointsToDraw { get; set; } 
+        /// <summary>
+        /// Толщина линии кривой.
+        /// </summary>
+        public int CurveThickness { get; set; } 
         /// <summary>
         /// Устанавливает цвет кривой графика.
         /// </summary>
         public Color CurveColor { get; set; }
-        public string Legend { get; set; } //легенда кривой
-
+        /// <summary>
+        /// Легенда кривой.
+        /// </summary>
+        public string Legend { get; set; } 
         public Curves(PointF[] pt, Color CurveColor, int CurveThickness = 1, string Legend = "Пусто") 
         {
             PointsToDraw = pt;

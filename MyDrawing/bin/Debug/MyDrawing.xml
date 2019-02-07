@@ -4,6 +4,11 @@
         <name>MyDrawing</name>
     </assembly>
     <members>
+        <member name="T:MyDrawing.Config">
+            <summary>
+            Содержит свойства для настройки графика.
+            </summary>
+        </member>
         <member name="P:MyDrawing.Config.OXName">
             <summary>
             Устанавливает название оси Ox.
@@ -74,9 +79,19 @@
             Устанавливает цену деления оси Oy.
             </summary>
         </member>
+        <member name="T:MyDrawing.TextPosition">
+            <summary>
+            Определяет выравнивание текста.
+            </summary>
+        </member>
         <member name="T:MyDrawing.PointsGraphic">
             <summary>
             Предоставляет свойства и методы для рисования графика на элементе управления pictureBox.
+            </summary>
+        </member>
+        <member name="F:MyDrawing.PointsGraphic.Config">
+            <summary>
+            Содержит свойства для настройки графика.
             </summary>
         </member>
         <member name="M:MyDrawing.PointsGraphic.#ctor(System.Windows.Forms.PictureBox)">
@@ -95,9 +110,40 @@
             Устанавливает параметры Oy по умолчанию.
             </summary>
         </member>
+        <member name="M:MyDrawing.PointsGraphic.DrawGraphic">
+            <summary>
+            Рисует: график, с добавленными кривыми, названия осей и диаграммы, легенду. 
+            </summary>
+        </member>
+        <member name="M:MyDrawing.PointsGraphic.AddCurve(MyDrawing.Curves)">
+            <summary>
+            Добавляет кривую в коллекцию для построения.
+            </summary>
+            <param name="curve"></param>
+        </member>
+        <member name="T:MyDrawing.Curves">
+            <summary>
+            Представляет структуру для инициализации кривой.
+            </summary>
+        </member>
+        <member name="P:MyDrawing.Curves.PointsToDraw">
+            <summary>
+            Массив точек кривой.
+            </summary>
+        </member>
+        <member name="P:MyDrawing.Curves.CurveThickness">
+            <summary>
+            Толщина линии кривой.
+            </summary>
+        </member>
         <member name="P:MyDrawing.Curves.CurveColor">
             <summary>
             Устанавливает цвет кривой графика.
+            </summary>
+        </member>
+        <member name="P:MyDrawing.Curves.Legend">
+            <summary>
+            Легенда кривой.
             </summary>
         </member>
     </members>
