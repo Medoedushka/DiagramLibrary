@@ -74,11 +74,6 @@
             Устанавливает цену деления оси Oy.
             </summary>
         </member>
-        <member name="P:MyDrawing.Diagram.CurveColor">
-            <summary>
-            Устанавливает цвет кривой графика.
-            </summary>
-        </member>
         <member name="T:MyDrawing.PointsGraphic">
             <summary>
             Предоставляет свойства и методы для рисования графика на элементе управления pictureBox.
@@ -98,6 +93,11 @@
         <member name="M:MyDrawing.PointsGraphic.SetDefaultOY">
             <summary>
             Устанавливает параметры Oy по умолчанию.
+            </summary>
+        </member>
+        <member name="P:MyDrawing.Curves.CurveColor">
+            <summary>
+            Устанавливает цвет кривой графика.
             </summary>
         </member>
         <member name="P:MyDrawing.SecondaryPointsGraphic.PointsToDraw">

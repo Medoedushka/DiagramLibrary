@@ -175,7 +175,7 @@ namespace MyDrawing
         
         protected PictureBox placeToDraw; //область для рисования диаграмм
         public string Title { get; set; } //описание диаграммы
-        public string Legend { get; set; } //легенда графика
+        
         public bool AddDiagramLegend { get; set; } //добавить ли легенду диаграммы
         public Point Center; // точка пересечения осей(график, гистограмма), центр окружности(круговая диаграмма)
         
@@ -192,12 +192,8 @@ namespace MyDrawing
         protected int Space_From_Bottom { get; set; }  //от границ pictureBox
         protected int Space_From_Left { get; set; }    // 
 
-        ////список всех созданных графиков
-        //public static List<Diagram> CreatedGraphics = new List<Diagram>();
-        /// <summary>
-        /// Устанавливает цвет кривой графика.
-        /// </summary>
-        public Color CurveColor { get; set; }
+        
+        
 
         //public abstract void DrawGraphic(int thickness); //рисует диаграмму внутри рамке построения
         /// <summary>
@@ -329,7 +325,7 @@ namespace MyDrawing
         }
        
         //рисует оси координат
-        public void DrawAxes()
+        private void DrawAxes()
         {
 
             SetDefaultOX();
@@ -425,6 +421,56 @@ namespace MyDrawing
 
         }
 
+        private void DrawAxesNames()
+        {
+
+        }
+
+        private void DrawCurrentCurve(Curves currentCurve)
+        {
+            int pointExist = 0; //содержит кол-во точек с ненулевыми координатами на пикчербоксе
+            Pen grafpen = new Pen(currentCurve.CurveColor, currentCurve.CurveThickness);
+            PointF[] points = new PointF[currentCurve.PointsToDraw.Length];
+            for (int i = 0; i < currentCurve.PointsToDraw.Length; i++)
+            {
+
+                float x = (float)(Center.X + currentCurve.PointsToDraw[i].X * Config.StepOX / Config.PriceForPointOX);
+                float y = (float)(Center.Y - currentCurve.PointsToDraw[i].Y * Config.StepOY / Config.PriceForPointOY);
+                if (x <= LastPointOX.X && y >= LastPointOY.Y) //если координаты точки находятся внутри рамки 
+                {
+                    points[i].X = x;
+                    points[i].Y = y;
+                    pointExist++;
+                }
+                else break;
+            }
+            PointF[] drawpt = new PointF[pointExist]; //массив, содержащий точки с ненулевыми координатами
+
+            for (int i = 0; i < pointExist; i++)
+            {
+                if (points[i].X != 0 && points[i].Y != 0)
+                {
+                    drawpt[i].X = points[i].X;
+                    drawpt[i].Y = points[i].Y;
+                }
+            }
+            g.DrawCurve(grafpen, drawpt);
+        }
+
+        public void DrawCurves()
+        {
+            if (GraphCurves.Count != 0)
+            {
+                DrawAxes();
+                foreach(Curves crrCurve in GraphCurves)
+                {
+                    DrawCurrentCurve(crrCurve);
+                }
+
+            }
+            else MessageBox.Show("Отсутствуют кривые для рисования.", "Внимание",
+                MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
         //рисует указанный график
         /// <summary>
         /// Производит построение осей, графика и если указаны названия графика и осей.
@@ -432,40 +478,10 @@ namespace MyDrawing
         /// <param name="thickness">толщина кривой графика.</param>
         //public override void DrawGraphic(int thickness)
         //{
-            
-        //    DrawAxes();
-            
-        //    int pointExist = 0; //содержит кол-во точек с ненулевыми координатами на пикчербоксе
-        //    Pen grafpen = new Pen(CurveColor, thickness);
-        //    PointF[] points = new PointF[PointsToDraw.Length];
-        //    for (int i = 0; i < pointsToDraw.Length; i++)
-        //    {
-
-        //        float x = (float)(Center.X + PointsToDraw[i].X * stepOX / priceForPointOX);
-        //        float y = (float)(Center.Y - PointsToDraw[i].Y * stepOY / priceForPointOY);
-        //        if (x <= LastPointOX.X && y >= LastPointOY.Y) //если координаты точки находятся внутри рамки 
-        //        {
-        //            points[i].X = x;
-        //            points[i].Y = y;
-        //            pointExist++;
-        //        }
-        //        else break;
-        //    }
-        //    PointF[] drawpt = new PointF[pointExist]; //массив, содержащий точки с ненулевыми координатами
-
-        //    for (int i = 0; i < pointExist; i++)
-        //    {
-        //        if (points[i].X != 0 && points[i].Y != 0)
-        //        {
-        //            drawpt[i].X = points[i].X;
-        //            drawpt[i].Y = points[i].Y;
-        //        }
-        //    }
-        //    g.DrawCurve(grafpen, drawpt);
 
 
         //    //рисование названия осей
-        //    if ( (OXName != "" && SizeOX != 0) || (OYName != "" && SizeOY != 0) )
+        //    if ((OXName != "" && SizeOX != 0) || (OYName != "" && SizeOY != 0))
         //    {
         //        if (SizeOX == 0) SizeOX = 9;
         //        if (SizeOY == 0) SizeOY = 9;
@@ -586,10 +602,17 @@ namespace MyDrawing
     {
         public PointF[] PointsToDraw { get; set; } //массив точек, по которым будет строится график
         public int CurveThickness { get; set; } //толщина кривой графика
+        /// <summary>
+        /// Устанавливает цвет кривой графика.
+        /// </summary>
+        public Color CurveColor { get; set; }
+        public string Legend { get; set; } //легенда кривой
 
-        public Curves(PointF[] pt) 
+        public Curves(PointF[] pt, int CurveThickness = 1, string Legend = "Пусто") 
         {
             PointsToDraw = pt;
+            this.CurveThickness = CurveThickness;
+            this.Legend = Legend;
         }
     }
 
@@ -619,7 +642,7 @@ namespace MyDrawing
         { 
             placeToDraw = picture;
             PointsToDraw = points;
-            CurveColor = Color.Black;
+            //CurveColor = Color.Black;
             BaseGraph = g1;
             g = placeToDraw.CreateGraphics();
             g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
