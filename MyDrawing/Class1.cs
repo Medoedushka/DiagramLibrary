@@ -52,6 +52,7 @@ namespace MyDrawing
         /// Добавление сетки на график.
         /// </summary>
         public bool Grid { get; set; }
+        public bool SetAxesDefault { get; set; }
 
         #region Свойства полей 
         //свойства для расстояния между делениями осей
@@ -175,7 +176,7 @@ namespace MyDrawing
         
         protected PictureBox placeToDraw; //область для рисования диаграмм
         public string Title { get; set; } //описание диаграммы
-        
+        public int TitleSize { get; set; } //размер описания диаграммы
         public bool AddDiagramLegend { get; set; } //добавить ли легенду диаграммы
         public Point Center; // точка пересечения осей(график, гистограмма), центр окружности(круговая диаграмма)
         
@@ -195,7 +196,7 @@ namespace MyDrawing
         
         
 
-        //public abstract void DrawGraphic(int thickness); //рисует диаграмму внутри рамке построения
+        public abstract void DrawGraphic(); //рисует диаграмму внутри рамке построения
         /// <summary>
         /// Добавляет указанный график в список графиков легенды
         /// </summary>
@@ -327,9 +328,12 @@ namespace MyDrawing
         //рисует оси координат
         private void DrawAxes()
         {
-
-            SetDefaultOX();
-            SetDefaultOY();
+            if (Config.SetAxesDefault == true)
+            {
+                SetDefaultOX();
+                SetDefaultOY();
+            }
+            
 
             g = placeToDraw.CreateGraphics();
             g.Clear(Color.White);
@@ -487,7 +491,7 @@ namespace MyDrawing
 
         private void DrawTitle()
         {
-            Font font = new Font("Arial", 12);
+            Font font = new Font("Arial", TitleSize);
             SolidBrush brush = new SolidBrush(Color.Black);
             SizeF size = g.MeasureString(Title, font);
 
@@ -512,6 +516,22 @@ namespace MyDrawing
             }
             PointF textPoint = new PointF(x, y);
             g.DrawString(Title, font, brush, textPoint);
+        }
+
+        private void DrawDiagramLegend()
+        {
+            int lineLength = 15;
+            PointF StartPoint = new PointF(LastPointOX.X + 10, LastPointOX.Y / 2);
+            PointF EndPoint = new PointF(StartPoint.X + lineLength, StartPoint.Y);
+            foreach(Curves crrCurve in GraphCurves)
+            {
+                g.DrawLine(new Pen(crrCurve.CurveColor), StartPoint, EndPoint);
+                string str = " - " + crrCurve.Legend;
+                g.DrawString(str, Config.drawFont, Config.drawBrush, EndPoint.X, EndPoint.Y - 8);
+
+                StartPoint.Y += 25;
+                EndPoint.Y += 25;
+            }
         }
 
         private void DrawCurrentCurve(Curves currentCurve)
@@ -545,21 +565,31 @@ namespace MyDrawing
             g.DrawCurve(grafpen, drawpt);
         }
 
-        public void DrawCurves()
+        
+
+        public override void DrawGraphic()
         {
             if (GraphCurves.Count != 0)
             {
                 DrawAxes();
+
                 if ((Config.OXName != "" && Config.SizeOX != 0) || (Config.OYName != "" && Config.SizeOY != 0))
                 {
                     DrawAxesNames();
                 }
                 else MessageBox.Show("При указании названия осей необходимо также указать размер шрифта хотя бы одного названия.\n" +
                      "(SizeOX, SizeOY)", "Попытка добавить название осей.", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                
-                if(Title != "")
+
+                if (Title != "" && TitleSize != 0)
                 {
                     DrawTitle();
+                }
+                else MessageBox.Show("Не указан размер шрифта описания графика.", "Попытка добавить название графика",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                if(AddDiagramLegend == true)
+                {
+                    DrawDiagramLegend();
                 }
 
                 foreach (Curves crrCurve in GraphCurves)
