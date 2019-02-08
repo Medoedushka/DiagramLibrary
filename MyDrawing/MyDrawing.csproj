@@ -44,7 +44,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="BarChart.cs" />
+    <Compile Include="PointsGraphic.cs" />
     <Compile Include="Diagram.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

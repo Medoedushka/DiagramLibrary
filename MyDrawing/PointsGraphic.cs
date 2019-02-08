@@ -54,7 +54,7 @@ namespace MyDrawing
         /// Добавление сетки на график.
         /// </summary>
         public bool Grid { get; set; }
-        public bool SetAxesDefault { get; set; }
+       
 
         #region Свойства полей 
         //свойства для расстояния между делениями осей
@@ -485,9 +485,9 @@ namespace MyDrawing
             PointF EndPoint = new PointF(StartPoint.X + lineLength, StartPoint.Y);
             foreach(Curves crrCurve in GraphCurves)
             {
-                g.DrawLine(new Pen(crrCurve.CurveColor), StartPoint, EndPoint);
+                g.DrawLine(new Pen(crrCurve.CurveColor, 2), StartPoint, EndPoint);
                 string str = " - " + crrCurve.Legend;
-                g.DrawString(str, Config.drawFont, Config.drawBrush, EndPoint.X, EndPoint.Y - 8);
+                g.DrawString(str, new Font("Arial", 7), new SolidBrush(Color.Black), EndPoint.X, EndPoint.Y - 7);
 
                 StartPoint.Y += 25;
                 EndPoint.Y += 25;
