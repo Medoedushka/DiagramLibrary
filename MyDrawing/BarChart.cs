@@ -43,7 +43,7 @@ namespace MyDrawing
         /// </summary>
         public Color BarColor { get; set; }
 
-        public Bars(string name, double value, Color internalColor)
+        public Bars(double value, Color internalColor, string name = "Пусто")
         {
             BarName = name;
             BarValue = value;
@@ -54,7 +54,7 @@ namespace MyDrawing
     public class BarChart : Diagram
     {
         List<Bars> BarCollection = new List<Bars>();
-        BarChartConfig Config;
+        public BarChartConfig Config;
 
         public BarChart(PictureBox picture)
         {
