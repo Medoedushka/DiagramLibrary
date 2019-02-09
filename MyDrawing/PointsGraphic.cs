@@ -11,7 +11,7 @@ namespace MyDrawing
     /// <summary>
     /// Содержит свойства для настройки графика.
     /// </summary>
-    public struct Config
+    public struct PointsGraphConfig
     {
         int stepOX;       //расстояние между делениями оси абсцисс
         int stepOY;       //расстояние между делениями оси ординат  
@@ -182,7 +182,7 @@ namespace MyDrawing
         /// <summary>
         /// Содержит свойства для настройки графика.
         /// </summary>
-        public Config Config;//структура, содержащая настройки осей и рамки для построения графика
+        public PointsGraphConfig Config;//структура, содержащая настройки осей и рамки для построения графика
         private List<Curves> GraphCurves = new List<Curves>();
         
         /// <summary>
@@ -320,19 +320,19 @@ namespace MyDrawing
                 if (i == 0)
                 {
                     Oxpoints1[i].X = Center.X + Config.StepOX;
-                    Oxpoints1[i].Y = Center.Y - Config.HEIGHT;
+                    Oxpoints1[i].Y = Center.Y - PointsGraphConfig.HEIGHT;
                     Oxpoints2[i].X = Center.X + Config.StepOX;
-                    Oxpoints2[i].Y = Center.Y + Config.HEIGHT;
+                    Oxpoints2[i].Y = Center.Y + PointsGraphConfig.HEIGHT;
 
                     g.DrawString(num, Config.drawFont, Config.drawBrush, Oxpoints2[i].X - 3, Oxpoints2[i].Y);
                 }
                 else
                 {
                     Oxpoints1[i].X = Oxpoints1[i - 1].X + Config.StepOX;
-                    Oxpoints1[i].Y = Center.Y - Config.HEIGHT;
+                    Oxpoints1[i].Y = Center.Y - PointsGraphConfig.HEIGHT;
 
                     Oxpoints2[i].X = Oxpoints2[i - 1].X + Config.StepOX;
-                    Oxpoints2[i].Y = Center.Y + Config.HEIGHT;
+                    Oxpoints2[i].Y = Center.Y + PointsGraphConfig.HEIGHT;
                     g.DrawString(num, Config.drawFont, Config.drawBrush, Oxpoints2[i].X - 3, Oxpoints2[i].Y);
 
                    
@@ -357,19 +357,19 @@ namespace MyDrawing
                 string num = Convert.ToString(i * Config.PriceForPointOY + Config.PriceForPointOY);
                 if (i == 0)
                 {
-                    Oypoints1[i].X = Center.X - Config.HEIGHT;
+                    Oypoints1[i].X = Center.X - PointsGraphConfig.HEIGHT;
                     Oypoints1[i].Y = Center.Y - Config.StepOY;
 
-                    Oypoints2[i].X = Center.X + Config.HEIGHT;
+                    Oypoints2[i].X = Center.X + PointsGraphConfig.HEIGHT;
                     Oypoints2[i].Y = Center.Y - Config.StepOY;
                     g.DrawString(num, Config.drawFont, Config.drawBrush, Oypoints1[i].X - 10, Oypoints1[i].Y);
                 }
                 else
                 {
-                    Oypoints1[i].X = Center.X - Config.HEIGHT;
+                    Oypoints1[i].X = Center.X - PointsGraphConfig.HEIGHT;
                     Oypoints1[i].Y = Oypoints1[i - 1].Y - Config.StepOY;
 
-                    Oypoints2[i].X = Center.X + Config.HEIGHT;
+                    Oypoints2[i].X = Center.X + PointsGraphConfig.HEIGHT;
                     Oypoints2[i].Y = Oypoints2[i - 1].Y - Config.StepOY;
                     g.DrawString(num, Config.drawFont, Config.drawBrush, Oypoints1[i].X - 10, Oypoints1[i].Y);
                 }
