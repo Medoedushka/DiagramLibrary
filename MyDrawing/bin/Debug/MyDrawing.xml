@@ -4,77 +4,97 @@
         <name>MyDrawing</name>
     </assembly>
     <members>
-        <member name="T:MyDrawing.Config">
+        <member name="T:MyDrawing.Bars">
+            <summary>
+            Представляет структуру для инициализации столбцов гистограммы.
+            </summary>
+        </member>
+        <member name="P:MyDrawing.Bars.BarName">
+            <summary>
+            Название столбца.
+            </summary>
+        </member>
+        <member name="P:MyDrawing.Bars.BarValue">
+            <summary>
+            Числовое значение соответствующее столбцу.
+            </summary>
+        </member>
+        <member name="P:MyDrawing.Bars.BarColor">
+            <summary>
+            Цвет заливки столбца.
+            </summary>
+        </member>
+        <member name="T:MyDrawing.PointsGraphConfig">
             <summary>
             Содержит свойства для настройки графика.
             </summary>
         </member>
-        <member name="P:MyDrawing.Config.OXName">
+        <member name="P:MyDrawing.PointsGraphConfig.OXName">
             <summary>
             Устанавливает название оси Ox.
             </summary>
         </member>
-        <member name="P:MyDrawing.Config.OYName">
+        <member name="P:MyDrawing.PointsGraphConfig.OYName">
             <summary>
             Устанавливает название оси Oy.
             </summary>
         </member>
-        <member name="P:MyDrawing.Config.TitlePosition">
+        <member name="P:MyDrawing.PointsGraphConfig.TitlePosition">
             <summary>
             Перечисление возможных выравниваний названия графика.
             </summary>
         </member>
-        <member name="P:MyDrawing.Config.OXNamePosition">
+        <member name="P:MyDrawing.PointsGraphConfig.OXNamePosition">
             <summary>
             Перечисление возможных выравниваний оси абсцисс.
             </summary>
         </member>
-        <member name="P:MyDrawing.Config.OYNamePosition">
+        <member name="P:MyDrawing.PointsGraphConfig.OYNamePosition">
             <summary>
             Перечисление возможных выравниваний оси ординат
             </summary>
         </member>
-        <member name="P:MyDrawing.Config.Grid">
+        <member name="P:MyDrawing.PointsGraphConfig.Grid">
             <summary>
             Добавление сетки на график.
             </summary>
         </member>
-        <member name="P:MyDrawing.Config.StepOX">
+        <member name="P:MyDrawing.PointsGraphConfig.StepOX">
             <summary>
             Устанавливает расстояние между делениями на оси Ох.
             </summary>
         </member>
-        <member name="P:MyDrawing.Config.StepOY">
+        <member name="P:MyDrawing.PointsGraphConfig.StepOY">
             <summary>
             Устанавливает расстояние между делениями на оси Оy.
             </summary>
         </member>
-        <member name="P:MyDrawing.Config.NumberOfSepOX">
+        <member name="P:MyDrawing.PointsGraphConfig.NumberOfSepOX">
             <summary>
             Устанавливает количество делений на оси Ох.
             </summary>
         </member>
-        <member name="P:MyDrawing.Config.NumberOfSepOY">
+        <member name="P:MyDrawing.PointsGraphConfig.NumberOfSepOY">
             <summary>
             Устанавливает количество делений на оси Оy.
             </summary>
         </member>
-        <member name="P:MyDrawing.Config.SizeOX">
+        <member name="P:MyDrawing.PointsGraphConfig.SizeOX">
             <summary>
             Устанавливает размер шрифта для названия оси Ox.
             </summary>
         </member>
-        <member name="P:MyDrawing.Config.SizeOY">
+        <member name="P:MyDrawing.PointsGraphConfig.SizeOY">
             <summary>
             Устанавливает размер шрифта для названия оси Oy.
             </summary>
         </member>
-        <member name="P:MyDrawing.Config.PriceForPointOX">
+        <member name="P:MyDrawing.PointsGraphConfig.PriceForPointOX">
             <summary>
             Устанавливает цену деления оси Ox.
             </summary>
         </member>
-        <member name="P:MyDrawing.Config.PriceForPointOY">
+        <member name="P:MyDrawing.PointsGraphConfig.PriceForPointOY">
             <summary>
             Устанавливает цену деления оси Oy.
             </summary>

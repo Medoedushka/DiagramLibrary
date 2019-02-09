@@ -13,7 +13,10 @@ namespace MyDrawing
     {
         public byte BarWidth { get; set; }
         public byte StepOX { get; set; }
+
         public byte StepOY { get; set; }
+        public double PriceForPointOY { get; set; }
+        public byte NumberOfSepOY { get; set; }
 
         public Color DiagramColor { get; set; }
         public Pen DiagramPen { get; set; }
@@ -57,7 +60,7 @@ namespace MyDrawing
             Config.DiagramColor = Color.Black;
             Config.DiagramPen = new Pen(Config.DiagramColor);
             Config.drawFont = new Font("Arial", 8);
-            Config.BarWidth = 30;
+            
             //координаты угловых точек рамки
             //левая нижняя точка
             pt1 = new Point(Space_From_Left, placeToDraw.Height - Space_From_Bottom);
@@ -75,7 +78,25 @@ namespace MyDrawing
         {
             if(BarCollection.Count != 0)
             {
+                //определение параметров по умолчанию для оси ОХ
+                while (Center.X + BarCollection.Count * (Config.BarWidth + Config.StepOX) + Config.StepOX <= pt3.X)
+                {
+                    Config.StepOX++;
+                    Config.BarWidth++;
+                }
 
+                //определения параметров по умолчанию для оси OY
+                Config.NumberOfSepOY = 5;
+                double maxValue = 0;
+                foreach(Bars crrBar in BarCollection)
+                {
+                    if (maxValue < crrBar.BarValue) maxValue = crrBar.BarValue;
+                }
+                while(Center.Y - Config.StepOY*Config.NumberOfSepOY >= pt2.Y)
+                {
+                    Config.StepOY++;
+                }
+                Config.PriceForPointOY = Math.Round(maxValue * 0.25);
             }
         }
 
@@ -95,7 +116,26 @@ namespace MyDrawing
             else
             {
                 BarCollection.Add(bar);
+                SetDefaultParams();
             }
+        }
+
+        public void DrawAxes()
+        {
+            g = placeToDraw.CreateGraphics();
+            g.Clear(Color.White);
+            g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+
+            LastPointOX = new PointF(Center.X + BarCollection.Count * (Config.BarWidth + Config.StepOX) + Config.StepOX, Center.Y);
+            LastPointOY = new PointF(Center.X, Center.Y - Config.NumberOfSepOY * Config.StepOY);
+            //прорисовка осей без делений
+            g.DrawLine(Config.DiagramPen, Center, LastPointOX); //ось ОХ
+            g.DrawLine(Config.DiagramPen, Center, LastPointOY); //ось OY
+        }
+
+        public override void DrawGraphic()
+        {
+            
         }
 
     }
