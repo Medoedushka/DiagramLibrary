@@ -75,7 +75,9 @@ namespace MyDrawing
             //центр пересечения осей
             Center = pt1;
         }
-
+        /// <summary>
+        /// Устанавливает настройки диаграммы по умолчанию.
+        /// </summary>
         public void SetDefaultParams()
         {
             if(BarCollection.Count != 0)
@@ -103,7 +105,10 @@ namespace MyDrawing
                 Config.PriceForPointOY = Math.Round(maxValue * 0.25);
             }
         }
-
+        /// <summary>
+        /// Добавляет созданную колонку в коллекцию для рисования гистограммы.
+        /// </summary>
+        /// <param name="bar"></param>
         public void AddBar(Bars bar)
         {
             bool Exist = false;
@@ -124,7 +129,7 @@ namespace MyDrawing
             }
         }
 
-        public void DrawAxes()
+        private void DrawAxes()
         {
             g = placeToDraw.CreateGraphics();
             g.Clear(Color.White);
@@ -165,7 +170,7 @@ namespace MyDrawing
             }
         }
 
-        public void DrawCurrentBar()
+        private void DrawCurrentBar()
         {
             for(int i = 0; i < BarCollection.Count; i++)
             {
@@ -176,13 +181,22 @@ namespace MyDrawing
                 RectangleF BarRectangle = new RectangleF(BarPoint.X, BarPoint.Y, Config.BarWidth, Center.Y - BarPoint.Y);
 
                 g.FillRectangle(new SolidBrush(BarCollection[i].BarColor), BarRectangle);
-                g.DrawString(BarCollection[i].BarName, Config.drawFont, Config.drawBrush, BarPoint.X, Center.Y);
+                //надпись названия колонки
+                SizeF size = g.MeasureString(BarCollection[i].BarName, Config.drawFont);
+                PointF StringPoint = new PointF();
+                StringPoint.Y = Center.Y;
+                StringPoint.X = BarPoint.X + Config.BarWidth / 2 - size.Width / 2;
+
+                g.DrawString(BarCollection[i].BarName, Config.drawFont, Config.drawBrush, StringPoint);
             }
         }
-
+        /// <summary>
+        /// Рисует гистограмму.
+        /// </summary>
         public override void DrawGraphic()
         {
-            
+            DrawAxes();
+            if (BarCollection.Count != 0) DrawCurrentBar();
         }
 
     }
