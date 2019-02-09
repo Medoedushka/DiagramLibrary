@@ -170,7 +170,7 @@ namespace MyDrawing
             for(int i = 0; i < BarCollection.Count; i++)
             {
                 PointF BarPoint = new PointF();
-                BarPoint.X = i * Config.BarWidth + (i * Config.StepOX + Config.StepOX);
+                BarPoint.X = Center.X + i * Config.BarWidth + (i * Config.StepOX + Config.StepOX);
                 BarPoint.Y = (float)(Center.Y - BarCollection[i].BarValue * Config.StepOY / Config.PriceForPointOY);
 
                 RectangleF BarRectangle = new RectangleF(BarPoint.X, BarPoint.Y, Config.BarWidth, Center.Y - BarPoint.Y);
