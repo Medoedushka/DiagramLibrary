@@ -9,13 +9,13 @@ using System.Drawing;
 namespace MyDrawing
 {
 
+
     public struct BarChartConfig
     {
         public byte BarWidth { get; set; }
         public byte StepOX { get; set; }
 
-        public
-            byte StepOY { get; set; }
+        public byte StepOY { get; set; }
         public double PriceForPointOY { get; set; }
         public byte NumberOfSepOY { get; set; }
 
@@ -31,7 +31,7 @@ namespace MyDrawing
     /// <summary>
     /// Представляет структуру для инициализации столбцов гистограммы.
     /// </summary>
-    public struct Bars
+    public class Bars
     {
         /// <summary>
         /// Название столбца.
@@ -50,8 +50,14 @@ namespace MyDrawing
         {
             BarName = name;
             BarValue = value;
-
             BarColor = Color.FromArgb(red, green, blue);
+        }
+
+        public Bars(Color interiorColor, double value, string name = "Пусто")
+        {
+            BarName = name;
+            BarValue = value;
+            BarColor = interiorColor;
         }
     }
 
@@ -59,7 +65,7 @@ namespace MyDrawing
     {
         List<Bars> BarCollection = new List<Bars>();
         public BarChartConfig Config;
-        private List<string> UsedColors = new List<string>();
+        private string[] UsedColors;
 
 
         public BarChart(PictureBox picture)
@@ -130,10 +136,9 @@ namespace MyDrawing
                 MessageBoxButtons.OK, MessageBoxIcon.Error);
             else
             {
-
                 BarCollection.Add(bar);
                 SetDefaultParams();
-
+                
             }
         }
 
@@ -203,6 +208,8 @@ namespace MyDrawing
         /// </summary>
         public override void DrawGraphic()
         {
+           
+
             DrawAxes();
             if (BarCollection.Count != 0) DrawCurrentBar();
         }
