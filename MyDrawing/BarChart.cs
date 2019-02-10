@@ -14,7 +14,8 @@ namespace MyDrawing
         public byte BarWidth { get; set; }
         public byte StepOX { get; set; }
 
-        public byte StepOY { get; set; }
+        public
+            byte StepOY { get; set; }
         public double PriceForPointOY { get; set; }
         public byte NumberOfSepOY { get; set; }
 
@@ -23,6 +24,8 @@ namespace MyDrawing
         public Font drawFont { get; set; }
         public SolidBrush drawBrush{get; set;}
         public const byte HEIGHT = 4;
+
+        public bool RandomBarColor { get; set; }
     }
 
     /// <summary>
@@ -43,11 +46,12 @@ namespace MyDrawing
         /// </summary>
         public Color BarColor { get; set; }
 
-        public Bars(double value, Color internalColor, string name = "Пусто")
+        public Bars(double value, string name = "Пусто", byte red = 91, int green = 155, int blue = 213)
         {
             BarName = name;
             BarValue = value;
-            BarColor = internalColor;
+
+            BarColor = Color.FromArgb(red, green, blue);
         }
     }
 
@@ -55,6 +59,8 @@ namespace MyDrawing
     {
         List<Bars> BarCollection = new List<Bars>();
         public BarChartConfig Config;
+        private List<string> UsedColors = new List<string>();
+
 
         public BarChart(PictureBox picture)
         {
@@ -124,8 +130,10 @@ namespace MyDrawing
                 MessageBoxButtons.OK, MessageBoxIcon.Error);
             else
             {
+
                 BarCollection.Add(bar);
                 SetDefaultParams();
+
             }
         }
 
