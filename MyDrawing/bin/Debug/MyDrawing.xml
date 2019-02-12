@@ -24,6 +24,24 @@
             Цвет заливки столбца.
             </summary>
         </member>
+        <member name="M:MyDrawing.Bars.#ctor(System.Double,System.String,System.Byte,System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+            <param name="name"></param>
+            <param name="red">Значение красного компонента в цвете.</param>
+            <param name="green">Значение зелёного компоненат в цвете.</param>
+            <param name="blue">Значение синего компонента в цвете.</param>
+        </member>
+        <member name="M:MyDrawing.Bars.#ctor(System.Drawing.Color,System.Double,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="interiorColor">Цвет, входящий в структуру Color.</param>
+            <param name="value"></param>
+            <param name="name"></param>
+        </member>
         <member name="M:MyDrawing.BarChart.SetDefaultParams">
             <summary>
             Устанавливает настройки диаграммы по умолчанию.

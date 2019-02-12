@@ -45,14 +45,26 @@ namespace MyDrawing
         /// Цвет заливки столбца.
         /// </summary>
         public Color BarColor { get; set; }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="name"></param>
+        /// <param name="red">Значение красного компонента в цвете.</param>
+        /// <param name="green">Значение зелёного компоненат в цвете.</param>
+        /// <param name="blue">Значение синего компонента в цвете.</param>
         public Bars(double value, string name = "Пусто", byte red = 91, int green = 155, int blue = 213)
         {
             BarName = name;
             BarValue = value;
             BarColor = Color.FromArgb(red, green, blue);
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="interiorColor">Цвет, входящий в структуру Color.</param>
+        /// <param name="value"></param>
+        /// <param name="name"></param>
         public Bars(Color interiorColor, double value, string name = "Пусто")
         {
             BarName = name;
@@ -138,7 +150,6 @@ namespace MyDrawing
             {
                 BarCollection.Add(bar);
                 SetDefaultParams();
-                
             }
         }
 
@@ -209,7 +220,6 @@ namespace MyDrawing
         public override void DrawGraphic()
         {
            
-
             DrawAxes();
             if (BarCollection.Count != 0) DrawCurrentBar();
         }
