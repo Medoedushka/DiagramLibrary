@@ -9,6 +9,7 @@ using System.Drawing;
 namespace MyDrawing
 {
 
+
     public struct BarChartConfig
     {
         public byte BarWidth { get; set; }
@@ -23,12 +24,14 @@ namespace MyDrawing
         public Font drawFont { get; set; }
         public SolidBrush drawBrush{get; set;}
         public const byte HEIGHT = 4;
+
+        public bool RandomBarColor { get; set; }
     }
 
     /// <summary>
     /// Представляет структуру для инициализации столбцов гистограммы.
     /// </summary>
-    public struct Bars
+    public class Bars
     {
         /// <summary>
         /// Название столбца.
@@ -42,12 +45,31 @@ namespace MyDrawing
         /// Цвет заливки столбца.
         /// </summary>
         public Color BarColor { get; set; }
-
-        public Bars(double value, Color internalColor, string name = "Пусто")
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="name"></param>
+        /// <param name="red">Значение красного компонента в цвете.</param>
+        /// <param name="green">Значение зелёного компоненат в цвете.</param>
+        /// <param name="blue">Значение синего компонента в цвете.</param>
+        public Bars(double value, string name = "Пусто", byte red = 91, int green = 155, int blue = 213)
         {
             BarName = name;
             BarValue = value;
-            BarColor = internalColor;
+            BarColor = Color.FromArgb(red, green, blue);
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="interiorColor">Цвет, входящий в структуру Color.</param>
+        /// <param name="value"></param>
+        /// <param name="name"></param>
+        public Bars(Color interiorColor, double value, string name = "Пусто")
+        {
+            BarName = name;
+            BarValue = value;
+            BarColor = interiorColor;
         }
     }
 
@@ -55,6 +77,8 @@ namespace MyDrawing
     {
         List<Bars> BarCollection = new List<Bars>();
         public BarChartConfig Config;
+        private string[] UsedColors;
+
 
         public BarChart(PictureBox picture)
         {
@@ -195,6 +219,7 @@ namespace MyDrawing
         /// </summary>
         public override void DrawGraphic()
         {
+           
             DrawAxes();
             if (BarCollection.Count != 0) DrawCurrentBar();
         }
