@@ -14,7 +14,6 @@ namespace MyDrawing
     {
         public byte BarWidth { get; set; }
         public byte StepOX { get; set; }
-
         public byte StepOY { get; set; }
         public double PriceForPointOY { get; set; }
         public byte NumberOfSepOY { get; set; }
@@ -25,9 +24,17 @@ namespace MyDrawing
         public SolidBrush drawBrush{get; set;}
         public const byte HEIGHT = 4;
 
+        public string OXName { get; set; }
+        public string OYName { get; set; }
+        public TextPosition OXNamePosition { get; set; }
+        public TextPosition OYNamePosition { get; set; }
+        public double SizeOX { get; set; }
+        public double SizeOY { get; set; }
+
         public bool RandomBarColor { get; set; }
         public bool HorizontalLines { get; set; }
         public bool ShowColumnName { get; set; }
+        public bool ShowColumnValue { get; set; }
     }
 
     /// <summary>
@@ -158,7 +165,69 @@ namespace MyDrawing
             }
         }
 
-      
+        private void DrawAxesNames()
+        {
+            if (Config.SizeOX == 0) Config.SizeOX = 9;
+            if (Config.SizeOY == 0) Config.SizeOY = 9;
+
+            Font fontOX = new Font("Arial", (float)Config.SizeOX);
+            Font fontOY = new Font("Arial", (float)Config.SizeOY);
+            SolidBrush brush = new SolidBrush(Color.Black);
+            StringFormat stringFormat = new StringFormat();
+            stringFormat.FormatFlags = StringFormatFlags.DirectionVertical;
+
+            #region Координаты для строки названия оси Ох.
+            SizeF size = g.MeasureString(Config.OXName, fontOX);
+            PointF pointOX = new PointF();
+            if (Config.OXNamePosition == TextPosition.Centre)
+            {
+                pointOX.X = LastPointOY.X + (LastPointOX.X - LastPointOY.X) / 2 - size.Width / 2;
+                pointOX.Y = Center.Y + 15;
+            }
+            else if (Config.OXNamePosition == TextPosition.Left)
+            {
+                pointOX.X = Center.X;
+                pointOX.Y = Center.Y + 15;
+            }
+            else if (Config.OXNamePosition == TextPosition.Right)
+            {
+                pointOX.X = LastPointOX.X;
+                pointOX.Y = Center.Y + 15;
+                while (pointOX.X + size.Width > LastPointOX.X)
+                {
+                    pointOX.X--;
+                }
+            }
+            #endregion
+            #region Координаты для строки названия оси Оy.
+            size = g.MeasureString(Config.OYName, fontOY);
+            PointF pointOY = new PointF();
+            if (Config.OYNamePosition == TextPosition.Centre)
+            {
+                pointOY.X = Center.X - 30;
+                pointOY.Y = Center.Y - (Center.Y - LastPointOY.Y) / 2 - size.Width / 2;
+            }
+            if (Config.OYNamePosition == TextPosition.Left)
+            {
+                pointOY.X = Center.X - 30;
+                pointOY.Y = LastPointOY.Y;
+            }
+            if (Config.OYNamePosition == TextPosition.Right)
+            {
+                pointOY.X = Center.X - 30;
+                pointOY.Y = Center.Y;
+                while (pointOY.Y + size.Width > Center.Y)
+                {
+                    pointOY.Y--;
+                }
+            }
+            #endregion
+
+            //рисование названия Ox
+            g.DrawString(Config.OXName, fontOX, brush, pointOX);
+            //рисование названия Oy
+            g.DrawString(Config.OYName, fontOY, brush, pointOY, stringFormat);
+        }
 
         private void DrawAxes()
         {
@@ -229,6 +298,13 @@ namespace MyDrawing
 
                     g.DrawString(BarCollection[i].BarName, Config.drawFont, Config.drawBrush, StringPoint);
                 }
+
+                if(Config.ShowColumnValue == true)
+                {
+                    SizeF size = g.MeasureString(Convert.ToString(BarCollection[i].BarValue), Config.drawFont);
+                    PointF ValuePoint = new PointF(BarPoint.X + Config.BarWidth / 2 - size.Width / 2, BarPoint.Y - 12);
+                    g.DrawString(Convert.ToString(BarCollection[i].BarValue), Config.drawFont, Config.drawBrush, ValuePoint);
+                }
                 
             }
         }
@@ -239,6 +315,14 @@ namespace MyDrawing
         {
            
             DrawAxes();
+
+            if ((Config.OXName != "" && Config.SizeOX != 0) || (Config.OYName != "" && Config.SizeOY != 0))
+            {
+                DrawAxesNames();
+            }
+            else MessageBox.Show("При указании названия осей необходимо также указать размер шрифта хотя бы одного названия.\n" +
+                 "(SizeOX, SizeOY)", "Попытка добавить название осей.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
             if (BarCollection.Count != 0) DrawCurrentBar();
         }
 

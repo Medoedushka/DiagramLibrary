@@ -8,6 +8,16 @@ using System.Drawing;
 
 namespace MyDrawing
 {
+    /// <summary>
+    /// Определяет выравнивание текста.
+    /// </summary>
+    public enum TextPosition
+    {
+        Left,
+        Centre,
+        Right
+    }
+
     public abstract class Diagram
     {
         protected Graphics g;

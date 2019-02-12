@@ -133,11 +133,6 @@
             Устанавливает цену деления оси Oy.
             </summary>
         </member>
-        <member name="T:MyDrawing.TextPosition">
-            <summary>
-            Определяет выравнивание текста.
-            </summary>
-        </member>
         <member name="T:MyDrawing.PointsGraphic">
             <summary>
             Предоставляет свойства и методы для рисования графика на элементе управления pictureBox.
@@ -198,6 +193,11 @@
         <member name="P:MyDrawing.Curves.Legend">
             <summary>
             Легенда кривой.
+            </summary>
+        </member>
+        <member name="T:MyDrawing.TextPosition">
+            <summary>
+            Определяет выравнивание текста.
             </summary>
         </member>
     </members>

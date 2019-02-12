@@ -164,15 +164,7 @@ namespace MyDrawing
         
         #endregion;
     }
-    /// <summary>
-    /// Определяет выравнивание текста.
-    /// </summary>
-    public enum TextPosition
-    {
-        Left,
-        Centre,
-        Right
-    }
+    
 
     /// <summary>
     /// Предоставляет свойства и методы для рисования графика на элементе управления pictureBox.
