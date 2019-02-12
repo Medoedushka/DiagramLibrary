@@ -10,7 +10,7 @@ namespace MyDrawing
 {
 
 
-    public struct BarChartConfig
+    public class BarChartConfig
     {
         public byte BarWidth { get; set; }
         public byte StepOX { get; set; }
@@ -26,6 +26,8 @@ namespace MyDrawing
         public const byte HEIGHT = 4;
 
         public bool RandomBarColor { get; set; }
+        public bool HorizontalLines { get; set; }
+        public bool ShowColumnName { get; set; }
     }
 
     /// <summary>
@@ -76,17 +78,20 @@ namespace MyDrawing
     public class BarChart : Diagram
     {
         List<Bars> BarCollection = new List<Bars>();
-        public BarChartConfig Config;
-        private string[] UsedColors;
+        
+        public BarChartConfig Config { get; set; }
+        
 
 
         public BarChart(PictureBox picture)
         {
+            Config = new BarChartConfig();
             placeToDraw = picture;
             Config.DiagramColor = Color.Black;
             Config.DiagramPen = new Pen(Config.DiagramColor);
             Config.drawFont = new Font("Arial", 8);
             Config.drawBrush = new SolidBrush(Config.DiagramColor);
+            Config.ShowColumnName = true;
             //координаты угловых точек рамки
             //левая нижняя точка
             pt1 = new Point(Space_From_Left, placeToDraw.Height - Space_From_Bottom);
@@ -153,6 +158,8 @@ namespace MyDrawing
             }
         }
 
+      
+
         private void DrawAxes()
         {
             g = placeToDraw.CreateGraphics();
@@ -191,6 +198,13 @@ namespace MyDrawing
                     g.DrawString(num, Config.drawFont, Config.drawBrush, Oypoints1[i].X - 10, Oypoints1[i].Y);
                 }
                 g.DrawLine(Config.DiagramPen, Oypoints1[i], Oypoints2[i]);
+                //рисование горизонтальных линий
+                if(Config.HorizontalLines == true)
+                {
+                    PointF StartLine = new PointF(Center.X, Oypoints1[i].Y);
+                    PointF EndLine = new PointF(LastPointOX.X, Oypoints1[i].Y);
+                    g.DrawLine(Config.DiagramPen, StartLine, EndLine);
+                }
             }
         }
 
@@ -205,13 +219,17 @@ namespace MyDrawing
                 RectangleF BarRectangle = new RectangleF(BarPoint.X, BarPoint.Y, Config.BarWidth, Center.Y - BarPoint.Y);
 
                 g.FillRectangle(new SolidBrush(BarCollection[i].BarColor), BarRectangle);
-                //надпись названия колонки
-                SizeF size = g.MeasureString(BarCollection[i].BarName, Config.drawFont);
-                PointF StringPoint = new PointF();
-                StringPoint.Y = Center.Y;
-                StringPoint.X = BarPoint.X + Config.BarWidth / 2 - size.Width / 2;
+                if(Config.ShowColumnName == true)
+                {
+                    //надпись названия колонки
+                    SizeF size = g.MeasureString(BarCollection[i].BarName, Config.drawFont);
+                    PointF StringPoint = new PointF();
+                    StringPoint.Y = Center.Y;
+                    StringPoint.X = BarPoint.X + Config.BarWidth / 2 - size.Width / 2;
 
-                g.DrawString(BarCollection[i].BarName, Config.drawFont, Config.drawBrush, StringPoint);
+                    g.DrawString(BarCollection[i].BarName, Config.drawFont, Config.drawBrush, StringPoint);
+                }
+                
             }
         }
         /// <summary>
