@@ -23,8 +23,10 @@ namespace MyDrawing
         protected Graphics g;
 
         protected PictureBox placeToDraw; //область для рисования диаграмм
+
         public string Title { get; set; } //описание диаграммы
         public int TitleSize { get; set; } //размер описания диаграммы
+        public TextPosition TitlePosition { get; set; }
         public bool AddDiagramLegend { get; set; } //добавить ли легенду диаграммы
         public Point Center; // точка пересечения осей(график, гистограмма), центр окружности(круговая диаграмма)
 

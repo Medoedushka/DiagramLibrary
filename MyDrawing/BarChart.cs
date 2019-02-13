@@ -31,7 +31,7 @@ namespace MyDrawing
         public double SizeOX { get; set; }
         public double SizeOY { get; set; }
 
-        public bool RandomBarColor { get; set; }
+        
         public bool HorizontalLines { get; set; }
         public bool ShowColumnName { get; set; }
         public bool ShowColumnValue { get; set; }
@@ -229,6 +229,35 @@ namespace MyDrawing
             g.DrawString(Config.OYName, fontOY, brush, pointOY, stringFormat);
         }
 
+        private void DrawTitle()
+        {
+            Font font = new Font("Arial", TitleSize);
+            SolidBrush brush = new SolidBrush(Color.Black);
+            SizeF size = g.MeasureString(Title, font);
+
+            float x = 0, y = 0;
+            if (TitlePosition == TextPosition.Left)
+            {
+                x = LastPointOY.X; y = LastPointOY.Y - 20;
+            }
+            else if (TitlePosition == TextPosition.Centre)
+            {
+                x = LastPointOY.X + (LastPointOX.X - LastPointOY.X) / 2 - size.Width / 2;
+                y = LastPointOY.Y - 20;
+            }
+            else if (TitlePosition == TextPosition.Right)
+            {
+                x = LastPointOX.X;
+                y = LastPointOY.Y - 20;
+                while (x + size.Width > LastPointOX.X)
+                {
+                    x -= 1;
+                }
+            }
+            PointF textPoint = new PointF(x, y);
+            g.DrawString(Title, font, brush, textPoint);
+        }
+
         private void DrawAxes()
         {
             g = placeToDraw.CreateGraphics();
@@ -308,6 +337,7 @@ namespace MyDrawing
                 
             }
         }
+
         /// <summary>
         /// Рисует гистограмму.
         /// </summary>
@@ -322,6 +352,13 @@ namespace MyDrawing
             }
             else MessageBox.Show("При указании названия осей необходимо также указать размер шрифта хотя бы одного названия.\n" +
                  "(SizeOX, SizeOY)", "Попытка добавить название осей.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            if (Title != "" && TitleSize != 0)
+            {
+                DrawTitle();
+            }
+            else MessageBox.Show("Не указан размер шрифта описания графика.", "Попытка добавить название графика",
+                MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             if (BarCollection.Count != 0) DrawCurrentBar();
         }
