@@ -338,6 +338,21 @@ namespace MyDrawing
             }
         }
 
+        private void DrawLegend()
+        {
+            int CubeSide = 10;
+            PointF pt = new PointF(LastPointOX.X + 10, LastPointOY.Y);
+            foreach(Bars bar in BarCollection)
+            {
+                RectangleF rect = new RectangleF(pt.X, pt.Y, CubeSide, CubeSide);
+                g.FillRectangle(new SolidBrush(bar.BarColor), rect);
+
+                g.DrawString(bar.BarName, new Font("Arial", 7), Config.drawBrush, pt.X + CubeSide + 5, pt.Y - 3);
+                pt.Y += 20;
+            }
+                
+        }
+
         /// <summary>
         /// Рисует гистограмму.
         /// </summary>
@@ -359,6 +374,11 @@ namespace MyDrawing
             }
             else MessageBox.Show("Не указан размер шрифта описания графика.", "Попытка добавить название графика",
                 MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            if(AddDiagramLegend == true)
+            {
+                DrawLegend();
+            }
 
             if (BarCollection.Count != 0) DrawCurrentBar();
         }
