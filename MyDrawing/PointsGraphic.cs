@@ -54,7 +54,10 @@ namespace MyDrawing
         /// Добавление сетки на график.
         /// </summary>
         public bool Grid { get; set; }
-       
+        /// <summary>
+        /// Сглаживание углов кривой.
+        /// </summary>
+        public bool SmoothAngles { get; set; }
 
         #region Свойства полей 
         //свойства для расстояния между делениями осей
@@ -509,7 +512,10 @@ namespace MyDrawing
                     drawpt[i].Y = points[i].Y;
                 }
             }
-            g.DrawCurve(grafpen, drawpt);
+
+            if(Config.SmoothAngles == true) g.DrawCurve(grafpen, drawpt);
+            else if(Config.SmoothAngles == false) g.DrawLines(grafpen, drawpt);
+
         }
         /// <summary>
         /// Рисует: график, с добавленными кривыми, названия осей и диаграммы, легенду. 
