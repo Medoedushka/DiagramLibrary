@@ -17,7 +17,7 @@ namespace MyDrawing
         int stepOY;       //расстояние между делениями оси ординат  
         int numberOfSepOx;//кол-во делений на оси Ох
         int numberOfSepOy;//кол-во делений на оси Оу
-        public const int HEIGHT = 4;  //длинна одного деления
+        public int HEIGHT { get; set; }  //длинна одного деления
 
         double sizeOx, sizeOy; //размер шрифтов названия осей;
         double priceForPointOX; //цена деления на оси Ох 
@@ -54,7 +54,10 @@ namespace MyDrawing
         /// Добавление сетки на график.
         /// </summary>
         public bool Grid { get; set; }
-       
+        /// <summary>
+        /// Сглаживание углов кривой.
+        /// </summary>
+        public bool SmoothAngles { get; set; }
 
         #region Свойства полей 
         //свойства для расстояния между делениями осей
@@ -164,15 +167,7 @@ namespace MyDrawing
         
         #endregion;
     }
-    /// <summary>
-    /// Определяет выравнивание текста.
-    /// </summary>
-    public enum TextPosition
-    {
-        Left,
-        Centre,
-        Right
-    }
+    
 
     /// <summary>
     /// Предоставляет свойства и методы для рисования графика на элементе управления pictureBox.
@@ -196,12 +191,7 @@ namespace MyDrawing
             Config.GraphPen = new Pen(Config.GraphColor);
             Config.drawFont = new Font("Arial", 8);
             Config.drawBrush = new SolidBrush(Config.GraphColor);
-            //параметры задают максимальные размеры рамки для рисования графика
-            Space_From_Top = 35;
-            Space_From_Right = 25;
-            Space_From_Bottom = 35;
-            Space_From_Left = 35;
-
+            Config.HEIGHT = 4;
             //координаты угловых точек рамки
             //левая нижняя точка
             pt1 = new Point(Space_From_Left, placeToDraw.Height - Space_From_Bottom);
@@ -522,7 +512,10 @@ namespace MyDrawing
                     drawpt[i].Y = points[i].Y;
                 }
             }
-            g.DrawCurve(grafpen, drawpt);
+
+            if(Config.SmoothAngles == true) g.DrawCurve(grafpen, drawpt);
+            else if(Config.SmoothAngles == false) g.DrawLines(grafpen, drawpt);
+
         }
         /// <summary>
         /// Рисует: график, с добавленными кривыми, названия осей и диаграммы, легенду. 

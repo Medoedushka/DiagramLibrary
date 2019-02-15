@@ -4,6 +4,63 @@
         <name>MyDrawing</name>
     </assembly>
     <members>
+<<<<<<< HEAD
+=======
+        <member name="T:MyDrawing.Bars">
+            <summary>
+            Представляет структуру для инициализации столбцов гистограммы.
+            </summary>
+        </member>
+        <member name="P:MyDrawing.Bars.BarName">
+            <summary>
+            Название столбца.
+            </summary>
+        </member>
+        <member name="P:MyDrawing.Bars.BarValue">
+            <summary>
+            Числовое значение соответствующее столбцу.
+            </summary>
+        </member>
+        <member name="P:MyDrawing.Bars.BarColor">
+            <summary>
+            Цвет заливки столбца.
+            </summary>
+        </member>
+        <member name="M:MyDrawing.Bars.#ctor(System.Double,System.String,System.Byte,System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+            <param name="name"></param>
+            <param name="red">Значение красного компонента в цвете.</param>
+            <param name="green">Значение зелёного компоненат в цвете.</param>
+            <param name="blue">Значение синего компонента в цвете.</param>
+        </member>
+        <member name="M:MyDrawing.Bars.#ctor(System.Drawing.Color,System.Double,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="interiorColor">Цвет, входящий в структуру Color.</param>
+            <param name="value"></param>
+            <param name="name"></param>
+        </member>
+        <member name="M:MyDrawing.BarChart.SetDefaultParams">
+            <summary>
+            Устанавливает настройки диаграммы по умолчанию.
+            </summary>
+        </member>
+        <member name="M:MyDrawing.BarChart.AddBar(MyDrawing.Bars)">
+            <summary>
+            Добавляет созданную колонку в коллекцию для рисования гистограммы.
+            </summary>
+            <param name="bar"></param>
+        </member>
+        <member name="M:MyDrawing.BarChart.DrawGraphic">
+            <summary>
+            Рисует гистограмму.
+            </summary>
+        </member>
+>>>>>>> TEST
         <member name="T:MyDrawing.PointsGraphConfig">
             <summary>
             Содержит свойства для настройки графика.
@@ -39,6 +96,14 @@
             Добавление сетки на график.
             </summary>
         </member>
+<<<<<<< HEAD
+=======
+        <member name="P:MyDrawing.PointsGraphConfig.SmoothAngles">
+            <summary>
+            Сглаживание углов кривой.
+            </summary>
+        </member>
+>>>>>>> TEST
         <member name="P:MyDrawing.PointsGraphConfig.StepOX">
             <summary>
             Устанавливает расстояние между делениями на оси Ох.
@@ -77,11 +142,6 @@
         <member name="P:MyDrawing.PointsGraphConfig.PriceForPointOY">
             <summary>
             Устанавливает цену деления оси Oy.
-            </summary>
-        </member>
-        <member name="T:MyDrawing.TextPosition">
-            <summary>
-            Определяет выравнивание текста.
             </summary>
         </member>
         <member name="T:MyDrawing.PointsGraphic">
@@ -144,6 +204,11 @@
         <member name="P:MyDrawing.Curves.Legend">
             <summary>
             Легенда кривой.
+            </summary>
+        </member>
+        <member name="T:MyDrawing.TextPosition">
+            <summary>
+            Определяет выравнивание текста.
             </summary>
         </member>
     </members>
