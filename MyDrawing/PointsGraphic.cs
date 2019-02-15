@@ -17,7 +17,7 @@ namespace MyDrawing
         int stepOY;       //расстояние между делениями оси ординат  
         int numberOfSepOx;//кол-во делений на оси Ох
         int numberOfSepOy;//кол-во делений на оси Оу
-        public int HEIGHT { get; set; }  //длинна одного деления
+        public const int HEIGHT = 4;  //длинна одного деления
 
         double sizeOx, sizeOy; //размер шрифтов названия осей;
         double priceForPointOX; //цена деления на оси Ох 
@@ -191,7 +191,7 @@ namespace MyDrawing
             Config.GraphPen = new Pen(Config.GraphColor);
             Config.drawFont = new Font("Arial", 8);
             Config.drawBrush = new SolidBrush(Config.GraphColor);
-            Config.HEIGHT = 4;
+            
             //координаты угловых точек рамки
             //левая нижняя точка
             pt1 = new Point(Space_From_Left, placeToDraw.Height - Space_From_Bottom);

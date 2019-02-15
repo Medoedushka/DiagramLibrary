@@ -4,8 +4,6 @@
         <name>MyDrawing</name>
     </assembly>
     <members>
-<<<<<<< HEAD
-=======
         <member name="T:MyDrawing.Bars">
             <summary>
             Представляет структуру для инициализации столбцов гистограммы.
@@ -60,7 +58,6 @@
             Рисует гистограмму.
             </summary>
         </member>
->>>>>>> TEST
         <member name="T:MyDrawing.PointsGraphConfig">
             <summary>
             Содержит свойства для настройки графика.
@@ -96,14 +93,11 @@
             Добавление сетки на график.
             </summary>
         </member>
-<<<<<<< HEAD
-=======
         <member name="P:MyDrawing.PointsGraphConfig.SmoothAngles">
             <summary>
             Сглаживание углов кривой.
             </summary>
         </member>
->>>>>>> TEST
         <member name="P:MyDrawing.PointsGraphConfig.StepOX">
             <summary>
             Устанавливает расстояние между делениями на оси Ох.
