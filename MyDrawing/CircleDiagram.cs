@@ -80,11 +80,16 @@ namespace MyDrawing
         private void DrawSectors()
         {
             double previousAngle = 0;
-            foreach(Sectors crrSector in SectorCollection)
+            foreach (Sectors crrSector in SectorCollection)
             {
                 g.FillPie(new SolidBrush(crrSector.SectorColor), (float)Config.X, (float)Config.Y, Config.DiagramSize,
                     Config.DiagramSize, (float)previousAngle, (float)crrSector.Angle);
                 previousAngle += crrSector.Angle;
+                PointF str = new PointF();
+
+                str.X = (float)(Center.X + Config.DiagramSize / 4 * Math.Cos(previousAngle + crrSector.Angle / 2));
+                str.Y = (float)(Center.Y - Config.DiagramSize / 4 * Math.Sin(previousAngle + crrSector.Angle / 2));
+                g.DrawString(crrSector.Persent, new Font("Arial", 10), new SolidBrush(Color.Black), str);
             }
         }
 
