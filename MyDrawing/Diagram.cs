@@ -27,7 +27,9 @@ namespace MyDrawing
         public string Title { get; set; } //описание диаграммы
         public int TitleSize { get; set; } //размер описания диаграммы
         public TextPosition TitlePosition { get; set; }
+
         public bool AddDiagramLegend { get; set; } //добавить ли легенду диаграммы
+
         public Point Center; // точка пересечения осей(график, гистограмма), центр окружности(круговая диаграмма)
 
         //точки рамки построение графика
@@ -45,7 +47,7 @@ namespace MyDrawing
         protected int Space_From_Bottom = 35;
         protected int Space_From_Left = 35;
 
-        public abstract void DrawGraphic(); //рисует диаграмму внутри рамке построения
+        public abstract void DrawDiagram(); //рисует диаграмму внутри рамке построения
 
 
     }

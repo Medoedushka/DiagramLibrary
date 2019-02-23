@@ -520,7 +520,7 @@ namespace MyDrawing
         /// <summary>
         /// Рисует: график, с добавленными кривыми, названия осей и диаграммы, легенду. 
         /// </summary>
-        public override void DrawGraphic()
+        public override void DrawDiagram()
         {
             if (GraphCurves.Count != 0)
             {

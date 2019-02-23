@@ -356,7 +356,7 @@ namespace MyDrawing
         /// <summary>
         /// Рисует гистограмму.
         /// </summary>
-        public override void DrawGraphic()
+        public override void DrawDiagram()
         {
            
             DrawAxes();
