@@ -58,6 +58,11 @@
             Рисует гистограмму.
             </summary>
         </member>
+        <member name="P:MyDrawing.CircleDiagramConfig.DiagramSize">
+            <summary>
+            Регулировка размеров диаграммы.
+            </summary>
+        </member>
         <member name="T:MyDrawing.PointsGraphConfig">
             <summary>
             Содержит свойства для настройки графика.
