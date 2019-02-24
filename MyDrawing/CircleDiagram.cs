@@ -87,8 +87,8 @@ namespace MyDrawing
                 previousAngle += crrSector.Angle;
                 PointF str = new PointF();
 
-                str.X = (float)(Center.X + Config.DiagramSize / 4 * Math.Cos(previousAngle + crrSector.Angle / 2));
-                str.Y = (float)(Center.Y - Config.DiagramSize / 4 * Math.Sin(previousAngle + crrSector.Angle / 2));
+                str.X = (float)(Center.X + Config.DiagramSize / 4 * Math.Cos((previousAngle + crrSector.Angle / 2) * Math.PI / 180));
+                str.Y = (float)(Center.Y - Config.DiagramSize / 4 * Math.Sin((previousAngle + crrSector.Angle / 2) * Math.PI / 180));
                 g.DrawString(crrSector.Persent, new Font("Arial", 10), new SolidBrush(Color.Black), str);
             }
         }
