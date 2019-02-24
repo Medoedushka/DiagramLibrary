@@ -70,7 +70,7 @@ namespace MyDrawing
                 foreach (Sectors sc in SectorCollection)
                 {
                     double persent = Math.Round(sc.Value * 100 / SumValues, 2);
-                    sc.Persent = Convert.ToString(persent);
+                    sc.Persent = Convert.ToString(persent) + "%";
                     sc.Angle = Math.Round(persent * 360 / 100, 1);
                 }
 
@@ -88,8 +88,8 @@ namespace MyDrawing
                 PointF str = new PointF();
 
                 double PercentAngle = (( previousAngle + crrSector.Angle / 2)*Math.PI)/180;
-                str.X = (float)(Center.X + (Config.DiagramSize / 4) * Math.Cos(PercentAngle));
-                str.Y = (float)(Center.Y + (Config.DiagramSize / 4) * Math.Sin(PercentAngle));
+                str.X = (float)(Center.X + (Config.DiagramSize*3 / 8) * Math.Cos(PercentAngle));
+                str.Y = (float)(Center.Y + (Config.DiagramSize*3 / 8) * Math.Sin(PercentAngle));
                 g.DrawString( crrSector.Persent, new Font("Arial", 10), new SolidBrush(Color.Black), str);
                 previousAngle += crrSector.Angle;
 
