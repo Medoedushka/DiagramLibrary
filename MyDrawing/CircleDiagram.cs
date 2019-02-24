@@ -84,12 +84,15 @@ namespace MyDrawing
             {
                 g.FillPie(new SolidBrush(crrSector.SectorColor), (float)Config.X, (float)Config.Y, Config.DiagramSize,
                     Config.DiagramSize, (float)previousAngle, (float)crrSector.Angle);
-                previousAngle += crrSector.Angle;
+               
                 PointF str = new PointF();
 
-                str.X = (float)(Center.X + Config.DiagramSize / 4 * Math.Cos((previousAngle + crrSector.Angle / 2) * Math.PI / 180));
-                str.Y = (float)(Center.Y - Config.DiagramSize / 4 * Math.Sin((previousAngle + crrSector.Angle / 2) * Math.PI / 180));
-                g.DrawString(crrSector.Persent, new Font("Arial", 10), new SolidBrush(Color.Black), str);
+                double PercentAngle = (( previousAngle + crrSector.Angle / 2)*Math.PI)/180;
+                str.X = (float)(Center.X + (Config.DiagramSize / 4) * Math.Cos(PercentAngle));
+                str.Y = (float)(Center.Y + (Config.DiagramSize / 4) * Math.Sin(PercentAngle));
+                g.DrawString( crrSector.Persent, new Font("Arial", 10), new SolidBrush(Color.Black), str);
+                previousAngle += crrSector.Angle;
+
             }
         }
 
