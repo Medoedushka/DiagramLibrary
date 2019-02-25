@@ -14,7 +14,7 @@ namespace MyDrawing
         public double X { get; set; } //Абсцисса верхней левой точки квадрата
         public double Y { get; set; } //Ордината верхней левой точки квадрата
         public Color CircleColor { get; set; }
-
+        public bool ValuePersent { get; set; }
 
         /// <summary>
         /// Регулировка размеров диаграммы.
@@ -43,6 +43,7 @@ namespace MyDrawing
             Config = new CircleDiagramConfig();
             placeToDraw = picture;
             Config.CircleColor = Color.Black;
+            Config.ValuePersent = true;
             SetDefaultParams();
         }
 
@@ -84,16 +85,34 @@ namespace MyDrawing
             {
                 g.FillPie(new SolidBrush(crrSector.SectorColor), (float)Config.X, (float)Config.Y, Config.DiagramSize,
                     Config.DiagramSize, (float)previousAngle, (float)crrSector.Angle);
-               
-                PointF str = new PointF();
 
-                double PercentAngle = (( previousAngle + crrSector.Angle / 2)*Math.PI)/180;
-                str.X = (float)(Center.X + (Config.DiagramSize*3 / 8) * Math.Cos(PercentAngle));
-                str.Y = (float)(Center.Y + (Config.DiagramSize*3 / 8) * Math.Sin(PercentAngle));
-                g.DrawString( crrSector.Persent, new Font("Arial", 10), new SolidBrush(Color.Black), str);
+                if (Config.ValuePersent == true)
+                {
+                    PointF str = new PointF();
+                    double PercentAngle = ((previousAngle + crrSector.Angle / 2) * Math.PI) / 180;
+                    str.X = (float)(Center.X + (Config.DiagramSize * 3 / 8) * Math.Cos(PercentAngle));
+                    str.Y = (float)(Center.Y + (Config.DiagramSize * 3 / 8) * Math.Sin(PercentAngle));
+                    g.DrawString(crrSector.Persent, new Font("Arial", 10), new SolidBrush(Color.Black), str);
+                }
                 previousAngle += crrSector.Angle;
 
             }
+        }
+
+        private void DrawTitle()
+        {
+            Font font = new Font("Arial", TitleSize);
+            SolidBrush brush = new SolidBrush(Color.Black);
+            SizeF size = g.MeasureString(Title, font);
+
+            Config.DiagramSize -= (int)(2.5 * size.Height);
+            Config.X = placeToDraw.Width / 2 - Config.DiagramSize / 2;
+            Config.Y = placeToDraw.Height / 2 - Config.DiagramSize / 2;
+
+            Point Titlept = new Point();
+            Titlept.X = (int)(Center.X - size.Width / 2);
+            Titlept.Y = (int)Config.Y / 2;
+            g.DrawString(Title, font, brush, Titlept);
         }
 
         public void SetDefaultParams()
@@ -114,13 +133,21 @@ namespace MyDrawing
             Center.X = (int)Config.X + Config.DiagramSize / 2;
             Center.Y = (int)Config.Y + Config.DiagramSize / 2;
             
-            RectangleF rect = new RectangleF((float)Config.X, (float)Config.Y, Config.DiagramSize, Config.DiagramSize);
-            g.DrawEllipse(new Pen(Config.CircleColor), rect);
+            //RectangleF rect = new RectangleF((float)Config.X, (float)Config.Y, Config.DiagramSize, Config.DiagramSize);
+            //g.DrawEllipse(new Pen(Config.CircleColor), rect);
         }
 
         public override void DrawGraphic()
         {
+
             DrawCircle();
+
+            if(Title != "")
+            {
+                if (TitleSize == 0) TitleSize = 10;
+                DrawTitle();
+            }
+
             DrawSectors();
         }
 
