@@ -15,6 +15,7 @@ namespace MyDrawing
         public double Y { get; set; } //Ордината верхней левой точки квадрата
         public Color CircleColor { get; set; }
         public bool ValuePersent { get; set; }
+        
 
         /// <summary>
         /// Регулировка размеров диаграммы.
@@ -105,20 +106,34 @@ namespace MyDrawing
             SolidBrush brush = new SolidBrush(Color.Black);
             SizeF size = g.MeasureString(Title, font);
 
-            Config.DiagramSize -= (int)(2.5 * size.Height);
-            Config.X = placeToDraw.Width / 2 - Config.DiagramSize / 2;
-            Config.Y = placeToDraw.Height / 2 - Config.DiagramSize / 2;
-
             Point Titlept = new Point();
             Titlept.X = (int)(Center.X - size.Width / 2);
-            Titlept.Y = (int)Config.Y / 2;
+            Titlept.Y = (int)(Config.Y / 2 - 10);
             g.DrawString(Title, font, brush, Titlept);
+        }
+
+        private void DrawLegend()
+        {
+            
+            //стороны прямоугольника
+            int SideA = 20;
+            int SideB = 10;
+            PointF StrPoint = new PointF((float)Config.X + Config.DiagramSize + 15, (float)(Config.Y * 2));
+            foreach(Sectors crrSector in SectorCollection)
+            {
+                RectangleF rect = new RectangleF(StrPoint.X, StrPoint.Y, SideA, SideB);
+                g.FillRectangle(new SolidBrush(crrSector.SectorColor), rect);
+                string str = " - " + crrSector.Legend + "(" + crrSector.Persent + ")";
+                SizeF size = g.MeasureString(str, new Font("Arial", 8));
+                g.DrawString(str, new Font("Arial", 8), new SolidBrush(Color.Black), StrPoint.X + SideA, StrPoint.Y - 5);
+                StrPoint.Y += size.Height + 5;
+            }
         }
 
         public void SetDefaultParams()
         {
-            if (placeToDraw.Width > placeToDraw.Height) Config.DiagramSize = placeToDraw.Height - Space_From_Top;
-            if (placeToDraw.Height > placeToDraw.Width) Config.DiagramSize = placeToDraw.Width - Space_From_Top;
+            if (placeToDraw.Width > placeToDraw.Height) Config.DiagramSize = placeToDraw.Height - 65;
+            else if (placeToDraw.Height > placeToDraw.Width) Config.DiagramSize = placeToDraw.Width - 65;
             else Config.DiagramSize = placeToDraw.Height - Space_From_Top;
             Config.X = placeToDraw.Width / 2 - Config.DiagramSize / 2;
             Config.Y = placeToDraw.Height / 2 - Config.DiagramSize / 2;
@@ -139,15 +154,19 @@ namespace MyDrawing
 
         public override void DrawGraphic()
         {
-
             DrawCircle();
 
-            if(Title != "")
+            if(AddDiagramLegend == true)
+            {
+                DrawLegend();
+            }
+           
+            if (Title != "")
             {
                 if (TitleSize == 0) TitleSize = 10;
                 DrawTitle();
             }
-
+            
             DrawSectors();
         }
 
