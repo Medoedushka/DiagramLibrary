@@ -20,7 +20,7 @@ namespace MyDrawing
 
     public abstract class Diagram
     {
-        protected Graphics g;
+        public Graphics g;
 
         protected PictureBox placeToDraw; //область для рисования диаграмм
 

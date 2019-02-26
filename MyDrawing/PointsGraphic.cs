@@ -38,10 +38,7 @@ namespace MyDrawing
         /// Устанавливает название оси Oy.
         /// </summary>
         public string OYName { get; set; }
-        /// <summary>
-        /// Перечисление возможных выравниваний названия графика.
-        /// </summary>
-        public TextPosition TitlePosition { get; set; }
+        
         /// <summary>
         /// Перечисление возможных выравниваний оси абсцисс.
         /// </summary>
@@ -178,7 +175,7 @@ namespace MyDrawing
         /// Содержит свойства для настройки графика.
         /// </summary>
         public PointsGraphConfig Config;//структура, содержащая настройки осей и рамки для построения графика
-        private List<Curves> GraphCurves = new List<Curves>();
+        public List<Curves> GraphCurves = new List<Curves>();
         
         /// <summary>
         /// 
@@ -446,16 +443,16 @@ namespace MyDrawing
             SizeF size = g.MeasureString(Title, font);
 
             float x = 0, y = 0;
-            if (Config.TitlePosition == TextPosition.Left)
+            if (TitlePosition == TextPosition.Left)
             {
                 x = LastPointOY.X; y = LastPointOY.Y - 20;
             }
-            else if (Config.TitlePosition == TextPosition.Centre)
+            else if (TitlePosition == TextPosition.Centre)
             {
                 x = LastPointOY.X + (LastPointOX.X - LastPointOY.X) / 2 - size.Width / 2;
                 y = LastPointOY.Y - 20;
             }
-            else if (Config.TitlePosition == TextPosition.Right)
+            else if (TitlePosition == TextPosition.Right)
             {
                 x = LastPointOX.X;
                 y = LastPointOY.Y - 20;
@@ -526,19 +523,19 @@ namespace MyDrawing
             {
                 DrawAxes();
 
-                if ((Config.OXName != "" && Config.SizeOX != 0) || (Config.OYName != "" && Config.SizeOY != 0))
+                if (Config.OXName != "" || Config.OYName != "" )
                 {
+                    if (Config.SizeOX == 0) Config.SizeOX = 9;
+                    if (Config.SizeOY == 0) Config.SizeOY = 9;
                     DrawAxesNames();
                 }
-                else MessageBox.Show("При указании названия осей необходимо также указать размер шрифта хотя бы одного названия.\n" +
-                     "(SizeOX, SizeOY)", "Попытка добавить название осей.", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                if (Title != "" && TitleSize != 0)
+                
+                if (Title != "")
                 {
+                    if (TitleSize == 0) TitleSize = 10;
                     DrawTitle();
                 }
-                else MessageBox.Show("Не указан размер шрифта описания графика.", "Попытка добавить название графика",
-                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                
 
                 if(AddDiagramLegend == true)
                 {
