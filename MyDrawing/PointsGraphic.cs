@@ -55,6 +55,8 @@ namespace MyDrawing
         /// Сглаживание углов кривой.
         /// </summary>
         public bool SmoothAngles { get; set; }
+        public bool DrawPoints { get; set; }
+
 
         #region Свойства полей 
         //свойства для расстояния между делениями осей
@@ -188,7 +190,7 @@ namespace MyDrawing
             Config.GraphPen = new Pen(Config.GraphColor);
             Config.drawFont = new Font("Arial", 8);
             Config.drawBrush = new SolidBrush(Config.GraphColor);
-            
+            Config.DrawPoints = false;
             //координаты угловых точек рамки
             //левая нижняя точка
             pt1 = new Point(Space_From_Left, placeToDraw.Height - Space_From_Bottom);
@@ -234,7 +236,7 @@ namespace MyDrawing
                 {
                     Config.StepOX++;
                 }
-                Config.PriceForPointOX = Math.Round(maxValue * 0.25);
+                Config.PriceForPointOX = Math.Round(maxValue * 0.25, 1);
 
             }
             else MessageBox.Show("Недостаточно данных для оптимального построения области диагрммы", "Внимание",
@@ -513,6 +515,15 @@ namespace MyDrawing
             if(Config.SmoothAngles == true) g.DrawCurve(grafpen, drawpt);
             else if(Config.SmoothAngles == false) g.DrawLines(grafpen, drawpt);
 
+            if(Config.DrawPoints == true)
+            {
+                int r = 4;
+                foreach(PointF pt in drawpt)
+                {
+                    g.FillEllipse(new SolidBrush(currentCurve.CurveColor), pt.X - r / 2, pt.Y - r / 2, r, r);
+                }
+            }
+
         }
         /// <summary>
         /// Рисует: график, с добавленными кривыми, названия осей и диаграммы, легенду. 
@@ -560,7 +571,7 @@ namespace MyDrawing
             bool Exist = false; // есть ли уже кривая с таким же массивом точек
             foreach(Curves cr in GraphCurves)
             {
-                if (cr.PointsToDraw == curve.PointsToDraw)
+                if (cr.PointsToDraw == curve.PointsToDraw || cr.Legend == curve.Legend)
                 {
                     Exist = true;
                     break;
