@@ -191,6 +191,7 @@ namespace MyDrawing
             Config.drawFont = new Font("Arial", 8);
             Config.drawBrush = new SolidBrush(Config.GraphColor);
             Config.DrawPoints = false;
+            
             //координаты угловых точек рамки
             //левая нижняя точка
             pt1 = new Point(Space_From_Left, placeToDraw.Height - Space_From_Bottom);
