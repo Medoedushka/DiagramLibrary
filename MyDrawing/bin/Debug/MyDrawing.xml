@@ -143,6 +143,11 @@
             Содержит свойства для настройки графика.
             </summary>
         </member>
+        <member name="P:MyDrawing.PointsGraphic.GraphCurves">
+            <summary>
+            Список созданных кривых для построения.
+            </summary>
+        </member>
         <member name="M:MyDrawing.PointsGraphic.#ctor(System.Windows.Forms.PictureBox)">
             <summary>
             

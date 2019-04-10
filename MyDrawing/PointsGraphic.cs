@@ -167,7 +167,7 @@ namespace MyDrawing
         #endregion;
     }
     
-
+    
     /// <summary>
     /// Предоставляет свойства и методы для рисования графика на элементе управления pictureBox.
     /// </summary>
@@ -177,8 +177,10 @@ namespace MyDrawing
         /// Содержит свойства для настройки графика.
         /// </summary>
         public PointsGraphConfig Config;//структура, содержащая настройки осей и рамки для построения графика
-        public List<Curves> GraphCurves = new List<Curves>();
-        
+        /// <summary>
+        /// Список созданных кривых для построения.
+        /// </summary>
+        public List<Curves> GraphCurves { get; set; }
         /// <summary>
         /// 
         /// </summary>
@@ -186,6 +188,7 @@ namespace MyDrawing
         public PointsGraphic(PictureBox picture)
         {
             placeToDraw = picture;
+            GraphCurves = new List<Curves>();
             Config.GraphColor = Color.FromArgb(120, 120, 120);
             Config.GraphPen = new Pen(Config.GraphColor);
             Config.drawFont = new Font("Arial", 8);
@@ -611,6 +614,7 @@ namespace MyDrawing
         /// Легенда кривой.
         /// </summary>
         public string Legend { get; set; } 
+
         public Curves(PointF[] pt, Color CurveColor, int CurveThickness = 1, string Legend = "Пусто") 
         {
             PointsToDraw = pt;
