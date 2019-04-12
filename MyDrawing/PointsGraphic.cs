@@ -8,6 +8,11 @@ using System.Drawing;
 
 namespace MyDrawing
 {
+    public enum AxesPosition
+    {
+        FirstQuarter,
+        AllQuarters
+    }
     /// <summary>
     /// Содержит свойства для настройки графика.
     /// </summary>
@@ -48,6 +53,10 @@ namespace MyDrawing
         /// </summary>
         public TextPosition OYNamePosition { get; set; }
         /// <summary>
+        /// Перечисление количества отображаемых четвертей графика.
+        /// </summary>
+        public AxesPosition CurrentAxesPos { get; set; }
+        /// <summary>
         /// Добавление сетки на график.
         /// </summary>
         public bool Grid { get; set; }
@@ -69,7 +78,7 @@ namespace MyDrawing
             set
             {
                 if (value > 0) stepOX = value;
-                else throw new ArgumentOutOfRangeException();
+                else stepOX = Math.Abs(value);
             }
         }
         /// <summary>
@@ -81,7 +90,7 @@ namespace MyDrawing
             set
             {
                 if (value > 0) stepOY = value;
-                else throw new ArgumentOutOfRangeException();
+                else stepOY = Math.Abs(value);
             }
 
         }
@@ -95,7 +104,7 @@ namespace MyDrawing
             set
             {
                 if (value > 0) numberOfSepOx = value;
-                else throw new ArgumentOutOfRangeException();
+                else throw new ArgumentOutOfRangeException("Передано отрицательное значение кол-ва делений оси OX");
             }
 
         }
@@ -109,7 +118,7 @@ namespace MyDrawing
             {
                 if (value > 0) numberOfSepOy = value;
 
-                else throw new ArgumentOutOfRangeException();
+                else throw new ArgumentOutOfRangeException("Передано отрицательное значение кол-ва делений оси OY");
             }
         }
         //свойства для названий осей
@@ -148,7 +157,7 @@ namespace MyDrawing
             set
             {
                 if (value > 0) priceForPointOX = value;
-                else throw new ArgumentOutOfRangeException();
+                else priceForPointOX = Math.Abs(value);
             }
         }
         /// <summary>
@@ -160,7 +169,7 @@ namespace MyDrawing
             set
             {
                 if (value > 0) priceForPointOY = value;
-                else throw new ArgumentOutOfRangeException();
+                else priceForPointOY = Math.Abs(value);
             }
         }
         
@@ -173,6 +182,8 @@ namespace MyDrawing
     /// </summary>
     public class PointsGraphic : Diagram
     {
+        private Point CountBegin;
+
         /// <summary>
         /// Содержит свойства для настройки графика.
         /// </summary>
@@ -185,7 +196,8 @@ namespace MyDrawing
         /// 
         /// </summary>
         /// <param name="picture">область для рисования графика</param>
-        public PointsGraphic(PictureBox picture)
+        /// <param name="axesPos">количесвто отображаемых четвертей</param>
+        public PointsGraphic(PictureBox picture, AxesPosition axesPos = AxesPosition.AllQuarters)
         {
             placeToDraw = picture;
             GraphCurves = new List<Curves>();
@@ -194,6 +206,7 @@ namespace MyDrawing
             Config.drawFont = new Font("Arial", 8);
             Config.drawBrush = new SolidBrush(Config.GraphColor);
             Config.DrawPoints = false;
+            Config.CurrentAxesPos = axesPos;
             
             //координаты угловых точек рамки
             //левая нижняя точка
@@ -201,12 +214,10 @@ namespace MyDrawing
             //левая верхняя точка
             pt2 = new Point(Space_From_Left, Space_From_Top);
             //правая нижняя точка
-            pt3 = new Point(placeToDraw.Width - Space_From_Right, placeToDraw.Height - Space_From_Bottom);
+            pt4 = new Point(placeToDraw.Width - Space_From_Right, placeToDraw.Height - Space_From_Bottom);
             //правая верхняя точка
-            pt4 = new Point(placeToDraw.Width - Space_From_Right, Space_From_Top);
-            //центр пересечения осей
-            Center = pt1;
-
+            pt3 = new Point(placeToDraw.Width - Space_From_Right, Space_From_Top);
+            CountBegin = pt1;
         }
         /// <summary>
         /// Устанавливает параметры Ox по умолчанию.
@@ -285,23 +296,37 @@ namespace MyDrawing
         }
        
         
-        private void DrawAxes()
+        public void DrawAxes()
         {
-           
             g = placeToDraw.CreateGraphics();
             g.Clear(Color.White);
             //рисует линию сглаженной
             g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
 
-            //рисует оси
+            //центр пересечения осей
+            if (Config.CurrentAxesPos == AxesPosition.FirstQuarter)
+            {
+                Center = CountBegin;
+            }
+            if (Config.CurrentAxesPos == AxesPosition.AllQuarters)
+            {
+                int X = (pt4.X - pt1.X) / 2;
+                int Y = (pt1.Y - pt2.Y) / 2;
+                Center = new Point(X, Y);
+                CountBegin.X = Center.X - Config.StepOX * Config.NumberOfSepOX;
+                CountBegin.Y = Center.Y + Config.StepOY * Config.NumberOfSepOY;
+            }
             
+            //рисует оси
+
             LastPointOX = new PointF(Center.X + Config.StepOX * Config.NumberOfSepOX, Center.Y);
             LastPointOY = new PointF(Center.X, Center.Y - Config.StepOY * Config.NumberOfSepOY);
 
-            g.DrawLine(Config.GraphPen, Center, LastPointOX);//ось ординат
-            g.DrawLine(Config.GraphPen, Center, LastPointOY);//ось абсцисс
+            g.DrawLine(new Pen(Config.GraphColor), CountBegin.X, Center.Y, LastPointOX.X, LastPointOX.Y); //ось абсцисс
+            g.DrawLine(Config.GraphPen, Center.X, CountBegin.Y, LastPointOY.X, LastPointOY.Y); //ось ординат
+            g.DrawLine(new Pen(Color.Red), Center, CountBegin);
             g.DrawString("0", Config.drawFont, Config.drawBrush, Center.X - 6, Center.Y);
-
+            return;
 
             //прорисовка делений оси Ох
             Point[] Oxpoints1 = new Point[Config.NumberOfSepOX];
@@ -380,8 +405,7 @@ namespace MyDrawing
 
         private void DrawAxesNames()
         {
-            if (Config.SizeOX == 0) Config.SizeOX = 9;
-            if (Config.SizeOY == 0) Config.SizeOY = 9;
+
 
             Font fontOX = new Font("Arial", (float)Config.SizeOX);
             Font fontOY = new Font("Arial", (float)Config.SizeOY);
@@ -590,6 +614,7 @@ namespace MyDrawing
                 GraphCurves.Add(curve);
                 SetDefaultOX();
                 SetDefaultOY();
+                
             }
         }
     }

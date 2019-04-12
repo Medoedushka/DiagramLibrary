@@ -19,3 +19,10 @@ D:\Библиотеки C#\DiagramLibrary\MyDrawing\obj\Debug\MyDrawing.csprojAs
 D:\Библиотеки C#\DiagramLibrary\MyDrawing\obj\Debug\MyDrawing.csproj.CoreCompileInputs.cache
 D:\Библиотеки C#\DiagramLibrary\MyDrawing\obj\Debug\MyDrawing.dll
 D:\Библиотеки C#\DiagramLibrary\MyDrawing\obj\Debug\MyDrawing.pdb
+D:\Проекты C#\Библиотеки\DiagramLibrary\MyDrawing\bin\Debug\MyDrawing.xml
+D:\Проекты C#\Библиотеки\DiagramLibrary\MyDrawing\bin\Debug\MyDrawing.dll
+D:\Проекты C#\Библиотеки\DiagramLibrary\MyDrawing\bin\Debug\MyDrawing.pdb
+D:\Проекты C#\Библиотеки\DiagramLibrary\MyDrawing\obj\Debug\MyDrawing.csprojAssemblyReference.cache
+D:\Проекты C#\Библиотеки\DiagramLibrary\MyDrawing\obj\Debug\MyDrawing.csproj.CoreCompileInputs.cache
+D:\Проекты C#\Библиотеки\DiagramLibrary\MyDrawing\obj\Debug\MyDrawing.dll
+D:\Проекты C#\Библиотеки\DiagramLibrary\MyDrawing\obj\Debug\MyDrawing.pdb

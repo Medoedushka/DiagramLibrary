@@ -27,10 +27,13 @@ namespace MyDrawing
         public string Title { get; set; } //описание диаграммы
         public int TitleSize { get; set; } //размер описания диаграммы
         public TextPosition TitlePosition { get; set; }
-
         public bool AddDiagramLegend { get; set; } //добавить ли легенду диаграммы
 
-        public Point Center; // точка пересечения осей(график, гистограмма), центр окружности(круговая диаграмма)
+        /// <summary>
+        /// Точка начала отсчёта.
+        /// </summary>
+        public Point Center { get; set; } // точка пересечения осей(график, гистограмма), центр окружности(круговая диаграмма)
+        
 
         //точки рамки построение графика
         protected Point pt1; //левая нижняя точка
@@ -38,8 +41,8 @@ namespace MyDrawing
         protected Point pt3; //правая нижняя точка
         protected Point pt4; //правая верхняя точка
 
-        public PointF LastPointOX; //последняя точка на оси OX, определяющая рамку
-        public PointF LastPointOY; //последняя точка на оси OY, определяющая рамку 
+        protected PointF LastPointOX; //последняя точка на оси OX, определяющая рамку
+        protected PointF LastPointOY; //последняя точка на оси OY, определяющая рамку 
 
         //параметры задают максимальные размеры рамки для рисования графика
         protected int Space_From_Top = 35;

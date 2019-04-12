@@ -83,6 +83,11 @@
             Перечисление возможных выравниваний оси ординат
             </summary>
         </member>
+        <member name="P:MyDrawing.PointsGraphConfig.CurrentAxesPos">
+            <summary>
+            Перечисление количества отображаемых четвертей графика.
+            </summary>
+        </member>
         <member name="P:MyDrawing.PointsGraphConfig.Grid">
             <summary>
             Добавление сетки на график.
@@ -148,11 +153,12 @@
             Список созданных кривых для построения.
             </summary>
         </member>
-        <member name="M:MyDrawing.PointsGraphic.#ctor(System.Windows.Forms.PictureBox)">
+        <member name="M:MyDrawing.PointsGraphic.#ctor(System.Windows.Forms.PictureBox,MyDrawing.AxesPosition)">
             <summary>
             
             </summary>
             <param name="picture">область для рисования графика</param>
+            <param name="axesPos">количесвто отображаемых четвертей</param>
         </member>
         <member name="M:MyDrawing.PointsGraphic.SetDefaultOX">
             <summary>
@@ -203,6 +209,11 @@
         <member name="T:MyDrawing.TextPosition">
             <summary>
             Определяет выравнивание текста.
+            </summary>
+        </member>
+        <member name="P:MyDrawing.Diagram.Center">
+            <summary>
+            Точка начала отсчёта.
             </summary>
         </member>
     </members>
