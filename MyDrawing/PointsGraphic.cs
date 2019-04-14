@@ -31,7 +31,8 @@ namespace MyDrawing
 
         public Color GraphColor; //
         public Pen GraphPen;     //цвет для графика
-                          //
+                                 //
+        public Color GridColor { get; set; }
         public Font drawFont;//параметры текста
         public SolidBrush drawBrush;//цвет заливки
 
@@ -202,6 +203,7 @@ namespace MyDrawing
             placeToDraw = picture;
             GraphCurves = new List<Curves>();
             Config.GraphColor = Color.FromArgb(120, 120, 120);
+            Config.GridColor = Color.FromArgb(120, 120, 120);
             Config.GraphPen = new Pen(Config.GraphColor);
             Config.drawFont = new Font("Arial", 8);
             Config.drawBrush = new SolidBrush(Config.GraphColor);
@@ -218,19 +220,23 @@ namespace MyDrawing
             //правая верхняя точка
             pt3 = new Point(placeToDraw.Width - Space_From_Right, Space_From_Top);
             CountBegin = pt1;
+
+            int X = pt2.X + (pt3.X - pt2.X) / 2;
+            int Y = pt1.Y - (pt1.Y - pt2.Y) / 2;
+            Center = new Point(X, Y);
+
         }
         /// <summary>
         /// Устанавливает параметры Ox по умолчанию.
         /// </summary>
         public void SetDefaultOX()
         {
-            
             if (GraphCurves.Count != 0)
             {
                 double[] MaxFromEachMass = new double[GraphCurves.Count];
                 double maxValue = 0; //максимальное значение среди массивов точек для каждой кривой
                 //поиск максимального значения оси ОХ для каждой кривой 
-                for (int i = 0; i< GraphCurves.Count; i++)
+                for (int i = 0; i < GraphCurves.Count; i++)
                 {
                     for(int j = 0; j < GraphCurves[i].PointsToDraw.Length; j++)
                     {
@@ -273,9 +279,9 @@ namespace MyDrawing
                 {
                     for (int j = 0; j < GraphCurves[i].PointsToDraw.Length; j++)
                     {
-                        if (MaxFromEachMass[i] < GraphCurves[i].PointsToDraw[j].Y)
+                        if (MaxFromEachMass[i] < Math.Abs(GraphCurves[i].PointsToDraw[j].Y))
                         {
-                            MaxFromEachMass[i] = GraphCurves[i].PointsToDraw[j].Y;
+                            MaxFromEachMass[i] = Math.Abs(GraphCurves[i].PointsToDraw[j].Y);
                         }
                     }
                 }
@@ -289,17 +295,17 @@ namespace MyDrawing
                 {
                     Config.StepOY++;
                 }
-                Config.PriceForPointOY = Math.Round(maxValue * 0.25);
+                Config.PriceForPointOY = Math.Round(maxValue * 0.25, 1);
             }
             else MessageBox.Show("Недостаточно данных для оптимального построения области диагрммы", "Внимание",
                  MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
-       
-        
-        public void DrawAxes()
+     
+
+        private void DrawAxes()
         {
             g = placeToDraw.CreateGraphics();
-            g.Clear(Color.White);
+            g.Clear(placeToDraw.BackColor);
             //рисует линию сглаженной
             g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
 
@@ -313,26 +319,23 @@ namespace MyDrawing
             }
             if (Config.CurrentAxesPos == AxesPosition.AllQuarters)
             {
-                int X = pt2.X + (pt3.X - pt2.X) / 2;
-                int Y = pt1.Y - (pt1.Y - pt2.Y) / 2;
-                Center = new Point(X, Y);
+                
                 CountBegin.X = Center.X - Config.StepOX * Config.NumberOfSepOX;
                 CountBegin.Y = Center.Y + Config.StepOY * Config.NumberOfSepOY;
-                
             }
-            
+
             //рисует оси
 
             LastPointOX = new PointF(Center.X + Config.StepOX * Config.NumberOfSepOX, Center.Y);
             LastPointOY = new PointF(Center.X, Center.Y - Config.StepOY * Config.NumberOfSepOY);
 
+
             g.DrawLine(Config.GraphPen, CountBegin.X, Center.Y, LastPointOX.X, LastPointOX.Y); //ось абсцисс
             g.DrawLine(Config.GraphPen, Center.X, CountBegin.Y, LastPointOY.X, LastPointOY.Y); //ось ординат
-            g.DrawLine(new Pen(Color.Red), Center, CountBegin);
+           
             g.DrawString("0", Config.drawFont, Config.drawBrush, Center.X - 6, Center.Y);
-
-
-            //прорисовка делений оси Ох
+            
+            #region Прорисовка делений OX
             Point[] Oxpoints1 = null;
             Point[] Oxpoints2 = null;
 
@@ -410,7 +413,7 @@ namespace MyDrawing
                     {
                         StartLine = new PointF(Center.X + (i + 1) * Config.StepOX, Center.Y);
                         EndLine = new PointF(Center.X + (i + 1) * Config.StepOX, LastPointOY.Y);
-                        g.DrawLine(Config.GraphPen, StartLine, EndLine);
+                        g.DrawLine(new Pen (Config.GridColor), StartLine, EndLine);
                     }
                     else if (Config.CurrentAxesPos == AxesPosition.AllQuarters)
                     {
@@ -418,20 +421,21 @@ namespace MyDrawing
                         {
                             StartLine = new PointF(CountBegin.X + i * Config.StepOX, CountBegin.Y);
                             EndLine = new PointF(CountBegin.X + i * Config.StepOX, LastPointOY.Y);
-                            g.DrawLine(Config.GraphPen, StartLine, EndLine);
+                            g.DrawLine(new Pen(Config.GridColor), StartLine, EndLine);
                         }
                         else if ( i > HalfAxisOX - 1)
                         {
                             StartLine = new PointF(CountBegin.X + (i + 1) * Config.StepOX, CountBegin.Y);
                             EndLine = new PointF(CountBegin.X + (i + 1) * Config.StepOX, LastPointOY.Y);
-                            g.DrawLine(Config.GraphPen, StartLine, EndLine);
+                            g.DrawLine(new Pen(Config.GridColor), StartLine, EndLine);
                         }
                     }
                 }
                 
             }
-            
-            //прорисовка делений оси Оу
+            #endregion
+
+            #region Прорисовка делений OY
             Point[] Oypoints1 = null;
             Point[] Oypoints2 = null;
             if (Config.CurrentAxesPos == AxesPosition.FirstQuarter)
@@ -474,7 +478,7 @@ namespace MyDrawing
                 {
                     if (i <= HalfAxisOY - 1)
                     {
-                        string num = Convert.ToString(i * Config.PriceForPointOX - Config.PriceForPointOX * HalfAxisOY);
+                        string num = Convert.ToString(i * Config.PriceForPointOY - Config.PriceForPointOY * HalfAxisOY);
                         Oypoints1[i].X = Center.X - PointsGraphConfig.HEIGHT;
                         Oypoints1[i].Y = CountBegin.Y - i * Config.StepOY;
 
@@ -484,7 +488,7 @@ namespace MyDrawing
                     }
                     else if (i > HalfAxisOY - 1)
                     {
-                        string num = Convert.ToString(i * Config.PriceForPointOX - Config.PriceForPointOX * HalfAxisOY + Config.PriceForPointOX);
+                        string num = Convert.ToString(i * Config.PriceForPointOY - Config.PriceForPointOY * HalfAxisOY + Config.PriceForPointOY);
                         Oypoints1[i].X = Center.X - PointsGraphConfig.HEIGHT;
                         Oypoints1[i].Y = CountBegin.Y - (i + 1) * Config.StepOY;
 
@@ -502,9 +506,9 @@ namespace MyDrawing
                     PointF StartLine, EndLine;
                     if (Config.CurrentAxesPos == AxesPosition.FirstQuarter)
                     {
-                        StartLine = new PointF(Center.X, Center.Y - (i * 1) * Config.StepOY);
-                        EndLine = new PointF(LastPointOX.X, Center.Y - (i * 1) * Config.StepOY);
-                        g.DrawLine(Config.GraphPen, StartLine, EndLine);
+                        StartLine = new PointF(Center.X, Center.Y - (i + 1) * Config.StepOY);
+                        EndLine = new PointF(LastPointOX.X, Center.Y - (i + 1) * Config.StepOY);
+                        g.DrawLine(new Pen(Config.GridColor), StartLine, EndLine);
                     }
                     else if (Config.CurrentAxesPos == AxesPosition.AllQuarters)
                     {
@@ -512,24 +516,22 @@ namespace MyDrawing
                         {
                             StartLine = new PointF(CountBegin.X, CountBegin.Y - i * Config.StepOY);
                             EndLine = new PointF(LastPointOX.X, CountBegin.Y - i * Config.StepOY);
-                            g.DrawLine(Config.GraphPen, StartLine, EndLine);
+                            g.DrawLine(new Pen(Config.GridColor), StartLine, EndLine);
                         }
                         else if( i > HalfAxisOY - 1)
                         {
                             StartLine = new PointF(CountBegin.X, CountBegin.Y - (i + 1) * Config.StepOY);
                             EndLine = new PointF(LastPointOX.X, CountBegin.Y - (i + 1) * Config.StepOY);
-                            g.DrawLine(Config.GraphPen, StartLine, EndLine);
+                            g.DrawLine(new Pen(Config.GridColor), StartLine, EndLine);
                         }
                     }
                 }
             }
-
+            #endregion 
         }
 
         private void DrawAxesNames()
         {
-
-
             Font fontOX = new Font("Arial", (float)Config.SizeOX);
             Font fontOY = new Font("Arial", (float)Config.SizeOY);
             SolidBrush brush = new SolidBrush(Color.Black);
@@ -684,22 +686,22 @@ namespace MyDrawing
             if (GraphCurves.Count != 0)
             {
                 DrawAxes();
-
-                if (Config.OXName != "" || Config.OYName != "" )
+                
+                if (Config.OXName != "" || Config.OYName != "")
                 {
                     if (Config.SizeOX == 0) Config.SizeOX = 9;
                     if (Config.SizeOY == 0) Config.SizeOY = 9;
                     DrawAxesNames();
                 }
-                
+
                 if (Title != "")
                 {
                     if (TitleSize == 0) TitleSize = 10;
                     DrawTitle();
                 }
-                
 
-                if(AddDiagramLegend == true)
+
+                if (AddDiagramLegend == true)
                 {
                     DrawDiagramLegend();
                 }
@@ -729,7 +731,7 @@ namespace MyDrawing
                 }
 
             }
-
+            
             if (Exist) MessageBox.Show("Добавляемая кривая: \"" + curve.Legend + "\" уже содержится в коллекции.", "Попытка добавления кривой",
                      MessageBoxButtons.OKCancel, MessageBoxIcon.Error);
             else
@@ -737,7 +739,7 @@ namespace MyDrawing
                 GraphCurves.Add(curve);
                 SetDefaultOX();
                 SetDefaultOY();
-                
+
             }
         }
     }
