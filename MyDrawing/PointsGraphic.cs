@@ -183,7 +183,7 @@ namespace MyDrawing
     /// </summary>
     public class PointsGraphic : Diagram
     {
-        private Point CountBegin;
+        
 
         /// <summary>
         /// Содержит свойства для настройки графика.
@@ -207,7 +207,7 @@ namespace MyDrawing
             Config.GraphColor = Color.FromArgb(120, 120, 120);
             Config.GridColor = Color.FromArgb(120, 120, 120);
             Config.GraphPen = new Pen(Config.GraphColor);
-            Config.drawFont = new Font("Arial", 8);
+            Config.drawFont = new Font("Arial", 6);
             Config.drawBrush = new SolidBrush(Config.GraphColor);
             Config.DrawPoints = false;
             Config.CurrentAxesPos = axesPos;
@@ -222,10 +222,16 @@ namespace MyDrawing
             //правая верхняя точка
             pt3 = new Point(placeToDraw.Width - Space_From_Right, Space_From_Top);
             //CountBegin = pt1;
-
-            int X = pt2.X + (pt3.X - pt2.X) / 2;
-            int Y = pt1.Y - (pt1.Y - pt2.Y) / 2;
-            Center = new Point(X, Y);
+            if (Config.CurrentAxesPos == AxesPosition.AllQuarters)
+            {
+                int X = pt2.X + (pt3.X - pt2.X) / 2;
+                int Y = pt1.Y - (pt1.Y - pt2.Y) / 2;
+                Center = new Point(X, Y);
+            }
+            else if (Config.CurrentAxesPos == AxesPosition.FirstQuarter)
+            {
+                Center = pt1;
+            }
 
             Config.StepOX = 25;
             Config.StepOY = 30;
@@ -308,7 +314,7 @@ namespace MyDrawing
         }
      
 
-        private void DrawAxes()
+        public void DrawAxes()
         {
             g = placeToDraw.CreateGraphics();
             g.Clear(placeToDraw.BackColor);
@@ -354,29 +360,40 @@ namespace MyDrawing
 
             for (int i = 0; i < Oxpoints1.Length; i++)
             {
+                if (Config.Grid == true)
+                {
+                    PointF StartLine, EndLine;
+                    if (Config.CurrentAxesPos == AxesPosition.FirstQuarter)
+                    {
+                        StartLine = new PointF(Center.X + (i + 1) * Config.StepOX, Center.Y);
+                        EndLine = new PointF(Center.X + (i + 1) * Config.StepOX, 0);
+                        g.DrawLine(new Pen(Config.GridColor), StartLine, EndLine);
+                    }
+                    else if (Config.CurrentAxesPos == AxesPosition.AllQuarters)
+                    {
+                        if (i <= HalfAxisOX - 1)
+                        {
+                            StartLine = new PointF(Center.X - (i + 1) * Config.StepOX, placeToDraw.Height);
+                            EndLine = new PointF(Center.X - (i + 1) * Config.StepOX, 0);
+                            g.DrawLine(new Pen(Config.GridColor), StartLine, EndLine);
+                        }
+                        else if (i > HalfAxisOX - 1)
+                        {
+                            StartLine = new PointF(Center.X + (i + 1 - (int)HalfAxisOX) * Config.StepOX, placeToDraw.Height);
+                            EndLine = new PointF(Center.X + (i + 1 - (int)HalfAxisOX) * Config.StepOX, 0);
+                            g.DrawLine(new Pen(Config.GridColor), StartLine, EndLine);
+                        }
+                    }
+                }
+
                 if (Config.CurrentAxesPos == AxesPosition.FirstQuarter)
                 {
-
-                    string num = Convert.ToString(i * Config.PriceForPointOX + Config.PriceForPointOX);
-                    if (i == 0)
-                    {
-                        Oxpoints1[i].X = CountBegin.X + Config.StepOX;
-                        Oxpoints1[i].Y = CountBegin.Y - PointsGraphConfig.HEIGHT;
-                        Oxpoints2[i].X = CountBegin.X + Config.StepOX;
-                        Oxpoints2[i].Y = CountBegin.Y + PointsGraphConfig.HEIGHT;
-
-                        g.DrawString(num, Config.drawFont, Config.drawBrush, Oxpoints2[i].X - 3, Oxpoints2[i].Y);
-                    }
-                    else
-                    {
-                        Oxpoints1[i].X = Oxpoints1[i - 1].X + Config.StepOX;
-                        Oxpoints1[i].Y = CountBegin.Y - PointsGraphConfig.HEIGHT;
-
-                        Oxpoints2[i].X = Oxpoints2[i - 1].X + Config.StepOX;
-                        Oxpoints2[i].Y = CountBegin.Y + PointsGraphConfig.HEIGHT;
-                        g.DrawString(num, Config.drawFont, Config.drawBrush, Oxpoints2[i].X - 3, Oxpoints2[i].Y);
-
-                    }
+                    string num = Convert.ToString((i +1) * Config.PriceForPointOX);
+                    Oxpoints1[i].X = Center.X + (i + 1) * Config.StepOX;
+                    Oxpoints1[i].Y = Center.Y - PointsGraphConfig.HEIGHT;
+                    Oxpoints2[i].X = Center.X + (i + 1) * Config.StepOX;
+                    Oxpoints2[i].Y = Center.Y + PointsGraphConfig.HEIGHT;
+                    g.DrawString(num, Config.drawFont, Config.drawBrush, Oxpoints2[i].X - 3, Oxpoints2[i].Y);
                 }
                 else if (Config.CurrentAxesPos == AxesPosition.AllQuarters)
                 {
@@ -409,31 +426,7 @@ namespace MyDrawing
 
                 g.DrawLine(Config.GraphPen, Oxpoints1[i], Oxpoints2[i]);
                 
-                if(Config.Grid == true)
-                {
-                    PointF StartLine, EndLine;
-                    if (Config.CurrentAxesPos == AxesPosition.FirstQuarter)
-                    {
-                        StartLine = new PointF(Center.X + (i + 1) * Config.StepOX, Center.Y);
-                        EndLine = new PointF(Center.X + (i + 1) * Config.StepOX, LastPointOY.Y);
-                        g.DrawLine(new Pen (Config.GridColor), StartLine, EndLine);
-                    }
-                    else if (Config.CurrentAxesPos == AxesPosition.AllQuarters)
-                    {
-                        if (i <= HalfAxisOX - 1)
-                        {
-                            StartLine = new PointF(Center.X - (i + 1) * Config.StepOX, placeToDraw.Height);
-                            EndLine = new PointF(Center.X - (i + 1) * Config.StepOX, 0);
-                            g.DrawLine(new Pen(Config.GridColor), StartLine, EndLine);
-                        }
-                        else if ( i > HalfAxisOX - 1)
-                        {
-                            StartLine = new PointF(Center.X + (i + 1 - (int)HalfAxisOX) * Config.StepOX, placeToDraw.Height);
-                            EndLine = new PointF(Center.X + (i + 1 - (int)HalfAxisOX) * Config.StepOX, 0);
-                            g.DrawLine(new Pen(Config.GridColor), StartLine, EndLine);
-                        }
-                    }
-                }
+                
                 
             }
             #endregion
@@ -449,62 +442,13 @@ namespace MyDrawing
 
             for (int i = 0; i < Oypoints1.Length; i++)
             {
-                if (Config.CurrentAxesPos == AxesPosition.FirstQuarter)
-                {
-                    string num = Convert.ToString(i * Config.PriceForPointOY + Config.PriceForPointOY);
-                    if (i == 0)
-                    {
-                        Oypoints1[i].X = Center.X - PointsGraphConfig.HEIGHT;
-                        Oypoints1[i].Y = Center.Y - Config.StepOY;
-
-                        Oypoints2[i].X = Center.X + PointsGraphConfig.HEIGHT;
-                        Oypoints2[i].Y = Center.Y - Config.StepOY;
-                        g.DrawString(num, Config.drawFont, Config.drawBrush, Oypoints1[i].X - 10, Oypoints1[i].Y);
-                    }
-                    else
-                    {
-                        Oypoints1[i].X = Center.X - PointsGraphConfig.HEIGHT;
-                        Oypoints1[i].Y = Oypoints1[i - 1].Y - Config.StepOY;
-
-                        Oypoints2[i].X = Center.X + PointsGraphConfig.HEIGHT;
-                        Oypoints2[i].Y = Oypoints2[i - 1].Y - Config.StepOY;
-                        g.DrawString(num, Config.drawFont, Config.drawBrush, Oypoints1[i].X - 10, Oypoints1[i].Y);
-                    }
-                }
-                else if (Config.CurrentAxesPos == AxesPosition.AllQuarters)
-                {
-                    if (i <= HalfAxisOY - 1)
-                    {
-                        string num = "-" + Convert.ToString((i+1) * Config.PriceForPointOY);
-                        Oypoints1[i].X = Center.X - PointsGraphConfig.HEIGHT;
-                        Oypoints1[i].Y = Center.Y + (i + 1) * Config.StepOY;
-
-                        Oypoints2[i].X = Center.X + PointsGraphConfig.HEIGHT;
-                        Oypoints2[i].Y = Center.Y + (i + 1)* Config.StepOY;
-                        g.DrawString(num, Config.drawFont, Config.drawBrush, Oypoints1[i].X - 10, Oypoints1[i].Y);
-                    }
-                    else if (i > HalfAxisOY - 1)
-                    {
-                        string num = Convert.ToString((i + 1 - HalfAxisOY) * Config.PriceForPointOY);
-                        Oypoints1[i].X = Center.X - PointsGraphConfig.HEIGHT;
-                        Oypoints1[i].Y = Center.Y - (i + 1 - (int)HalfAxisOY) * Config.StepOY;
-
-                        Oypoints2[i].X = Center.X + PointsGraphConfig.HEIGHT;
-                        Oypoints2[i].Y = Center.Y - (i + 1 - (int)HalfAxisOY) * Config.StepOY;
-
-                        g.DrawString(num, Config.drawFont, Config.drawBrush, Oypoints1[i].X - 10, Oypoints1[i].Y);
-                    }
-                }
-
-                g.DrawLine(Config.GraphPen, Oypoints1[i], Oypoints2[i]);
-
                 if (Config.Grid == true)
                 {
                     PointF StartLine, EndLine;
                     if (Config.CurrentAxesPos == AxesPosition.FirstQuarter)
                     {
                         StartLine = new PointF(Center.X, Center.Y - (i + 1) * Config.StepOY);
-                        EndLine = new PointF(LastPointOX.X, Center.Y - (i + 1) * Config.StepOY);
+                        EndLine = new PointF(placeToDraw.Width, Center.Y - (i + 1) * Config.StepOY);
                         g.DrawLine(new Pen(Config.GridColor), StartLine, EndLine);
                     }
                     else if (Config.CurrentAxesPos == AxesPosition.AllQuarters)
@@ -523,6 +467,44 @@ namespace MyDrawing
                         }
                     }
                 }
+
+                if (Config.CurrentAxesPos == AxesPosition.FirstQuarter)
+                {
+                    string num = Convert.ToString((i + 1) * Config.PriceForPointOY);
+                    Oypoints1[i].X = Center.X - PointsGraphConfig.HEIGHT;
+                    Oypoints1[i].Y = Center.Y - (i + 1) * Config.StepOY;
+                    Oypoints2[i].X = Center.X + PointsGraphConfig.HEIGHT;
+                    Oypoints2[i].Y = Center.Y - (i + 1) * Config.StepOY;
+                    g.DrawString(num, Config.drawFont, Config.drawBrush, Oypoints1[i].X - 10, Oypoints1[i].Y);
+                }
+                else if (Config.CurrentAxesPos == AxesPosition.AllQuarters)
+                {
+                    if (i <= HalfAxisOY - 1)
+                    {
+                        string num = "-" + Convert.ToString((i + 1) * Config.PriceForPointOY);
+                        Oypoints1[i].X = Center.X - PointsGraphConfig.HEIGHT;
+                        Oypoints1[i].Y = Center.Y + (i + 1) * Config.StepOY;
+
+                        Oypoints2[i].X = Center.X + PointsGraphConfig.HEIGHT;
+                        Oypoints2[i].Y = Center.Y + (i + 1) * Config.StepOY;
+                        g.DrawString(num, Config.drawFont, Config.drawBrush, Oypoints1[i].X - 10, Oypoints1[i].Y);
+                    }
+                    else if (i > HalfAxisOY - 1)
+                    {
+                        string num = Convert.ToString((i + 1 - HalfAxisOY) * Config.PriceForPointOY);
+                        Oypoints1[i].X = Center.X - PointsGraphConfig.HEIGHT;
+                        Oypoints1[i].Y = Center.Y - (i + 1 - (int)HalfAxisOY) * Config.StepOY;
+
+                        Oypoints2[i].X = Center.X + PointsGraphConfig.HEIGHT;
+                        Oypoints2[i].Y = Center.Y - (i + 1 - (int)HalfAxisOY) * Config.StepOY;
+
+                        g.DrawString(num, Config.drawFont, Config.drawBrush, Oypoints1[i].X - 10, Oypoints1[i].Y);
+                    }
+                }
+
+                g.DrawLine(Config.GraphPen, Oypoints1[i], Oypoints2[i]);
+
+                
 
             }
             #endregion 
@@ -642,8 +624,15 @@ namespace MyDrawing
             {
 
                 float x = (float)(Center.X + currentCurve.PointsToDraw[i].X * Config.StepOX / Config.PriceForPointOX);
-                float y = (float)(Center.Y - currentCurve.PointsToDraw[i].Y * Config.StepOY / Config.PriceForPointOY);
                 
+                float y = (float)(Center.Y - currentCurve.PointsToDraw[i].Y * Config.StepOY / Config.PriceForPointOY);
+                if (float.IsInfinity(x) || float.IsInfinity(y))
+                {
+                    MessageBox.Show("Один из передаваемых параметров имел значение \"Infinity\".\n" +
+                        "Измените пределы построения кривой.", "Недопустимое значение координаты", MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
+                    return;
+                }
                 points[i].X = x;
                 points[i].Y = y;
             }
