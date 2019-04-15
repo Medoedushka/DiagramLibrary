@@ -88,6 +88,11 @@
             Перечисление количества отображаемых четвертей графика.
             </summary>
         </member>
+        <member name="P:MyDrawing.PointsGraphConfig.AxesMode">
+            <summary>
+            Перечисление типов повидения осей.
+            </summary>
+        </member>
         <member name="P:MyDrawing.PointsGraphConfig.Grid">
             <summary>
             Добавление сетки на график.

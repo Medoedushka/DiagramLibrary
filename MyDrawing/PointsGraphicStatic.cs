@@ -8,5 +8,9 @@ namespace MyDrawing
 {
     public partial class PointsGraphic
     {
+        private void DrawStaticAxes()
+        {
+
+        }
     }
 }

@@ -54,6 +54,10 @@ namespace MyDrawing
         /// </summary>
         public AxesPosition CurrentAxesPos { get; set; }
         /// <summary>
+        /// Перечисление типов повидения осей.
+        /// </summary>
+        public AxesMode AxesMode { get; set; }
+        /// <summary>
         /// Добавление сетки на график.
         /// </summary>
         public bool Grid { get; set; }
@@ -297,17 +301,8 @@ namespace MyDrawing
                  MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
      
-
-        private void DrawAxes()
+        private void DrawDynamicAxes(double HalfAxisOX, double HalfAxisOY)
         {
-            g = placeToDraw.CreateGraphics();
-            g.Clear(placeToDraw.BackColor);
-            //рисует линию сглаженной
-            g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
-
-            double HalfAxisOX = 0;
-            double HalfAxisOY = 0;
-
             //центр пересечения осей
             if (Config.CurrentAxesPos == AxesPosition.FirstQuarter)
             {
@@ -315,22 +310,17 @@ namespace MyDrawing
             }
             if (Config.CurrentAxesPos == AxesPosition.AllQuarters)
             {
-                
+
                 CountBegin.X = Center.X - Config.StepOX * Config.NumberOfSepOX;
                 CountBegin.Y = Center.Y + Config.StepOY * Config.NumberOfSepOY;
             }
-
-            //рисует оси
-
             LastPointOX = new PointF(Center.X + Config.StepOX * Config.NumberOfSepOX, Center.Y);
             LastPointOY = new PointF(Center.X, Center.Y - Config.StepOY * Config.NumberOfSepOY);
-
-
             g.DrawLine(Config.GraphPen, CountBegin.X, Center.Y, LastPointOX.X, LastPointOX.Y); //ось абсцисс
             g.DrawLine(Config.GraphPen, Center.X, CountBegin.Y, LastPointOY.X, LastPointOY.Y); //ось ординат
-           
+
             g.DrawString("0", Config.drawFont, Config.drawBrush, Center.X - 6, Center.Y);
-            
+
             #region Прорисовка делений OX
             Point[] Oxpoints1 = null;
             Point[] Oxpoints2 = null;
@@ -346,7 +336,7 @@ namespace MyDrawing
                 Oxpoints2 = new Point[2 * Config.NumberOfSepOX];
                 HalfAxisOX = Oxpoints1.Length / 2;
             }
-            
+
             for (int i = 0; i < Oxpoints1.Length; i++)
             {
                 if (Config.CurrentAxesPos == AxesPosition.FirstQuarter)
@@ -394,22 +384,22 @@ namespace MyDrawing
 
                         Oxpoints2[i].X = CountBegin.X + (i + 1) * Config.StepOX;
                         Oxpoints2[i].Y = Center.Y + PointsGraphConfig.HEIGHT;
-                        
-                       g.DrawString(num, Config.drawFont, Config.drawBrush, Oxpoints2[i].X - 3, Oxpoints2[i].Y);
-                        
-                   }
+
+                        g.DrawString(num, Config.drawFont, Config.drawBrush, Oxpoints2[i].X - 3, Oxpoints2[i].Y);
+
+                    }
                 }
 
                 g.DrawLine(Config.GraphPen, Oxpoints1[i], Oxpoints2[i]);
-                
-                if(Config.Grid == true)
+
+                if (Config.Grid == true)
                 {
                     PointF StartLine, EndLine;
                     if (Config.CurrentAxesPos == AxesPosition.FirstQuarter)
                     {
                         StartLine = new PointF(Center.X + (i + 1) * Config.StepOX, Center.Y);
                         EndLine = new PointF(Center.X + (i + 1) * Config.StepOX, LastPointOY.Y);
-                        g.DrawLine(new Pen (Config.GridColor), StartLine, EndLine);
+                        g.DrawLine(new Pen(Config.GridColor), StartLine, EndLine);
                     }
                     else if (Config.CurrentAxesPos == AxesPosition.AllQuarters)
                     {
@@ -419,7 +409,7 @@ namespace MyDrawing
                             EndLine = new PointF(CountBegin.X + i * Config.StepOX, LastPointOY.Y);
                             g.DrawLine(new Pen(Config.GridColor), StartLine, EndLine);
                         }
-                        else if ( i > HalfAxisOX - 1)
+                        else if (i > HalfAxisOX - 1)
                         {
                             StartLine = new PointF(CountBegin.X + (i + 1) * Config.StepOX, CountBegin.Y);
                             EndLine = new PointF(CountBegin.X + (i + 1) * Config.StepOX, LastPointOY.Y);
@@ -427,7 +417,7 @@ namespace MyDrawing
                         }
                     }
                 }
-                
+
             }
             #endregion
 
@@ -497,7 +487,7 @@ namespace MyDrawing
 
                 g.DrawLine(Config.GraphPen, Oypoints1[i], Oypoints2[i]);
 
-                if(Config.Grid == true)
+                if (Config.Grid == true)
                 {
                     PointF StartLine, EndLine;
                     if (Config.CurrentAxesPos == AxesPosition.FirstQuarter)
@@ -514,7 +504,7 @@ namespace MyDrawing
                             EndLine = new PointF(LastPointOX.X, CountBegin.Y - i * Config.StepOY);
                             g.DrawLine(new Pen(Config.GridColor), StartLine, EndLine);
                         }
-                        else if( i > HalfAxisOY - 1)
+                        else if (i > HalfAxisOY - 1)
                         {
                             StartLine = new PointF(CountBegin.X, CountBegin.Y - (i + 1) * Config.StepOY);
                             EndLine = new PointF(LastPointOX.X, CountBegin.Y - (i + 1) * Config.StepOY);
@@ -524,6 +514,28 @@ namespace MyDrawing
                 }
             }
             #endregion 
+        }
+
+
+        private void DrawAxes()
+        {
+            g = placeToDraw.CreateGraphics();
+            g.Clear(placeToDraw.BackColor);
+            //рисует линию сглаженной
+            g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+
+            double HalfAxisOX = 0;
+            double HalfAxisOY = 0;
+
+            if (Config.AxesMode == AxesMode.Dynamic)
+            {
+                DrawDynamicAxes(HalfAxisOX, HalfAxisOY);
+            }
+            else if (Config.AxesMode == AxesMode.Static)
+            {
+                DrawStaticAxes();
+            }
+
         }
 
         private void DrawAxesNames()
