@@ -60,7 +60,12 @@ namespace MyDrawing
     public abstract class Diagram
     {
         public Graphics g;
+<<<<<<< HEAD
         protected PictureBox placeToDraw; //область для рисования диаграмм
+=======
+
+        public PictureBox placeToDraw; //область для рисования диаграмм
+>>>>>>> NewSepMethod
 
         public string Title { get; set; } //описание диаграммы
         public int TitleSize { get; set; } //размер описания диаграммы
@@ -83,10 +88,10 @@ namespace MyDrawing
         protected PointF LastPointOY; //последняя точка на оси OY, определяющая рамку 
 
         //параметры задают максимальные размеры рамки для рисования графика
-        protected int Space_From_Top = 35;
+        protected int Space_From_Top = 25;
         protected int Space_From_Right = 25;
-        protected int Space_From_Bottom = 35;
-        protected int Space_From_Left = 35;
+        protected int Space_From_Bottom = 25;
+        protected int Space_From_Left = 25;
 
         public abstract void DrawDiagram(); //рисует диаграмму внутри рамке построения
 
