@@ -143,7 +143,7 @@
             Предоставляет свойства и методы для рисования графика на элементе управления pictureBox.
             </summary>
         </member>
-        <member name="F:MyDrawing.PointsGraphic.Config">
+        <member name="P:MyDrawing.PointsGraphic.Config">
             <summary>
             Содержит свойства для настройки графика.
             </summary>

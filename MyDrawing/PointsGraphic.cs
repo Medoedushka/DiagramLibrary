@@ -16,7 +16,7 @@ namespace MyDrawing
     /// <summary>
     /// Содержит свойства для настройки графика.
     /// </summary>
-    public struct PointsGraphConfig
+    public class PointsGraphConfig
     {
         int stepOX;       //расстояние между делениями оси абсцисс
         int stepOY;       //расстояние между делениями оси ординат  
@@ -188,11 +188,12 @@ namespace MyDrawing
         /// <summary>
         /// Содержит свойства для настройки графика.
         /// </summary>
-        public PointsGraphConfig Config;//структура, содержащая настройки осей и рамки для построения графика
+        public PointsGraphConfig Config { get; set; } //структура, содержащая настройки осей и рамки для построения графика
         /// <summary>
         /// Список созданных кривых для построения.
         /// </summary>
         public List<Curves> GraphCurves { get; set; }
+
         /// <summary>
         /// 
         /// </summary>
@@ -202,6 +203,7 @@ namespace MyDrawing
         {
             placeToDraw = picture;
             GraphCurves = new List<Curves>();
+            Config = new PointsGraphConfig();
             Config.GraphColor = Color.FromArgb(120, 120, 120);
             Config.GridColor = Color.FromArgb(120, 120, 120);
             Config.GraphPen = new Pen(Config.GraphColor);
@@ -219,15 +221,17 @@ namespace MyDrawing
             pt4 = new Point(placeToDraw.Width - Space_From_Right, placeToDraw.Height - Space_From_Bottom);
             //правая верхняя точка
             pt3 = new Point(placeToDraw.Width - Space_From_Right, Space_From_Top);
-            CountBegin = pt1;
+            //CountBegin = pt1;
 
             int X = pt2.X + (pt3.X - pt2.X) / 2;
             int Y = pt1.Y - (pt1.Y - pt2.Y) / 2;
             Center = new Point(X, Y);
+
             Config.StepOX = 25;
             Config.StepOY = 30;
-
+            Config.PriceForPointOX = Config.PriceForPointOY = 1;
         }
+
         /// <summary>
         /// Устанавливает параметры Ox по умолчанию.
         /// </summary>
@@ -304,49 +308,42 @@ namespace MyDrawing
         }
      
 
-        public void DrawAxes()
+        private void DrawAxes()
         {
             g = placeToDraw.CreateGraphics();
             g.Clear(placeToDraw.BackColor);
             //рисует линию сглаженной
             g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
 
-            
-            Config.PriceForPointOX = Config.PriceForPointOY = 1;
+            //if (Config.CurrentAxesPos == AxesPosition.FirstQuarter)
+            //{
+            //    Center = CountBegin;
+            //}
+            //if (Config.CurrentAxesPos == AxesPosition.AllQuarters)
+            //{
 
-            //центр пересечения осей
-            if (Config.CurrentAxesPos == AxesPosition.FirstQuarter)
-            {
-                Center = CountBegin;
-            }
-            if (Config.CurrentAxesPos == AxesPosition.AllQuarters)
-            {
+            //    CountBegin.X = Center.X - Config.StepOX * Config.NumberOfSepOX;
+            //    CountBegin.Y = Center.Y + Config.StepOY * Config.NumberOfSepOY;
+            //}
 
-                CountBegin.X = Center.X - Config.StepOX * Config.NumberOfSepOX;
-                CountBegin.Y = Center.Y + Config.StepOY * Config.NumberOfSepOY;
-            }
-
-            double HalfAxisOX = 0;
-            double HalfAxisOY = 0;
+            double HalfAxisOX = 0; //кол-во делений меньше нуля на оси абсцисс
+            double HalfAxisOY = 0; //кол-во делений меньше нуля на оси ординат
 
             //рисует оси
-            
-            LastPointOX = new PointF(pt3.X, Center.Y);
-            LastPointOY = new PointF(Center.X, pt2.Y);
-
             g.DrawLine(Config.GraphPen, 0, Center.Y, placeToDraw.Width, Center.Y); //ось абсцисс
             g.DrawLine(Config.GraphPen, Center.X, placeToDraw.Height, Center.X, 0); //ось ординат
             g.DrawString("0", Config.drawFont, Config.drawBrush, Center.X - 6, Center.Y);
 
             float LengthOX = pt3.X - pt2.X;
             float LengthOY = pt1.Y - pt2.Y;
+
             Config.NumberOfSepOX = (int)Math.Round(LengthOX / Config.StepOX);
             if (Config.NumberOfSepOX % 2 != 0) Config.NumberOfSepOX--;
             Config.NumberOfSepOY = (int)Math.Round(LengthOY / Config.StepOY);
             if (Config.NumberOfSepOY % 2 != 0) Config.NumberOfSepOY--;
 
 
-                #region Прорисовка делений OX
+            #region Прорисовка делений OX
                 Point[] Oxpoints1 = null;
                 Point[] Oxpoints2 = null;
                    
@@ -639,7 +636,6 @@ namespace MyDrawing
 
         private void DrawCurrentCurve(Curves currentCurve)
         {
-            int pointExist = 0; //содержит кол-во точек с ненулевыми координатами на пикчербоксе
             Pen grafpen = new Pen(currentCurve.CurveColor, currentCurve.CurveThickness);
             PointF[] points = new PointF[currentCurve.PointsToDraw.Length];
             for (int i = 0; i < currentCurve.PointsToDraw.Length; i++)
@@ -647,32 +643,18 @@ namespace MyDrawing
 
                 float x = (float)(Center.X + currentCurve.PointsToDraw[i].X * Config.StepOX / Config.PriceForPointOX);
                 float y = (float)(Center.Y - currentCurve.PointsToDraw[i].Y * Config.StepOY / Config.PriceForPointOY);
-                if (x <= LastPointOX.X && y >= LastPointOY.Y) //если координаты точки находятся внутри рамки 
-                {
-                    points[i].X = x;
-                    points[i].Y = y;
-                    pointExist++;
-                }
-                else break;
+                
+                points[i].X = x;
+                points[i].Y = y;
             }
-            PointF[] drawpt = new PointF[pointExist]; //массив, содержащий точки с ненулевыми координатами
-
-            for (int i = 0; i < pointExist; i++)
-            {
-                if (points[i].X != 0 && points[i].Y != 0)
-                {
-                    drawpt[i].X = points[i].X;
-                    drawpt[i].Y = points[i].Y;
-                }
-            }
-
-            if(Config.SmoothAngles == true) g.DrawCurve(grafpen, drawpt);
-            else if(Config.SmoothAngles == false) g.DrawLines(grafpen, drawpt);
+            
+            if(Config.SmoothAngles == true) g.DrawCurve(grafpen, points);
+            else if(Config.SmoothAngles == false) g.DrawLines(grafpen, points);
 
             if(Config.DrawPoints == true)
             {
                 int r = 4;
-                foreach(PointF pt in drawpt)
+                foreach(PointF pt in points)
                 {
                     g.FillEllipse(new SolidBrush(currentCurve.CurveColor), pt.X - r / 2, pt.Y - r / 2, r, r);
                 }
@@ -738,9 +720,6 @@ namespace MyDrawing
             else
             {
                 GraphCurves.Add(curve);
-                SetDefaultOX();
-                SetDefaultOY();
-
             }
         }
     }
