@@ -8,11 +8,7 @@ using System.Drawing;
 
 namespace MyDrawing
 {
-    public enum AxesPosition
-    {
-        FirstQuarter,
-        AllQuarters
-    }
+   
     /// <summary>
     /// Содержит свойства для настройки графика.
     /// </summary>
@@ -181,7 +177,7 @@ namespace MyDrawing
     /// <summary>
     /// Предоставляет свойства и методы для рисования графика на элементе управления pictureBox.
     /// </summary>
-    public class PointsGraphic : Diagram
+    public partial class PointsGraphic : Diagram
     {
         private Point CountBegin;
 

@@ -45,8 +45,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BarChart.cs" />
-    <Compile Include="PointsGraphic.cs" />
+    <Compile Include="PointsGraphicDynamic.cs" />
     <Compile Include="Diagram.cs" />
+    <Compile Include="PointsGraphicStatic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

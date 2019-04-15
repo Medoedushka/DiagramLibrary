@@ -206,9 +206,54 @@
             Легенда кривой.
             </summary>
         </member>
+        <member name="T:MyDrawing.AxesMode">
+            <summary>
+            Определяет возможность осей изменяеться в размерах при изменении шага деления.
+            </summary>
+        </member>
+        <member name="F:MyDrawing.AxesMode.Static">
+            <summary>
+            При изменении шага деления ось размеров не меняет. Изменяется только количество делений на оси.
+            </summary>
+        </member>
+        <member name="F:MyDrawing.AxesMode.Dynamic">
+            <summary>
+            При изменении шага деления количество делений на оси неизменно, а меняется только длина оси.
+            </summary>
+        </member>
+        <member name="T:MyDrawing.AxesPosition">
+            <summary>
+            Определяет кол-во отображаемых четвертей графика.
+            </summary>
+        </member>
+        <member name="F:MyDrawing.AxesPosition.FirstQuarter">
+            <summary>
+            При построении отображается первая четверть.
+            </summary>
+        </member>
+        <member name="F:MyDrawing.AxesPosition.AllQuarters">
+            <summary>
+            При построении отображаются все четверти.
+            </summary>
+        </member>
         <member name="T:MyDrawing.TextPosition">
             <summary>
             Определяет выравнивание текста.
+            </summary>
+        </member>
+        <member name="F:MyDrawing.TextPosition.Left">
+            <summary>
+            Выравнивание текста по левому краю.
+            </summary>
+        </member>
+        <member name="F:MyDrawing.TextPosition.Centre">
+            <summary>
+            Выравнивание текста по центру.
+            </summary>
+        </member>
+        <member name="F:MyDrawing.TextPosition.Right">
+            <summary>
+            Вырванивание текста по правому краю.
             </summary>
         </member>
         <member name="P:MyDrawing.Diagram.Center">

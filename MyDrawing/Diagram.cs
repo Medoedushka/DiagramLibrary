@@ -9,19 +9,57 @@ using System.Drawing;
 namespace MyDrawing
 {
     /// <summary>
+    /// Определяет возможность осей изменяеться в размерах при изменении шага деления.
+    /// </summary>
+    public enum AxesMode
+    {
+        /// <summary>
+        /// При изменении шага деления ось размеров не меняет. Изменяется только количество делений на оси.
+        /// </summary>
+        Static,
+        /// <summary>
+        /// При изменении шага деления количество делений на оси неизменно, а меняется только длина оси.
+        /// </summary>
+        Dynamic
+    }
+
+    /// <summary>
+    /// Определяет кол-во отображаемых четвертей графика.
+    /// </summary>
+    public enum AxesPosition
+    {
+        /// <summary>
+        /// При построении отображается первая четверть.
+        /// </summary>
+        FirstQuarter,
+        /// <summary>
+        /// При построении отображаются все четверти.
+        /// </summary>
+        AllQuarters
+    }
+
+    /// <summary>
     /// Определяет выравнивание текста.
     /// </summary>
     public enum TextPosition
     {
+        /// <summary>
+        /// Выравнивание текста по левому краю.
+        /// </summary>
         Left,
+        /// <summary>
+        /// Выравнивание текста по центру.
+        /// </summary>
         Centre,
+        /// <summary>
+        /// Вырванивание текста по правому краю.
+        /// </summary>
         Right
     }
 
     public abstract class Diagram
     {
         public Graphics g;
-
         protected PictureBox placeToDraw; //область для рисования диаграмм
 
         public string Title { get; set; } //описание диаграммы
