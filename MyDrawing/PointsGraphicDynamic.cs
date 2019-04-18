@@ -184,6 +184,7 @@ namespace MyDrawing
     public partial class PointsGraphic : Diagram
     {
         private Point CountBegin;
+         
 
         /// <summary>
         /// Содержит свойства для настройки графика.
@@ -198,32 +199,28 @@ namespace MyDrawing
         /// </summary>
         /// <param name="picture">область для рисования графика</param>
         /// <param name="axesPos">количесвто отображаемых четвертей</param>
-        public PointsGraphic(PictureBox picture, AxesPosition axesPos = AxesPosition.AllQuarters)
+        public PointsGraphic(PictureBox picture, AxesMode axesMode, AxesPosition axesPos = AxesPosition.AllQuarters)
         {
             placeToDraw = picture;
             GraphCurves = new List<Curves>();
-            Config.GraphColor = Color.FromArgb(120, 120, 120);
-            Config.GridColor = Color.FromArgb(120, 120, 120);
+            Config.GraphColor = Color.Black;
+            Config.GridColor = Color.FromArgb(213, 209, 200);
             Config.GraphPen = new Pen(Config.GraphColor);
-            Config.drawFont = new Font("Arial", 8);
+            Config.drawFont = new Font("Arial", 6);
             Config.drawBrush = new SolidBrush(Config.GraphColor);
             Config.DrawPoints = false;
             Config.CurrentAxesPos = axesPos;
-
+            Config.AxesMode = axesMode;
             //координаты угловых точек рамки
-            //левая нижняя точка
-            pt1 = new Point(Space_From_Left, placeToDraw.Height - Space_From_Bottom);
-            //левая верхняя точка
-            pt2 = new Point(Space_From_Left, Space_From_Top);
-            //правая нижняя точка
-            pt4 = new Point(placeToDraw.Width - Space_From_Right, placeToDraw.Height - Space_From_Bottom);
-            //правая верхняя точка
-            pt3 = new Point(placeToDraw.Width - Space_From_Right, Space_From_Top);
-            CountBegin = pt1;
-
-            int X = pt2.X + (pt3.X - pt2.X) / 2;
-            int Y = pt1.Y - (pt1.Y - pt2.Y) / 2;
-            Center = new Point(X, Y);
+            SetPlaceToDrawSize(placeToDraw.Width, placeToDraw.Height);
+            
+            if (Config.AxesMode == AxesMode.Static)
+            {
+                Config.StepOX = 25;
+                Config.StepOY = 30;
+                Config.PriceForPointOX = Config.PriceForPointOY = 1;
+            }
+            
 
         }
         /// <summary>
@@ -240,9 +237,9 @@ namespace MyDrawing
                 {
                     for (int j = 0; j < GraphCurves[i].PointsToDraw.Length; j++)
                     {
-                        if (MaxFromEachMass[i] < GraphCurves[i].PointsToDraw[j].X)
+                        if (MaxFromEachMass[i] < Math.Abs(GraphCurves[i].PointsToDraw[j].X))
                         {
-                            MaxFromEachMass[i] = GraphCurves[i].PointsToDraw[j].X;
+                            MaxFromEachMass[i] = Math.Abs(GraphCurves[i].PointsToDraw[j].X);
                         }
                     }
                 }
@@ -257,7 +254,7 @@ namespace MyDrawing
                 {
                     Config.StepOX++;
                 }
-                Config.PriceForPointOX = Math.Round(maxValue * 0.25, 1);
+                Config.PriceForPointOX = Math.Round(maxValue * 0.35, 1);
 
             }
             else MessageBox.Show("Недостаточно данных для оптимального построения области диагрммы", "Внимание",
@@ -295,10 +292,49 @@ namespace MyDrawing
                 {
                     Config.StepOY++;
                 }
-                Config.PriceForPointOY = Math.Round(maxValue * 0.25, 1);
+                Config.PriceForPointOY = Math.Round(maxValue * 0.35, 1);
             }
             else MessageBox.Show("Недостаточно данных для оптимального построения области диагрммы", "Внимание",
                  MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        public void SetPlaceToDrawSize(int width, int height)
+        {
+            if (Config.AxesMode == AxesMode.Dynamic)
+            {
+                //левая нижняя точка
+                pt1 = new Point(Space_From_Left, height - Space_From_Bottom);
+                //левая верхняя точка
+                pt2 = new Point(Space_From_Left, Space_From_Top);
+                //правая нижняя точка
+                pt4 = new Point(width - Space_From_Right, height - Space_From_Bottom);
+                //правая верхняя точка
+                pt3 = new Point(width - Space_From_Right, Space_From_Top);
+                CountBegin = pt1;
+            }
+            else if (Config.AxesMode == AxesMode.Static)
+            {
+                //левая нижняя точка
+                pt1 = new Point(0, height);
+                //левая верхняя точка
+                pt2 = new Point(0, 0);
+                //правая нижняя точка
+                pt4 = new Point(width, height);
+                //правая верхняя точка
+                pt3 = new Point(width, 0);
+            }
+            
+            if (Config.CurrentAxesPos == AxesPosition.AllQuarters)
+            {
+                int X = pt2.X + (pt3.X - pt2.X) / 2;
+                int Y = pt1.Y - (pt1.Y - pt2.Y) / 2;
+                Center = new Point(X, Y);
+            }
+            else if (Config.CurrentAxesPos == AxesPosition.FirstQuarter)
+            {
+                Center = new Point(Space_From_Left, height - Space_From_Bottom);
+            }
+            
         }
 
         private void DrawDynamicAxes(double HalfAxisOX, double HalfAxisOY)
@@ -339,9 +375,35 @@ namespace MyDrawing
 
             for (int i = 0; i < Oxpoints1.Length; i++)
             {
-                if (Config.CurrentAxesPos == AxesPosition.FirstQuarter)
+                if (Config.Grid == true)
                 {
 
+                    PointF StartLine, EndLine;
+                    if (Config.CurrentAxesPos == AxesPosition.FirstQuarter)
+                    {
+                        StartLine = new PointF(Center.X + (i + 1) * Config.StepOX, Center.Y);
+                        EndLine = new PointF(Center.X + (i + 1) * Config.StepOX, LastPointOY.Y);
+                        g.DrawLine(new Pen(Config.GridColor), StartLine, EndLine);
+                    }
+                    else if (Config.CurrentAxesPos == AxesPosition.AllQuarters)
+                    {
+                        if (i <= HalfAxisOX - 1)
+                        {
+                            StartLine = new PointF(CountBegin.X + i * Config.StepOX, CountBegin.Y);
+                            EndLine = new PointF(CountBegin.X + i * Config.StepOX, LastPointOY.Y);
+                            g.DrawLine(new Pen(Config.GridColor), StartLine, EndLine);
+                        }
+                        else if (i > HalfAxisOX - 1)
+                        {
+                            StartLine = new PointF(CountBegin.X + (i + 1) * Config.StepOX, CountBegin.Y);
+                            EndLine = new PointF(CountBegin.X + (i + 1) * Config.StepOX, LastPointOY.Y);
+                            g.DrawLine(new Pen(Config.GridColor), StartLine, EndLine);
+                        }
+                    }
+                }
+
+                if (Config.CurrentAxesPos == AxesPosition.FirstQuarter)
+                {
                     string num = Convert.ToString(i * Config.PriceForPointOX + Config.PriceForPointOX);
                     if (i == 0)
                     {
@@ -392,31 +454,7 @@ namespace MyDrawing
 
                 g.DrawLine(Config.GraphPen, Oxpoints1[i], Oxpoints2[i]);
 
-                if (Config.Grid == true)
-                {
-                    PointF StartLine, EndLine;
-                    if (Config.CurrentAxesPos == AxesPosition.FirstQuarter)
-                    {
-                        StartLine = new PointF(Center.X + (i + 1) * Config.StepOX, Center.Y);
-                        EndLine = new PointF(Center.X + (i + 1) * Config.StepOX, LastPointOY.Y);
-                        g.DrawLine(new Pen(Config.GridColor), StartLine, EndLine);
-                    }
-                    else if (Config.CurrentAxesPos == AxesPosition.AllQuarters)
-                    {
-                        if (i <= HalfAxisOX - 1)
-                        {
-                            StartLine = new PointF(CountBegin.X + i * Config.StepOX, CountBegin.Y);
-                            EndLine = new PointF(CountBegin.X + i * Config.StepOX, LastPointOY.Y);
-                            g.DrawLine(new Pen(Config.GridColor), StartLine, EndLine);
-                        }
-                        else if (i > HalfAxisOX - 1)
-                        {
-                            StartLine = new PointF(CountBegin.X + (i + 1) * Config.StepOX, CountBegin.Y);
-                            EndLine = new PointF(CountBegin.X + (i + 1) * Config.StepOX, LastPointOY.Y);
-                            g.DrawLine(new Pen(Config.GridColor), StartLine, EndLine);
-                        }
-                    }
-                }
+                
 
             }
             #endregion
@@ -438,6 +476,32 @@ namespace MyDrawing
 
             for (int i = 0; i < Oypoints1.Length; i++)
             {
+                if (Config.Grid == true)
+                {
+                    PointF StartLine, EndLine;
+                    if (Config.CurrentAxesPos == AxesPosition.FirstQuarter)
+                    {
+                        StartLine = new PointF(Center.X, Center.Y - (i + 1) * Config.StepOY);
+                        EndLine = new PointF(LastPointOX.X, Center.Y - (i + 1) * Config.StepOY);
+                        g.DrawLine(new Pen(Config.GridColor), StartLine, EndLine);
+                    }
+                    else if (Config.CurrentAxesPos == AxesPosition.AllQuarters)
+                    {
+                        if (i <= HalfAxisOY - 1)
+                        {
+                            StartLine = new PointF(CountBegin.X, CountBegin.Y - i * Config.StepOY);
+                            EndLine = new PointF(LastPointOX.X, CountBegin.Y - i * Config.StepOY);
+                            g.DrawLine(new Pen(Config.GridColor), StartLine, EndLine);
+                        }
+                        else if (i > HalfAxisOY - 1)
+                        {
+                            StartLine = new PointF(CountBegin.X, CountBegin.Y - (i + 1) * Config.StepOY);
+                            EndLine = new PointF(LastPointOX.X, CountBegin.Y - (i + 1) * Config.StepOY);
+                            g.DrawLine(new Pen(Config.GridColor), StartLine, EndLine);
+                        }
+                    }
+                }
+
                 if (Config.CurrentAxesPos == AxesPosition.FirstQuarter)
                 {
                     string num = Convert.ToString(i * Config.PriceForPointOY + Config.PriceForPointOY);
@@ -487,31 +551,7 @@ namespace MyDrawing
 
                 g.DrawLine(Config.GraphPen, Oypoints1[i], Oypoints2[i]);
 
-                if (Config.Grid == true)
-                {
-                    PointF StartLine, EndLine;
-                    if (Config.CurrentAxesPos == AxesPosition.FirstQuarter)
-                    {
-                        StartLine = new PointF(Center.X, Center.Y - (i + 1) * Config.StepOY);
-                        EndLine = new PointF(LastPointOX.X, Center.Y - (i + 1) * Config.StepOY);
-                        g.DrawLine(new Pen(Config.GridColor), StartLine, EndLine);
-                    }
-                    else if (Config.CurrentAxesPos == AxesPosition.AllQuarters)
-                    {
-                        if (i <= HalfAxisOY - 1)
-                        {
-                            StartLine = new PointF(CountBegin.X, CountBegin.Y - i * Config.StepOY);
-                            EndLine = new PointF(LastPointOX.X, CountBegin.Y - i * Config.StepOY);
-                            g.DrawLine(new Pen(Config.GridColor), StartLine, EndLine);
-                        }
-                        else if (i > HalfAxisOY - 1)
-                        {
-                            StartLine = new PointF(CountBegin.X, CountBegin.Y - (i + 1) * Config.StepOY);
-                            EndLine = new PointF(LastPointOX.X, CountBegin.Y - (i + 1) * Config.StepOY);
-                            g.DrawLine(new Pen(Config.GridColor), StartLine, EndLine);
-                        }
-                    }
-                }
+                
             }
             #endregion 
         }
@@ -716,7 +756,14 @@ namespace MyDrawing
 
                 foreach (Curves crrCurve in GraphCurves)
                 {
-                    DrawCurrentCurve(crrCurve);
+                    if (Config.AxesMode == AxesMode.Dynamic)
+                    {
+                        DrawCurrentCurve(crrCurve);
+                    }
+                    else if (Config.AxesMode == AxesMode.Static)
+                    {
+                        StaticDrawCurrentCurve(crrCurve);
+                    }
                 }
 
             }
@@ -745,8 +792,12 @@ namespace MyDrawing
             else
             {
                 GraphCurves.Add(curve);
-                SetDefaultOX();
-                SetDefaultOY();
+                if (Config.AxesMode == AxesMode.Dynamic)
+                {
+                    SetDefaultOX();
+                    SetDefaultOY();
+                }
+               
 
             }
         }

@@ -60,12 +60,9 @@ namespace MyDrawing
     public abstract class Diagram
     {
         public Graphics g;
-<<<<<<< HEAD
-        protected PictureBox placeToDraw; //область для рисования диаграмм
-=======
 
         public PictureBox placeToDraw; //область для рисования диаграмм
->>>>>>> NewSepMethod
+        
 
         public string Title { get; set; } //описание диаграммы
         public int TitleSize { get; set; } //размер описания диаграммы

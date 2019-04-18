@@ -148,7 +148,7 @@
             Предоставляет свойства и методы для рисования графика на элементе управления pictureBox.
             </summary>
         </member>
-        <member name="P:MyDrawing.PointsGraphic.Config">
+        <member name="F:MyDrawing.PointsGraphic.Config">
             <summary>
             Содержит свойства для настройки графика.
             </summary>
@@ -158,7 +158,7 @@
             Список созданных кривых для построения.
             </summary>
         </member>
-        <member name="M:MyDrawing.PointsGraphic.#ctor(System.Windows.Forms.PictureBox,MyDrawing.AxesPosition)">
+        <member name="M:MyDrawing.PointsGraphic.#ctor(System.Windows.Forms.PictureBox,MyDrawing.AxesMode,MyDrawing.AxesPosition)">
             <summary>
             
             </summary>
