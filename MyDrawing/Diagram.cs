@@ -59,9 +59,14 @@ namespace MyDrawing
 
     public abstract class Diagram
     {
-        public Graphics g;
-
-        public PictureBox placeToDraw; //область для рисования диаграмм
+        /// <summary>
+        /// Объект класса Graphics, представляющий методы и свойства для рисования графики.
+        /// </summary>
+        public Graphics g { get; set; }
+        /// <summary>
+        /// Холст на котором производится рисование pictureBox, Panel и т.д.
+        /// </summary>
+        public PictureBox placeToDraw { get; set; } //область для рисования диаграмм
         
 
         public string Title { get; set; } //описание диаграммы
@@ -72,9 +77,9 @@ namespace MyDrawing
         /// <summary>
         /// Точка начала отсчёта.
         /// </summary>
-        public Point Center { get; set; } // точка пересечения осей(график, гистограмма), центр окружности(круговая диаграмма)
-        
-
+        public Point RealCenter { get; set; } // точка пересечения осей(график, гистограмма), центр окружности(круговая диаграмма)
+        public Point ImiganaryCenter { get; set; }
+        public Point Center { get; set; }
         //точки рамки построение графика
         protected Point pt1; //левая нижняя точка
         protected Point pt2; //левая верхняя точка
@@ -90,7 +95,7 @@ namespace MyDrawing
         protected int Space_From_Bottom = 25;
         protected int Space_From_Left = 25;
 
-        public abstract void DrawDiagram(); //рисует диаграмму внутри рамке построения
+        public abstract void DrawDiagram(); //рисует диаграмму внутри рамки построения
 
 
     }

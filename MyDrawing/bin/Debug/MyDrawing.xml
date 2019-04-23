@@ -148,7 +148,7 @@
             Предоставляет свойства и методы для рисования графика на элементе управления pictureBox.
             </summary>
         </member>
-        <member name="F:MyDrawing.PointsGraphic.Config">
+        <member name="P:MyDrawing.PointsGraphic.Config">
             <summary>
             Содержит свойства для настройки графика.
             </summary>
@@ -165,20 +165,18 @@
             <param name="picture">область для рисования графика</param>
             <param name="axesPos">количесвто отображаемых четвертей</param>
         </member>
-        <member name="M:MyDrawing.PointsGraphic.SetDefaultOX">
+        <member name="M:MyDrawing.PointsGraphic.SetPlaceToDrawSize(System.Int32,System.Int32)">
             <summary>
-            Устанавливает параметры Ox по умолчанию.
+            Рассчёт координат центра в зависимости от размеров пикчербокса.
             </summary>
-        </member>
-        <member name="M:MyDrawing.PointsGraphic.SetDefaultOY">
-            <summary>
-            Устанавливает параметры Oy по умолчанию.
-            </summary>
+            <param name="width"></param>
+            <param name="height"></param>
         </member>
         <member name="M:MyDrawing.PointsGraphic.DrawDiagram">
             <summary>
             Рисует: график, с добавленными кривыми, названия осей и диаграммы, легенду. 
             </summary>
+            
         </member>
         <member name="M:MyDrawing.PointsGraphic.AddCurve(MyDrawing.Curves)">
             <summary>
@@ -261,7 +259,17 @@
             Вырванивание текста по правому краю.
             </summary>
         </member>
-        <member name="P:MyDrawing.Diagram.Center">
+        <member name="P:MyDrawing.Diagram.g">
+            <summary>
+            Объект класса Graphics, представляющий методы и свойства для рисования графики.
+            </summary>
+        </member>
+        <member name="P:MyDrawing.Diagram.placeToDraw">
+            <summary>
+            Холст на котором производится рисование pictureBox, Panel и т.д.
+            </summary>
+        </member>
+        <member name="P:MyDrawing.Diagram.RealCenter">
             <summary>
             Точка начала отсчёта.
             </summary>
