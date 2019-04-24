@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing;
 
@@ -192,7 +189,7 @@ namespace MyDrawing
         /// Список созданных кривых для построения.
         /// </summary>
         public List<Curves> GraphCurves { get; set; }
-        public List<double> Listpoints = new List<double>();
+        public Dictionary<double, double> ValuePairs = new Dictionary<double, double>();
 
 
         /// <summary>
@@ -442,6 +439,7 @@ namespace MyDrawing
 
             g.DrawLine(Config.GraphPen, RealCenter.X, RealCenter.Y, pt3.X, RealCenter.Y); //ось абсцисс
             g.DrawLine(Config.GraphPen, RealCenter.X, pt1.Y, RealCenter.X, pt2.Y); //ось ординат
+            g.DrawLine(new Pen(Color.FromArgb(120, 120, 120, 120)), ImiganaryCenter.X, pt1.Y, ImiganaryCenter.X, 0);
             g.DrawString("0", Config.drawFont, Config.drawBrush, RealCenter.X - 6, RealCenter.Y);
         }
 
@@ -483,16 +481,16 @@ namespace MyDrawing
             Pen grafpen = new Pen(Color.Red, 1);
             grafpen.MiterLimit = 0.1f;
             grafpen.LineJoin = System.Drawing.Drawing2D.LineJoin.Round;
-            PointF[] points = new PointF[Listpoints.Count];
-            for (int i = 0; i < points.Length; i++)
+            PointF[] points = new PointF[ValuePairs.Count];
+            int i = 0;
+            foreach(KeyValuePair<double, double> point in ValuePairs)
             {
-                
-                    points[i].X = (float)(ImiganaryCenter.X + i * Config.StepOX / Config.PriceForPointOX);
-                    points[i].Y = (float)(ImiganaryCenter.Y - Listpoints[i] * Config.StepOY / Config.PriceForPointOY);
-                  
-                
+                points[i].X = (float)(ImiganaryCenter.X + point.Key * Config.StepOX / Config.PriceForPointOX);
+                points[i].Y = (float)(ImiganaryCenter.Y - point.Value * Config.StepOY / Config.PriceForPointOY);
+                if (points[i].Y <= pt2.Y || points[i].Y >= pt1.Y) Config.StepOY--;
+                i++;
             }
-
+            
             if (Config.SmoothAngles == true)
             {
                 
