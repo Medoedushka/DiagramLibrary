@@ -10,10 +10,10 @@ namespace MyDrawing
 {
     public partial class PointsGraphic
     {
-        public int NegSepOX { get; set; }
-        public int NegSepOY { get; set; }
-        public int PosSepOX { get; set; }
-        public int PosSepOY { get; set; }
+        int NegSepOX { get; set; }
+        int NegSepOY { get; set; }
+        int PosSepOX { get; set; }
+        int PosSepOY { get; set; }
 
         private void DrawStaticAxes()
         {

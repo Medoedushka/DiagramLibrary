@@ -103,6 +103,16 @@
             Сглаживание углов кривой.
             </summary>
         </member>
+        <member name="P:MyDrawing.PointsGraphConfig.DrawPoints">
+            <summary>
+            Явная отрисовка точек кривой.
+            </summary>
+        </member>
+        <member name="P:MyDrawing.PointsGraphConfig.RT_AutoMax">
+            <summary>
+            Автоматически подстраивает ось ординат под максимальное значения в массиве точек
+            </summary>
+        </member>
         <member name="P:MyDrawing.PointsGraphConfig.StepOX">
             <summary>
             Устанавливает расстояние между делениями на оси Ох.

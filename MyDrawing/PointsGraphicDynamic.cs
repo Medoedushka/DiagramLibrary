@@ -62,8 +62,14 @@ namespace MyDrawing
         /// Сглаживание углов кривой.
         /// </summary>
         public bool SmoothAngles { get; set; }
+        /// <summary>
+        /// Явная отрисовка точек кривой.
+        /// </summary>
         public bool DrawPoints { get; set; }
-
+        /// <summary>
+        /// Автоматически подстраивает ось ординат под максимальное значения в массиве точек
+        /// </summary>
+        public bool RT_AutoMax { get; set; }
 
         #region Свойства полей 
         //свойства для расстояния между делениями осей
@@ -190,7 +196,7 @@ namespace MyDrawing
         /// </summary>
         public List<Curves> GraphCurves { get; set; }
         public Dictionary<double, double> ValuePairs = new Dictionary<double, double>();
-
+        
 
         /// <summary>
         /// 
@@ -208,6 +214,7 @@ namespace MyDrawing
             Config.drawFont = new Font("Arial", 6);
             Config.drawBrush = new SolidBrush(Config.GraphColor);
             Config.DrawPoints = false;
+            Config.RT_AutoMax = true;
             g = placeToDraw.CreateGraphics();
             
             Config.CurrentAxesPos = axesPos;
@@ -442,9 +449,37 @@ namespace MyDrawing
             g.DrawLine(new Pen(Color.FromArgb(120, 120, 120, 120)), ImiganaryCenter.X, pt1.Y, ImiganaryCenter.X, 0);
             g.DrawString("0", Config.drawFont, Config.drawBrush, RealCenter.X - 6, RealCenter.Y);
         }
+        private void DrawRTCurve()
+        {
+
+            Pen grafpen = new Pen(Color.Red, 1);
+            grafpen.MiterLimit = 0.1f;
+            grafpen.LineJoin = System.Drawing.Drawing2D.LineJoin.Round;
+            PointF[] points = new PointF[ValuePairs.Count];
+            int i = 0;
+            foreach (KeyValuePair<double, double> point in ValuePairs)
+            {
+                points[i].X = (float)(ImiganaryCenter.X + point.Key * Config.StepOX / Config.PriceForPointOX);
+                points[i].Y = (float)(ImiganaryCenter.Y - point.Value * Config.StepOY / Config.PriceForPointOY);
+                if ((points[i].Y <= pt2.Y || points[i].Y >= pt1.Y) && Config.RT_AutoMax == true) Config.StepOY--;
+                i++;
+            }
+
+            if (Config.SmoothAngles == true)
+            {
+
+                if (points.Length > 1) g.DrawCurve(grafpen, points);
+
+            }
+            else if (Config.SmoothAngles == false)
+            {
+
+                if (points.Length > 1) g.DrawLines(grafpen, points);
+            }
+        }
 
 
-        public void DrawAxes()
+        private void DrawAxes()
         {
           
             if (Config.AxesMode == AxesMode.Dynamic)
@@ -459,96 +494,52 @@ namespace MyDrawing
             }
 
         }
-
-        public void DrawRTGraph()
-        {
-            
-            Bitmap bm = new Bitmap(placeToDraw.Width, placeToDraw.Height);
-            using (g = Graphics.FromImage(bm))
-            {
-                g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
-                g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit;
-                DrawAxes();
-                DrawRTCurve();
-            }
-            placeToDraw.Image = bm;
-            
-        }
-
-        private void DrawRTCurve()
-        {
-           
-            Pen grafpen = new Pen(Color.Red, 1);
-            grafpen.MiterLimit = 0.1f;
-            grafpen.LineJoin = System.Drawing.Drawing2D.LineJoin.Round;
-            PointF[] points = new PointF[ValuePairs.Count];
-            int i = 0;
-            foreach(KeyValuePair<double, double> point in ValuePairs)
-            {
-                points[i].X = (float)(ImiganaryCenter.X + point.Key * Config.StepOX / Config.PriceForPointOX);
-                points[i].Y = (float)(ImiganaryCenter.Y - point.Value * Config.StepOY / Config.PriceForPointOY);
-                if (points[i].Y <= pt2.Y || points[i].Y >= pt1.Y) Config.StepOY--;
-                i++;
-            }
-            
-            if (Config.SmoothAngles == true)
-            {
-                
-                if(points.Length > 1) g.DrawCurve(grafpen, points);
-
-            } 
-            else if (Config.SmoothAngles == false)
-            {
-                
-                if (points.Length > 1) g.DrawLines(grafpen, points);
-            }
-        }
-
-
+        
         /// <summary>
         /// Рисует: график, с добавленными кривыми, названия осей и диаграммы, легенду. 
         /// </summary>
         /// 
         public override void DrawDiagram()
         {
-            if (GraphCurves.Count != 0)
-            {
-                DrawAxes();
+             
 
-                if (Config.OXName != "" || Config.OYName != "")
+                //if (Config.OXName != "" || Config.OYName != "")
+                //{
+                //    if (Config.SizeOX == 0) Config.SizeOX = 9;
+                //    if (Config.SizeOY == 0) Config.SizeOY = 9;
+                //    DrawAxesNames();
+                //}
+
+                //if (Title != "")
+                //{
+                //    if (TitleSize == 0) TitleSize = 10;
+                //    DrawTitle();
+                //}
+
+
+                //if (AddDiagramLegend == true)
+                //{
+                //    DrawDiagramLegend();
+                //}
+
+                Bitmap bm = new Bitmap(placeToDraw.Width, placeToDraw.Height);
+                using (g = Graphics.FromImage(bm))
                 {
-                    if (Config.SizeOX == 0) Config.SizeOX = 9;
-                    if (Config.SizeOY == 0) Config.SizeOY = 9;
-                    DrawAxesNames();
-                }
+                    g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+                    g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit;
+                    DrawAxes();
 
-                if (Title != "")
-                {
-                    if (TitleSize == 0) TitleSize = 10;
-                    DrawTitle();
-                }
-
-
-                if (AddDiagramLegend == true)
-                {
-                    DrawDiagramLegend();
-                }
-
-                foreach (Curves crrCurve in GraphCurves)
-                {
-                    if (Config.AxesMode == AxesMode.Dynamic)
-                    {
-                        //DrawCurrentCurve(crrCurve);
-                    }
+                    if (Config.AxesMode == AxesMode.Dynamic) DrawRTCurve();
                     else if (Config.AxesMode == AxesMode.Static)
                     {
-                        StaticDrawCurrentCurve(crrCurve);
+                        foreach (Curves curve in GraphCurves)
+                        {
+                            StaticDrawCurrentCurve(curve);
+                        }
                     }
-                }
 
-            }
-            else MessageBox.Show("Отсутствуют кривые для рисования.", "Внимание",
-                MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                placeToDraw.Image = bm;
         }
 
         /// <summary>
