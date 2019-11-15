@@ -81,10 +81,10 @@ namespace MyDrawing
         public Point ImiganaryCenter { get; set; }
         public Point Center { get; set; }
         //точки рамки построение графика
-        protected Point pt1; //левая нижняя точка
-        protected Point pt2; //левая верхняя точка
-        protected Point pt3; //правая нижняя точка
-        protected Point pt4; //правая верхняя точка
+        public Point pt1; //левая нижняя точка
+        public Point pt2; //левая верхняя точка
+        public Point pt3; //правая нижняя точка
+        public Point pt4; //правая верхняя точка
 
         protected PointF LastPointOX; //последняя точка на оси OX, определяющая рамку
         protected PointF LastPointOY; //последняя точка на оси OY, определяющая рамку 

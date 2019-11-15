@@ -25,8 +25,9 @@ namespace MyDrawing
         public Color GraphColor; //
         public Pen GraphPen;     //цвет для графика
                                  //
+        
         public Color GridColor { get; set; }
-        public Font drawFont;//параметры текста
+        public Font DrawFont { get; set; } // парметры шрифта текста на области построения
         public SolidBrush drawBrush;//цвет заливки
 
         /// <summary>
@@ -172,6 +173,7 @@ namespace MyDrawing
             get { return priceForPointOY; }
             set
             {
+
                 if (value > 0) priceForPointOY = value;
                 else priceForPointOY = Math.Abs(value);
             }
@@ -211,7 +213,7 @@ namespace MyDrawing
             Config.GraphColor = Color.Black;
             Config.GridColor = Color.FromArgb(213, 209, 200);
             Config.GraphPen = new Pen(Config.GraphColor);
-            Config.drawFont = new Font("Arial", 6);
+            Config.DrawFont = new Font("Arial", 6);
             Config.drawBrush = new SolidBrush(Config.GraphColor);
             Config.DrawPoints = false;
             Config.RT_AutoMax = true;
@@ -224,7 +226,8 @@ namespace MyDrawing
             SetPlaceToDrawSize(placeToDraw.Width, placeToDraw.Height);
             Config.StepOX = 25;
             Config.StepOY = 30;
-            Config.PriceForPointOX = Config.PriceForPointOY = 1;
+            Config.PriceForPointOX = 1;
+            Config.PriceForPointOY = 1;
         }
         #region Значения по умолчанию
         ///// <summary>
@@ -387,7 +390,7 @@ namespace MyDrawing
                 Oxpoints2[i].X = ImiganaryCenter.X + (i + 1) * Config.StepOX;
                 Oxpoints2[i].Y = ImiganaryCenter.Y + PointsGraphConfig.HEIGHT;
 
-                g.DrawString(num, Config.drawFont, Config.drawBrush, Oxpoints2[i].X - 3, Oxpoints2[i].Y);
+                g.DrawString(num, Config.DrawFont, Config.drawBrush, Oxpoints2[i].X - 3, Oxpoints2[i].Y);
                 g.DrawLine(new Pen(Config.GraphColor), Oxpoints1[i], Oxpoints2[i]);
             }
 
@@ -412,7 +415,7 @@ namespace MyDrawing
 
                 Oypoints2[i].X = RealCenter.X + PointsGraphConfig.HEIGHT;
                 Oypoints2[i].Y = RealCenter.Y + (i + 1) * Config.StepOY;
-                g.DrawString(num, Config.drawFont, Config.drawBrush, Oypoints1[i].X - 10, Oypoints1[i].Y);
+                g.DrawString(num, Config.DrawFont, Config.drawBrush, Oypoints1[i].X - 10, Oypoints1[i].Y);
                 g.DrawLine(Config.GraphPen, Oypoints1[i], Oypoints2[i]);
             }
 
@@ -437,7 +440,7 @@ namespace MyDrawing
                 Oypoints2[i].X = RealCenter.X + PointsGraphConfig.HEIGHT;
                 Oypoints2[i].Y = RealCenter.Y - (i + 1) * Config.StepOY;
 
-                g.DrawString(num, Config.drawFont, Config.drawBrush, Oypoints1[i].X - 10, Oypoints1[i].Y);
+                g.DrawString(num, Config.DrawFont, Config.drawBrush, Oypoints1[i].X - 10, Oypoints1[i].Y);
                 g.DrawLine(Config.GraphPen, Oypoints1[i], Oypoints2[i]);
             }
 
@@ -447,7 +450,7 @@ namespace MyDrawing
             g.DrawLine(Config.GraphPen, RealCenter.X, RealCenter.Y, pt3.X, RealCenter.Y); //ось абсцисс
             g.DrawLine(Config.GraphPen, RealCenter.X, pt1.Y, RealCenter.X, pt2.Y); //ось ординат
             g.DrawLine(new Pen(Color.FromArgb(120, 120, 120, 120)), ImiganaryCenter.X, pt1.Y, ImiganaryCenter.X, 0);
-            g.DrawString("0", Config.drawFont, Config.drawBrush, RealCenter.X - 6, RealCenter.Y);
+            g.DrawString("0", Config.DrawFont, Config.drawBrush, RealCenter.X - 6, RealCenter.Y);
         }
         private void DrawRTCurve()
         {
@@ -476,12 +479,22 @@ namespace MyDrawing
 
                 if (points.Length > 1) g.DrawLines(grafpen, points);
             }
+
+            if (Config.DrawPoints == true)
+            {
+                int r = 4;
+                foreach (PointF pt in points)
+                {
+                    g.FillEllipse(new SolidBrush(Color.Red), pt.X - r / 2, pt.Y - r / 2, r, r);
+                }
+            }
         }
 
 
         private void DrawAxes()
         {
-          
+            
+
             if (Config.AxesMode == AxesMode.Dynamic)
             {
                
@@ -490,6 +503,7 @@ namespace MyDrawing
             }
             else if (Config.AxesMode == AxesMode.Static)
             {
+                
                 DrawStaticAxes();
             }
 
@@ -501,32 +515,20 @@ namespace MyDrawing
         /// 
         public override void DrawDiagram()
         {
-             
-
-                //if (Config.OXName != "" || Config.OYName != "")
-                //{
-                //    if (Config.SizeOX == 0) Config.SizeOX = 9;
-                //    if (Config.SizeOY == 0) Config.SizeOY = 9;
-                //    DrawAxesNames();
-                //}
-
-                //if (Title != "")
-                //{
-                //    if (TitleSize == 0) TitleSize = 10;
-                //    DrawTitle();
-                //}
-
-
-                //if (AddDiagramLegend == true)
-                //{
-                //    DrawDiagramLegend();
-                //}
-
-                Bitmap bm = new Bitmap(placeToDraw.Width, placeToDraw.Height);
+           
+            Bitmap bm = new Bitmap(placeToDraw.Width, placeToDraw.Height);
                 using (g = Graphics.FromImage(bm))
                 {
                     g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
                     g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit;
+
+                //if (Title != "") pt2 = new Point(pt2.X, 30);
+                //else pt2 = new Point(pt2.X, 0);
+                if (Config.CurrentAxesPos == AxesPosition.FirstQuarter)
+                {
+                    if (Config.OXName != "" || Config.OYName != "") RealCenter = new Point(45, pt1.Y - 45);
+                    else RealCenter = new Point(Space_From_Left, placeToDraw.Height - Space_From_Bottom);
+                }
                     DrawAxes();
 
                     if (Config.AxesMode == AxesMode.Dynamic) DrawRTCurve();
@@ -536,10 +538,25 @@ namespace MyDrawing
                         {
                             StaticDrawCurrentCurve(curve);
                         }
+                        if (Title != "")
+                        {
+                            if (TitleSize == 0)
+                                TitleSize = 10;
+                            DrawTitle();
+
+                        }
+                        if (Config.OXName != "" || Config.OYName != "")
+                        {
+                            if (Config.SizeOX == 0) Config.SizeOX = 10;
+                            if (Config.SizeOY == 0) Config.SizeOY = 10;
+                        
+                            DrawAxesNames();
+                        }
+                    
                     }
 
                 }
-                placeToDraw.Image = bm;
+                    placeToDraw.Image = bm;
         }
 
         /// <summary>
@@ -551,7 +568,7 @@ namespace MyDrawing
             bool Exist = false; // есть ли уже кривая с таким же массивом точек
             foreach (Curves cr in GraphCurves)
             {
-                if (cr.PointsToDraw == curve.PointsToDraw || cr.Legend == curve.Legend)
+                if (cr.PointsToDraw == curve.PointsToDraw || (cr.Legend == curve.Legend && curve.Legend != "Пусто"))
                 {
                     Exist = true;
                     break;
@@ -593,6 +610,10 @@ namespace MyDrawing
         /// </summary>
         public Color CurveColor { get; set; }
         /// <summary>
+        /// Цвет точек кривой.
+        /// </summary>
+        public Color DotsColor { get; set; }
+        /// <summary>
         /// Легенда кривой.
         /// </summary>
         public string Legend { get; set; }
@@ -603,6 +624,7 @@ namespace MyDrawing
             this.CurveColor = CurveColor;
             this.CurveThickness = CurveThickness;
             this.Legend = Legend;
+            this.DotsColor = Color.Black;
         }
     }
 

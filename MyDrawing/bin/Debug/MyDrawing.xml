@@ -194,6 +194,15 @@
             </summary>
             <param name="curve"></param>
         </member>
+        <member name="M:MyDrawing.PointsGraphic.ConvertValues(System.Double,System.Double,MyDrawing.CoordType)">
+            <summary>
+            Преобразует входящие параметры в значения прямоугольной системы координат или в значение системы координат объекта Control.
+            </summary>
+            <param name="x">Значение абсциссы точки</param>
+            <param name="y">Значение ординаты точки</param>
+            <param name="type">Тип системы координат, в котором возвращаются значения</param>
+            <returns></returns>
+        </member>
         <member name="T:MyDrawing.Curves">
             <summary>
             Представляет структуру для инициализации кривой.
@@ -212,6 +221,11 @@
         <member name="P:MyDrawing.Curves.CurveColor">
             <summary>
             Устанавливает цвет кривой графика.
+            </summary>
+        </member>
+        <member name="P:MyDrawing.Curves.DotsColor">
+            <summary>
+            Цвет точек кривой.
             </summary>
         </member>
         <member name="P:MyDrawing.Curves.Legend">

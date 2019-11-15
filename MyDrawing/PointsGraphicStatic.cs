@@ -8,35 +8,41 @@ using System.Windows.Forms;
 
 namespace MyDrawing
 {
+
+    public enum CoordType
+    {
+        GetRectangleCoord, 
+        GetControlCoord
+    }
     public partial class PointsGraphic
     {
-        int NegSepOX { get; set; }
-        int NegSepOY { get; set; }
-        int PosSepOX { get; set; }
-        int PosSepOY { get; set; }
+        public int NegSepOX { get; set; }
+        public int NegSepOY { get; set; }
+        public int PosSepOX { get; set; }
+        public int PosSepOY { get; set; }
 
         private void DrawStaticAxes()
         {
             //рисует оси
             g.DrawLine(Config.GraphPen, pt1.X, RealCenter.Y, pt3.X, RealCenter.Y); //ось абсцисс
             g.DrawLine(Config.GraphPen, RealCenter.X, pt1.Y, RealCenter.X, pt2.Y); //ось ординат
-            g.DrawString("0", Config.drawFont, Config.drawBrush, RealCenter.X - 6, RealCenter.Y);
+            g.DrawString("0", Config.DrawFont, Config.drawBrush, RealCenter.X - 6, RealCenter.Y);
 
             float LengthOXNegative = Math.Abs(RealCenter.X);
             float LenghtOYNegative = Math.Abs(pt1.Y - RealCenter.Y);
             float LenghtOXPositive = Math.Abs(pt4.X - RealCenter.X);
-            float LenghtOYPositive = Math.Abs(RealCenter.Y);
+            float LenghtOYPositive = Math.Abs(RealCenter.Y - pt2.Y);
 
-            NegSepOX = (int)Math.Round(LengthOXNegative / Config.StepOX);
+            NegSepOX = (int)Math.Truncate(LengthOXNegative / Config.StepOX);
             if (NegSepOX % 2 != 0) NegSepOX--;
 
-            NegSepOY = (int)Math.Round(LenghtOYNegative / Config.StepOY);
+            NegSepOY = (int)Math.Truncate(LenghtOYNegative / Config.StepOY);
             if (NegSepOY % 2 != 0) NegSepOY--;
 
-            PosSepOX = (int)Math.Round(LenghtOXPositive / Config.StepOX);
+            PosSepOX = (int)Math.Truncate(LenghtOXPositive / Config.StepOX);
             if (PosSepOX % 2 != 0) PosSepOX--;
 
-            PosSepOY = (int)Math.Round(LenghtOYPositive / Config.StepOY);
+            PosSepOY = (int)Math.Truncate(LenghtOYPositive / Config.StepOY);
             if (PosSepOY % 2 != 0) PosSepOY--;
 
             PointF StartLine, EndLine;
@@ -57,7 +63,7 @@ namespace MyDrawing
                     if (Config.Grid == true)
                     {
                         StartLine = new PointF(RealCenter.X + (i + 1) * Config.StepOX, RealCenter.Y);
-                        EndLine = new PointF(RealCenter.X + (i + 1) * Config.StepOX, 0);
+                        EndLine = new PointF(RealCenter.X + (i + 1) * Config.StepOX, pt2.Y);
                         g.DrawLine(new Pen(Config.GridColor), StartLine, EndLine);
                     }
                     string num = Convert.ToString((i + 1) * Config.PriceForPointOX);
@@ -66,8 +72,8 @@ namespace MyDrawing
 
                     Oxpoints2[i].X = RealCenter.X + (i + 1) * Config.StepOX;
                     Oxpoints2[i].Y = RealCenter.Y + PointsGraphConfig.HEIGHT;
-
-                    g.DrawString(num, Config.drawFont, Config.drawBrush, Oxpoints2[i].X - 3, Oxpoints2[i].Y);
+                    
+                    g.DrawString(num, Config.DrawFont, Config.drawBrush, Oxpoints2[i].X - 3, Oxpoints2[i].Y);
                     g.DrawLine(new Pen(Config.GraphColor), Oxpoints1[i], Oxpoints2[i]);
                 }
 
@@ -82,7 +88,7 @@ namespace MyDrawing
                     if (Config.Grid == true)
                     {
                         StartLine = new PointF(RealCenter.X, RealCenter.Y - (i + 1) * Config.StepOY);
-                        EndLine = new PointF(placeToDraw.Width, RealCenter.Y - (i + 1) * Config.StepOY);
+                        EndLine = new PointF(pt4.X, RealCenter.Y - (i + 1) * Config.StepOY);
                         g.DrawLine(new Pen(Config.GridColor), StartLine, EndLine);
                     }
                     string num = Convert.ToString((i + 1) * Config.PriceForPointOY);
@@ -91,7 +97,8 @@ namespace MyDrawing
 
                     Oypoints2[i].X = RealCenter.X + PointsGraphConfig.HEIGHT;
                     Oypoints2[i].Y = RealCenter.Y - (i + 1) * Config.StepOY;
-                    g.DrawString(num, Config.drawFont, Config.drawBrush, Oypoints1[i].X - 10, Oypoints1[i].Y);
+                   
+                    g.DrawString(num, Config.DrawFont, Config.drawBrush, Oypoints1[i].X - 10, Oypoints1[i].Y);
                     g.DrawLine(Config.GraphPen, Oypoints1[i], Oypoints2[i]);
                 }
 
@@ -116,7 +123,7 @@ namespace MyDrawing
 
                     Oxpoints1[i].Y = RealCenter.Y - PointsGraphConfig.HEIGHT;
                     Oxpoints2[i].Y = RealCenter.Y + PointsGraphConfig.HEIGHT;
-                    g.DrawString(num, Config.drawFont, Config.drawBrush, Oxpoints2[i].X - 3, Oxpoints2[i].Y);
+                    g.DrawString(num, Config.DrawFont, Config.drawBrush, Oxpoints2[i].X - 3, Oxpoints2[i].Y);
 
                     g.DrawLine(new Pen(Config.GraphColor), Oxpoints1[i], Oxpoints2[i]);
                 }
@@ -143,7 +150,7 @@ namespace MyDrawing
                     Oxpoints2[i].X = RealCenter.X + (i + 1) * Config.StepOX;
                     Oxpoints2[i].Y = RealCenter.Y + PointsGraphConfig.HEIGHT;
 
-                    g.DrawString(num, Config.drawFont, Config.drawBrush, Oxpoints2[i].X - 3, Oxpoints2[i].Y);
+                    g.DrawString(num, Config.DrawFont, Config.drawBrush, Oxpoints2[i].X - 3, Oxpoints2[i].Y);
                     g.DrawLine(new Pen(Config.GraphColor), Oxpoints1[i], Oxpoints2[i]);
                 }
 
@@ -168,7 +175,7 @@ namespace MyDrawing
 
                     Oypoints2[i].X = RealCenter.X + PointsGraphConfig.HEIGHT;
                     Oypoints2[i].Y = RealCenter.Y + (i + 1) * Config.StepOY;
-                    g.DrawString(num, Config.drawFont, Config.drawBrush, Oypoints1[i].X - 10, Oypoints1[i].Y);
+                    g.DrawString(num, Config.DrawFont, Config.drawBrush, Oypoints1[i].X - 10, Oypoints1[i].Y);
                     g.DrawLine(Config.GraphPen, Oypoints1[i], Oypoints2[i]);
                 }
 
@@ -193,7 +200,7 @@ namespace MyDrawing
                     Oypoints2[i].X = RealCenter.X + PointsGraphConfig.HEIGHT;
                     Oypoints2[i].Y = RealCenter.Y - (i + 1) * Config.StepOY;
 
-                    g.DrawString(num, Config.drawFont, Config.drawBrush, Oypoints1[i].X - 10, Oypoints1[i].Y);
+                    g.DrawString(num, Config.DrawFont, Config.drawBrush, Oypoints1[i].X - 10, Oypoints1[i].Y);
                     g.DrawLine(Config.GraphPen, Oypoints1[i], Oypoints2[i]);
                 }
 
@@ -207,6 +214,10 @@ namespace MyDrawing
         {
             Pen grafpen = new Pen(currentCurve.CurveColor, currentCurve.CurveThickness);
             PointF[] points = new PointF[currentCurve.PointsToDraw.Length];
+            //
+            //test
+            //int count = 0;
+            
             for (int i = 0; i < currentCurve.PointsToDraw.Length; i++)
             {
 
@@ -218,24 +229,36 @@ namespace MyDrawing
                 if (float.IsPositiveInfinity(y)) y = 1000000;
                 if (float.IsNegativeInfinity(x)) x = -1000000;
                 if (float.IsNegativeInfinity(y)) y = -1000000;
-
                 points[i].X = x;
                 points[i].Y = y;
             }
-
-            if (Config.SmoothAngles == true) g.DrawCurve(grafpen, points);
-            else if (Config.SmoothAngles == false) g.DrawLines(grafpen, points);
+            
+            if (Config.SmoothAngles == true)
+            {
+                if (points.Length >= 2)
+                {
+                    g.DrawCurve(grafpen, points);
+                    
+                }
+            }
+            else if (Config.SmoothAngles == false)
+            {
+                if (points.Length >= 2)
+                {
+                    g.DrawLines(grafpen, points);
+                   
+                }
+            }
 
             if (Config.DrawPoints == true)
             {
                 int r = 4;
                 foreach (PointF pt in points)
                 {
-                    g.FillEllipse(new SolidBrush(currentCurve.CurveColor), pt.X - r / 2, pt.Y - r / 2, r, r);
+                    g.FillEllipse(new SolidBrush(currentCurve.DotsColor), pt.X - r / 2, pt.Y - r / 2, r, r);
                 }
             }
         }
-
 
         private void DrawAxesNames()
         {
@@ -250,19 +273,19 @@ namespace MyDrawing
             PointF pointOX = new PointF();
             if (Config.OXNamePosition == TextPosition.Centre)
             {
-                pointOX.X = LastPointOY.X + (LastPointOX.X - LastPointOY.X) / 2 - size.Width / 2;
-                pointOX.Y = RealCenter.Y + 15;
+                pointOX.X = RealCenter.X + 10; //+ (pt4.X - RealCenter.X) / 2 - size.Width / 2;
+                pointOX.Y = RealCenter.Y + 20;
             }
             else if (Config.OXNamePosition == TextPosition.Left)
             {
-                pointOX.X = RealCenter.X;
-                pointOX.Y = RealCenter.Y + 15;
+                pointOX.X = pt1.X;
+                pointOX.Y = RealCenter.Y + 20;
             }
             else if (Config.OXNamePosition == TextPosition.Right)
             {
-                pointOX.X = LastPointOX.X;
-                pointOX.Y = RealCenter.Y + 15;
-                while (pointOX.X + size.Width > LastPointOX.X)
+                pointOX.X = pt4.X;
+                pointOX.Y = RealCenter.Y + 20;
+                while (pointOX.X + size.Width > pt4.X)
                 {
                     pointOX.X--;
                 }
@@ -273,19 +296,19 @@ namespace MyDrawing
             PointF pointOY = new PointF();
             if (Config.OYNamePosition == TextPosition.Centre)
             {
-                pointOY.X = RealCenter.X - 30;
-                pointOY.Y = RealCenter.Y - (RealCenter.Y - LastPointOY.Y) / 2 - size.Width / 2;
+                pointOY.X = RealCenter.X - 35;
+                pointOY.Y = RealCenter.Y - (RealCenter.Y - pt2.Y) / 2 - size.Width / 2;
             }
             if (Config.OYNamePosition == TextPosition.Left)
             {
-                pointOY.X = RealCenter.X - 30;
-                pointOY.Y = LastPointOY.Y;
+                pointOY.X = RealCenter.X - 35;
+                pointOY.Y = pt2.Y;
             }
             if (Config.OYNamePosition == TextPosition.Right)
             {
-                pointOY.X = RealCenter.X - 30;
-                pointOY.Y = RealCenter.Y;
-                while (pointOY.Y + size.Width > RealCenter.Y)
+                pointOY.X = RealCenter.X - 35;
+                pointOY.Y = pt1.Y;
+                while (pointOY.Y + size.Width > pt1.Y)
                 {
                     pointOY.Y--;
                 }
@@ -303,22 +326,24 @@ namespace MyDrawing
             Font font = new Font("Arial", TitleSize);
             SolidBrush brush = new SolidBrush(Color.Black);
             SizeF size = g.MeasureString(Title, font);
+            
 
             float x = 0, y = 0;
             if (TitlePosition == TextPosition.Left)
             {
-                x = LastPointOY.X; y = LastPointOY.Y - 20;
+                x = pt1.X;
+                y = Space_From_Top / 2;
             }
             else if (TitlePosition == TextPosition.Centre)
             {
-                x = LastPointOY.X + (LastPointOX.X - LastPointOY.X) / 2 - size.Width / 2;
-                y = LastPointOY.Y - 20;
+                x = RealCenter.X + 20; // (pt4.X - RealCenter.X) / 2 - size.Width / 2;
+                y = Space_From_Top / 2;
             }
             else if (TitlePosition == TextPosition.Right)
             {
-                x = LastPointOX.X;
-                y = LastPointOY.Y - 20;
-                while (x + size.Width > LastPointOX.X)
+                x = pt4.X;
+                y = Space_From_Top / 2;
+                while (x + size.Width > pt4.X)
                 {
                     x -= 1;
                 }
@@ -343,5 +368,44 @@ namespace MyDrawing
             }
         }
 
+
+        /// <summary>
+        /// Преобразует входящие параметры в значения прямоугольной системы координат или в значение системы координат объекта Control.
+        /// </summary>
+        /// <param name="x">Значение абсциссы точки</param>
+        /// <param name="y">Значение ординаты точки</param>
+        /// <param name="type">Тип системы координат, в котором возвращаются значения</param>
+        /// <returns></returns>
+        public PointF ConvertValues(double x, double y,  CoordType type)
+        {
+            PointF res = new PointF(0,0);
+            if (type == CoordType.GetControlCoord)
+            {
+                res.X = (float)(RealCenter.X + x * Config.StepOX / Config.PriceForPointOX);
+                res.Y = (float)(RealCenter.Y - y * Config.StepOY / Config.PriceForPointOY);
+            }
+            else if (type == CoordType.GetRectangleCoord)
+            {
+                res.X = (float)((x - RealCenter.X) * Config.PriceForPointOX / Config.StepOX);
+                res.Y = (float)((RealCenter.Y - y) * Config.PriceForPointOY / Config.StepOY);
+            }
+            return res;
+        }
+
+        public PointF ConvertValues(PointF convertPt, CoordType type)
+        {
+            PointF res = new PointF(0, 0);
+            if (type == CoordType.GetControlCoord)
+            {
+                res.X = (float)(RealCenter.X + convertPt.X * Config.StepOX / Config.PriceForPointOX);
+                res.Y = (float)(RealCenter.Y - convertPt.Y * Config.StepOY / Config.PriceForPointOY);
+            }
+            else if (type == CoordType.GetRectangleCoord)
+            {
+                res.X = (float)((convertPt.X - RealCenter.X) * Config.PriceForPointOX / Config.StepOX);
+                res.Y = (float)((RealCenter.Y - convertPt.Y) * Config.PriceForPointOY / Config.StepOY);
+            }
+            return res;
+        }
     }
 }
