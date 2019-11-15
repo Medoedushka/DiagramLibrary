@@ -46,7 +46,6 @@
   <ItemGroup>
     <Compile Include="BarChart.cs" />
     <Compile Include="CircleDiagram.cs" />
-    <Compile Include="PointsGraphic.cs" />
     <Compile Include="Diagram.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
