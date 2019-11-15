@@ -593,12 +593,13 @@ namespace MyDrawing
     /// <summary>
     /// Представляет структуру для инициализации кривой.
     /// </summary>
-    public struct Curves
+    public class Curves
     {
         /// <summary>
-        /// Массив точек кривой.
+        /// Легенда кривой.
         /// </summary>
-        public PointF[] PointsToDraw { get; set; } 
+        public string Legend { get; set; }
+        
         /// <summary>
         /// Толщина линии кривой.
         /// </summary>
@@ -607,10 +608,12 @@ namespace MyDrawing
         /// Устанавливает цвет кривой графика.
         /// </summary>
         public Color CurveColor { get; set; }
+
         /// <summary>
-        /// Легенда кривой.
+        /// Массив точек кривой.
         /// </summary>
-        public string Legend { get; set; } 
+        public PointF[] PointsToDraw { get; set; }
+
         public Curves(PointF[] pt, Color CurveColor, int CurveThickness = 1, string Legend = "Пусто") 
         {
             PointsToDraw = pt;

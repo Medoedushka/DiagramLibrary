@@ -58,6 +58,11 @@
             Рисует гистограмму.
             </summary>
         </member>
+        <member name="P:MyDrawing.CircleDiagramConfig.DiagramSize">
+            <summary>
+            Регулировка размеров диаграммы.
+            </summary>
+        </member>
         <member name="T:MyDrawing.PointsGraphConfig">
             <summary>
             Содержит свойства для настройки графика.
@@ -175,9 +180,9 @@
             Представляет структуру для инициализации кривой.
             </summary>
         </member>
-        <member name="P:MyDrawing.Curves.PointsToDraw">
+        <member name="P:MyDrawing.Curves.Legend">
             <summary>
-            Массив точек кривой.
+            Легенда кривой.
             </summary>
         </member>
         <member name="P:MyDrawing.Curves.CurveThickness">
@@ -190,9 +195,9 @@
             Устанавливает цвет кривой графика.
             </summary>
         </member>
-        <member name="P:MyDrawing.Curves.Legend">
+        <member name="P:MyDrawing.Curves.PointsToDraw">
             <summary>
-            Легенда кривой.
+            Массив точек кривой.
             </summary>
         </member>
         <member name="T:MyDrawing.TextPosition">
