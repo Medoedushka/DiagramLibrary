@@ -522,8 +522,6 @@ namespace MyDrawing
                     g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
                     g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit;
 
-                //if (Title != "") pt2 = new Point(pt2.X, 30);
-                //else pt2 = new Point(pt2.X, 0);
                 if (Config.CurrentAxesPos == AxesPosition.FirstQuarter)
                 {
                     if (Config.OXName != "" || Config.OYName != "") RealCenter = new Point(45, pt1.Y - 45);
