@@ -144,15 +144,10 @@ namespace MyDrawing
             g = placeToDraw.CreateGraphics();
             g.Clear(placeToDraw.BackColor);
             g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
-
-            Center.X = (int)Config.X + Config.DiagramSize / 2;
-            Center.Y = (int)Config.Y + Config.DiagramSize / 2;
-            
-            //RectangleF rect = new RectangleF((float)Config.X, (float)Config.Y, Config.DiagramSize, Config.DiagramSize);
-            //g.DrawEllipse(new Pen(Config.CircleColor), rect);
+            Center = new Point((int)Config.X + Config.DiagramSize / 2, (int)Config.Y + Config.DiagramSize / 2);
         }
 
-        public override void DrawGraphic()
+        public override void DrawDiagram()
         {
             DrawCircle();
 
