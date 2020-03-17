@@ -48,10 +48,6 @@ namespace MyDrawing
         /// </summary>
         public TextPosition OYNamePosition { get; set; }
         /// <summary>
-        /// Перечисление количества отображаемых четвертей графика.
-        /// </summary>
-        public AxesPosition CurrentAxesPos { get; set; }
-        /// <summary>
         /// Добавление сетки на график.
         /// </summary>
         public bool Grid { get; set; }
@@ -180,7 +176,6 @@ namespace MyDrawing
     /// </summary>
     public partial class PointsGraphic : Diagram
     {
-        private Point CountBegin;
         /// <summary>
         /// Содержит свойства для настройки графика.
         /// </summary>
@@ -189,7 +184,6 @@ namespace MyDrawing
         /// Список созданных кривых для построения.
         /// </summary>
         public List<Curves> GraphCurves { get; set; }
-        public Dictionary<double, double> ValuePairs = new Dictionary<double, double>();
         
 
         /// <summary>
@@ -197,7 +191,7 @@ namespace MyDrawing
         /// </summary>
         /// <param name="picture">область для рисования графика</param>
         /// <param name="axesPos">количесвто отображаемых четвертей</param>
-        public PointsGraphic(PictureBox picture, AxesPosition axesPos = AxesPosition.AllQuarters)
+        public PointsGraphic(PictureBox picture)
         {
             placeToDraw = picture;
             GraphCurves = new List<Curves>();
@@ -210,90 +204,88 @@ namespace MyDrawing
             Config.DrawPoints = false;
             g = placeToDraw.CreateGraphics();
             
-            Config.CurrentAxesPos = axesPos;
-            
             //координаты угловых точек рамки
             SetPlaceToDrawSize(placeToDraw.Width, placeToDraw.Height);
-            Config.StepOX = 25;
+            Config.StepOX = 30;
             Config.StepOY = 30;
             Config.PriceForPointOX = 1;
             Config.PriceForPointOY = 1;
         }
         #region Значения по умолчанию
-        ///// <summary>
-        ///// Устанавливает параметры Ox по умолчанию.
-        ///// </summary>
-        //public void SetDefaultOX()
-        //{
-        //    if (GraphCurves.Count != 0)
-        //    {
-        //        double[] MaxFromEachMass = new double[GraphCurves.Count];
-        //        double maxValue = 0; //максимальное значение среди массивов точек для каждой кривой
-        //        //поиск максимального значения оси ОХ для каждой кривой 
-        //        for (int i = 0; i < GraphCurves.Count; i++)
-        //        {
-        //            for (int j = 0; j < GraphCurves[i].PointsToDraw.Length; j++)
-        //            {
-        //                if (MaxFromEachMass[i] < Math.Abs(GraphCurves[i].PointsToDraw[j].X))
-        //                {
-        //                    MaxFromEachMass[i] = Math.Abs(GraphCurves[i].PointsToDraw[j].X);
-        //                }
-        //            }
-        //        }
-        //        //поиск максимального значения среди полученных максимальных значений
-        //        for (int i = 0; i < MaxFromEachMass.Length; i++)
-        //        {
-        //            if (maxValue < MaxFromEachMass[i]) maxValue = MaxFromEachMass[i];
-        //        }
+        /// <summary>
+        /// Устанавливает параметры Ox по умолчанию.
+        /// </summary>
+        public void SetDefaultOX()
+        {
+            if (GraphCurves.Count != 0)
+            {
+                double[] MaxFromEachMass = new double[GraphCurves.Count];
+                double maxValue = 0; //максимальное значение среди массивов точек для каждой кривой
+                //поиск максимального значения оси ОХ для каждой кривой 
+                for (int i = 0; i < GraphCurves.Count; i++)
+                {
+                    for (int j = 0; j < GraphCurves[i].PointsToDraw.Length; j++)
+                    {
+                        if (MaxFromEachMass[i] < Math.Abs(GraphCurves[i].PointsToDraw[j].X))
+                        {
+                            MaxFromEachMass[i] = Math.Abs(GraphCurves[i].PointsToDraw[j].X);
+                        }
+                    }
+                }
+                //поиск максимального значения среди полученных максимальных значений
+                for (int i = 0; i < MaxFromEachMass.Length; i++)
+                {
+                    if (maxValue < MaxFromEachMass[i]) maxValue = MaxFromEachMass[i];
+                }
 
-        //        Config.NumberOfSepOX = 5;
-        //        while (Center.X + Config.NumberOfSepOX * Config.StepOX <= pt3.X)
-        //        {
-        //            Config.StepOX++;
-        //        }
-        //        Config.PriceForPointOX = Math.Round(maxValue * 0.35, 1);
+                Config.NumberOfSepOX = 5;
+                while (RealCenter.X + Config.NumberOfSepOX * Config.StepOX < pt3.X)
+                {
+                    Config.StepOX++;
+                }
+                Config.PriceForPointOX = Math.Round(maxValue * 0.35, 1);
 
-        //    }
-        //    else MessageBox.Show("Недостаточно данных для оптимального построения области диагрммы", "Внимание",
-        //         MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else MessageBox.Show("Недостаточно данных для оптимального построения области диагрммы", "Внимание",
+                 MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-        //}
-        ///// <summary>
-        ///// Устанавливает параметры Oy по умолчанию.
-        ///// </summary>
-        //public void SetDefaultOY()
-        //{
+        }
+        /// <summary>
+        /// Устанавливает параметры Oy по умолчанию.
+        /// </summary>
+        public void SetDefaultOY()
+        {
 
-        //    if (GraphCurves.Count != 0)
-        //    {
-        //        double maxValue = 0;//максимальное значение среди массивов точек для каждой кривой
-        //        double[] MaxFromEachMass = new double[GraphCurves.Count];
-        //        //поиск максимального значения оси ОY для каждой кривой 
-        //        for (int i = 0; i < GraphCurves.Count; i++)
-        //        {
-        //            for (int j = 0; j < GraphCurves[i].PointsToDraw.Length; j++)
-        //            {
-        //                if (MaxFromEachMass[i] < Math.Abs(GraphCurves[i].PointsToDraw[j].Y))
-        //                {
-        //                    MaxFromEachMass[i] = Math.Abs(GraphCurves[i].PointsToDraw[j].Y);
-        //                }
-        //            }
-        //        }
-        //        //поиск максимального значения среди полученных максимальных значений
-        //        for (int i = 0; i < MaxFromEachMass.Length; i++)
-        //        {
-        //            if (maxValue < MaxFromEachMass[i]) maxValue = MaxFromEachMass[i];
-        //        }
-        //        Config.NumberOfSepOY = 5;
-        //        while (Center.Y - Config.StepOY * Config.NumberOfSepOY >= pt2.Y)
-        //        {
-        //            Config.StepOY++;
-        //        }
-        //        Config.PriceForPointOY = Math.Round(maxValue * 0.35, 1);
-        //    }
-        //    else MessageBox.Show("Недостаточно данных для оптимального построения области диагрммы", "Внимание",
-        //         MessageBoxButtons.OK, MessageBoxIcon.Error);
-        //}
+            if (GraphCurves.Count != 0)
+            {
+                double maxValue = 0;//максимальное значение среди массивов точек для каждой кривой
+                double[] MaxFromEachMass = new double[GraphCurves.Count];
+                //поиск максимального значения оси ОY для каждой кривой 
+                for (int i = 0; i < GraphCurves.Count; i++)
+                {
+                    for (int j = 0; j < GraphCurves[i].PointsToDraw.Length; j++)
+                    {
+                        if (MaxFromEachMass[i] < Math.Abs(GraphCurves[i].PointsToDraw[j].Y))
+                        {
+                            MaxFromEachMass[i] = Math.Abs(GraphCurves[i].PointsToDraw[j].Y);
+                        }
+                    }
+                }
+                //поиск максимального значения среди полученных максимальных значений
+                for (int i = 0; i < MaxFromEachMass.Length; i++)
+                {
+                    if (maxValue < MaxFromEachMass[i]) maxValue = MaxFromEachMass[i];
+                }
+                Config.NumberOfSepOY = 5;
+                while (RealCenter.Y - Config.StepOY * Config.NumberOfSepOY > pt2.Y)
+                {
+                    Config.StepOY++;
+                }
+                Config.PriceForPointOY = Math.Round(maxValue * 0.35, 1);
+            }
+            else MessageBox.Show("Недостаточно данных для оптимального построения области диагрммы", "Внимание",
+                 MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
         #endregion
 
         /// <summary>
@@ -304,28 +296,20 @@ namespace MyDrawing
         public void SetPlaceToDrawSize(int width, int height)
         {
             //левая нижняя точка
-            pt1 = new Point(0, height);
+            pt1 = new Point(Space_From_Left, height - Space_From_Bottom);
             //левая верхняя точка
-            pt2 = new Point(0, 0);
-            //правая нижняя точка
-            pt4 = new Point(width, height);
+            pt2 = new Point(Space_From_Left, Space_From_Top);
             //правая верхняя точка
-            pt3 = new Point(width, 0);
+            pt3 = new Point(width - Space_From_Right, Space_From_Top);
+            //правая нижняя точка
+            pt4 = new Point(width - Space_From_Right, height - Space_From_Bottom);
 
-            if (Config.CurrentAxesPos == AxesPosition.AllQuarters)
-            {
-                int X = pt2.X + (pt3.X - pt2.X) / 2;
-                int Y = pt1.Y - (pt1.Y - pt2.Y) / 2;
-                RealCenter = new Point(X, Y);
+            int X = pt2.X + (pt3.X - pt2.X) / 2;
+            int Y = pt1.Y - (pt1.Y - pt2.Y) / 2;
+            RealCenter = new Point(X, Y);
+
 
             }
-            else if (Config.CurrentAxesPos == AxesPosition.FirstQuarter)
-            {
-                RealCenter = new Point(Space_From_Left, height - Space_From_Bottom);
-            }
-            
-            
-        }
         /// <summary>
         /// Рисует: график, с добавленными кривыми, названия осей и диаграммы, легенду. 
         /// </summary>
@@ -338,33 +322,26 @@ namespace MyDrawing
             {
                 g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
                 g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit;
-
-                if (Config.CurrentAxesPos == AxesPosition.FirstQuarter)
-                {
-                    if (Config.OXName != "" || Config.OYName != "") RealCenter = new Point(45, pt1.Y - 45);
-                    else RealCenter = new Point(Space_From_Left, placeToDraw.Height - Space_From_Bottom);
-                }
-
                 DrawAxes();
-                    
+
                 foreach (Curves curve in GraphCurves)
                 {
                     StaticDrawCurrentCurve(curve);
                 }
-                if (Title != "")
-                {
-                    if (TitleSize == 0)
-                        TitleSize = 10;
-                    DrawTitle();
+                //if (Title != "")
+                //{
+                //    if (TitleSize == 0)
+                //        TitleSize = 10;
+                //    DrawTitle();
 
-                }
-                if (Config.OXName != "" || Config.OYName != "")
-                {
-                    if (Config.SizeOX == 0) Config.SizeOX = 10;
-                    if (Config.SizeOY == 0) Config.SizeOY = 10;
+                //}
+                //if (Config.OXName != "" || Config.OYName != "")
+                //{
+                //    if (Config.SizeOX == 0) Config.SizeOX = 10;
+                //    if (Config.SizeOY == 0) Config.SizeOY = 10;
 
-                    DrawAxesNames();
-                }
+                //    DrawAxesNames();
+                //}
             }
                     placeToDraw.Image = bm;
         }
@@ -389,6 +366,9 @@ namespace MyDrawing
             if (Exist) throw new ArgumentException("Добавляемая кривая: \"" + curve.Legend + "\" уже содержится в коллекции.",
                 "Попытка добавления кривой");
             else GraphCurves.Add(curve);
+
+            SetDefaultOX();
+            SetDefaultOY();
         }
     }
     /// <summary>

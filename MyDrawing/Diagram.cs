@@ -8,22 +8,6 @@ using System.Drawing;
 
 namespace MyDrawing
 {
-
-    /// <summary>
-    /// Определяет кол-во отображаемых четвертей графика.
-    /// </summary>
-    public enum AxesPosition
-    {
-        /// <summary>
-        /// При построении отображается первая четверть.
-        /// </summary>
-        FirstQuarter,
-        /// <summary>
-        /// При построении отображаются все четверти.
-        /// </summary>
-        AllQuarters
-    }
-
     /// <summary>
     /// Определяет выравнивание текста.
     /// </summary>

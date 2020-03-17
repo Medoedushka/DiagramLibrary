@@ -63,21 +63,6 @@
             Регулировка размеров диаграммы.
             </summary>
         </member>
-        <member name="T:MyDrawing.AxesPosition">
-            <summary>
-            Определяет кол-во отображаемых четвертей графика.
-            </summary>
-        </member>
-        <member name="F:MyDrawing.AxesPosition.FirstQuarter">
-            <summary>
-            При построении отображается первая четверть.
-            </summary>
-        </member>
-        <member name="F:MyDrawing.AxesPosition.AllQuarters">
-            <summary>
-            При построении отображаются все четверти.
-            </summary>
-        </member>
         <member name="T:MyDrawing.TextPosition">
             <summary>
             Определяет выравнивание текста.
@@ -136,11 +121,6 @@
         <member name="P:MyDrawing.PointsGraphConfig.OYNamePosition">
             <summary>
             Перечисление возможных выравниваний оси ординат
-            </summary>
-        </member>
-        <member name="P:MyDrawing.PointsGraphConfig.CurrentAxesPos">
-            <summary>
-            Перечисление количества отображаемых четвертей графика.
             </summary>
         </member>
         <member name="P:MyDrawing.PointsGraphConfig.Grid">
@@ -213,12 +193,22 @@
             Список созданных кривых для построения.
             </summary>
         </member>
-        <member name="M:MyDrawing.PointsGraphic.#ctor(System.Windows.Forms.PictureBox,MyDrawing.AxesPosition)">
+        <member name="M:MyDrawing.PointsGraphic.#ctor(System.Windows.Forms.PictureBox)">
             <summary>
             
             </summary>
             <param name="picture">область для рисования графика</param>
             <param name="axesPos">количесвто отображаемых четвертей</param>
+        </member>
+        <member name="M:MyDrawing.PointsGraphic.SetDefaultOX">
+            <summary>
+            Устанавливает параметры Ox по умолчанию.
+            </summary>
+        </member>
+        <member name="M:MyDrawing.PointsGraphic.SetDefaultOY">
+            <summary>
+            Устанавливает параметры Oy по умолчанию.
+            </summary>
         </member>
         <member name="M:MyDrawing.PointsGraphic.SetPlaceToDrawSize(System.Int32,System.Int32)">
             <summary>
