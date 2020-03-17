@@ -63,10 +63,6 @@ namespace MyDrawing
         /// Явная отрисовка точек кривой.
         /// </summary>
         public bool DrawPoints { get; set; }
-        /// <summary>
-        /// Автоматически подстраивает ось ординат под максимальное значения в массиве точек
-        /// </summary>
-        public bool RT_AutoMax { get; set; }
 
         #region Свойства полей 
         //свойства для расстояния между делениями осей
@@ -212,7 +208,6 @@ namespace MyDrawing
             Config.DrawFont = new Font("Arial", 6);
             Config.drawBrush = new SolidBrush(Config.GraphColor);
             Config.DrawPoints = false;
-            Config.RT_AutoMax = true;
             g = placeToDraw.CreateGraphics();
             
             Config.CurrentAxesPos = axesPos;
@@ -350,7 +345,7 @@ namespace MyDrawing
                     else RealCenter = new Point(Space_From_Left, placeToDraw.Height - Space_From_Bottom);
                 }
 
-                DrawStaticAxes();
+                DrawAxes();
                     
                 foreach (Curves curve in GraphCurves)
                 {

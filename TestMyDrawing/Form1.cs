@@ -24,7 +24,10 @@ namespace TestMyDrawing
             }
             gr.AddCurve(new Curves(pt, Color.Black));
             gr.Config.SmoothAngles = false;
-            gr.Config.Grid = true;
+            //gr.Config.Grid = true;
+            //gr.placeToDraw.BackColor = Color.White;
+            //gr.Config.StepOY += 10;
+            //gr.RealCenter = new Point(gr.RealCenter.X - 100, gr.RealCenter.Y);
             gr.DrawDiagram();
         }
 

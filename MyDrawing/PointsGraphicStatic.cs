@@ -21,7 +21,7 @@ namespace MyDrawing
         public int PosSepOX { get; set; }
         public int PosSepOY { get; set; }
 
-        private void DrawStaticAxes()
+        private void DrawAxes()
         {
             //рисует оси
             g.DrawLine(Config.GraphPen, pt1.X, RealCenter.Y, pt3.X, RealCenter.Y); //ось абсцисс

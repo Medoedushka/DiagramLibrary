@@ -64,7 +64,6 @@ namespace MyDrawing
         /// Точка начала отсчёта.
         /// </summary>
         public Point RealCenter { get; set; } // точка пересечения осей(график, гистограмма), центр окружности(круговая диаграмма)
-        public Point ImiganaryCenter { get; set; }
         public Point Center { get; set; }
         //точки рамки построение графика
         public Point pt1; //левая нижняя точка
