@@ -63,21 +63,6 @@
             Регулировка размеров диаграммы.
             </summary>
         </member>
-        <member name="T:MyDrawing.AxesMode">
-            <summary>
-            Определяет возможность осей изменяеться в размерах при изменении шага деления.
-            </summary>
-        </member>
-        <member name="F:MyDrawing.AxesMode.Static">
-            <summary>
-            При изменении шага деления ось размеров не меняет. Изменяется только количество делений на оси.
-            </summary>
-        </member>
-        <member name="F:MyDrawing.AxesMode.Dynamic">
-            <summary>
-            При изменении шага деления количество делений на оси неизменно, а меняется только длина оси.
-            </summary>
-        </member>
         <member name="T:MyDrawing.AxesPosition">
             <summary>
             Определяет кол-во отображаемых четвертей графика.
@@ -158,11 +143,6 @@
             Перечисление количества отображаемых четвертей графика.
             </summary>
         </member>
-        <member name="P:MyDrawing.PointsGraphConfig.AxesMode">
-            <summary>
-            Перечисление типов повидения осей.
-            </summary>
-        </member>
         <member name="P:MyDrawing.PointsGraphConfig.Grid">
             <summary>
             Добавление сетки на график.
@@ -238,7 +218,7 @@
             Список созданных кривых для построения.
             </summary>
         </member>
-        <member name="M:MyDrawing.PointsGraphic.#ctor(System.Windows.Forms.PictureBox,MyDrawing.AxesMode,MyDrawing.AxesPosition)">
+        <member name="M:MyDrawing.PointsGraphic.#ctor(System.Windows.Forms.PictureBox,MyDrawing.AxesPosition)">
             <summary>
             
             </summary>

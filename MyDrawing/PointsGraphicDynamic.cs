@@ -52,10 +52,6 @@ namespace MyDrawing
         /// </summary>
         public AxesPosition CurrentAxesPos { get; set; }
         /// <summary>
-        /// Перечисление типов повидения осей.
-        /// </summary>
-        public AxesMode AxesMode { get; set; }
-        /// <summary>
         /// Добавление сетки на график.
         /// </summary>
         public bool Grid { get; set; }
@@ -205,7 +201,7 @@ namespace MyDrawing
         /// </summary>
         /// <param name="picture">область для рисования графика</param>
         /// <param name="axesPos">количесвто отображаемых четвертей</param>
-        public PointsGraphic(PictureBox picture, AxesMode axesMode, AxesPosition axesPos = AxesPosition.AllQuarters)
+        public PointsGraphic(PictureBox picture, AxesPosition axesPos = AxesPosition.AllQuarters)
         {
             placeToDraw = picture;
             GraphCurves = new List<Curves>();
@@ -220,7 +216,6 @@ namespace MyDrawing
             g = placeToDraw.CreateGraphics();
             
             Config.CurrentAxesPos = axesPos;
-            Config.AxesMode = axesMode;
             
             //координаты угловых точек рамки
             SetPlaceToDrawSize(placeToDraw.Width, placeToDraw.Height);
@@ -313,202 +308,29 @@ namespace MyDrawing
         /// <param name="height"></param>
         public void SetPlaceToDrawSize(int width, int height)
         {
-            if (Config.AxesMode == AxesMode.Dynamic)
+            //левая нижняя точка
+            pt1 = new Point(0, height);
+            //левая верхняя точка
+            pt2 = new Point(0, 0);
+            //правая нижняя точка
+            pt4 = new Point(width, height);
+            //правая верхняя точка
+            pt3 = new Point(width, 0);
+
+            if (Config.CurrentAxesPos == AxesPosition.AllQuarters)
             {
-                //левая нижняя точка
-                pt1 = new Point(Space_From_Left, height);
-                //левая верхняя точка
-                pt2 = new Point(Space_From_Left, 0);
-                //правая нижняя точка
-                pt4 = new Point(width, height);
-                //правая верхняя точка
-                pt3 = new Point(width, 0);
-                CountBegin = pt1;
-                RealCenter = new Point(pt1.X, pt2.Y + pt1.Y / 2);
-                ImiganaryCenter = new Point(pt3.X, pt2.Y + pt1.Y / 2);
+                int X = pt2.X + (pt3.X - pt2.X) / 2;
+                int Y = pt1.Y - (pt1.Y - pt2.Y) / 2;
+                RealCenter = new Point(X, Y);
+
             }
-            else if (Config.AxesMode == AxesMode.Static)
+            else if (Config.CurrentAxesPos == AxesPosition.FirstQuarter)
             {
-                //левая нижняя точка
-                pt1 = new Point(0, height);
-                //левая верхняя точка
-                pt2 = new Point(0, 0);
-                //правая нижняя точка
-                pt4 = new Point(width, height);
-                //правая верхняя точка
-                pt3 = new Point(width, 0);
-
-                if (Config.CurrentAxesPos == AxesPosition.AllQuarters)
-                {
-                    int X = pt2.X + (pt3.X - pt2.X) / 2;
-                    int Y = pt1.Y - (pt1.Y - pt2.Y) / 2;
-                    RealCenter = new Point(X, Y);
-
-                }
-                else if (Config.CurrentAxesPos == AxesPosition.FirstQuarter)
-                {
-                    RealCenter = new Point(Space_From_Left, height - Space_From_Bottom);
-                }
+                RealCenter = new Point(Space_From_Left, height - Space_From_Bottom);
             }
             
-        }
-
-        private void DrawDynamicAxes()
-        {
-            float LenghtOXPositive = Math.Abs(pt4.X - ImiganaryCenter.X);
-            float LenghtOYPositive = Math.Abs(ImiganaryCenter.Y);
-            float LenghtOYNegative = Math.Abs(pt1.Y - ImiganaryCenter.Y);
-
-            PosSepOX = (int)Math.Round(LenghtOXPositive / Config.StepOX);
-            if (PosSepOX % 2 != 0) PosSepOX--;
-            PosSepOY = (int)Math.Round(LenghtOYPositive / Config.StepOY);
-            if (PosSepOY % 2 != 0) PosSepOY--;
-            NegSepOY = (int)Math.Round(LenghtOYNegative / Config.StepOY);
-            if (NegSepOY % 2 != 0) NegSepOY--;
-
-            PointF StartLine, EndLine;
-            Point[] Oxpoints1 = null;
-            Point[] Oxpoints2 = null;
-            Point[] Oypoints1 = null;
-            Point[] Oypoints2 = null;
-
-            //прорисовка положительных делений оси OX
-            Oxpoints1 = new Point[PosSepOX];
-            Oxpoints2 = new Point[PosSepOX];
-            for (int i = 0; i < Oxpoints1.Length; i++)
-            {
-                if (Config.Grid == true)
-                {
-                    StartLine = new PointF(ImiganaryCenter.X + (i + 1) * Config.StepOX, pt1.Y);
-                    EndLine = new PointF(ImiganaryCenter.X + (i + 1) * Config.StepOX, 0);
-                    g.DrawLine(new Pen(Config.GridColor), StartLine, EndLine);
-                }
-                string num = Convert.ToString((i + 1) * Config.PriceForPointOX);
-                Oxpoints1[i].X = ImiganaryCenter.X + (i + 1) * Config.StepOX;
-                Oxpoints1[i].Y = ImiganaryCenter.Y - PointsGraphConfig.HEIGHT;
-
-                Oxpoints2[i].X = ImiganaryCenter.X + (i + 1) * Config.StepOX;
-                Oxpoints2[i].Y = ImiganaryCenter.Y + PointsGraphConfig.HEIGHT;
-
-                g.DrawString(num, Config.DrawFont, Config.drawBrush, Oxpoints2[i].X - 3, Oxpoints2[i].Y);
-                g.DrawLine(new Pen(Config.GraphColor), Oxpoints1[i], Oxpoints2[i]);
-            }
-
-            Oxpoints1 = null;
-            Oxpoints2 = null;
-
-            //прорисовка отрицательных делений оси OY
-            Oypoints1 = new Point[NegSepOY];
-            Oypoints2 = new Point[NegSepOY];
-            for (int i = 0; i < Oypoints1.Length; i++)
-            {
-                if (Config.Grid == true)
-                {
-                    StartLine = new PointF(RealCenter.X, RealCenter.Y + (i + 1) * Config.StepOY);
-                    EndLine = new PointF(pt4.X, RealCenter.Y + (i + 1) * Config.StepOY);
-                    g.DrawLine(new Pen(Config.GridColor), StartLine, EndLine);
-                }
-
-                string num = "-" + Convert.ToString((i + 1) * Config.PriceForPointOY);
-                Oypoints1[i].X = RealCenter.X - PointsGraphConfig.HEIGHT;
-                Oypoints1[i].Y = RealCenter.Y + (i + 1) * Config.StepOY;
-
-                Oypoints2[i].X = RealCenter.X + PointsGraphConfig.HEIGHT;
-                Oypoints2[i].Y = RealCenter.Y + (i + 1) * Config.StepOY;
-                g.DrawString(num, Config.DrawFont, Config.drawBrush, Oypoints1[i].X - 10, Oypoints1[i].Y);
-                g.DrawLine(Config.GraphPen, Oypoints1[i], Oypoints2[i]);
-            }
-
-            Oypoints1 = null;
-            Oypoints2 = null;
-
-            //прорисовка положительных делений оси OY
-            Oypoints1 = new Point[PosSepOY];
-            Oypoints2 = new Point[PosSepOY];
-            for (int i = 0; i < Oypoints1.Length; i++)
-            {
-                if (Config.Grid == true)
-                {
-                    StartLine = new PointF(RealCenter.X, RealCenter.Y - (i + 1) * Config.StepOY);
-                    EndLine = new PointF(pt4.X, RealCenter.Y - (i + 1) * Config.StepOY);
-                    g.DrawLine(new Pen(Config.GridColor), StartLine, EndLine);
-                }
-                string num = Convert.ToString((i + 1) * Config.PriceForPointOY);
-                Oypoints1[i].X = RealCenter.X - PointsGraphConfig.HEIGHT;
-                Oypoints1[i].Y = RealCenter.Y - (i + 1) * Config.StepOY;
-
-                Oypoints2[i].X = RealCenter.X + PointsGraphConfig.HEIGHT;
-                Oypoints2[i].Y = RealCenter.Y - (i + 1) * Config.StepOY;
-
-                g.DrawString(num, Config.DrawFont, Config.drawBrush, Oypoints1[i].X - 10, Oypoints1[i].Y);
-                g.DrawLine(Config.GraphPen, Oypoints1[i], Oypoints2[i]);
-            }
-
-            Oypoints1 = null;
-            Oypoints2 = null;
-
-            g.DrawLine(Config.GraphPen, RealCenter.X, RealCenter.Y, pt3.X, RealCenter.Y); //ось абсцисс
-            g.DrawLine(Config.GraphPen, RealCenter.X, pt1.Y, RealCenter.X, pt2.Y); //ось ординат
-            g.DrawLine(new Pen(Color.FromArgb(120, 120, 120, 120)), ImiganaryCenter.X, pt1.Y, ImiganaryCenter.X, 0);
-            g.DrawString("0", Config.DrawFont, Config.drawBrush, RealCenter.X - 6, RealCenter.Y);
-        }
-        private void DrawRTCurve()
-        {
-
-            Pen grafpen = new Pen(Color.Red, 1);
-            grafpen.MiterLimit = 0.1f;
-            grafpen.LineJoin = System.Drawing.Drawing2D.LineJoin.Round;
-            PointF[] points = new PointF[ValuePairs.Count];
-            int i = 0;
-            foreach (KeyValuePair<double, double> point in ValuePairs)
-            {
-                points[i].X = (float)(ImiganaryCenter.X + point.Key * Config.StepOX / Config.PriceForPointOX);
-                points[i].Y = (float)(ImiganaryCenter.Y - point.Value * Config.StepOY / Config.PriceForPointOY);
-                if ((points[i].Y <= pt2.Y || points[i].Y >= pt1.Y) && Config.RT_AutoMax == true) Config.StepOY--;
-                i++;
-            }
-
-            if (Config.SmoothAngles == true)
-            {
-
-                if (points.Length > 1) g.DrawCurve(grafpen, points);
-
-            }
-            else if (Config.SmoothAngles == false)
-            {
-
-                if (points.Length > 1) g.DrawLines(grafpen, points);
-            }
-
-            if (Config.DrawPoints == true)
-            {
-                int r = 4;
-                foreach (PointF pt in points)
-                {
-                    g.FillEllipse(new SolidBrush(Color.Red), pt.X - r / 2, pt.Y - r / 2, r, r);
-                }
-            }
-        }
-
-
-        private void DrawAxes()
-        {
             
-
-            if (Config.AxesMode == AxesMode.Dynamic)
-            {
-               
-                DrawDynamicAxes();
-                
-            }
-            else if (Config.AxesMode == AxesMode.Static)
-            {
-                
-                DrawStaticAxes();
-            }
-
         }
-        
         /// <summary>
         /// Рисует: график, с добавленными кривыми, названия осей и диаграммы, легенду. 
         /// </summary>
@@ -517,43 +339,38 @@ namespace MyDrawing
         {
            
             Bitmap bm = new Bitmap(placeToDraw.Width, placeToDraw.Height);
-                using (g = Graphics.FromImage(bm))
-                {
-                    g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
-                    g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit;
+            using (g = Graphics.FromImage(bm))
+            {
+                g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+                g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit;
 
                 if (Config.CurrentAxesPos == AxesPosition.FirstQuarter)
                 {
                     if (Config.OXName != "" || Config.OYName != "") RealCenter = new Point(45, pt1.Y - 45);
                     else RealCenter = new Point(Space_From_Left, placeToDraw.Height - Space_From_Bottom);
                 }
-                    DrawAxes();
 
-                    if (Config.AxesMode == AxesMode.Dynamic) DrawRTCurve();
-                    else if (Config.AxesMode == AxesMode.Static)
-                    {
-                        foreach (Curves curve in GraphCurves)
-                        {
-                            StaticDrawCurrentCurve(curve);
-                        }
-                        if (Title != "")
-                        {
-                            if (TitleSize == 0)
-                                TitleSize = 10;
-                            DrawTitle();
-
-                        }
-                        if (Config.OXName != "" || Config.OYName != "")
-                        {
-                            if (Config.SizeOX == 0) Config.SizeOX = 10;
-                            if (Config.SizeOY == 0) Config.SizeOY = 10;
-                        
-                            DrawAxesNames();
-                        }
+                DrawStaticAxes();
                     
-                    }
+                foreach (Curves curve in GraphCurves)
+                {
+                    StaticDrawCurrentCurve(curve);
+                }
+                if (Title != "")
+                {
+                    if (TitleSize == 0)
+                        TitleSize = 10;
+                    DrawTitle();
 
                 }
+                if (Config.OXName != "" || Config.OYName != "")
+                {
+                    if (Config.SizeOX == 0) Config.SizeOX = 10;
+                    if (Config.SizeOY == 0) Config.SizeOY = 10;
+
+                    DrawAxesNames();
+                }
+            }
                     placeToDraw.Image = bm;
         }
 
@@ -576,18 +393,7 @@ namespace MyDrawing
 
             if (Exist) throw new ArgumentException("Добавляемая кривая: \"" + curve.Legend + "\" уже содержится в коллекции.",
                 "Попытка добавления кривой");
-           
-            else
-            {
-                GraphCurves.Add(curve);
-                if (Config.AxesMode == AxesMode.Dynamic)
-                {
-                    //SetDefaultOX();
-                    //SetDefaultOY();
-                }
-
-
-            }
+            else GraphCurves.Add(curve);
         }
     }
     /// <summary>
