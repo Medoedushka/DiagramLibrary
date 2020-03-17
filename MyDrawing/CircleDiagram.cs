@@ -34,6 +34,7 @@ namespace MyDrawing
     public class CircleDiagram : Diagram
     {
         public List<Sectors> SectorCollection = new List<Sectors>();
+        Bitmap bm;
         public CircleDiagramConfig Config { get; set; }
         double Side { get; set; } //сторона квадрата, в которого вписана окружность 
         
@@ -114,7 +115,6 @@ namespace MyDrawing
 
         private void DrawLegend()
         {
-            
             //стороны прямоугольника
             int SideA = 20;
             int SideB = 10;
@@ -141,7 +141,8 @@ namespace MyDrawing
 
         private void DrawCircle()
         {
-            g = placeToDraw.CreateGraphics();
+            bm = new Bitmap(placeToDraw.Width, placeToDraw.Height);
+            g = Graphics.FromImage(bm);
             g.Clear(placeToDraw.BackColor);
             g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
             Center = new Point((int)Config.X + Config.DiagramSize / 2, (int)Config.Y + Config.DiagramSize / 2);
@@ -163,6 +164,7 @@ namespace MyDrawing
             }
             
             DrawSectors();
+            placeToDraw.Image = bm;
         }
 
     }
