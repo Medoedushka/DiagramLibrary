@@ -21,7 +21,7 @@ namespace MyDrawing
         public int PosSepOX { get; set; }
         public int PosSepOY { get; set; }
 
-        private void DrawAxes()
+        private void DrawAxes(bool enableGrid)
         {
             
             g.DrawLine(Config.GraphPen, pt1, pt4); //ось абсцисс
@@ -66,7 +66,7 @@ namespace MyDrawing
                 Oxpoints2[i].Y = pt1.Y + PointsGraphConfig.HEIGHT;
                 if (Oxpoints1[i].X < pt1.X) continue;
 
-                if (Config.Grid == true)
+                if (Config.Grid == true && enableGrid)
                 {
                     StartLine = new PointF(RealCenter.X + (i + 1) * Config.StepOX, pt1.Y);
                     EndLine = new PointF(RealCenter.X + (i + 1) * Config.StepOX, pt2.Y);
@@ -96,7 +96,7 @@ namespace MyDrawing
                 Oypoints2[i].X = pt1.X + PointsGraphConfig.HEIGHT;
                 Oypoints2[i].Y = RealCenter.Y - (i + 1) * Config.StepOY;
                 if (Oypoints1[i].Y > pt1.Y) continue;
-                if (Config.Grid == true)
+                if (Config.Grid == true && enableGrid)
                 {
                     StartLine = new PointF(pt1.X, RealCenter.Y - (i + 1) * Config.StepOY);
                     EndLine = new PointF(pt4.X, RealCenter.Y - (i + 1) * Config.StepOY);
@@ -122,7 +122,7 @@ namespace MyDrawing
                 Oxpoints1[i].Y = pt1.Y - PointsGraphConfig.HEIGHT;
                 Oxpoints2[i].Y = pt1.Y + PointsGraphConfig.HEIGHT;
                 if (Oxpoints1[i].X > pt4.X) continue;
-                if (Config.Grid == true)
+                if (Config.Grid == true && enableGrid)
                 {
                     StartLine = new PointF(RealCenter.X - (i + 1) * Config.StepOX, pt1.Y);
                     EndLine = new PointF(RealCenter.X - (i + 1) * Config.StepOX, pt2.Y);
@@ -148,7 +148,7 @@ namespace MyDrawing
                 Oypoints2[i].X = pt1.X + PointsGraphConfig.HEIGHT;
                 Oypoints2[i].Y = RealCenter.Y + (i + 1) * Config.StepOY;
                 if (Oypoints1[i].Y < pt2.Y) continue;
-                if (Config.Grid == true)
+                if (Config.Grid == true && enableGrid)
                 {
                     StartLine = new PointF(pt1.X, RealCenter.Y + (i + 1) * Config.StepOY);
                     EndLine = new PointF(pt4.X, RealCenter.Y + (i + 1) * Config.StepOY);
@@ -225,7 +225,7 @@ namespace MyDrawing
                 g.FillRectangle(new SolidBrush(placeToDraw.BackColor), 0, placeToDraw.Height - Space_From_Bottom, placeToDraw.Width, Space_From_Bottom);
                 g.FillRectangle(new SolidBrush(placeToDraw.BackColor), pt3.X, pt3.Y, Space_From_Right, pt4.Y - pt3.Y);
                 g.FillRectangle(new SolidBrush(placeToDraw.BackColor), -1, pt2.Y, Space_From_Left + 1, pt1.Y - pt2.Y);
-                DrawAxes();
+                DrawAxes(false);
             }
         }
         private void DrawAxesNames()
