@@ -210,7 +210,7 @@
             Устанавливает параметры Oy по умолчанию.
             </summary>
         </member>
-        <member name="M:MyDrawing.PointsGraphic.SetPlaceToDrawSize(System.Int32,System.Int32)">
+        <member name="M:MyDrawing.PointsGraphic.SetPlaceToDrawSize(System.Int32,System.Int32,System.Boolean)">
             <summary>
             Рассчёт координат центра в зависимости от размеров пикчербокса.
             </summary>

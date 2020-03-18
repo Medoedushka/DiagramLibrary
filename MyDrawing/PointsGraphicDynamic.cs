@@ -15,7 +15,8 @@ namespace MyDrawing
         int stepOY;       //расстояние между делениями оси ординат  
         int numberOfSepOx;//кол-во делений на оси Ох
         int numberOfSepOy;//кол-во делений на оси Оу
-        public const int HEIGHT = 4;  //длинна одного деления
+        public const int HEIGHT = 6;  //длинна основного деления
+        public const int subHEIGHT = 4; //длина промежуточного деления
 
         double sizeOx, sizeOy; //размер шрифтов названия осей;
         double priceForPointOX; //цена деления на оси Ох 
@@ -211,7 +212,7 @@ namespace MyDrawing
             Config.PriceForPointOX = 1;
             Config.PriceForPointOY = 1;
         }
-        #region Значения по умолчанию
+
         /// <summary>
         /// Устанавливает параметры Ox по умолчанию.
         /// </summary>
@@ -286,14 +287,14 @@ namespace MyDrawing
             else MessageBox.Show("Недостаточно данных для оптимального построения области диагрммы", "Внимание",
                  MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
-        #endregion
+
 
         /// <summary>
         /// Рассчёт координат центра в зависимости от размеров пикчербокса.
         /// </summary>
         /// <param name="width"></param>
         /// <param name="height"></param>
-        public void SetPlaceToDrawSize(int width, int height)
+        public void SetPlaceToDrawSize(int width, int height, bool defCenter = true)
         {
             //левая нижняя точка
             pt1 = new Point(Space_From_Left, height - Space_From_Bottom);
@@ -304,9 +305,13 @@ namespace MyDrawing
             //правая нижняя точка
             pt4 = new Point(width - Space_From_Right, height - Space_From_Bottom);
 
-            int X = pt2.X + (pt3.X - pt2.X) / 2;
-            int Y = pt1.Y - (pt1.Y - pt2.Y) / 2;
-            RealCenter = new Point(X, Y);
+            if (defCenter)
+            {
+                int X = pt2.X + (pt3.X - pt2.X) / 2;
+                int Y = pt1.Y - (pt1.Y - pt2.Y) / 2;
+                RealCenter = new Point(X, Y);
+            }
+            
         }
         /// <summary>
         /// Рисует: график, с добавленными кривыми, названия осей и диаграммы, легенду. 
@@ -326,8 +331,6 @@ namespace MyDrawing
                     StaticDrawCurrentCurve(curve);
                 }
 
-                
-
                 if (Title != "")
                 {
                     if (TitleSize == 0)
@@ -335,13 +338,14 @@ namespace MyDrawing
                     DrawTitle();
 
                 }
+
                 if (Config.OXName != "" || Config.OYName != "")
                 {
                     if (Config.OXNameSize == 0) Config.OXNameSize = 10;
                     if (Config.OYNameSize == 0) Config.OYNameSize = 10;
                     Space_From_Bottom = 45;
                     Space_From_Left = 45;
-                    SetPlaceToDrawSize(placeToDraw.Width, placeToDraw.Height);
+                    SetPlaceToDrawSize(placeToDraw.Width, placeToDraw.Height, false);
 
                     DrawAxesNames();
                 }

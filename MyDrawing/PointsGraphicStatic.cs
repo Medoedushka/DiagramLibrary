@@ -48,24 +48,22 @@ namespace MyDrawing
             PosSepOY = (int)Math.Truncate(LenghtOYPositive / Config.StepOY);
 
             PointF StartLine, EndLine;
-            Point[] Oxpoints1 = null;
-            Point[] Oxpoints2 = null;
+            PointF topP, botP;
             Point[] Oypoints1 = null;
             Point[] Oypoints2 = null;
+            int n = 4; //кол-во промежуточних делений
 
             #region<---Прорисовка положительных делений оси OX--->
-            Oxpoints1 = new Point[PosSepOX];
-            Oxpoints2 = new Point[PosSepOX];
-            for (int i = 0; i < Oxpoints1.Length; i++)
+            //Основные деления
+            for (int i = 0; i < PosSepOX; i++)
             {
                 string num = Convert.ToString((i + 1) * Config.PriceForPointOX);
-                Oxpoints1[i].X = RealCenter.X + (i + 1) * Config.StepOX;
-                Oxpoints1[i].Y = pt1.Y - PointsGraphConfig.HEIGHT;
+                topP = new PointF(RealCenter.X + (i + 1) * Config.StepOX, pt1.Y - PointsGraphConfig.HEIGHT);
 
-                Oxpoints2[i].X = RealCenter.X + (i + 1) * Config.StepOX;
-                Oxpoints2[i].Y = pt1.Y + PointsGraphConfig.HEIGHT;
-                if (Oxpoints1[i].X < pt1.X) continue;
+                botP = new PointF(RealCenter.X + (i + 1) * Config.StepOX, pt1.Y + PointsGraphConfig.HEIGHT);
 
+                if (topP.X < pt1.X || topP.X > pt4.X) continue;
+                
                 if (Config.Grid == true && enableGrid)
                 {
                     StartLine = new PointF(RealCenter.X + (i + 1) * Config.StepOX, pt1.Y);
@@ -73,14 +71,19 @@ namespace MyDrawing
                     g.DrawLine(new Pen(Config.GridColor), StartLine, EndLine);
                 }
 
-                g.DrawString(num, Config.DrawFont, Config.drawBrush, Oxpoints2[i].X - 3, Oxpoints2[i].Y);
-                g.DrawLine(new Pen(Config.GraphColor), Oxpoints1[i], Oxpoints2[i]);
-
+                g.DrawString(num, Config.DrawFont, Config.drawBrush, botP.X - 3, botP.Y);
+                g.DrawLine(new Pen(Config.GraphColor), topP, botP);
+                
                 
             }
-
-            Oxpoints1 = null;
-            Oxpoints2 = null;
+            //Промежуточные деления
+            for (int j = 1; j <= n * (PosSepOX + 1); j++)
+            {
+                topP = new PointF(RealCenter.X + j * Config.StepOX / n, pt1.Y - PointsGraphConfig.subHEIGHT);
+                botP = new PointF(RealCenter.X + j * Config.StepOX / n, pt1.Y + PointsGraphConfig.subHEIGHT);
+                if (topP.X < pt1.X || topP.X > pt4.X) continue;
+                g.DrawLine(new Pen(Config.GraphColor), topP, botP);
+            }
             #endregion
 
             #region<---Прорисовка положительных делений оси OY--->
@@ -111,29 +114,32 @@ namespace MyDrawing
             #endregion
 
             #region<---Прорисовка отрицательных делений оси OX--->
-            Oxpoints1 = new Point[NegSepOX];
-            Oxpoints2 = new Point[NegSepOX];
-            for (int i = 0; i < Oxpoints1.Length; i++)
+            //Основные деления
+            for (int i = 0; i < NegSepOX; i++)
             {
 
                 string num = "-" + Convert.ToString((i + 1) * Config.PriceForPointOX);
-                Oxpoints2[i].X = Oxpoints1[i].X = RealCenter.X - (i + 1) * Config.StepOX;
+                topP = new PointF(RealCenter.X - (i + 1) * Config.StepOX, pt1.Y - PointsGraphConfig.HEIGHT);
+                botP = new PointF(RealCenter.X - (i + 1) * Config.StepOX, pt1.Y + PointsGraphConfig.HEIGHT);
 
-                Oxpoints1[i].Y = pt1.Y - PointsGraphConfig.HEIGHT;
-                Oxpoints2[i].Y = pt1.Y + PointsGraphConfig.HEIGHT;
-                if (Oxpoints1[i].X > pt4.X) continue;
+                if (topP.X < pt1.X || topP.X > pt4.X) continue;
                 if (Config.Grid == true && enableGrid)
                 {
                     StartLine = new PointF(RealCenter.X - (i + 1) * Config.StepOX, pt1.Y);
                     EndLine = new PointF(RealCenter.X - (i + 1) * Config.StepOX, pt2.Y);
                     g.DrawLine(new Pen(Config.GridColor), StartLine, EndLine);
                 }
-                g.DrawString(num, Config.DrawFont, Config.drawBrush, Oxpoints2[i].X - 3, Oxpoints2[i].Y);
-                g.DrawLine(new Pen(Config.GraphColor), Oxpoints1[i], Oxpoints2[i]);
+                g.DrawString(num, Config.DrawFont, Config.drawBrush, botP.X - 3, botP.Y);
+                g.DrawLine(new Pen(Config.GraphColor), topP, botP);
             }
-
-            Oxpoints1 = null;
-            Oxpoints2 = null;
+            //Промежуточные деления
+            for (int j = 1; j <= n * (NegSepOX + 1); j++)
+            {
+                topP = new PointF(RealCenter.X - j * Config.StepOX / n, pt1.Y - PointsGraphConfig.subHEIGHT);
+                botP = new PointF(RealCenter.X - j * Config.StepOX / n, pt1.Y + PointsGraphConfig.subHEIGHT);
+                if (topP.X < pt1.X || topP.X > pt4.X) continue;
+                g.DrawLine(new Pen(Config.GraphColor), topP, botP);
+            }
             #endregion
 
             #region<---Прорисовка отрицательных делений оси OY--->
