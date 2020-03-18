@@ -291,20 +291,21 @@ namespace MyDrawing
             
 
             float x = 0, y = 0;
+            float n = size.Height / 2;
             if (TitlePosition == TextPosition.Left)
             {
                 x = pt1.X;
-                y = Space_From_Top / 2;
+                y = Space_From_Top / 2 - n;
             }
             else if (TitlePosition == TextPosition.Centre)
             {
-                x = RealCenter.X + 20; // (pt4.X - RealCenter.X) / 2 - size.Width / 2;
-                y = Space_From_Top / 2;
+                x = pt3.X / 2 - size.Width / 2;
+                y = Space_From_Top / 2 - n;
             }
             else if (TitlePosition == TextPosition.Right)
             {
                 x = pt4.X;
-                y = Space_From_Top / 2;
+                y = Space_From_Top / 2 - n;
                 while (x + size.Width > pt4.X)
                 {
                     x -= 1;

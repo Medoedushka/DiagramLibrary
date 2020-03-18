@@ -47,8 +47,11 @@ namespace TestMyDrawing
                 x++;
             }
             gr.AddCurve(new Curves(pt3, Color.Red));
-            gr.Config.StepOX = gr.Config.StepOY += 50;
-            gr.Config.DrawPoints = true;
+            gr.Config.StepOX = gr.Config.StepOY += 25;
+            gr.Config.PriceForPointOX = gr.Config.PriceForPointOY = 1;
+            gr.Title = "Test plot of custom function";
+            gr.TitlePosition = TextPosition.Centre;
+            gr.TitleSize = 15;
             gr.DrawDiagram();
             
         }

@@ -320,20 +320,19 @@ namespace MyDrawing
             {
                 g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
                 g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit;
-                DrawAxes();
-
                 foreach (Curves curve in GraphCurves)
                 {
                     StaticDrawCurrentCurve(curve);
                 }
                 DrawAxes();
-                //if (Title != "")
-                //{
-                //    if (TitleSize == 0)
-                //        TitleSize = 10;
-                //    DrawTitle();
 
-                //}
+                if (Title != "")
+                {
+                    if (TitleSize == 0)
+                        TitleSize = 10;
+                    DrawTitle();
+
+                }
                 //if (Config.OXName != "" || Config.OYName != "")
                 //{
                 //    if (Config.SizeOX == 0) Config.SizeOX = 10;
