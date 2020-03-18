@@ -40,7 +40,6 @@ namespace MyDrawing
             float LenghtOYNegative = Math.Abs(pt1.Y - RealCenter.Y);
             float LenghtOXPositive = Math.Abs(pt4.X - RealCenter.X);
             float LenghtOYPositive = Math.Abs(RealCenter.Y - pt2.Y);
-            
             NegSepOX = (int)Math.Truncate(LengthOXNegative / Config.StepOX);
             PosSepOX = (int)Math.Truncate(LenghtOXPositive / Config.StepOX);
 
@@ -163,6 +162,7 @@ namespace MyDrawing
         {
             Pen grafpen = new Pen(currentCurve.CurveColor, currentCurve.CurveThickness);
             PointF[] points = new PointF[currentCurve.PointsToDraw.Length];
+            bool isDotOut = false;
             for (int i = 0; i < currentCurve.PointsToDraw.Length; i++)
             {
 
@@ -177,8 +177,9 @@ namespace MyDrawing
                 }
                 else
                 {
-                    points[i].X = points[i - 1].X;
-                    points[i].Y = points[i - 1].Y;
+                    points[i].X = x;
+                    points[i].Y = y;
+                    isDotOut = true;
                 }
                 if (float.IsPositiveInfinity(x)) x = 1000000;
                 if (float.IsPositiveInfinity(y)) y = 1000000;
@@ -202,6 +203,14 @@ namespace MyDrawing
                     g.DrawLines(grafpen, points);
                    
                 }
+            }
+
+            if (isDotOut)
+            {
+                g.FillRectangle(new SolidBrush(placeToDraw.BackColor), 0, -1, placeToDraw.Width, pt2.Y+1);
+                g.FillRectangle(new SolidBrush(placeToDraw.BackColor), 0, placeToDraw.Height - Space_From_Bottom, placeToDraw.Width, Space_From_Bottom);
+                g.FillRectangle(new SolidBrush(placeToDraw.BackColor), pt3.X, pt3.Y, Space_From_Right, pt4.Y - pt3.Y);
+                g.FillRectangle(new SolidBrush(placeToDraw.BackColor), -1, pt2.Y, Space_From_Left + 1, pt1.Y - pt2.Y);
             }
 
             if (Config.DrawPoints == true)

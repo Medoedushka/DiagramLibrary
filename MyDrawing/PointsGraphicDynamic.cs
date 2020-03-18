@@ -307,9 +307,7 @@ namespace MyDrawing
             int X = pt2.X + (pt3.X - pt2.X) / 2;
             int Y = pt1.Y - (pt1.Y - pt2.Y) / 2;
             RealCenter = new Point(X, Y);
-
-
-            }
+        }
         /// <summary>
         /// Рисует: график, с добавленными кривыми, названия осей и диаграммы, легенду. 
         /// </summary>
@@ -328,6 +326,7 @@ namespace MyDrawing
                 {
                     StaticDrawCurrentCurve(curve);
                 }
+                DrawAxes();
                 //if (Title != "")
                 //{
                 //    if (TitleSize == 0)
