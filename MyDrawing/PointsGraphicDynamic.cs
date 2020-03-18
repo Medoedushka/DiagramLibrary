@@ -320,12 +320,13 @@ namespace MyDrawing
             {
                 g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
                 g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit;
+                DrawAxes();
                 foreach (Curves curve in GraphCurves)
                 {
                     StaticDrawCurrentCurve(curve);
                 }
 
-                DrawAxes();
+                
 
                 if (Title != "")
                 {

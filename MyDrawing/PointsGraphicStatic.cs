@@ -58,13 +58,6 @@ namespace MyDrawing
             Oxpoints2 = new Point[PosSepOX];
             for (int i = 0; i < Oxpoints1.Length; i++)
             {
-                //if (Config.Grid == true)
-                //{
-                //    StartLine = new PointF(RealCenter.X + (i + 1) * Config.StepOX, RealCenter.Y);
-                //    EndLine = new PointF(RealCenter.X + (i + 1) * Config.StepOX, pt2.Y);
-                //    g.DrawLine(new Pen(Config.GridColor), StartLine, EndLine);
-                //}
-                
                 string num = Convert.ToString((i + 1) * Config.PriceForPointOX);
                 Oxpoints1[i].X = RealCenter.X + (i + 1) * Config.StepOX;
                 Oxpoints1[i].Y = pt1.Y - PointsGraphConfig.HEIGHT;
@@ -72,8 +65,18 @@ namespace MyDrawing
                 Oxpoints2[i].X = RealCenter.X + (i + 1) * Config.StepOX;
                 Oxpoints2[i].Y = pt1.Y + PointsGraphConfig.HEIGHT;
                 if (Oxpoints1[i].X < pt1.X) continue;
+
+                if (Config.Grid == true)
+                {
+                    StartLine = new PointF(RealCenter.X + (i + 1) * Config.StepOX, pt1.Y);
+                    EndLine = new PointF(RealCenter.X + (i + 1) * Config.StepOX, pt2.Y);
+                    g.DrawLine(new Pen(Config.GridColor), StartLine, EndLine);
+                }
+
                 g.DrawString(num, Config.DrawFont, Config.drawBrush, Oxpoints2[i].X - 3, Oxpoints2[i].Y);
                 g.DrawLine(new Pen(Config.GraphColor), Oxpoints1[i], Oxpoints2[i]);
+
+                
             }
 
             Oxpoints1 = null;
@@ -84,12 +87,7 @@ namespace MyDrawing
             Oypoints2 = new Point[PosSepOY];
             for (int i = 0; i < Oypoints1.Length; i++)
             {
-                //if (Config.Grid == true)
-                //{
-                //    StartLine = new PointF(RealCenter.X, RealCenter.Y - (i + 1) * Config.StepOY);
-                //    EndLine = new PointF(pt4.X, RealCenter.Y - (i + 1) * Config.StepOY);
-                //    g.DrawLine(new Pen(Config.GridColor), StartLine, EndLine);
-                //}
+
                 string num = Convert.ToString((i + 1) * Config.PriceForPointOY);
                 Oypoints1[i].X = pt1.X - PointsGraphConfig.HEIGHT;
                 Oypoints1[i].Y = RealCenter.Y - (i + 1) * Config.StepOY;
@@ -97,6 +95,12 @@ namespace MyDrawing
                 Oypoints2[i].X = pt1.X + PointsGraphConfig.HEIGHT;
                 Oypoints2[i].Y = RealCenter.Y - (i + 1) * Config.StepOY;
                 if (Oypoints1[i].Y > pt1.Y) continue;
+                if (Config.Grid == true)
+                {
+                    StartLine = new PointF(pt1.X, RealCenter.Y - (i + 1) * Config.StepOY);
+                    EndLine = new PointF(pt4.X, RealCenter.Y - (i + 1) * Config.StepOY);
+                    g.DrawLine(new Pen(Config.GridColor), StartLine, EndLine);
+                }
                 g.DrawString(num, Config.DrawFont, Config.drawBrush, Oypoints1[i].X - 10, Oypoints1[i].Y);
                 g.DrawLine(Config.GraphPen, Oypoints1[i], Oypoints2[i]);
             }
@@ -111,18 +115,19 @@ namespace MyDrawing
                 Oxpoints2 = new Point[NegSepOX];
                 for (int i = 0; i < Oxpoints1.Length; i++)
                 {
-                    //if (Config.Grid == true)
-                    //{
-                    //    StartLine = new PointF(RealCenter.X - (i + 1) * Config.StepOX, placeToDraw.Height);
-                    //    EndLine = new PointF(RealCenter.X - (i + 1) * Config.StepOX, 0);
-                    //    g.DrawLine(new Pen(Config.GridColor), StartLine, EndLine);
-                    //}
+
                     string num = "-" + Convert.ToString((i + 1) * Config.PriceForPointOX);
                     Oxpoints2[i].X = Oxpoints1[i].X = RealCenter.X - (i + 1) * Config.StepOX;
 
                     Oxpoints1[i].Y = pt1.Y - PointsGraphConfig.HEIGHT;
                     Oxpoints2[i].Y = pt1.Y + PointsGraphConfig.HEIGHT;
                     if (Oxpoints1[i].X > pt4.X) continue;
+                    if (Config.Grid == true)
+                    {
+                        StartLine = new PointF(RealCenter.X - (i + 1) * Config.StepOX, pt1.Y);
+                        EndLine = new PointF(RealCenter.X - (i + 1) * Config.StepOX, pt2.Y);
+                        g.DrawLine(new Pen(Config.GridColor), StartLine, EndLine);
+                    }
                     g.DrawString(num, Config.DrawFont, Config.drawBrush, Oxpoints2[i].X - 3, Oxpoints2[i].Y);
                     g.DrawLine(new Pen(Config.GraphColor), Oxpoints1[i], Oxpoints2[i]);
                 }
@@ -135,13 +140,6 @@ namespace MyDrawing
                 Oypoints2 = new Point[NegSepOY];
                 for (int i = 0; i < Oypoints1.Length; i++)
                 {
-                    //if (Config.Grid == true)
-                    //{
-                    //    StartLine = new PointF(0, RealCenter.Y + (i + 1) * Config.StepOY);
-                    //    EndLine = new PointF(placeToDraw.Width, RealCenter.Y + (i + 1) * Config.StepOY);
-                    //    g.DrawLine(new Pen(Config.GridColor), StartLine, EndLine);
-                    //}
-
                     string num = "-" + Convert.ToString((i + 1) * Config.PriceForPointOY);
                     Oypoints1[i].X = pt1.X - PointsGraphConfig.HEIGHT;
                     Oypoints1[i].Y = RealCenter.Y + (i + 1) * Config.StepOY;
@@ -149,6 +147,12 @@ namespace MyDrawing
                     Oypoints2[i].X = pt1.X + PointsGraphConfig.HEIGHT;
                     Oypoints2[i].Y = RealCenter.Y + (i + 1) * Config.StepOY;
                     if (Oypoints1[i].Y < pt2.Y) continue;
+                    if (Config.Grid == true)
+                    {
+                        StartLine = new PointF(pt1.X, RealCenter.Y + (i + 1) * Config.StepOY);
+                        EndLine = new PointF(pt4.X, RealCenter.Y + (i + 1) * Config.StepOY);
+                        g.DrawLine(new Pen(Config.GridColor), StartLine, EndLine);
+                    }
                     g.DrawString(num, Config.DrawFont, Config.drawBrush, Oypoints1[i].X - 10, Oypoints1[i].Y);
                     g.DrawLine(Config.GraphPen, Oypoints1[i], Oypoints2[i]);
                 }
@@ -220,6 +224,7 @@ namespace MyDrawing
                 g.FillRectangle(new SolidBrush(placeToDraw.BackColor), 0, placeToDraw.Height - Space_From_Bottom, placeToDraw.Width, Space_From_Bottom);
                 g.FillRectangle(new SolidBrush(placeToDraw.BackColor), pt3.X, pt3.Y, Space_From_Right, pt4.Y - pt3.Y);
                 g.FillRectangle(new SolidBrush(placeToDraw.BackColor), -1, pt2.Y, Space_From_Left + 1, pt1.Y - pt2.Y);
+                DrawAxes();
             }
         }
 

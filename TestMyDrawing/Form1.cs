@@ -59,6 +59,7 @@ namespace TestMyDrawing
             gr.Config.OYName = "Y Axis";
             gr.Config.OYNamePosition = TextPosition.Centre;
             gr.Config.OYNameSize = 10;
+            gr.Config.Grid = true;
             gr.DrawDiagram();
 
 
