@@ -23,7 +23,7 @@ namespace MyDrawing
 
         private void DrawAxes()
         {
-            //рисует оси
+            
             g.DrawLine(Config.GraphPen, pt1, pt4); //ось абсцисс
             
             g.DrawLine(Config.GraphPen, pt1, pt2); //ось ординат
@@ -52,8 +52,8 @@ namespace MyDrawing
             Point[] Oxpoints2 = null;
             Point[] Oypoints1 = null;
             Point[] Oypoints2 = null;
-            
-            //прорисовка положительных делений оси OX
+
+            #region<---Прорисовка положительных делений оси OX--->
             Oxpoints1 = new Point[PosSepOX];
             Oxpoints2 = new Point[PosSepOX];
             for (int i = 0; i < Oxpoints1.Length; i++)
@@ -81,8 +81,9 @@ namespace MyDrawing
 
             Oxpoints1 = null;
             Oxpoints2 = null;
-                
-            //прорисовка положительных делений оси OY
+            #endregion
+
+            #region<---Прорисовка положительных делений оси OY--->
             Oypoints1 = new Point[PosSepOY];
             Oypoints2 = new Point[PosSepOY];
             for (int i = 0; i < Oypoints1.Length; i++)
@@ -107,59 +108,59 @@ namespace MyDrawing
 
             Oypoints1 = null;
             Oypoints2 = null;
-            
-            if (true)
+            #endregion
+
+            #region<---Прорисовка отрицательных делений оси OX--->
+            Oxpoints1 = new Point[NegSepOX];
+            Oxpoints2 = new Point[NegSepOX];
+            for (int i = 0; i < Oxpoints1.Length; i++)
             {
-                //прорисовка отрицательных делений оси OX
-                Oxpoints1 = new Point[NegSepOX];
-                Oxpoints2 = new Point[NegSepOX];
-                for (int i = 0; i < Oxpoints1.Length; i++)
+
+                string num = "-" + Convert.ToString((i + 1) * Config.PriceForPointOX);
+                Oxpoints2[i].X = Oxpoints1[i].X = RealCenter.X - (i + 1) * Config.StepOX;
+
+                Oxpoints1[i].Y = pt1.Y - PointsGraphConfig.HEIGHT;
+                Oxpoints2[i].Y = pt1.Y + PointsGraphConfig.HEIGHT;
+                if (Oxpoints1[i].X > pt4.X) continue;
+                if (Config.Grid == true)
                 {
-
-                    string num = "-" + Convert.ToString((i + 1) * Config.PriceForPointOX);
-                    Oxpoints2[i].X = Oxpoints1[i].X = RealCenter.X - (i + 1) * Config.StepOX;
-
-                    Oxpoints1[i].Y = pt1.Y - PointsGraphConfig.HEIGHT;
-                    Oxpoints2[i].Y = pt1.Y + PointsGraphConfig.HEIGHT;
-                    if (Oxpoints1[i].X > pt4.X) continue;
-                    if (Config.Grid == true)
-                    {
-                        StartLine = new PointF(RealCenter.X - (i + 1) * Config.StepOX, pt1.Y);
-                        EndLine = new PointF(RealCenter.X - (i + 1) * Config.StepOX, pt2.Y);
-                        g.DrawLine(new Pen(Config.GridColor), StartLine, EndLine);
-                    }
-                    g.DrawString(num, Config.DrawFont, Config.drawBrush, Oxpoints2[i].X - 3, Oxpoints2[i].Y);
-                    g.DrawLine(new Pen(Config.GraphColor), Oxpoints1[i], Oxpoints2[i]);
+                    StartLine = new PointF(RealCenter.X - (i + 1) * Config.StepOX, pt1.Y);
+                    EndLine = new PointF(RealCenter.X - (i + 1) * Config.StepOX, pt2.Y);
+                    g.DrawLine(new Pen(Config.GridColor), StartLine, EndLine);
                 }
-
-                Oxpoints1 = null;
-                Oxpoints2 = null;
-
-                //прорисовка отрицательных делений оси OY
-                Oypoints1 = new Point[NegSepOY];
-                Oypoints2 = new Point[NegSepOY];
-                for (int i = 0; i < Oypoints1.Length; i++)
-                {
-                    string num = "-" + Convert.ToString((i + 1) * Config.PriceForPointOY);
-                    Oypoints1[i].X = pt1.X - PointsGraphConfig.HEIGHT;
-                    Oypoints1[i].Y = RealCenter.Y + (i + 1) * Config.StepOY;
-
-                    Oypoints2[i].X = pt1.X + PointsGraphConfig.HEIGHT;
-                    Oypoints2[i].Y = RealCenter.Y + (i + 1) * Config.StepOY;
-                    if (Oypoints1[i].Y < pt2.Y) continue;
-                    if (Config.Grid == true)
-                    {
-                        StartLine = new PointF(pt1.X, RealCenter.Y + (i + 1) * Config.StepOY);
-                        EndLine = new PointF(pt4.X, RealCenter.Y + (i + 1) * Config.StepOY);
-                        g.DrawLine(new Pen(Config.GridColor), StartLine, EndLine);
-                    }
-                    g.DrawString(num, Config.DrawFont, Config.drawBrush, Oypoints1[i].X - 10, Oypoints1[i].Y);
-                    g.DrawLine(Config.GraphPen, Oypoints1[i], Oypoints2[i]);
-                }
-
-                Oypoints1 = null;
-                Oypoints2 = null;
+                g.DrawString(num, Config.DrawFont, Config.drawBrush, Oxpoints2[i].X - 3, Oxpoints2[i].Y);
+                g.DrawLine(new Pen(Config.GraphColor), Oxpoints1[i], Oxpoints2[i]);
             }
+
+            Oxpoints1 = null;
+            Oxpoints2 = null;
+            #endregion
+
+            #region<---Прорисовка отрицательных делений оси OY--->
+            Oypoints1 = new Point[NegSepOY];
+            Oypoints2 = new Point[NegSepOY];
+            for (int i = 0; i < Oypoints1.Length; i++)
+            {
+                string num = "-" + Convert.ToString((i + 1) * Config.PriceForPointOY);
+                Oypoints1[i].X = pt1.X - PointsGraphConfig.HEIGHT;
+                Oypoints1[i].Y = RealCenter.Y + (i + 1) * Config.StepOY;
+
+                Oypoints2[i].X = pt1.X + PointsGraphConfig.HEIGHT;
+                Oypoints2[i].Y = RealCenter.Y + (i + 1) * Config.StepOY;
+                if (Oypoints1[i].Y < pt2.Y) continue;
+                if (Config.Grid == true)
+                {
+                    StartLine = new PointF(pt1.X, RealCenter.Y + (i + 1) * Config.StepOY);
+                    EndLine = new PointF(pt4.X, RealCenter.Y + (i + 1) * Config.StepOY);
+                    g.DrawLine(new Pen(Config.GridColor), StartLine, EndLine);
+                }
+                g.DrawString(num, Config.DrawFont, Config.drawBrush, Oypoints1[i].X - 10, Oypoints1[i].Y);
+                g.DrawLine(Config.GraphPen, Oypoints1[i], Oypoints2[i]);
+            }
+
+            Oypoints1 = null;
+            Oypoints2 = null;
+            #endregion
 
         }
 
@@ -227,7 +228,6 @@ namespace MyDrawing
                 DrawAxes();
             }
         }
-
         private void DrawAxesNames()
         {
             Font fontOX = new Font("Arial", (float)Config.OXNameSize);
@@ -290,7 +290,6 @@ namespace MyDrawing
             //рисование названия Oy
             g.DrawString(Config.OYName, fontOY, brush, pointOY, stringFormat);
         }
-
         private void DrawTitle()
         {
             Font font = new Font("Arial", TitleSize);
@@ -322,21 +321,27 @@ namespace MyDrawing
             PointF textPoint = new PointF(x, y);
             g.DrawString(Title, font, brush, textPoint);
         }
-
         private void DrawDiagramLegend()
         {
             int lineLength = 15;
-            PointF StartPoint = new PointF(LastPointOX.X + 10, LastPointOX.Y / 2);
-            PointF EndPoint = new PointF(StartPoint.X + lineLength, StartPoint.Y);
+            Font font = new Font("Arial", 9);
+            PointF temp = new PointF(pt3.X, pt3.Y + 5);
+            float minX = float.MaxValue, maxY = 0;
             foreach (Curves crrCurve in GraphCurves)
             {
-                g.DrawLine(new Pen(crrCurve.CurveColor, 2), StartPoint, EndPoint);
+                
                 string str = " - " + crrCurve.Legend;
-                g.DrawString(str, new Font("Arial", 7), new SolidBrush(Color.Black), EndPoint.X, EndPoint.Y - 7);
+                SizeF size = g.MeasureString(str, font);
+                while (temp.X + size.Width > pt3.X) temp.X--;
+                if (temp.X < minX) minX = temp.X - lineLength - 5;
 
-                StartPoint.Y += 25;
-                EndPoint.Y += 25;
+                g.DrawString(str, font, new SolidBrush(Color.Black), temp);
+                g.DrawLine(new Pen(crrCurve.CurveColor, 4), temp.X - lineLength, temp.Y + size.Height / 2, temp.X, temp.Y + size.Height / 2);
+                temp = new PointF(pt3.X, temp.Y + 20);
+                maxY = temp.Y;
             }
+            g.DrawLine(new Pen(Color.Black), minX, pt3.Y, minX, maxY);
+            g.DrawLine(new Pen(Color.Black), minX, maxY, pt3.X, maxY);
         }
 
 

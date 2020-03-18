@@ -34,8 +34,8 @@ namespace TestMyDrawing
                 pt2[i].Y = -(float)Math.Sqrt(1 - pt[i].X * pt[i].X);
                 x += 0.01;
             }
-            gr.AddCurve(new Curves(pt, Color.Red));
-            gr.AddCurve(new Curves(pt2, Color.Red));
+            gr.AddCurve(new Curves(pt, Color.Red, Legend: "Первая половина окружности"));
+            gr.AddCurve(new Curves(pt2, Color.Red, Legend: "Вторая половина окружности"));
 
             PointF p = new PointF(0.5f, 0.866f);
             
@@ -46,10 +46,10 @@ namespace TestMyDrawing
                 pt3[i].Y = (float)(-p.X * Math.Pow(1 - p.X * p.X, -0.5) * (pt3[i].X - p.X) + p.Y);
                 x++;
             }
-            gr.AddCurve(new Curves(pt3, Color.Magenta));
+            gr.AddCurve(new Curves(pt3, Color.Blue, Legend: "Касательная"));
             gr.Config.StepOX = gr.Config.StepOY += 25;
             gr.Config.PriceForPointOX = gr.Config.PriceForPointOY = 1;
-            gr.Title = "Test plot of custom function";
+            gr.Title = "Test plot of custom functions";
             gr.TitlePosition = TextPosition.Centre;
             gr.TitleSize = 15;
 
@@ -60,6 +60,7 @@ namespace TestMyDrawing
             gr.Config.OYNamePosition = TextPosition.Centre;
             gr.Config.OYNameSize = 10;
             gr.Config.Grid = true;
+            gr.AddDiagramLegend = true;
             gr.DrawDiagram();
 
 

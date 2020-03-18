@@ -351,6 +351,11 @@ namespace MyDrawing
                     Space_From_Left = 25;
                     SetPlaceToDrawSize(placeToDraw.Width, placeToDraw.Height);
                 }
+
+                if (AddDiagramLegend == true)
+                {
+                    DrawDiagramLegend();
+                }
             }
                     placeToDraw.Image = bm;
         }
