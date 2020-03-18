@@ -238,6 +238,14 @@
             <param name="type">Тип системы координат, в котором возвращаются значения</param>
             <returns></returns>
         </member>
+        <member name="M:MyDrawing.PointsGraphic.ConvertValues(System.Drawing.PointF,MyDrawing.CoordType)">
+            <summary>
+            Преобразует входящие параметры в значения прямоугольной системы координат или в значение системы координат объекта Control.
+            </summary>
+            <param name="convertPt">Точка для конвертации</param>
+            <param name="type">Тип системы координат, в котором возвращаются значения</param>
+            <returns></returns>
+        </member>
         <member name="T:MyDrawing.Curves">
             <summary>
             Представляет структуру для инициализации кривой.

@@ -38,8 +38,8 @@ namespace TestMyDrawing
             gr.AddCurve(new Curves(pt2, Color.Red));
 
             PointF p = new PointF(0.5f, 0.866f);
-
-            x = -5;
+            
+                x = -5;
             for(int i = 0; i < pt3.Length; i++)
             {
                 pt3[i].X = (float)x;
@@ -54,23 +54,28 @@ namespace TestMyDrawing
             gr.TitleSize = 15;
 
             gr.Config.OXName = "X Axis";
-            gr.Config.OXNamePosition = TextPosition.Right;
-            gr.Config.OXNameSize = 15;
+            gr.Config.OXNamePosition = TextPosition.Centre;
+            gr.Config.OXNameSize = 10;
             gr.Config.OYName = "Y Axis";
-            gr.Config.OYNamePosition = TextPosition.Right;
-            gr.Config.OYNameSize = 15;
+            gr.Config.OYNamePosition = TextPosition.Centre;
+            gr.Config.OYNameSize = 10;
             gr.DrawDiagram();
-            
+
+
+            trackBar1.Minimum = gr.RealCenter.Y - 1500;
+            trackBar1.Maximum = gr.RealCenter.Y + 1500;
         }
 
         private void Form1_SizeChanged(object sender, EventArgs e)
         {
             gr.SetPlaceToDrawSize(pictureBox1.Width, pictureBox1.Height);
             gr.DrawDiagram();
+            
         }
 
         private void trackBar2_Scroll(object sender, EventArgs e)
         {
+            
             gr.RealCenter = new Point(trackBar2.Value, gr.RealCenter.Y);
             gr.DrawDiagram();
         }

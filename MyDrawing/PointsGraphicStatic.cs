@@ -40,13 +40,12 @@ namespace MyDrawing
             float LenghtOYNegative = Math.Abs(pt1.Y - RealCenter.Y);
             float LenghtOXPositive = Math.Abs(pt4.X - RealCenter.X);
             float LenghtOYPositive = Math.Abs(RealCenter.Y - pt2.Y);
+
             NegSepOX = (int)Math.Truncate(LengthOXNegative / Config.StepOX);
             PosSepOX = (int)Math.Truncate(LenghtOXPositive / Config.StepOX);
 
             NegSepOY = (int)Math.Truncate(LenghtOYNegative / Config.StepOY);
             PosSepOY = (int)Math.Truncate(LenghtOYPositive / Config.StepOY);
-
-            
 
             PointF StartLine, EndLine;
             Point[] Oxpoints1 = null;
@@ -65,13 +64,14 @@ namespace MyDrawing
                 //    EndLine = new PointF(RealCenter.X + (i + 1) * Config.StepOX, pt2.Y);
                 //    g.DrawLine(new Pen(Config.GridColor), StartLine, EndLine);
                 //}
+                
                 string num = Convert.ToString((i + 1) * Config.PriceForPointOX);
                 Oxpoints1[i].X = RealCenter.X + (i + 1) * Config.StepOX;
                 Oxpoints1[i].Y = pt1.Y - PointsGraphConfig.HEIGHT;
 
                 Oxpoints2[i].X = RealCenter.X + (i + 1) * Config.StepOX;
                 Oxpoints2[i].Y = pt1.Y + PointsGraphConfig.HEIGHT;
-                    
+                if (Oxpoints1[i].X < pt1.X) continue;
                 g.DrawString(num, Config.DrawFont, Config.drawBrush, Oxpoints2[i].X - 3, Oxpoints2[i].Y);
                 g.DrawLine(new Pen(Config.GraphColor), Oxpoints1[i], Oxpoints2[i]);
             }
@@ -96,7 +96,7 @@ namespace MyDrawing
 
                 Oypoints2[i].X = pt1.X + PointsGraphConfig.HEIGHT;
                 Oypoints2[i].Y = RealCenter.Y - (i + 1) * Config.StepOY;
-                   
+                if (Oypoints1[i].Y > pt1.Y) continue;
                 g.DrawString(num, Config.DrawFont, Config.drawBrush, Oypoints1[i].X - 10, Oypoints1[i].Y);
                 g.DrawLine(Config.GraphPen, Oypoints1[i], Oypoints2[i]);
             }
@@ -122,8 +122,8 @@ namespace MyDrawing
 
                     Oxpoints1[i].Y = pt1.Y - PointsGraphConfig.HEIGHT;
                     Oxpoints2[i].Y = pt1.Y + PointsGraphConfig.HEIGHT;
+                    if (Oxpoints1[i].X > pt4.X) continue;
                     g.DrawString(num, Config.DrawFont, Config.drawBrush, Oxpoints2[i].X - 3, Oxpoints2[i].Y);
-
                     g.DrawLine(new Pen(Config.GraphColor), Oxpoints1[i], Oxpoints2[i]);
                 }
 
@@ -148,6 +148,7 @@ namespace MyDrawing
 
                     Oypoints2[i].X = pt1.X + PointsGraphConfig.HEIGHT;
                     Oypoints2[i].Y = RealCenter.Y + (i + 1) * Config.StepOY;
+                    if (Oypoints1[i].Y < pt2.Y) continue;
                     g.DrawString(num, Config.DrawFont, Config.drawBrush, Oypoints1[i].X - 10, Oypoints1[i].Y);
                     g.DrawLine(Config.GraphPen, Oypoints1[i], Oypoints2[i]);
                 }
@@ -356,7 +357,12 @@ namespace MyDrawing
             }
             return res;
         }
-
+        /// <summary>
+        /// Преобразует входящие параметры в значения прямоугольной системы координат или в значение системы координат объекта Control.
+        /// </summary>
+        /// <param name="convertPt">Точка для конвертации</param>
+        /// <param name="type">Тип системы координат, в котором возвращаются значения</param>
+        /// <returns></returns>
         public PointF ConvertValues(PointF convertPt, CoordType type)
         {
             PointF res = new PointF(0, 0);
