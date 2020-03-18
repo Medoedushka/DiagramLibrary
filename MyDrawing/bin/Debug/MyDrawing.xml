@@ -158,12 +158,12 @@
             Устанавливает количество делений на оси Оy.
             </summary>
         </member>
-        <member name="P:MyDrawing.PointsGraphConfig.SizeOX">
+        <member name="P:MyDrawing.PointsGraphConfig.OXNameSize">
             <summary>
             Устанавливает размер шрифта для названия оси Ox.
             </summary>
         </member>
-        <member name="P:MyDrawing.PointsGraphConfig.SizeOY">
+        <member name="P:MyDrawing.PointsGraphConfig.OYNameSize">
             <summary>
             Устанавливает размер шрифта для названия оси Oy.
             </summary>

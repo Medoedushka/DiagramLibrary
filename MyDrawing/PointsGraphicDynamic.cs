@@ -119,7 +119,7 @@ namespace MyDrawing
         /// <summary>
         /// Устанавливает размер шрифта для названия оси Ox.
         /// </summary>
-        public double SizeOX
+        public double OXNameSize
         {
             get { return sizeOx; }
             set
@@ -131,7 +131,7 @@ namespace MyDrawing
         /// <summary>
         /// Устанавливает размер шрифта для названия оси Oy.
         /// </summary>
-        public double SizeOY
+        public double OYNameSize
         {
             get { return sizeOy; }
             set
@@ -324,6 +324,7 @@ namespace MyDrawing
                 {
                     StaticDrawCurrentCurve(curve);
                 }
+
                 DrawAxes();
 
                 if (Title != "")
@@ -333,13 +334,22 @@ namespace MyDrawing
                     DrawTitle();
 
                 }
-                //if (Config.OXName != "" || Config.OYName != "")
-                //{
-                //    if (Config.SizeOX == 0) Config.SizeOX = 10;
-                //    if (Config.SizeOY == 0) Config.SizeOY = 10;
+                if (Config.OXName != "" || Config.OYName != "")
+                {
+                    if (Config.OXNameSize == 0) Config.OXNameSize = 10;
+                    if (Config.OYNameSize == 0) Config.OYNameSize = 10;
+                    Space_From_Bottom = 45;
+                    Space_From_Left = 45;
+                    SetPlaceToDrawSize(placeToDraw.Width, placeToDraw.Height);
 
-                //    DrawAxesNames();
-                //}
+                    DrawAxesNames();
+                }
+                else
+                {
+                    Space_From_Bottom = 25;
+                    Space_From_Left = 25;
+                    SetPlaceToDrawSize(placeToDraw.Width, placeToDraw.Height);
+                }
             }
                     placeToDraw.Image = bm;
         }

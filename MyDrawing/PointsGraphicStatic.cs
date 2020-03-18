@@ -224,51 +224,53 @@ namespace MyDrawing
 
         private void DrawAxesNames()
         {
-            Font fontOX = new Font("Arial", (float)Config.SizeOX);
-            Font fontOY = new Font("Arial", (float)Config.SizeOY);
+            Font fontOX = new Font("Arial", (float)Config.OXNameSize);
+            Font fontOY = new Font("Arial", (float)Config.OYNameSize);
             SolidBrush brush = new SolidBrush(Color.Black);
             StringFormat stringFormat = new StringFormat();
             stringFormat.FormatFlags = StringFormatFlags.DirectionVertical;
 
-            #region Координаты для строки названия оси Ох.
+            #region<---Координаты для строки названия оси Ох--->
+
             SizeF size = g.MeasureString(Config.OXName, fontOX);
             PointF pointOX = new PointF();
+
             if (Config.OXNamePosition == TextPosition.Centre)
             {
-                pointOX.X = RealCenter.X + 10; //+ (pt4.X - RealCenter.X) / 2 - size.Width / 2;
-                pointOX.Y = RealCenter.Y + 20;
+                pointOX.X = pt4.X / 2 - size.Width / 2;
+                pointOX.Y = pt1.Y + size.Height;
             }
             else if (Config.OXNamePosition == TextPosition.Left)
             {
                 pointOX.X = pt1.X;
-                pointOX.Y = RealCenter.Y + 20;
+                pointOX.Y = pt1.Y + size.Height;
             }
             else if (Config.OXNamePosition == TextPosition.Right)
             {
                 pointOX.X = pt4.X;
-                pointOX.Y = RealCenter.Y + 20;
+                pointOX.Y = pt1.Y + size.Height;
                 while (pointOX.X + size.Width > pt4.X)
                 {
                     pointOX.X--;
                 }
             }
             #endregion
-            #region Координаты для строки названия оси Оy.
+            #region<---Координаты для строки названия оси Оy--->
             size = g.MeasureString(Config.OYName, fontOY);
             PointF pointOY = new PointF();
             if (Config.OYNamePosition == TextPosition.Centre)
             {
-                pointOY.X = RealCenter.X - 35;
-                pointOY.Y = RealCenter.Y - (RealCenter.Y - pt2.Y) / 2 - size.Width / 2;
+                pointOY.X = pt1.X - 35;
+                pointOY.Y = pt1.Y / 2 - size.Width / 2;
             }
             if (Config.OYNamePosition == TextPosition.Left)
             {
-                pointOY.X = RealCenter.X - 35;
+                pointOY.X = pt1.X - 35;
                 pointOY.Y = pt2.Y;
             }
             if (Config.OYNamePosition == TextPosition.Right)
             {
-                pointOY.X = RealCenter.X - 35;
+                pointOY.X = pt1.X - 35;
                 pointOY.Y = pt1.Y;
                 while (pointOY.Y + size.Width > pt1.Y)
                 {

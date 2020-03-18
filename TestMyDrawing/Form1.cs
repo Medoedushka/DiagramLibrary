@@ -46,12 +46,19 @@ namespace TestMyDrawing
                 pt3[i].Y = (float)(-p.X * Math.Pow(1 - p.X * p.X, -0.5) * (pt3[i].X - p.X) + p.Y);
                 x++;
             }
-            gr.AddCurve(new Curves(pt3, Color.Red));
+            gr.AddCurve(new Curves(pt3, Color.Magenta));
             gr.Config.StepOX = gr.Config.StepOY += 25;
             gr.Config.PriceForPointOX = gr.Config.PriceForPointOY = 1;
             gr.Title = "Test plot of custom function";
             gr.TitlePosition = TextPosition.Centre;
             gr.TitleSize = 15;
+
+            gr.Config.OXName = "X Axis";
+            gr.Config.OXNamePosition = TextPosition.Right;
+            gr.Config.OXNameSize = 15;
+            gr.Config.OYName = "Y Axis";
+            gr.Config.OYNamePosition = TextPosition.Right;
+            gr.Config.OYNameSize = 15;
             gr.DrawDiagram();
             
         }
