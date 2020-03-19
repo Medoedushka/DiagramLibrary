@@ -68,12 +68,22 @@ namespace TestMyDrawing
             gr.Config.Grid = true;;
             gr.DrawDiagram();
 
-            trackBar2.Value = gr.RealCenter.X;
+            
             trackBar2.Minimum = gr.RealCenter.X - 1500;
             trackBar2.Maximum = gr.RealCenter.X + 1500;
-            trackBar1.Value = gr.RealCenter.Y;
+            trackBar2.Value = gr.RealCenter.X;
             trackBar1.Minimum = gr.RealCenter.Y - 1500;
             trackBar1.Maximum = gr.RealCenter.Y + 1500;
+            trackBar1.Value = gr.RealCenter.Y;
+
+            StepOX.Minimum = gr.Config.StepOX - 500;
+            StepOX.Maximum = gr.Config.StepOX + 500;
+            StepOX.Value = gr.Config.StepOX;
+            StepOX.TickFrequency = 100;
+            StepOY.Minimum = gr.Config.StepOY - 500;
+            StepOY.Maximum = gr.Config.StepOY + 500;
+            StepOY.Value = gr.Config.StepOY;
+            StepOY.TickFrequency = 100;
         }
 
         private void Form1_SizeChanged(object sender, EventArgs e)
@@ -94,6 +104,36 @@ namespace TestMyDrawing
         {
             gr.RealCenter = new Point(gr.RealCenter.X, trackBar1.Value);
             gr.DrawDiagram();
+        }
+
+        private void StepOX_Scroll(object sender, EventArgs e)
+        {
+            gr.Config.StepOX = StepOX.Value;
+            gr.DrawDiagram();
+        }
+
+        private void StepOY_Scroll(object sender, EventArgs e)
+        {
+            gr.Config.StepOY = StepOY.Value;
+            gr.DrawDiagram();
+        }
+
+        private void priceOX_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                gr.Config.PriceForPointOX = double.Parse(priceOX.Text);
+                gr.DrawDiagram();
+            }
+        }
+
+        private void priceOY_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                gr.Config.PriceForPointOY = double.Parse(priceOY.Text);
+                gr.DrawDiagram();
+            }
         }
     }
 }
