@@ -40,21 +40,20 @@ namespace TestMyDrawing
             //    pt2[i].Y = -(float)Math.Sqrt(1 - pt[i].X * pt[i].X);
             //    x += 0.01;
             //}
-            gr.AddCurve(new Curves(pt, Color.Red, Legend: "Первая половина окружности"));
+            //gr.AddCurve(new Curves(pt, Color.Red, Legend: "Первая половина окружности"));
             //gr.AddCurve(new Curves(pt2, Color.Red, Legend: "Вторая половина окружности"));
 
-            //PointF p = new PointF(0.5f, 0.866f);
-            
-            //    x = -5;
-            //for(int i = 0; i < pt3.Length; i++)
-            //{
-            //    pt3[i].X = (float)x;
-            //    pt3[i].Y = (float)(-p.X * Math.Pow(1 - p.X * p.X, -0.5) * (pt3[i].X - p.X) + p.Y);
-            //    x++;
-            //}
-            //gr.AddCurve(new Curves(pt3, Color.Blue, Legend: "Касательная"));
-            gr.Config.StepOX = gr.Config.StepOY += 60;
-            gr.Config.PriceForPointOX = gr.Config.PriceForPointOY = 100;
+            PointF p = new PointF(0.5f, 0.866f);
+            double x = -5;
+            for (int i = 0; i < pt3.Length; i++)
+            {
+                pt3[i].X = (float)x;
+                pt3[i].Y = (float)(-p.X * Math.Pow(1 - p.X * p.X, -0.5) * (pt3[i].X - p.X) + p.Y);
+                x++;
+            }
+            gr.AddCurve(new Curves(pt3, Color.Blue, Legend: "Касательная", dotsType: "g;t;t;5"));
+            //gr.Config.StepOX = gr.Config.StepOY += 60;
+            //gr.Config.PriceForPointOX = gr.Config.PriceForPointOY = 100;
             gr.Title = "Test plot of custom functions";
             gr.TitlePosition = TextPosition.Centre;
             gr.TitleSize = 15;
@@ -76,11 +75,11 @@ namespace TestMyDrawing
             trackBar1.Maximum = gr.RealCenter.Y + 1500;
             trackBar1.Value = gr.RealCenter.Y;
 
-            StepOX.Minimum = gr.Config.StepOX - 500;
+            StepOX.Minimum = 0;
             StepOX.Maximum = gr.Config.StepOX + 500;
             StepOX.Value = gr.Config.StepOX;
             StepOX.TickFrequency = 100;
-            StepOY.Minimum = gr.Config.StepOY - 500;
+            StepOY.Minimum = 0;
             StepOY.Maximum = gr.Config.StepOY + 500;
             StepOY.Value = gr.Config.StepOY;
             StepOY.TickFrequency = 100;
@@ -132,6 +131,35 @@ namespace TestMyDrawing
             if (e.KeyChar == (char)Keys.Enter)
             {
                 gr.Config.PriceForPointOY = double.Parse(priceOY.Text);
+                gr.DrawDiagram();
+            }
+        }
+
+        Point mouseLoc;
+        bool mousePressed = false;
+        float d, angle;
+        private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
+        {
+            mousePressed = true;
+            mouseLoc = e.Location;
+            d = (float)Math.Sqrt(Math.Pow(gr.RealCenter.X - e.Location.X, 2) + Math.Pow(gr.RealCenter.Y - e.Location.Y, 2));
+            angle = (float)Math.Asin((gr.RealCenter.Y - e.Location.Y) / d);
+        }
+
+        private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
+        {
+            mousePressed = false;
+            //MessageBox.Show(mousePressed.ToString());
+        }
+
+        private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (mousePressed)
+            {
+                if (mouseLoc.X > gr.RealCenter.X)
+                    gr.RealCenter = new Point(e.Location.X - (int)(d * Math.Cos(angle)), e.Location.Y + (int)(d * Math.Sin(angle)));
+                else
+                    gr.RealCenter = new Point(e.Location.X + (int)(d * Math.Cos(angle)), e.Location.Y + (int)(d * Math.Sin(angle)));
                 gr.DrawDiagram();
             }
         }

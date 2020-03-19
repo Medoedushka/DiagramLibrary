@@ -266,14 +266,14 @@
             Устанавливает цвет кривой графика.
             </summary>
         </member>
-        <member name="P:MyDrawing.Curves.DotsColor">
-            <summary>
-            Цвет точек кривой.
-            </summary>
-        </member>
         <member name="P:MyDrawing.Curves.Legend">
             <summary>
             Легенда кривой.
+            </summary>
+        </member>
+        <member name="P:MyDrawing.Curves.DotsType">
+            <summary>
+            Строка, характеризующая наличие, цвет и тип отображаемых точек кривой.
             </summary>
         </member>
     </members>

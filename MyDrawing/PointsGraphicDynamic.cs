@@ -407,21 +407,21 @@ namespace MyDrawing
         /// </summary>
         public Color CurveColor { get; set; }
         /// <summary>
-        /// Цвет точек кривой.
-        /// </summary>
-        public Color DotsColor { get; set; }
-        /// <summary>
         /// Легенда кривой.
         /// </summary>
         public string Legend { get; set; }
+        /// <summary>
+        /// Строка, характеризующая наличие, цвет и тип отображаемых точек кривой.
+        /// </summary>
+        public string DotsType { get; set; }
 
-        public Curves(PointF[] pt, Color CurveColor, int CurveThickness = 1, string Legend = "Пусто")
+        public Curves(PointF[] pt, Color CurveColor, int CurveThickness = 1, string Legend = "Пусто", string dotsType = "")
         {
             PointsToDraw = pt;
             this.CurveColor = CurveColor;
             this.CurveThickness = CurveThickness;
             this.Legend = Legend;
-            this.DotsColor = Color.Black;
+            this.DotsType = dotsType;
         }
     }
 

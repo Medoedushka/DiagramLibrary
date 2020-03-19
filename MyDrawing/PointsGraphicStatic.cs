@@ -23,19 +23,6 @@ namespace MyDrawing
 
         private void DrawAxes(bool enableGrid)
         {
-            
-            g.DrawLine(Config.GraphPen, pt1, pt4); //ось абсцисс
-            
-            g.DrawLine(Config.GraphPen, pt1, pt2); //ось ординат
-            
-            //дополнительные линии
-            g.DrawLine(Config.GraphPen, pt1.X - PointsGraphConfig.HEIGHT, RealCenter.Y, pt3.X, RealCenter.Y); //параллельная оси абсцисс
-            g.DrawLine(Config.GraphPen, RealCenter.X, pt1.Y + PointsGraphConfig.HEIGHT, RealCenter.X, pt2.Y); //параллельная оси ординат
-            g.DrawLine(Config.GraphPen, pt2, pt3);
-            g.DrawLine(Config.GraphPen, pt3, pt4);
-            g.DrawString("0", Config.DrawFont, Config.drawBrush, RealCenter.X - 6, pt1.Y);
-            g.DrawString("0", Config.DrawFont, Config.drawBrush, pt1.X - 6, RealCenter.Y);
-            
             float LengthOXNegative = Math.Abs(RealCenter.X - pt1.X);
             float LenghtOYNegative = Math.Abs(pt1.Y - RealCenter.Y);
             float LenghtOXPositive = Math.Abs(pt4.X - RealCenter.X);
@@ -169,6 +156,17 @@ namespace MyDrawing
             }
             #endregion
 
+            g.DrawLine(Config.GraphPen, pt1, pt4); //ось абсцисс
+
+            g.DrawLine(Config.GraphPen, pt1, pt2); //ось ординат
+
+            //дополнительные линии
+            g.DrawLine(Config.GraphPen, pt1.X - PointsGraphConfig.HEIGHT, RealCenter.Y, pt3.X, RealCenter.Y); //параллельная оси абсцисс
+            g.DrawLine(Config.GraphPen, RealCenter.X, pt1.Y + PointsGraphConfig.HEIGHT, RealCenter.X, pt2.Y); //параллельная оси ординат
+            g.DrawLine(Config.GraphPen, pt2, pt3);
+            g.DrawLine(Config.GraphPen, pt3, pt4);
+            g.DrawString("0", Config.DrawFont, Config.drawBrush, RealCenter.X - 6, pt1.Y);
+            g.DrawString("0", Config.DrawFont, Config.drawBrush, pt1.X - 6, RealCenter.Y);
         }
 
         private void StaticDrawCurrentCurve(Curves currentCurve)
@@ -176,6 +174,7 @@ namespace MyDrawing
             Pen grafpen = new Pen(currentCurve.CurveColor, currentCurve.CurveThickness);
             PointF[] points = new PointF[currentCurve.PointsToDraw.Length];
             bool isDotOut = false;
+            string[] dotParams = currentCurve.DotsType.Split(';');
             for (int i = 0; i < currentCurve.PointsToDraw.Length; i++)
             {
 
@@ -217,14 +216,101 @@ namespace MyDrawing
                    
                 }
             }
-            if (Config.DrawPoints == true)
+
+            #region<---Рисование значков точки--->
+            /* Формат ввода типа точки
+             * r/o/y/g/b/p/bl/w(цвет);с/t/s(тип);t/f(заливка: true/false); /*num*(размер значка, пробел - значение по умолчанию)
+             * Цвета:
+                    r - красный
+                    o - оранжевый
+                    y - желтый
+                    g - зелёный
+                    b - синий
+                    p - фиолетовый
+                    bl - чёрный
+                    w - белый
+                 Тип:
+                    с - круг
+                    t - треугольник
+                    s - квадрат
+             */
+            if (dotParams[0] != "")
             {
-                int r = 4;
-                foreach (PointF pt in points)
+                
+                Color dotColor;
+                switch (dotParams[0])
                 {
-                    g.FillEllipse(new SolidBrush(currentCurve.DotsColor), pt.X - r / 2, pt.Y - r / 2, r, r);
+                    case "r": dotColor = Color.Red; break;
+                    case "o": dotColor = Color.Orange; break;
+                    case "y": dotColor = Color.Yellow; break;
+                    case "g": dotColor = Color.Green; break;
+                    case "b": dotColor = Color.Blue; break;
+                    case "p": dotColor = Color.Purple; break;
+                    case "bl": dotColor = Color.Black; break;
+                    case "w": dotColor = Color.White; break;
+                    default: throw new Exception("Указан неверный параметр цвета.");
                 }
+                switch (dotParams[1])
+                {
+                    case "c":
+                        foreach (PointF pt in points)
+                        {
+                            int r;
+                            if (dotParams[3] == " ")
+                                r = 4;
+                            else r = int.Parse(dotParams[3]);
+
+                            if (dotParams[2] == "t")
+                                g.FillEllipse(new SolidBrush(dotColor), pt.X - r / 2, pt.Y - r / 2, r, r);
+                            else if (dotParams[2] == "f")
+                                g.DrawEllipse(new Pen(dotColor), pt.X - r / 2, pt.Y - r / 2, r, r);
+                        }
+                        break;
+                    case "t":
+                        foreach (PointF pt in points)
+                        {
+                            int l;
+                            if (dotParams[3] == " ")
+                                l = 4;
+                            else l = int.Parse(dotParams[3]);
+
+                            PointF[] tr = new PointF[3];
+                            tr[0] = new PointF((float)(pt.X - l * Math.Cos(Math.PI / 6)), (float)(pt.Y + l * Math.Sin(Math.PI / 6)));
+                            tr[1] = new PointF((float)(pt.X), (float)(pt.Y - l));
+                            tr[2] = new PointF((float)(pt.X + l * Math.Cos(Math.PI / 6)), (float)(pt.Y + l * Math.Sin(Math.PI / 6)));
+                            if (dotParams[2] == "t")
+                                g.FillPolygon(new SolidBrush(dotColor), tr);
+                            else if (dotParams[2] == "f")
+                                g.DrawPolygon(new Pen(dotColor), tr);
+
+                        }
+                        break;
+                    case "s":
+                        foreach (PointF pt in points)
+                        {
+                            int d;
+                            if (dotParams[3] == " ")
+                                d = 4;
+                            else d = int.Parse(dotParams[3]);
+
+                            float d2 = d / 2;
+                            PointF[] sq = new PointF[4];
+                            sq[0] = new PointF(pt.X - d2, pt.Y + d2);
+                            sq[1] = new PointF(pt.X - d2, pt.Y - d2);
+                            sq[2] = new PointF(pt.X + d2, pt.Y - d2);
+                            sq[3] = new PointF(pt.X + d2, pt.Y + d2);
+                            if (dotParams[2] == "t")
+                                g.FillPolygon(new SolidBrush(dotColor), sq);
+                            else if (dotParams[2] == "f")
+                                g.DrawPolygon(new Pen(dotColor), sq);
+
+                        }
+                        break;
+                    default: throw new Exception("Указан неверный параметр типа точки.");
+                }
+                
             }
+            #endregion
 
             if (isDotOut)
             {
