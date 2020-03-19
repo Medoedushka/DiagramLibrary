@@ -51,7 +51,7 @@ namespace TestMyDrawing
                 pt3[i].Y = (float)(-p.X * Math.Pow(1 - p.X * p.X, -0.5) * (pt3[i].X - p.X) + p.Y);
                 x++;
             }
-            gr.AddCurve(new Curves(pt3, Color.Blue, Legend: "Касательная", dotsType: "g;t;t;5"));
+            gr.AddCurve(new Curves(pt3, Color.Blue, Legend: "Касательная", dotsType: "g;st;t;15"));
             //gr.Config.StepOX = gr.Config.StepOY += 60;
             //gr.Config.PriceForPointOX = gr.Config.PriceForPointOY = 100;
             gr.Title = "Test plot of custom functions";
@@ -149,7 +149,6 @@ namespace TestMyDrawing
         private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
         {
             mousePressed = false;
-            //MessageBox.Show(mousePressed.ToString());
         }
 
         private void pictureBox1_MouseMove(object sender, MouseEventArgs e)

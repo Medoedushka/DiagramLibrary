@@ -161,12 +161,25 @@ namespace MyDrawing
             g.DrawLine(Config.GraphPen, pt1, pt2); //ось ординат
 
             //дополнительные линии
-            g.DrawLine(Config.GraphPen, pt1.X - PointsGraphConfig.HEIGHT, RealCenter.Y, pt3.X, RealCenter.Y); //параллельная оси абсцисс
-            g.DrawLine(Config.GraphPen, RealCenter.X, pt1.Y + PointsGraphConfig.HEIGHT, RealCenter.X, pt2.Y); //параллельная оси ординат
             g.DrawLine(Config.GraphPen, pt2, pt3);
             g.DrawLine(Config.GraphPen, pt3, pt4);
             g.DrawString("0", Config.DrawFont, Config.drawBrush, RealCenter.X - 6, pt1.Y);
             g.DrawString("0", Config.DrawFont, Config.drawBrush, pt1.X - 6, RealCenter.Y);
+
+            topP = new PointF(RealCenter.X, pt1.Y + PointsGraphConfig.HEIGHT);
+            botP = new PointF(RealCenter.X, pt1.Y - PointsGraphConfig.HEIGHT);
+            g.DrawLine(new Pen(Config.GraphColor), topP, botP);
+
+            topP = new PointF(pt1.X + PointsGraphConfig.HEIGHT, RealCenter.Y);
+            botP = new PointF(pt1.X - PointsGraphConfig.HEIGHT, RealCenter.Y);
+            g.DrawLine(new Pen(Config.GraphColor), topP, botP);
+
+            if (enableGrid)
+            {
+                g.DrawLine(Config.GraphPen, pt1.X - PointsGraphConfig.HEIGHT, RealCenter.Y, pt3.X, RealCenter.Y); //параллельная оси абсцисс
+                g.DrawLine(Config.GraphPen, RealCenter.X, pt1.Y + PointsGraphConfig.HEIGHT, RealCenter.X, pt2.Y); //параллельная оси ординат
+                
+            }
         }
 
         private void StaticDrawCurrentCurve(Curves currentCurve)
@@ -233,6 +246,8 @@ namespace MyDrawing
                     с - круг
                     t - треугольник
                     s - квадрат
+                    r - ромб
+                    st - звезда
              */
             if (dotParams[0] != "")
             {
@@ -250,8 +265,12 @@ namespace MyDrawing
                     case "w": dotColor = Color.White; break;
                     default: throw new Exception("Указан неверный параметр цвета.");
                 }
+                int d;
+                double l;
+                PointF[] polyg;
                 switch (dotParams[1])
                 {
+                    
                     case "c":
                         foreach (PointF pt in points)
                         {
@@ -269,41 +288,88 @@ namespace MyDrawing
                     case "t":
                         foreach (PointF pt in points)
                         {
-                            int l;
                             if (dotParams[3] == " ")
                                 l = 4;
                             else l = int.Parse(dotParams[3]);
 
-                            PointF[] tr = new PointF[3];
-                            tr[0] = new PointF((float)(pt.X - l * Math.Cos(Math.PI / 6)), (float)(pt.Y + l * Math.Sin(Math.PI / 6)));
-                            tr[1] = new PointF((float)(pt.X), (float)(pt.Y - l));
-                            tr[2] = new PointF((float)(pt.X + l * Math.Cos(Math.PI / 6)), (float)(pt.Y + l * Math.Sin(Math.PI / 6)));
+                            polyg = new PointF[3];
+                            polyg[0] = new PointF((float)(pt.X - l * Math.Cos(Math.PI / 6)), (float)(pt.Y + l * Math.Sin(Math.PI / 6)));
+                            polyg[1] = new PointF((float)(pt.X), (float)(pt.Y - l));
+                            polyg[2] = new PointF((float)(pt.X + l * Math.Cos(Math.PI / 6)), (float)(pt.Y + l * Math.Sin(Math.PI / 6)));
                             if (dotParams[2] == "t")
-                                g.FillPolygon(new SolidBrush(dotColor), tr);
+                                g.FillPolygon(new SolidBrush(dotColor), polyg);
                             else if (dotParams[2] == "f")
-                                g.DrawPolygon(new Pen(dotColor), tr);
+                                g.DrawPolygon(new Pen(dotColor), polyg);
 
                         }
                         break;
                     case "s":
                         foreach (PointF pt in points)
                         {
-                            int d;
                             if (dotParams[3] == " ")
                                 d = 4;
                             else d = int.Parse(dotParams[3]);
 
                             float d2 = d / 2;
-                            PointF[] sq = new PointF[4];
-                            sq[0] = new PointF(pt.X - d2, pt.Y + d2);
-                            sq[1] = new PointF(pt.X - d2, pt.Y - d2);
-                            sq[2] = new PointF(pt.X + d2, pt.Y - d2);
-                            sq[3] = new PointF(pt.X + d2, pt.Y + d2);
+                            polyg = new PointF[4];
+                            polyg[0] = new PointF(pt.X - d2, pt.Y + d2);
+                            polyg[1] = new PointF(pt.X - d2, pt.Y - d2);
+                            polyg[2] = new PointF(pt.X + d2, pt.Y - d2);
+                            polyg[3] = new PointF(pt.X + d2, pt.Y + d2);
                             if (dotParams[2] == "t")
-                                g.FillPolygon(new SolidBrush(dotColor), sq);
+                                g.FillPolygon(new SolidBrush(dotColor), polyg);
                             else if (dotParams[2] == "f")
-                                g.DrawPolygon(new Pen(dotColor), sq);
+                                g.DrawPolygon(new Pen(dotColor), polyg);
 
+                        }
+                        break;
+                    case "r":
+
+                        if (dotParams[3] == " ")
+                            d = 4;
+                        else d = int.Parse(dotParams[3]);
+
+                        double L = d * Math.Sin(Math.PI / 3);
+                               l = d * Math.Sin(Math.PI / 6);
+                        polyg = new PointF[4];
+                        foreach (PointF pt in points)
+                        {
+                            polyg[0] = new PointF(pt.X - (float)l, pt.Y);
+                            polyg[1] = new PointF(pt.X, pt.Y - (float)l);
+                            polyg[2] = new PointF(pt.X + (float)l, pt.Y);
+                            polyg[3] = new PointF(pt.X, pt.Y + (float)l);
+                            
+                            if (dotParams[2] == "t")
+                                g.FillPolygon(new SolidBrush(dotColor), polyg);
+                            else if (dotParams[2] == "f")
+                                g.DrawPolygon(new Pen(dotColor), polyg);
+                        }
+                        break;
+                    case "st":
+                        if (dotParams[3] == " ")
+                            l = 4;
+                        else l = int.Parse(dotParams[3]);
+                        foreach (PointF pt in points)
+                        {
+                            polyg = new PointF[3];
+                            polyg[0] = new PointF((float)(pt.X - l * Math.Cos(Math.PI / 6)), (float)(pt.Y + l * Math.Sin(Math.PI / 6)));
+                            polyg[1] = new PointF((float)(pt.X), (float)(pt.Y - l));
+                            polyg[2] = new PointF((float)(pt.X + l * Math.Cos(Math.PI / 6)), (float)(pt.Y + l * Math.Sin(Math.PI / 6)));
+                            PointF[] polyg1 = new PointF[3];
+                            polyg1[0] = new PointF((float)(pt.X - l * Math.Cos(Math.PI / 6)), (float)(pt.Y - l * Math.Sin(Math.PI / 6)));
+                            polyg1[1] = new PointF((float)(pt.X), (float)(pt.Y + l));
+                            polyg1[2] = new PointF((float)(pt.X + l * Math.Cos(Math.PI / 6)), (float)(pt.Y - l * Math.Sin(Math.PI / 6)));
+
+                            if (dotParams[2] == "t")
+                            {
+                                g.FillPolygon(new SolidBrush(dotColor), polyg);
+                                g.FillPolygon(new SolidBrush(dotColor), polyg1);
+                            }
+                            else if (dotParams[2] == "f")
+                            {
+                                g.DrawPolygon(new Pen(dotColor), polyg);
+                                g.DrawPolygon(new Pen(dotColor), polyg1);
+                            }
                         }
                         break;
                     default: throw new Exception("Указан неверный параметр типа точки.");
