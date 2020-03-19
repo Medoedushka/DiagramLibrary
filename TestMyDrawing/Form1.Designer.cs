@@ -29,18 +29,12 @@
         private void InitializeComponent()
         {
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.trackBar1 = new System.Windows.Forms.TrackBar();
-            this.trackBar2 = new System.Windows.Forms.TrackBar();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
-            this.StepOX = new System.Windows.Forms.TrackBar();
-            this.StepOY = new System.Windows.Forms.TrackBar();
             this.priceOX = new System.Windows.Forms.TextBox();
             this.priceOY = new System.Windows.Forms.TextBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.StepOX)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.StepOY)).BeginInit();
             this.SuspendLayout();
             // 
             // pictureBox1
@@ -49,7 +43,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBox1.Cursor = System.Windows.Forms.Cursors.SizeAll;
+            this.pictureBox1.Cursor = System.Windows.Forms.Cursors.Default;
             this.pictureBox1.Location = new System.Drawing.Point(335, 0);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(642, 521);
@@ -58,28 +52,6 @@
             this.pictureBox1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseDown);
             this.pictureBox1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseMove);
             this.pictureBox1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseUp);
-            // 
-            // trackBar1
-            // 
-            this.trackBar1.Location = new System.Drawing.Point(12, 63);
-            this.trackBar1.Maximum = 500;
-            this.trackBar1.Minimum = -500;
-            this.trackBar1.Name = "trackBar1";
-            this.trackBar1.Size = new System.Drawing.Size(193, 45);
-            this.trackBar1.TabIndex = 2;
-            this.trackBar1.TickFrequency = 100;
-            this.trackBar1.Scroll += new System.EventHandler(this.trackBar1_Scroll);
-            // 
-            // trackBar2
-            // 
-            this.trackBar2.Location = new System.Drawing.Point(12, 12);
-            this.trackBar2.Maximum = 500;
-            this.trackBar2.Minimum = -500;
-            this.trackBar2.Name = "trackBar2";
-            this.trackBar2.Size = new System.Drawing.Size(193, 45);
-            this.trackBar2.TabIndex = 3;
-            this.trackBar2.TickFrequency = 100;
-            this.trackBar2.Scroll += new System.EventHandler(this.trackBar2_Scroll);
             // 
             // richTextBox1
             // 
@@ -90,22 +62,6 @@
             this.richTextBox1.Size = new System.Drawing.Size(317, 183);
             this.richTextBox1.TabIndex = 4;
             this.richTextBox1.Text = "";
-            // 
-            // StepOX
-            // 
-            this.StepOX.Location = new System.Drawing.Point(12, 134);
-            this.StepOX.Name = "StepOX";
-            this.StepOX.Size = new System.Drawing.Size(193, 45);
-            this.StepOX.TabIndex = 5;
-            this.StepOX.Scroll += new System.EventHandler(this.StepOX_Scroll);
-            // 
-            // StepOY
-            // 
-            this.StepOY.Location = new System.Drawing.Point(12, 185);
-            this.StepOY.Name = "StepOY";
-            this.StepOY.Size = new System.Drawing.Size(193, 45);
-            this.StepOY.TabIndex = 5;
-            this.StepOY.Scroll += new System.EventHandler(this.StepOY_Scroll);
             // 
             // priceOX
             // 
@@ -123,27 +79,41 @@
             this.priceOY.TabIndex = 7;
             this.priceOY.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.priceOY_KeyPress);
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(26, 53);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(30, 23);
+            this.button1.TabIndex = 8;
+            this.button1.Text = "+";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(26, 82);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(30, 23);
+            this.button2.TabIndex = 8;
+            this.button2.Text = "-";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(977, 521);
+            this.Controls.Add(this.button2);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.priceOY);
             this.Controls.Add(this.priceOX);
-            this.Controls.Add(this.StepOY);
-            this.Controls.Add(this.StepOX);
             this.Controls.Add(this.richTextBox1);
-            this.Controls.Add(this.trackBar2);
-            this.Controls.Add(this.trackBar1);
             this.Controls.Add(this.pictureBox1);
             this.Name = "Form1";
             this.Text = "Form1";
             this.SizeChanged += new System.EventHandler(this.Form1_SizeChanged);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.StepOX)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.StepOY)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -151,13 +121,11 @@
 
         #endregion
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.TrackBar trackBar1;
-        private System.Windows.Forms.TrackBar trackBar2;
         private System.Windows.Forms.RichTextBox richTextBox1;
-        private System.Windows.Forms.TrackBar StepOX;
-        private System.Windows.Forms.TrackBar StepOY;
         private System.Windows.Forms.TextBox priceOX;
         private System.Windows.Forms.TextBox priceOY;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button2;
     }
 }
 

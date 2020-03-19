@@ -51,9 +51,9 @@ namespace TestMyDrawing
                 pt3[i].Y = (float)(-p.X * Math.Pow(1 - p.X * p.X, -0.5) * (pt3[i].X - p.X) + p.Y);
                 x++;
             }
-            gr.AddCurve(new Curves(pt3, Color.Blue, Legend: "Касательная", dotsType: "g;st;t;15"));
+            gr.AddCurve(new Curves(pt3, Color.Blue, Legend: "Касательная", dotsType: "g;st;t;5"));
             //gr.Config.StepOX = gr.Config.StepOY += 60;
-            //gr.Config.PriceForPointOX = gr.Config.PriceForPointOY = 100;
+            
             gr.Title = "Test plot of custom functions";
             gr.TitlePosition = TextPosition.Centre;
             gr.TitleSize = 15;
@@ -64,25 +64,9 @@ namespace TestMyDrawing
             gr.Config.OYName = "Y Axis";
             gr.Config.OYNamePosition = TextPosition.Centre;
             gr.Config.OYNameSize = 10;
-            gr.Config.Grid = true;;
+            gr.Config.Grid = true;
+            gr.Config.PriceForPointOX = gr.Config.PriceForPointOY;
             gr.DrawDiagram();
-
-            
-            trackBar2.Minimum = gr.RealCenter.X - 1500;
-            trackBar2.Maximum = gr.RealCenter.X + 1500;
-            trackBar2.Value = gr.RealCenter.X;
-            trackBar1.Minimum = gr.RealCenter.Y - 1500;
-            trackBar1.Maximum = gr.RealCenter.Y + 1500;
-            trackBar1.Value = gr.RealCenter.Y;
-
-            StepOX.Minimum = 0;
-            StepOX.Maximum = gr.Config.StepOX + 500;
-            StepOX.Value = gr.Config.StepOX;
-            StepOX.TickFrequency = 100;
-            StepOY.Minimum = 0;
-            StepOY.Maximum = gr.Config.StepOY + 500;
-            StepOY.Value = gr.Config.StepOY;
-            StepOY.TickFrequency = 100;
         }
 
         private void Form1_SizeChanged(object sender, EventArgs e)
@@ -90,31 +74,6 @@ namespace TestMyDrawing
             gr.SetPlaceToDrawSize(pictureBox1.Width, pictureBox1.Height);
             gr.DrawDiagram();
             
-        }
-
-        private void trackBar2_Scroll(object sender, EventArgs e)
-        {
-            
-            gr.RealCenter = new Point(trackBar2.Value, gr.RealCenter.Y);
-            gr.DrawDiagram();
-        }
-
-        private void trackBar1_Scroll(object sender, EventArgs e)
-        {
-            gr.RealCenter = new Point(gr.RealCenter.X, trackBar1.Value);
-            gr.DrawDiagram();
-        }
-
-        private void StepOX_Scroll(object sender, EventArgs e)
-        {
-            gr.Config.StepOX = StepOX.Value;
-            gr.DrawDiagram();
-        }
-
-        private void StepOY_Scroll(object sender, EventArgs e)
-        {
-            gr.Config.StepOY = StepOY.Value;
-            gr.DrawDiagram();
         }
 
         private void priceOX_KeyPress(object sender, KeyPressEventArgs e)
@@ -141,6 +100,7 @@ namespace TestMyDrawing
         private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
         {
             mousePressed = true;
+            pictureBox1.Cursor = Cursors.SizeAll;
             mouseLoc = e.Location;
             d = (float)Math.Sqrt(Math.Pow(gr.RealCenter.X - e.Location.X, 2) + Math.Pow(gr.RealCenter.Y - e.Location.Y, 2));
             angle = (float)Math.Asin((gr.RealCenter.Y - e.Location.Y) / d);
@@ -149,6 +109,35 @@ namespace TestMyDrawing
         private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
         {
             mousePressed = false;
+            pictureBox1.Cursor = Cursors.Default;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            PointF center0_cont = new PointF(gr.pt2.X + (gr.pt3.X - gr.pt2.X) / 2, gr.pt1.Y - (gr.pt1.Y - gr.pt2.Y) / 2);
+            PointF center0_dec = gr.ConvertValues(center0_cont, CoordType.GetRectangleCoord);
+
+            gr.Config.PriceForPointOX = Math.Round(gr.Config.PriceForPointOX / 2, 3);
+            gr.Config.PriceForPointOY = Math.Round(gr.Config.PriceForPointOY / 2, 3);
+
+            PointF center1_cont = gr.ConvertValues(center0_dec, CoordType.GetControlCoord);
+            PointF vector = new PointF(center1_cont.X - center0_cont.X, center1_cont.Y - center0_cont.Y);
+            gr.RealCenter = new Point(gr.RealCenter.X - (int)vector.X, gr.RealCenter.Y - (int)vector.Y);
+            gr.DrawDiagram();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            PointF center0_cont = new PointF(gr.pt2.X + (gr.pt3.X - gr.pt2.X) / 2, gr.pt1.Y - (gr.pt1.Y - gr.pt2.Y) / 2);
+            PointF center0_dec = gr.ConvertValues(center0_cont, CoordType.GetRectangleCoord);
+
+            gr.Config.PriceForPointOX = Math.Round(gr.Config.PriceForPointOX * 2, 3);
+            gr.Config.PriceForPointOY = Math.Round(gr.Config.PriceForPointOY * 2, 3);
+
+            PointF center1_cont = gr.ConvertValues(center0_dec, CoordType.GetControlCoord);
+            PointF vector = new PointF(center1_cont.X - center0_cont.X, center1_cont.Y - center0_cont.Y);
+            gr.RealCenter = new Point(gr.RealCenter.X - (int)vector.X, gr.RealCenter.Y - (int)vector.Y);
+            gr.DrawDiagram();
         }
 
         private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
