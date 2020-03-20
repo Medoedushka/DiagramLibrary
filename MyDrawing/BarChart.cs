@@ -12,9 +12,9 @@ namespace MyDrawing
 
     public class BarChartConfig
     {
-        public byte BarWidth { get; set; }
+        public double BarWidth { get; internal set; }
         public byte StepOX { get; set; }
-        public byte StepOY { get; set; }
+        public int StepOY { get; set; }
         public double PriceForPointOY { get; set; }
         public byte NumberOfSepOY { get; set; }
 
@@ -24,6 +24,7 @@ namespace MyDrawing
         public SolidBrush drawBrush{get; set;}
         public const byte HEIGHT = 4;
 
+        public string[] Fileds { get; set; }
         public string OXName { get; set; }
         public string OYName { get; set; }
         public TextPosition OXNamePosition { get; set; }
@@ -43,13 +44,13 @@ namespace MyDrawing
     public class Bars
     {
         /// <summary>
-        /// Название столбца.
+        /// Название ряда данных.
         /// </summary>
         public string BarName { get; set; }
         /// <summary>
-        /// Числовое значение соответствующее столбцу.
+        /// Массив значений ряда данных. Порядок значений должен соответствовать порядку названий секторов.
         /// </summary>
-        public double BarValue { get; set; }
+        public double[] BarValues { get; set; }
         /// <summary>
         /// Цвет заливки столбца.
         /// </summary>
@@ -57,15 +58,15 @@ namespace MyDrawing
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="value"></param>
+        /// <param name="values"></param>
         /// <param name="name"></param>
         /// <param name="red">Значение красного компонента в цвете.</param>
         /// <param name="green">Значение зелёного компоненат в цвете.</param>
         /// <param name="blue">Значение синего компонента в цвете.</param>
-        public Bars(double value, string name = "Пусто", byte red = 91, int green = 155, int blue = 213)
+        public Bars(double[] values, string name = "Пусто", byte red = 91, int green = 155, int blue = 213)
         {
             BarName = name;
-            BarValue = value;
+            BarValues = values;
             BarColor = Color.FromArgb(red, green, blue);
         }
         /// <summary>
@@ -74,10 +75,10 @@ namespace MyDrawing
         /// <param name="interiorColor">Цвет, входящий в структуру Color.</param>
         /// <param name="value"></param>
         /// <param name="name"></param>
-        public Bars(Color interiorColor, double value, string name = "Пусто")
+        public Bars(Color interiorColor, double[] values, string name = "Пусто")
         {
             BarName = name;
-            BarValue = value;
+            BarValues = values;
             BarColor = interiorColor;
         }
     }
@@ -85,10 +86,13 @@ namespace MyDrawing
     public class BarChart : Diagram
     {
         List<Bars> BarCollection = new List<Bars>();
-        
+        private PointF[] fieldPt;
+        int sectorStep = 50;
+        int columnStep = 5;
+
         public BarChartConfig Config { get; set; }
         
-        public BarChart(PictureBox picture)
+        public BarChart(PictureBox picture, string[] fields)
         {
             Config = new BarChartConfig();
             placeToDraw = picture;
@@ -97,6 +101,7 @@ namespace MyDrawing
             Config.drawFont = new Font("Arial", 8);
             Config.drawBrush = new SolidBrush(Config.DiagramColor);
             Config.ShowColumnName = true;
+            Config.Fileds = fields;
             g = placeToDraw.CreateGraphics();
             Config.NumberOfSepOY = 5;
             SetPlaceToDrawSize(picture.Width, picture.Height);
@@ -110,9 +115,9 @@ namespace MyDrawing
             //левая верхняя точка
             pt2 = new Point(Space_From_Left, Space_From_Top);
             //правая нижняя точка
-            pt3 = new Point(width - Space_From_Right, height - Space_From_Bottom);
+            pt4 = new Point(width - Space_From_Right, height - Space_From_Bottom);
             //правая верхняя точка
-            pt4 = new Point(width - Space_From_Right, Space_From_Top);
+            pt3 = new Point(width - Space_From_Right, Space_From_Top);
             //центр пересечения осей
             Center = pt1;
 
@@ -141,12 +146,17 @@ namespace MyDrawing
                 double maxValue = 0;
                 foreach(Bars crrBar in BarCollection)
                 {
-                    if (maxValue < crrBar.BarValue) maxValue = crrBar.BarValue;
+                    for(int i = 0; i < crrBar.BarValues.Length; i++)
+                    {
+                        if (maxValue < crrBar.BarValues[i])
+                            maxValue = crrBar.BarValues[i];
+                    }
                 }
-                while(Center.Y - Config.StepOY*Config.NumberOfSepOY >= pt2.Y)
-                {
-                    Config.StepOY++;
-                }
+                //while(Center.Y - Config.StepOY*Config.NumberOfSepOY > pt2.Y)
+                //{
+                //    Config.StepOY++;
+                //}
+                Config.StepOY = (int)((pt1.Y - pt2.Y) / Config.NumberOfSepOY);
                 Config.PriceForPointOY = Math.Round(maxValue * 0.25);
             }
         }
@@ -174,6 +184,124 @@ namespace MyDrawing
             }
         }
 
+        
+
+        private void DrawAxes()
+        {
+            //LastPointOX = new PointF(Center.X + BarCollection.Count * (Config.BarWidth + Config.StepOX) + Config.StepOX, Center.Y);
+            //LastPointOY = new PointF(Center.X, Center.Y - Config.NumberOfSepOY * Config.StepOY);
+
+            //прорисовка осей без делений
+            g.DrawLine(Config.DiagramPen, Center, pt4); //ось ОХ
+            g.DrawLine(Config.DiagramPen, Center, pt2); //ось OY
+            g.DrawString("0", Config.drawFont, Config.drawBrush, Center.X - 6, Center.Y);
+
+            float step = (pt4.X - pt1.X) / (1 + Config.Fileds.Length);
+            fieldPt = new PointF[Config.Fileds.Length];
+            float d = (pt4.X - pt1.X) / (2 * Config.Fileds.Length);
+
+            //прорисовка полей
+            for (int i = 0; i < Config.Fileds.Length; i++)
+            {
+                PointF secPt = new PointF(Center.X - 120 + (i + 1) * (step + sectorStep), Center.Y);
+                fieldPt[i] = secPt;
+                SizeF size = g.MeasureString(Config.Fileds[i], Config.drawFont);
+                g.DrawString(Config.Fileds[i], Config.drawFont, Config.drawBrush, secPt.X - size.Width / 2, secPt.Y);
+
+            }
+
+            //прорисовка делений на оси OY
+            Point[] Oypoints1 = new Point[Config.NumberOfSepOY];
+            Point[] Oypoints2 = new Point[Config.NumberOfSepOY];
+            for(int i = 0; i < Config.NumberOfSepOY; i++)
+            {
+                string num = Convert.ToString(i * Config.PriceForPointOY + Config.PriceForPointOY);
+                if (i == 0)
+                {
+                    Oypoints1[i].X = Center.X - BarChartConfig.HEIGHT;
+                    Oypoints1[i].Y = Center.Y - Config.StepOY;
+
+                    Oypoints2[i].X = Center.X + BarChartConfig.HEIGHT;
+                    Oypoints2[i].Y = Center.Y - Config.StepOY;
+                    g.DrawString(num, Config.drawFont, Config.drawBrush, Oypoints1[i].X - 10, Oypoints1[i].Y);
+                }
+                else
+                {
+                    Oypoints1[i].X = Center.X - BarChartConfig.HEIGHT;
+                    Oypoints1[i].Y = Oypoints1[i - 1].Y - Config.StepOY;
+
+                    Oypoints2[i].X = Center.X + BarChartConfig.HEIGHT;
+                    Oypoints2[i].Y = Oypoints2[i - 1].Y - Config.StepOY;
+                    g.DrawString(num, Config.drawFont, Config.drawBrush, Oypoints1[i].X - 10, Oypoints1[i].Y);
+                }
+                g.DrawLine(Config.DiagramPen, Oypoints1[i], Oypoints2[i]);
+                //рисование горизонтальных линий
+                if(Config.HorizontalLines == true)
+                {
+                    PointF StartLine = new PointF(Center.X, Oypoints1[i].Y);
+                    PointF EndLine = new PointF(LastPointOX.X, Oypoints1[i].Y);
+                    g.DrawLine(Config.DiagramPen, StartLine, EndLine);
+                }
+
+                //Рассчёт толщины столбца
+                Config.BarWidth = 0;
+                if (BarCollection.Count != 0)
+                {
+                    while (Config.BarWidth * BarCollection.Count + (BarCollection.Count - 1) * columnStep < step)
+                        Config.BarWidth++;
+                }
+
+            }
+        }
+
+        private void DrawCurrentBar()
+        {
+            for(int i = 0; i < Config.Fileds.Length; i++)
+            {
+                float x = fieldPt[i].X - (pt4.X - pt1.X) / (2 * (1 + Config.Fileds.Length));
+                foreach(Bars br in BarCollection)
+                {
+                    
+                    PointF BarPoint = new PointF();
+                    BarPoint.X = x;
+                    BarPoint.Y = (float)(Center.Y - br.BarValues[i] * Config.StepOY / Config.PriceForPointOY);
+
+                    RectangleF BarRectangle = new RectangleF(BarPoint.X, BarPoint.Y, (float)Config.BarWidth, Center.Y - BarPoint.Y);
+
+                    g.FillRectangle(new SolidBrush(br.BarColor), BarRectangle);
+                    x += (float)Config.BarWidth + columnStep;
+                }
+            }
+            //for(int i = 0; i < BarCollection.Count; i++)
+            //{
+            //    PointF BarPoint = new PointF();
+            //    BarPoint.X = Center.X + i * Config.BarWidth + (i * Config.StepOX + Config.StepOX);
+            //    BarPoint.Y = (float)(Center.Y - BarCollection[i].BarValue * Config.StepOY / Config.PriceForPointOY);
+
+            //    RectangleF BarRectangle = new RectangleF(BarPoint.X, BarPoint.Y, Config.BarWidth, Center.Y - BarPoint.Y);
+
+            //    g.FillRectangle(new SolidBrush(BarCollection[i].BarColor), BarRectangle);
+
+            //    if (Config.ShowColumnName == true)
+            //    {
+            //        //надпись названия колонки
+            //        SizeF size = g.MeasureString(BarCollection[i].BarName, Config.drawFont);
+            //        PointF StringPoint = new PointF();
+            //        StringPoint.Y = Center.Y;
+            //        StringPoint.X = BarPoint.X + Config.BarWidth / 2 - size.Width / 2;
+
+            //        g.DrawString(BarCollection[i].BarName, Config.drawFont, Config.drawBrush, StringPoint);
+            //    }
+
+            //    if (Config.ShowColumnValue == true)
+            //    {
+            //        SizeF size = g.MeasureString(Convert.ToString(BarCollection[i].BarValue), Config.drawFont);
+            //        PointF ValuePoint = new PointF(BarPoint.X + Config.BarWidth / 2 - size.Width / 2, BarPoint.Y - 12);
+            //        g.DrawString(Convert.ToString(BarCollection[i].BarValue), Config.drawFont, Config.drawBrush, ValuePoint);
+            //    }
+
+            //}
+        }
         private void DrawAxesNames()
         {
             if (Config.SizeOX == 0) Config.SizeOX = 9;
@@ -266,83 +394,6 @@ namespace MyDrawing
             PointF textPoint = new PointF(x, y);
             g.DrawString(Title, font, brush, textPoint);
         }
-
-        private void DrawAxes()
-        {
-            LastPointOX = new PointF(Center.X + BarCollection.Count * (Config.BarWidth + Config.StepOX) + Config.StepOX, Center.Y);
-            LastPointOY = new PointF(Center.X, Center.Y - Config.NumberOfSepOY * Config.StepOY);
-            //прорисовка осей без делений
-            g.DrawLine(Config.DiagramPen, Center, LastPointOX); //ось ОХ
-            g.DrawLine(Config.DiagramPen, Center, LastPointOY); //ось OY
-            g.DrawString("0", Config.drawFont, Config.drawBrush, Center.X - 6, Center.Y);
-
-            //прорисовка делений на оси OY
-            Point[] Oypoints1 = new Point[Config.NumberOfSepOY];
-            Point[] Oypoints2 = new Point[Config.NumberOfSepOY];
-            for(int i = 0; i < Oypoints1.Length; i++)
-            {
-                string num = Convert.ToString(i * Config.PriceForPointOY + Config.PriceForPointOY);
-                if (i == 0)
-                {
-                    Oypoints1[i].X = Center.X - BarChartConfig.HEIGHT;
-                    Oypoints1[i].Y = Center.Y - Config.StepOY;
-
-                    Oypoints2[i].X = Center.X + BarChartConfig.HEIGHT;
-                    Oypoints2[i].Y = Center.Y - Config.StepOY;
-                    g.DrawString(num, Config.drawFont, Config.drawBrush, Oypoints1[i].X - 10, Oypoints1[i].Y);
-                }
-                else
-                {
-                    Oypoints1[i].X = Center.X - BarChartConfig.HEIGHT;
-                    Oypoints1[i].Y = Oypoints1[i - 1].Y - Config.StepOY;
-
-                    Oypoints2[i].X = Center.X + BarChartConfig.HEIGHT;
-                    Oypoints2[i].Y = Oypoints2[i - 1].Y - Config.StepOY;
-                    g.DrawString(num, Config.drawFont, Config.drawBrush, Oypoints1[i].X - 10, Oypoints1[i].Y);
-                }
-                g.DrawLine(Config.DiagramPen, Oypoints1[i], Oypoints2[i]);
-                //рисование горизонтальных линий
-                if(Config.HorizontalLines == true)
-                {
-                    PointF StartLine = new PointF(Center.X, Oypoints1[i].Y);
-                    PointF EndLine = new PointF(LastPointOX.X, Oypoints1[i].Y);
-                    g.DrawLine(Config.DiagramPen, StartLine, EndLine);
-                }
-            }
-        }
-
-        private void DrawCurrentBar()
-        {
-            for(int i = 0; i < BarCollection.Count; i++)
-            {
-                PointF BarPoint = new PointF();
-                BarPoint.X = Center.X + i * Config.BarWidth + (i * Config.StepOX + Config.StepOX);
-                BarPoint.Y = (float)(Center.Y - BarCollection[i].BarValue * Config.StepOY / Config.PriceForPointOY);
-
-                RectangleF BarRectangle = new RectangleF(BarPoint.X, BarPoint.Y, Config.BarWidth, Center.Y - BarPoint.Y);
-
-                g.FillRectangle(new SolidBrush(BarCollection[i].BarColor), BarRectangle);
-                if(Config.ShowColumnName == true)
-                {
-                    //надпись названия колонки
-                    SizeF size = g.MeasureString(BarCollection[i].BarName, Config.drawFont);
-                    PointF StringPoint = new PointF();
-                    StringPoint.Y = Center.Y;
-                    StringPoint.X = BarPoint.X + Config.BarWidth / 2 - size.Width / 2;
-
-                    g.DrawString(BarCollection[i].BarName, Config.drawFont, Config.drawBrush, StringPoint);
-                }
-
-                if(Config.ShowColumnValue == true)
-                {
-                    SizeF size = g.MeasureString(Convert.ToString(BarCollection[i].BarValue), Config.drawFont);
-                    PointF ValuePoint = new PointF(BarPoint.X + Config.BarWidth / 2 - size.Width / 2, BarPoint.Y - 12);
-                    g.DrawString(Convert.ToString(BarCollection[i].BarValue), Config.drawFont, Config.drawBrush, ValuePoint);
-                }
-                
-            }
-        }
-
         private void DrawLegend()
         {
             int CubeSide = 10;
@@ -363,6 +414,7 @@ namespace MyDrawing
         /// </summary>
         public override void DrawDiagram()
         {
+            
             Bitmap bm = new Bitmap(placeToDraw.Width, placeToDraw.Height);
             using (g = Graphics.FromImage(bm))
             {
@@ -371,18 +423,18 @@ namespace MyDrawing
 
                 DrawAxes();
 
-                if ((Config.OXName != "" && Config.SizeOX != 0) || (Config.OYName != "" && Config.SizeOY != 0))
-                {
-                    DrawAxesNames();
-                }
-                if (Title != "" && TitleSize != 0)
-                {
-                    DrawTitle();
-                }
-                if (AddDiagramLegend == true)
-                {
-                    DrawLegend();
-                }
+                //if ((Config.OXName != "" && Config.SizeOX != 0) || (Config.OYName != "" && Config.SizeOY != 0))
+                //{
+                //    DrawAxesNames();
+                //}
+                //if (Title != "" && TitleSize != 0)
+                //{
+                //    DrawTitle();
+                //}
+                //if (AddDiagramLegend == true)
+                //{
+                //    DrawLegend();
+                //}
                 if (BarCollection.Count != 0) DrawCurrentBar();
 
             }

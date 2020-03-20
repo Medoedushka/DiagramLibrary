@@ -69,10 +69,13 @@ namespace TestMyDrawing
             //gr.Config.PriceForPointOX = gr.Config.PriceForPointOY;
             //gr.AddDiagramLegend = true;
             //gr.DrawDiagram();
-            bc = new BarChart(pictureBox1);
+            bc = new BarChart(pictureBox1, new string[] { "Осень", "Зима", "Весна", "Лето"});
             bc.Config.PriceForPointOY = 5;
-            bc.AddBar(new Bars(Color.Red, 45, "Column1"));
-            bc.AddBar(new Bars(Color.Red, 18, "Column2"));
+            bc.AddBar(new Bars(Color.FromArgb(237, 125, 49), new double[] { 0, 34, 22, 30}, "Column1"));
+            bc.AddBar(new Bars(Color.FromArgb(91, 155, 213), new double[] { 11, 23, 12, 8 }, "Column2"));
+            //bc.AddBar(new Bars(Color.FromArgb(165, 165, 165), new double[] { 6, 7, 23, 11 }, "Column3"));
+            //bc.AddBar(new Bars(Color.FromArgb(255, 192, 0), new double[] { 22, 11, 14, 77 }, "Column4"));
+            bc.Config.ShowColumnValue = true;
             bc.DrawDiagram();
         }
 
@@ -81,19 +84,6 @@ namespace TestMyDrawing
             //gr.SetPlaceToDrawSize(pictureBox1.Width, pictureBox1.Height);
             //gr.DrawDiagram();
             bc.SetPlaceToDrawSize(pictureBox1.Width, pictureBox1.Height);
-            bc.Config.ShowColumnValue = true;
-            bc.Title = "Columns";
-            bc.TitlePosition = TextPosition.Centre;
-            bc.TitleSize = 15;
-            bc.AddDiagramLegend = true;
-            bc.Config.HorizontalLines = true;
-            bc.Config.OXName = "Axis X";
-            bc.Config.OXNamePosition = TextPosition.Centre;
-            bc.Config.SizeOX = 10;
-            bc.Config.OYName = "Axis Y";
-            bc.Config.OYNamePosition = TextPosition.Centre;
-            bc.Config.SizeOY = 10;
-            bc.Config.NumberOfSepOY = 10;
             bc.DrawDiagram();
         }
 

@@ -11,12 +11,12 @@
         </member>
         <member name="P:MyDrawing.Bars.BarName">
             <summary>
-            Название столбца.
+            Название ряда данных.
             </summary>
         </member>
-        <member name="P:MyDrawing.Bars.BarValue">
+        <member name="P:MyDrawing.Bars.BarValues">
             <summary>
-            Числовое значение соответствующее столбцу.
+            Массив значений ряда данных. Порядок значений должен соответствовать порядку названий секторов.
             </summary>
         </member>
         <member name="P:MyDrawing.Bars.BarColor">
@@ -24,17 +24,17 @@
             Цвет заливки столбца.
             </summary>
         </member>
-        <member name="M:MyDrawing.Bars.#ctor(System.Double,System.String,System.Byte,System.Int32,System.Int32)">
+        <member name="M:MyDrawing.Bars.#ctor(System.Double[],System.String,System.Byte,System.Int32,System.Int32)">
             <summary>
             
             </summary>
-            <param name="value"></param>
+            <param name="values"></param>
             <param name="name"></param>
             <param name="red">Значение красного компонента в цвете.</param>
             <param name="green">Значение зелёного компоненат в цвете.</param>
             <param name="blue">Значение синего компонента в цвете.</param>
         </member>
-        <member name="M:MyDrawing.Bars.#ctor(System.Drawing.Color,System.Double,System.String)">
+        <member name="M:MyDrawing.Bars.#ctor(System.Drawing.Color,System.Double[],System.String)">
             <summary>
             
             </summary>
