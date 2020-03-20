@@ -485,19 +485,27 @@ namespace MyDrawing
             int lineLength = 15;
             Font font = new Font("Arial", 9);
             PointF temp = new PointF(pt3.X, pt3.Y + 5);
-            float minX = float.MaxValue, maxY = 0;
+            float minX = float.MaxValue, maxY = pt3.Y + 5 + GraphCurves.Count * 20;
             foreach (Curves crrCurve in GraphCurves)
             {
-                
+
                 string str = " - " + crrCurve.Legend;
                 SizeF size = g.MeasureString(str, font);
                 while (temp.X + size.Width > pt3.X) temp.X--;
                 if (temp.X < minX) minX = temp.X - lineLength - 5;
-
+            }
+            g.FillRectangle(new SolidBrush(Color.White), minX, pt3.Y + 1, pt3.X - 1 - minX, maxY - pt3.Y);
+            g.DrawLine(new Pen(Color.Black), minX, pt3.Y, minX, maxY);
+            g.DrawLine(new Pen(Color.Black), minX, maxY, pt3.X, maxY);
+            foreach (Curves crrCurve in GraphCurves)
+            {
+                string str = " - " + crrCurve.Legend;
+                SizeF size = g.MeasureString(str, font);
+                while (temp.X + size.Width > pt3.X) temp.X--;
                 g.DrawString(str, font, new SolidBrush(Color.Black), temp);
                 g.DrawLine(new Pen(crrCurve.CurveColor, 4), temp.X - lineLength, temp.Y + size.Height / 2, temp.X, temp.Y + size.Height / 2);
                 temp = new PointF(pt3.X, temp.Y + 20);
-                maxY = temp.Y;
+                
             }
             g.DrawLine(new Pen(Color.Black), minX, pt3.Y, minX, maxY);
             g.DrawLine(new Pen(Color.Black), minX, maxY, pt3.X, maxY);

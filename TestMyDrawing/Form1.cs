@@ -13,7 +13,7 @@ namespace TestMyDrawing
         public Form1()
         {
             InitializeComponent();
-            TableOfData T1 = new TableOfData("dots0,3_15_20_50.txt", "Test Table");
+            TableOfData T1 = new TableOfData("dots0,3_15_20_50.txt", "Test Table", sort: false);
             richTextBox1.Text = T1.Table_of_Function();
             gr = new PointsGraphic(pictureBox1);
             PointF[] pt = new PointF[T1.Points.Length];
@@ -66,6 +66,7 @@ namespace TestMyDrawing
             gr.Config.OYNameSize = 10;
             gr.Config.Grid = true;
             gr.Config.PriceForPointOX = gr.Config.PriceForPointOY;
+            gr.AddDiagramLegend = true;
             gr.DrawDiagram();
         }
 
