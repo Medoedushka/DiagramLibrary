@@ -71,11 +71,15 @@ namespace TestMyDrawing
             //gr.DrawDiagram();
             bc = new BarChart(pictureBox1, new string[] { "Осень", "Зима", "Весна", "Лето"});
             bc.Config.PriceForPointOY = 5;
-            bc.AddBar(new Bars(Color.FromArgb(237, 125, 49), new double[] { 0, 34, 22, 30}, "Column1"));
+            bc.AddBar(new Bars(Color.FromArgb(237, 125, 49), new double[] { 45, 34, 22, 30}, "Column1"));
             bc.AddBar(new Bars(Color.FromArgb(91, 155, 213), new double[] { 11, 23, 12, 8 }, "Column2"));
-            //bc.AddBar(new Bars(Color.FromArgb(165, 165, 165), new double[] { 6, 7, 23, 11 }, "Column3"));
-            //bc.AddBar(new Bars(Color.FromArgb(255, 192, 0), new double[] { 22, 11, 14, 77 }, "Column4"));
+            bc.AddBar(new Bars(Color.FromArgb(165, 165, 165), new double[] { 6, 7, 23, 11 }, "Column3"));
+            bc.AddBar(new Bars(Color.FromArgb(255, 192, 0), new double[] { 22, 11, 14, 77 }, "Column4"));
+            bc.AddBar(new Bars(Color.FromArgb(255, 108, 0), new double[] { 67, 11, 15, 67 }, "Column5"));
+            bc.AddBar(new Bars(Color.FromArgb(255, 108, 100), new double[] { 6, 10, 2, 60 }, "Column6"));
             bc.Config.ShowColumnValue = true;
+            bc.Config.HorizontalLines = true;
+            bc.Config.ShowGroupBorder = true;
             bc.DrawDiagram();
         }
 
