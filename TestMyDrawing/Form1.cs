@@ -10,21 +10,22 @@ namespace TestMyDrawing
     public partial class Form1 : Form
     {
         PointsGraphic gr;
+        BarChart bc;
         public Form1()
         {
             InitializeComponent();
-            TableOfData T1 = new TableOfData("dots0,3_15_20_50.txt", "Test Table", sort: false);
-            richTextBox1.Text = T1.Table_of_Function();
-            gr = new PointsGraphic(pictureBox1);
-            PointF[] pt = new PointF[T1.Points.Length];
-            PointF[] pt2 = new PointF[201];
-            PointF[] pt3 = new PointF[10];
+            //TableOfData T1 = new TableOfData("dots0,3_15_20_50.txt", "Test Table", sort: false);
+            //richTextBox1.Text = T1.Table_of_Function();
+            //gr = new PointsGraphic(pictureBox1);
+            //PointF[] pt = new PointF[T1.Points.Length];
+            //PointF[] pt2 = new PointF[201];
+            //PointF[] pt3 = new PointF[10];
 
-            for(int i = 0; i < pt.Length; i++)
-            {
-                pt[i].X = (float)T1.Points[i].X;
-                pt[i].Y = (float)T1.Points[i].F;
-            }
+            //for(int i = 0; i < pt.Length; i++)
+            //{
+            //    pt[i].X = (float)T1.Points[i].X;
+            //    pt[i].Y = (float)T1.Points[i].F;
+            //}
 
             //double x = -1;
             //for(int i = 0; i < pt.Length; i++)
@@ -43,31 +44,32 @@ namespace TestMyDrawing
             //gr.AddCurve(new Curves(pt, Color.Red, Legend: "Первая половина окружности"));
             //gr.AddCurve(new Curves(pt2, Color.Red, Legend: "Вторая половина окружности"));
 
-            PointF p = new PointF(0.5f, 0.866f);
-            double x = -5;
-            for (int i = 0; i < pt3.Length; i++)
-            {
-                pt3[i].X = (float)x;
-                pt3[i].Y = (float)(-p.X * Math.Pow(1 - p.X * p.X, -0.5) * (pt3[i].X - p.X) + p.Y);
-                x++;
-            }
-            gr.AddCurve(new Curves(pt3, Color.Blue, Legend: "Касательная", dotsType: "g;st;t;5"));
-            //gr.Config.StepOX = gr.Config.StepOY += 60;
-            
-            gr.Title = "Test plot of custom functions";
-            gr.TitlePosition = TextPosition.Centre;
-            gr.TitleSize = 15;
+            //PointF p = new PointF(0.5f, 0.866f);
+            //double x = -5;
+            //for (int i = 0; i < pt3.Length; i++)
+            //{
+            //    pt3[i].X = (float)x;
+            //    pt3[i].Y = (float)(-p.X * Math.Pow(1 - p.X * p.X, -0.5) * (pt3[i].X - p.X) + p.Y);
+            //    x++;
+            //}
+            //gr.AddCurve(new Curves(pt3, Color.Blue, Legend: "Касательная", dotsType: "g;st;t;5"));
+            ////gr.Config.StepOX = gr.Config.StepOY += 60;
 
-            gr.Config.OXName = "X Axis";
-            gr.Config.OXNamePosition = TextPosition.Centre;
-            gr.Config.OXNameSize = 10;
-            gr.Config.OYName = "Y Axis";
-            gr.Config.OYNamePosition = TextPosition.Centre;
-            gr.Config.OYNameSize = 10;
-            gr.Config.Grid = true;
-            gr.Config.PriceForPointOX = gr.Config.PriceForPointOY;
-            gr.AddDiagramLegend = true;
-            gr.DrawDiagram();
+            //gr.Title = "Test plot of custom functions";
+            //gr.TitlePosition = TextPosition.Centre;
+            //gr.TitleSize = 15;
+
+            //gr.Config.OXName = "X Axis";
+            //gr.Config.OXNamePosition = TextPosition.Centre;
+            //gr.Config.OXNameSize = 10;
+            //gr.Config.OYName = "Y Axis";
+            //gr.Config.OYNamePosition = TextPosition.Centre;
+            //gr.Config.OYNameSize = 10;
+            //gr.Config.Grid = true;
+            //gr.Config.PriceForPointOX = gr.Config.PriceForPointOY;
+            //gr.AddDiagramLegend = true;
+            //gr.DrawDiagram();
+            
         }
 
         private void Form1_SizeChanged(object sender, EventArgs e)
