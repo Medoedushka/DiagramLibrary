@@ -88,8 +88,6 @@ namespace MyDrawing
         
         public BarChartConfig Config { get; set; }
         
-
-
         public BarChart(PictureBox picture)
         {
             Config = new BarChartConfig();
@@ -99,24 +97,36 @@ namespace MyDrawing
             Config.drawFont = new Font("Arial", 8);
             Config.drawBrush = new SolidBrush(Config.DiagramColor);
             Config.ShowColumnName = true;
+            g = placeToDraw.CreateGraphics();
+            Config.NumberOfSepOY = 5;
+            SetPlaceToDrawSize(picture.Width, picture.Height);
+        }
+
+        public void SetPlaceToDrawSize(int width, int height, bool defParams = true)
+        {
             //координаты угловых точек рамки
             //левая нижняя точка
-            pt1 = new Point(Space_From_Left, placeToDraw.Height - Space_From_Bottom);
+            pt1 = new Point(Space_From_Left, height - Space_From_Bottom);
             //левая верхняя точка
             pt2 = new Point(Space_From_Left, Space_From_Top);
             //правая нижняя точка
-            pt3 = new Point(placeToDraw.Width - Space_From_Right, placeToDraw.Height - Space_From_Bottom);
+            pt3 = new Point(width - Space_From_Right, height - Space_From_Bottom);
             //правая верхняя точка
-            pt4 = new Point(placeToDraw.Width - Space_From_Right, Space_From_Top);
+            pt4 = new Point(width - Space_From_Right, Space_From_Top);
             //центр пересечения осей
             Center = pt1;
+
+            if (defParams)
+                SetDefaultParams();
         }
+
         /// <summary>
         /// Устанавливает настройки диаграммы по умолчанию.
         /// </summary>
         public void SetDefaultParams()
         {
-            if(BarCollection.Count != 0)
+
+            if (BarCollection.Count != 0)
             {
                 Config.BarWidth = 0;
                 Config.StepOX = 0;
@@ -128,7 +138,6 @@ namespace MyDrawing
                 }
 
                 //определения параметров по умолчанию для оси OY
-                Config.NumberOfSepOY = 5;
                 double maxValue = 0;
                 foreach(Bars crrBar in BarCollection)
                 {
@@ -260,10 +269,6 @@ namespace MyDrawing
 
         private void DrawAxes()
         {
-            g = placeToDraw.CreateGraphics();
-            g.Clear(Color.White);
-            g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
-
             LastPointOX = new PointF(Center.X + BarCollection.Count * (Config.BarWidth + Config.StepOX) + Config.StepOX, Center.Y);
             LastPointOY = new PointF(Center.X, Center.Y - Config.NumberOfSepOY * Config.StepOY);
             //прорисовка осей без делений
@@ -358,29 +363,33 @@ namespace MyDrawing
         /// </summary>
         public override void DrawDiagram()
         {
-           
-            DrawAxes();
-
-            if ((Config.OXName != "" && Config.SizeOX != 0) || (Config.OYName != "" && Config.SizeOY != 0))
+            Bitmap bm = new Bitmap(placeToDraw.Width, placeToDraw.Height);
+            using (g = Graphics.FromImage(bm))
             {
-                DrawAxesNames();
-            }
-            else MessageBox.Show("При указании названия осей необходимо также указать размер шрифта хотя бы одного названия.\n" +
-                 "(SizeOX, SizeOY)", "Попытка добавить название осей.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+                g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit;
 
-            if (Title != "" && TitleSize != 0)
-            {
-                DrawTitle();
-            }
-            else MessageBox.Show("Не указан размер шрифта описания графика.", "Попытка добавить название графика",
-                MessageBoxButtons.OK, MessageBoxIcon.Information);
+                DrawAxes();
 
-            if(AddDiagramLegend == true)
-            {
-                DrawLegend();
-            }
+                if ((Config.OXName != "" && Config.SizeOX != 0) || (Config.OYName != "" && Config.SizeOY != 0))
+                {
+                    DrawAxesNames();
+                }
+                if (Title != "" && TitleSize != 0)
+                {
+                    DrawTitle();
+                }
+                if (AddDiagramLegend == true)
+                {
+                    DrawLegend();
+                }
+                if (BarCollection.Count != 0) DrawCurrentBar();
 
-            if (BarCollection.Count != 0) DrawCurrentBar();
+            }
+            placeToDraw.Image = bm;
+            
+
+            
         }
 
     }

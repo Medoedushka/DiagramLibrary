@@ -69,14 +69,32 @@ namespace TestMyDrawing
             //gr.Config.PriceForPointOX = gr.Config.PriceForPointOY;
             //gr.AddDiagramLegend = true;
             //gr.DrawDiagram();
-            
+            bc = new BarChart(pictureBox1);
+            bc.Config.PriceForPointOY = 5;
+            bc.AddBar(new Bars(Color.Red, 45, "Column1"));
+            bc.AddBar(new Bars(Color.Red, 18, "Column2"));
+            bc.DrawDiagram();
         }
 
         private void Form1_SizeChanged(object sender, EventArgs e)
         {
-            gr.SetPlaceToDrawSize(pictureBox1.Width, pictureBox1.Height);
-            gr.DrawDiagram();
-            
+            //gr.SetPlaceToDrawSize(pictureBox1.Width, pictureBox1.Height);
+            //gr.DrawDiagram();
+            bc.SetPlaceToDrawSize(pictureBox1.Width, pictureBox1.Height);
+            bc.Config.ShowColumnValue = true;
+            bc.Title = "Columns";
+            bc.TitlePosition = TextPosition.Centre;
+            bc.TitleSize = 15;
+            bc.AddDiagramLegend = true;
+            bc.Config.HorizontalLines = true;
+            bc.Config.OXName = "Axis X";
+            bc.Config.OXNamePosition = TextPosition.Centre;
+            bc.Config.SizeOX = 10;
+            bc.Config.OYName = "Axis Y";
+            bc.Config.OYNamePosition = TextPosition.Centre;
+            bc.Config.SizeOY = 10;
+            bc.Config.NumberOfSepOY = 10;
+            bc.DrawDiagram();
         }
 
         private void priceOX_KeyPress(object sender, KeyPressEventArgs e)
