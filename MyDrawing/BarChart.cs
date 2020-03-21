@@ -111,20 +111,30 @@ namespace MyDrawing
             Config.LegendPosition = LegendPosition.Bottom;
             g = placeToDraw.CreateGraphics();
             Config.NumberOfSepOY = 5;
-            SetPlaceToDrawSize(picture.Width, picture.Height);
+            Title = "Название диаграммы";
+            TitlePosition = TextPosition.Centre;
+            TitleSize = 15;
         }
 
         public void SetPlaceToDrawSize(int width, int height, bool defParams = true)
         {
+
             //координаты угловых точек рамки
-            //левая нижняя точка
-            pt1 = new Point(Space_From_Left, height - Space_From_Bottom);
-            //левая верхняя точка
-            pt2 = new Point(Space_From_Left, Space_From_Top);
-            //правая нижняя точка
-            pt4 = new Point(width - Space_From_Right, height - Space_From_Bottom);
-            //правая верхняя точка
-            pt3 = new Point(width - Space_From_Right, Space_From_Top);
+            pt2 = new Point(Space_From_Left, Space_From_Top); //левая верхняя точка
+            pt3 = new Point(width - Space_From_Right, Space_From_Top); //правая верхняя точка
+            if (AddDiagramLegend != true || Config.LegendPosition == LegendPosition.Top )
+            {
+                
+                pt1 = new Point(Space_From_Left, height - Space_From_Bottom); //левая нижняя точка
+                pt4 = new Point(width - Space_From_Right, height - Space_From_Bottom); //правая нижняя точка
+
+            }
+            else if (AddDiagramLegend == true && Config.LegendPosition == LegendPosition.Bottom)
+            {
+                
+                pt1 = new Point(Space_From_Left, height - Space_From_Bottom - 30); //левая нижняя точка
+                pt4 = new Point(width - Space_From_Right, height - Space_From_Bottom - 30); //правая нижняя точка
+            }
             //центр пересечения осей
             Center = pt1;
 
@@ -140,15 +150,6 @@ namespace MyDrawing
 
             if (BarCollection.Count != 0)
             {
-                //Config.BarWidth = 0;
-                //Config.StepOX = 0;
-                ////определение параметров по умолчанию для оси ОХ
-                //while (Center.X + BarCollection.Count * (Config.BarWidth + Config.StepOX) + Config.StepOX <= pt3.X)
-                //{
-                //    Config.StepOX++;
-                //    Config.BarWidth++;
-                //}
-
                 //определения параметров по умолчанию для оси OY
                 double maxValue = 0;
                 foreach(Bars crrBar in BarCollection)
@@ -305,12 +306,12 @@ namespace MyDrawing
             float x = 0, y = 0;
             if (TitlePosition == TextPosition.Left)
             {
-                x = LastPointOY.X; y = LastPointOY.Y - 20;
+                x = pt1.X; y = pt2.Y - 20;
             }
             else if (TitlePosition == TextPosition.Centre)
             {
-                x = LastPointOY.X + (LastPointOX.X - LastPointOY.X) / 2 - size.Width / 2;
-                y = LastPointOY.Y - 20;
+                x = pt2.X + (pt3.X - pt2.X) / 2 - size.Width / 2;
+                y = pt2.Y - 20;
             }
             else if (TitlePosition == TextPosition.Right)
             {
@@ -327,14 +328,14 @@ namespace MyDrawing
         private void DrawLegend()
         {
             int CubeSide = 5; // длина стороны кубика, представляющего цвета ряда
-            int step = -5; //расстояние между отдельными названиями рядов
+            int step = 3; //расстояние между отдельными названиями рядов
             PointF pt = new PointF();
 
             //определение определение длины легенды в пикселях
             float lenght = 0;
             foreach (Bars bar in BarCollection)
             {
-                string str = " " + bar.BarName;
+                string str = "-" + bar.BarName;
                 SizeF size = g.MeasureString(str, Config.drawFont);
                 lenght += CubeSide + size.Width;
             }
@@ -360,7 +361,7 @@ namespace MyDrawing
                 SizeF size = g.MeasureString(str, Config.drawFont);
                 RectangleF rect = new RectangleF(pt.X, pt.Y, CubeSide, CubeSide);
                 g.FillRectangle(new SolidBrush(bar.BarColor), rect);
-                g.DrawString(bar.BarName, new Font("Arial", 7), Config.drawBrush, pt.X + CubeSide, pt.Y - size.Height / 4);
+                g.DrawString(str, new Font("Arial", 8), Config.drawBrush, pt.X + CubeSide, pt.Y - size.Height/ 3);
                 pt.X += CubeSide + size.Width + step;
             }
         }
@@ -370,27 +371,26 @@ namespace MyDrawing
         /// </summary>
         public override void DrawDiagram()
         {
-            
+            SetPlaceToDrawSize(placeToDraw.Width, placeToDraw.Height);
             Bitmap bm = new Bitmap(placeToDraw.Width, placeToDraw.Height);
             using (g = Graphics.FromImage(bm))
             {
                 g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
                 g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit;
 
+                DrawAxes();
+
                 if (AddDiagramLegend == true)
                 {
                     DrawLegend();
                 }
-                else Space_From_Bottom = 25;
 
-                DrawAxes();
+                if (Title != "" && TitleSize != 0)
+                {
+                    DrawTitle();
+                }
 
-                //if (Title != "" && TitleSize != 0)
-                //{
-                //    DrawTitle();
-                //}
 
-                
                 if (BarCollection.Count != 0) DrawCurrentBar();
 
             }

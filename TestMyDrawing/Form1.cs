@@ -69,9 +69,22 @@ namespace TestMyDrawing
             //gr.Config.PriceForPointOX = gr.Config.PriceForPointOY;
             //gr.AddDiagramLegend = true;
             //gr.DrawDiagram();
-            bc = new BarChart(pictureBox1, new string[] { "Осень", "Зима", "Весна", "Лето"});
+            
+        }
+
+        private void Form1_SizeChanged(object sender, EventArgs e)
+        {
+            //gr.SetPlaceToDrawSize(pictureBox1.Width, pictureBox1.Height);
+            //gr.DrawDiagram();
+            //bc.SetPlaceToDrawSize(pictureBox1.Width, pictureBox1.Height);
+            //bc.DrawDiagram();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            bc = new BarChart(pictureBox1, new string[] { "Осень", "Зима", "Весна", "Лето" });
             bc.Config.PriceForPointOY = 5;
-            bc.AddBar(new Bars(Color.FromArgb(237, 125, 49), new double[] { 45, 34, 22, 30}, "Популяция1"));
+            bc.AddBar(new Bars(Color.FromArgb(237, 125, 49), new double[] { 45, 34, 22, 30 }, "Популяция1"));
             bc.AddBar(new Bars(Color.FromArgb(91, 155, 213), new double[] { 11, 23, 12, 8 }, "Популяция2"));
             bc.AddBar(new Bars(Color.FromArgb(165, 165, 165), new double[] { 6, 7, 23, 11 }, "Популяция3"));
             bc.AddBar(new Bars(Color.FromArgb(255, 192, 0), new double[] { 22, 11, 14, 77 }, "Популяция4"));
@@ -81,15 +94,10 @@ namespace TestMyDrawing
             bc.Config.HorizontalLines = true;
             bc.Config.ShowGroupBorder = true;
             bc.AddDiagramLegend = true;
-            bc.Config.LegendPosition = LegendPosition.Top;
-            bc.DrawDiagram();
-        }
-
-        private void Form1_SizeChanged(object sender, EventArgs e)
-        {
-            //gr.SetPlaceToDrawSize(pictureBox1.Width, pictureBox1.Height);
-            //gr.DrawDiagram();
-            bc.SetPlaceToDrawSize(pictureBox1.Width, pictureBox1.Height);
+            bc.Config.LegendPosition = LegendPosition.Bottom;
+            //bc.Title = "Изменение числа представителей вида в зависимости от времени года";
+            //bc.TitlePosition = TextPosition.Centre;
+            //bc.TitleSize = 15;
             bc.DrawDiagram();
         }
 
@@ -156,6 +164,8 @@ namespace TestMyDrawing
             gr.RealCenter = new Point(gr.RealCenter.X - (int)vector.X, gr.RealCenter.Y - (int)vector.Y);
             gr.DrawDiagram();
         }
+
+        
 
         private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
         {
