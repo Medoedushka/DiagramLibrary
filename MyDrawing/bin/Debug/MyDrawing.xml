@@ -24,7 +24,7 @@
             Цвет заливки столбца.
             </summary>
         </member>
-        <member name="M:MyDrawing.Bars.#ctor(System.Double[],System.String,System.Byte,System.Int32,System.Int32)">
+        <member name="M:MyDrawing.Bars.#ctor(System.Double[],System.String,System.Int32,System.Int32,System.Int32)">
             <summary>
             
             </summary>

@@ -8,7 +8,11 @@ using System.Drawing;
 
 namespace MyDrawing
 {
-
+    public enum LegendPosition
+    {
+        Top,
+        Bottom
+    }
 
     public class BarChartConfig
     {
@@ -32,6 +36,7 @@ namespace MyDrawing
         public double SizeOX { get; set; }
         public double SizeOY { get; set; }
 
+        public LegendPosition LegendPosition { get; set; }
         public bool ShowGroupBorder { get; set; }
         public bool HorizontalLines { get; set; }
         public bool ShowColumnValue { get; set; }
@@ -62,7 +67,7 @@ namespace MyDrawing
         /// <param name="red">Значение красного компонента в цвете.</param>
         /// <param name="green">Значение зелёного компоненат в цвете.</param>
         /// <param name="blue">Значение синего компонента в цвете.</param>
-        public Bars(double[] values, string name = "Пусто", byte red = 91, int green = 155, int blue = 213)
+        public Bars(double[] values, string name = "Пусто", int red = 91, int green = 155, int blue = 213)
         {
             BarName = name;
             BarValues = values;
@@ -84,12 +89,13 @@ namespace MyDrawing
 
     public class BarChart : Diagram
     {
+        public BarChartConfig Config { get; set; } //Настройки гистограммы
         public List<Bars> BarCollection { get; set; } // коллекция рядов данных
         private PointF[] fieldPt; // массив точек центров секторов
         private int sectorStep = 50; // расстояние между секторами
         private int columnStep = 5; // расстояние между колонками
 
-        public BarChartConfig Config { get; set; }
+        
         
         public BarChart(PictureBox picture, string[] fields)
         {
@@ -102,6 +108,7 @@ namespace MyDrawing
             Config.drawBrush = new SolidBrush(Config.DiagramColor);
             Config.Fileds = fields;
             Config.ShowGroupBorder = false;
+            Config.LegendPosition = LegendPosition.Bottom;
             g = placeToDraw.CreateGraphics();
             Config.NumberOfSepOY = 5;
             SetPlaceToDrawSize(picture.Width, picture.Height);
@@ -133,14 +140,14 @@ namespace MyDrawing
 
             if (BarCollection.Count != 0)
             {
-                Config.BarWidth = 0;
-                Config.StepOX = 0;
-                //определение параметров по умолчанию для оси ОХ
-                while (Center.X + BarCollection.Count * (Config.BarWidth + Config.StepOX) + Config.StepOX <= pt3.X)
-                {
-                    Config.StepOX++;
-                    Config.BarWidth++;
-                }
+                //Config.BarWidth = 0;
+                //Config.StepOX = 0;
+                ////определение параметров по умолчанию для оси ОХ
+                //while (Center.X + BarCollection.Count * (Config.BarWidth + Config.StepOX) + Config.StepOX <= pt3.X)
+                //{
+                //    Config.StepOX++;
+                //    Config.BarWidth++;
+                //}
 
                 //определения параметров по умолчанию для оси OY
                 double maxValue = 0;
@@ -152,10 +159,6 @@ namespace MyDrawing
                             maxValue = crrBar.BarValues[i];
                     }
                 }
-                //while(Center.Y - Config.StepOY*Config.NumberOfSepOY > pt2.Y)
-                //{
-                //    Config.StepOY++;
-                //}
                 Config.StepOY = (int)((pt1.Y - pt2.Y) / Config.NumberOfSepOY);
                 Config.PriceForPointOY = Math.Round(maxValue * 0.25);
             }
@@ -292,70 +295,7 @@ namespace MyDrawing
                 }
             }
         }
-        private void DrawAxesNames()
-        {
-            if (Config.SizeOX == 0) Config.SizeOX = 9;
-            if (Config.SizeOY == 0) Config.SizeOY = 9;
-
-            Font fontOX = new Font("Arial", (float)Config.SizeOX);
-            Font fontOY = new Font("Arial", (float)Config.SizeOY);
-            SolidBrush brush = new SolidBrush(Color.Black);
-            StringFormat stringFormat = new StringFormat();
-            stringFormat.FormatFlags = StringFormatFlags.DirectionVertical;
-
-            #region Координаты для строки названия оси Ох.
-            SizeF size = g.MeasureString(Config.OXName, fontOX);
-            PointF pointOX = new PointF();
-            if (Config.OXNamePosition == TextPosition.Centre)
-            {
-                pointOX.X = LastPointOY.X + (LastPointOX.X - LastPointOY.X) / 2 - size.Width / 2;
-                pointOX.Y = Center.Y + 15;
-            }
-            else if (Config.OXNamePosition == TextPosition.Left)
-            {
-                pointOX.X = Center.X;
-                pointOX.Y = Center.Y + 15;
-            }
-            else if (Config.OXNamePosition == TextPosition.Right)
-            {
-                pointOX.X = LastPointOX.X;
-                pointOX.Y = Center.Y + 15;
-                while (pointOX.X + size.Width > LastPointOX.X)
-                {
-                    pointOX.X--;
-                }
-            }
-            #endregion
-            #region Координаты для строки названия оси Оy.
-            size = g.MeasureString(Config.OYName, fontOY);
-            PointF pointOY = new PointF();
-            if (Config.OYNamePosition == TextPosition.Centre)
-            {
-                pointOY.X = Center.X - 30;
-                pointOY.Y = Center.Y - (Center.Y - LastPointOY.Y) / 2 - size.Width / 2;
-            }
-            if (Config.OYNamePosition == TextPosition.Left)
-            {
-                pointOY.X = Center.X - 30;
-                pointOY.Y = LastPointOY.Y;
-            }
-            if (Config.OYNamePosition == TextPosition.Right)
-            {
-                pointOY.X = Center.X - 30;
-                pointOY.Y = Center.Y;
-                while (pointOY.Y + size.Width > Center.Y)
-                {
-                    pointOY.Y--;
-                }
-            }
-            #endregion
-
-            //рисование названия Ox
-            g.DrawString(Config.OXName, fontOX, brush, pointOX);
-            //рисование названия Oy
-            g.DrawString(Config.OYName, fontOY, brush, pointOY, stringFormat);
-        }
-
+        
         private void DrawTitle()
         {
             Font font = new Font("Arial", TitleSize);
@@ -386,17 +326,43 @@ namespace MyDrawing
         }
         private void DrawLegend()
         {
-            int CubeSide = 10;
-            PointF pt = new PointF(LastPointOX.X + 10, LastPointOY.Y);
+            int CubeSide = 5; // длина стороны кубика, представляющего цвета ряда
+            int step = -5; //расстояние между отдельными названиями рядов
+            PointF pt = new PointF();
+
+            //определение определение длины легенды в пикселях
+            float lenght = 0;
+            foreach (Bars bar in BarCollection)
+            {
+                string str = " " + bar.BarName;
+                SizeF size = g.MeasureString(str, Config.drawFont);
+                lenght += CubeSide + size.Width;
+            }
+
+            //Определение координаты X точки начала построения легенды
+            pt.X = pt2.X + (pt3.X - pt2.X - lenght) / 2;
+
+            //Определение координаты Y в зависимости от выбраного способа отображения
+            if (Config.LegendPosition == LegendPosition.Bottom) //под осью OX
+            {
+                Space_From_Bottom += 30;
+                pt.Y = pt1.Y + 30;
+            }
+            else //под названием гистограммы
+            {
+                pt.Y = pt2.Y + 5;
+            }
+
+            //непосредственно рисование легенды
             foreach(Bars bar in BarCollection)
             {
+                string str = " " + bar.BarName;
+                SizeF size = g.MeasureString(str, Config.drawFont);
                 RectangleF rect = new RectangleF(pt.X, pt.Y, CubeSide, CubeSide);
                 g.FillRectangle(new SolidBrush(bar.BarColor), rect);
-
-                g.DrawString(bar.BarName, new Font("Arial", 7), Config.drawBrush, pt.X + CubeSide + 5, pt.Y - 3);
-                pt.Y += 20;
+                g.DrawString(bar.BarName, new Font("Arial", 7), Config.drawBrush, pt.X + CubeSide, pt.Y - size.Height / 4);
+                pt.X += CubeSide + size.Width + step;
             }
-                
         }
 
         /// <summary>
@@ -411,20 +377,20 @@ namespace MyDrawing
                 g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
                 g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit;
 
+                if (AddDiagramLegend == true)
+                {
+                    DrawLegend();
+                }
+                else Space_From_Bottom = 25;
+
                 DrawAxes();
 
-                //if ((Config.OXName != "" && Config.SizeOX != 0) || (Config.OYName != "" && Config.SizeOY != 0))
-                //{
-                //    DrawAxesNames();
-                //}
                 //if (Title != "" && TitleSize != 0)
                 //{
                 //    DrawTitle();
                 //}
-                //if (AddDiagramLegend == true)
-                //{
-                //    DrawLegend();
-                //}
+
+                
                 if (BarCollection.Count != 0) DrawCurrentBar();
 
             }
