@@ -12,7 +12,7 @@ namespace MyDrawing
     {
         int diagramSize;
         public double X { get; set; } //Абсцисса верхней левой точки квадрата
-        public double Y { get; set; } //Ордината верхней левой точки квадрата
+        public double Y { get; set; } //Ордината верхней левой точки квадрата   
         public Color CircleColor { get; set; }
         public bool ValuePersent { get; set; }
         

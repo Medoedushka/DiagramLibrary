@@ -147,7 +147,6 @@ namespace MyDrawing
         /// </summary>
         public void SetDefaultParams()
         {
-
             if (BarCollection.Count != 0)
             {
                 //определения параметров по умолчанию для оси OY
@@ -187,9 +186,6 @@ namespace MyDrawing
                 SetDefaultParams();
             }
         }
-
-        
-
         private void DrawAxes()
         {
             //прорисовка осей без делений
@@ -282,7 +278,6 @@ namespace MyDrawing
                     BarPoint.Y = (float)(Center.Y - br.BarValues[i] * Config.StepOY / Config.PriceForPointOY);
 
                     RectangleF BarRectangle = new RectangleF(BarPoint.X, BarPoint.Y, (float)Config.BarWidth, Center.Y - BarPoint.Y);
-
                     g.FillRectangle(new SolidBrush(br.BarColor), BarRectangle);
 
                     if (Config.ShowColumnValue == true)

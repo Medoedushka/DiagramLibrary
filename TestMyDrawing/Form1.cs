@@ -11,6 +11,7 @@ namespace TestMyDrawing
     {
         PointsGraphic gr;
         BarChart bc;
+        CircleDiagram cd;
         public Form1()
         {
             InitializeComponent();
@@ -74,31 +75,24 @@ namespace TestMyDrawing
 
         private void Form1_SizeChanged(object sender, EventArgs e)
         {
-            //gr.SetPlaceToDrawSize(pictureBox1.Width, pictureBox1.Height);
-            //gr.DrawDiagram();
-            //bc.SetPlaceToDrawSize(pictureBox1.Width, pictureBox1.Height);
-            //bc.DrawDiagram();
+            
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            bc = new BarChart(pictureBox1, new string[] { "Осень", "Зима", "Весна", "Лето" });
-            bc.Config.PriceForPointOY = 5;
-            bc.AddBar(new Bars(Color.FromArgb(237, 125, 49), new double[] { 45, 34, 22, 30 }, "Популяция1"));
-            bc.AddBar(new Bars(Color.FromArgb(91, 155, 213), new double[] { 11, 23, 12, 8 }, "Популяция2"));
-            bc.AddBar(new Bars(Color.FromArgb(165, 165, 165), new double[] { 6, 7, 23, 11 }, "Популяция3"));
-            bc.AddBar(new Bars(Color.FromArgb(255, 192, 0), new double[] { 22, 11, 14, 77 }, "Популяция4"));
-            bc.AddBar(new Bars(Color.FromArgb(255, 108, 0), new double[] { 67, 11, 15, 67 }, "Популяция5"));
-            bc.AddBar(new Bars(Color.FromArgb(255, 108, 100), new double[] { 6, 10, 2, 60 }, "Популяция6"));
-            bc.Config.ShowColumnValue = true;
-            bc.Config.HorizontalLines = true;
-            bc.Config.ShowGroupBorder = true;
-            bc.AddDiagramLegend = true;
-            bc.Config.LegendPosition = LegendPosition.Bottom;
-            //bc.Title = "Изменение числа представителей вида в зависимости от времени года";
-            //bc.TitlePosition = TextPosition.Centre;
-            //bc.TitleSize = 15;
-            bc.DrawDiagram();
+            cd = new CircleDiagram(pictureBox1);
+            cd.AddSector(new Sectors(32, Color.Red, "Sec1"));
+            cd.AddSector(new Sectors(32, Color.Orange, "Sec2"));
+            cd.AddSector(new Sectors(32, Color.Yellow, "Sec3"));
+            cd.AddSector(new Sectors(32, Color.Green, "Sec4"));
+            cd.AddSector(new Sectors(32, Color.DeepSkyBlue, "Sec5"));
+            cd.AddSector(new Sectors(32, Color.Blue, "Sec6"));
+            cd.AddSector(new Sectors(32, Color.Violet, "Sec7"));
+            cd.Title = "Круговая диаграмма";
+            cd.TitlePosition = TextPosition.Right;
+            cd.TitleSize = 15;
+            cd.AddDiagramLegend = true;
+            cd.DrawDiagram();
         }
 
         private void priceOX_KeyPress(object sender, KeyPressEventArgs e)
