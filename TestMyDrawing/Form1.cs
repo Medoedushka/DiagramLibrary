@@ -75,24 +75,19 @@ namespace TestMyDrawing
 
         private void Form1_SizeChanged(object sender, EventArgs e)
         {
-            
+           
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            cd = new CircleDiagram(pictureBox1);
-            cd.AddSector(new Sectors(32, Color.Red, "Sec1"));
-            cd.AddSector(new Sectors(32, Color.Orange, "Sec2"));
-            cd.AddSector(new Sectors(32, Color.Yellow, "Sec3"));
-            cd.AddSector(new Sectors(32, Color.Green, "Sec4"));
-            cd.AddSector(new Sectors(32, Color.DeepSkyBlue, "Sec5"));
-            cd.AddSector(new Sectors(32, Color.Blue, "Sec6"));
-            cd.AddSector(new Sectors(32, Color.Violet, "Sec7"));
-            cd.Title = "Круговая диаграмма";
-            cd.TitlePosition = TextPosition.Right;
-            cd.TitleSize = 15;
-            cd.AddDiagramLegend = true;
-            cd.DrawDiagram();
+            bc = new BarChart(pictureBox1, new string[] { "Сезон 1", "Сезон 2" });
+            bc.AddBar(new Bars(new double[] { 45, 11 }, @"C:\Users\Eremin\Desktop\Разное\unnamed.jpg", "Data1"));
+            bc.AddBar(new Bars(new double[] { 15, 12 }, @"C:\Users\Eremin\Desktop\Разное\383.jpg", "Data2"));
+            bc.AddBar(new Bars(new double[] { 8, 40 }, @"C:\Users\Eremin\Desktop\Разное\weryt.jpg", "Data3"));
+            bc.AddBar(new Bars(new double[] { 66, 46 }, @"C:\Users\Eremin\Desktop\Разное\pattern_texture1175.jpg", "Data4"));
+            bc.Config.ShowColumnValue = true;
+            bc.AddDiagramLegend = true;
+            bc.DrawDiagram();
         }
 
         private void priceOX_KeyPress(object sender, KeyPressEventArgs e)

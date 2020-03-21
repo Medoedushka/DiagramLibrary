@@ -24,22 +24,17 @@
             Цвет заливки столбца.
             </summary>
         </member>
-        <member name="M:MyDrawing.Bars.#ctor(System.Double[],System.String,System.Int32,System.Int32,System.Int32)">
+        <member name="P:MyDrawing.Bars.TextureImgage">
             <summary>
-            
+            Картинка для текстуры ряда данных
             </summary>
-            <param name="values"></param>
-            <param name="name"></param>
-            <param name="red">Значение красного компонента в цвете.</param>
-            <param name="green">Значение зелёного компоненат в цвете.</param>
-            <param name="blue">Значение синего компонента в цвете.</param>
         </member>
-        <member name="M:MyDrawing.Bars.#ctor(System.Drawing.Color,System.Double[],System.String)">
+        <member name="M:MyDrawing.Bars.#ctor(System.Double[],System.Drawing.Color,System.String)">
             <summary>
             
             </summary>
             <param name="interiorColor">Цвет, входящий в структуру Color.</param>
-            <param name="value"></param>
+            <param name="values"></param>
             <param name="name"></param>
         </member>
         <member name="M:MyDrawing.BarChart.SetDefaultParams">

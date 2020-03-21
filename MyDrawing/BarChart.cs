@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing;
+using System.IO;
 
 namespace MyDrawing
 {
@@ -60,30 +61,33 @@ namespace MyDrawing
         /// </summary>
         public Color BarColor { get; set; }
         /// <summary>
-        /// 
+        /// Картинка для текстуры ряда данных
         /// </summary>
-        /// <param name="values"></param>
-        /// <param name="name"></param>
-        /// <param name="red">Значение красного компонента в цвете.</param>
-        /// <param name="green">Значение зелёного компоненат в цвете.</param>
-        /// <param name="blue">Значение синего компонента в цвете.</param>
-        public Bars(double[] values, string name = "Пусто", int red = 91, int green = 155, int blue = 213)
-        {
-            BarName = name;
-            BarValues = values;
-            BarColor = Color.FromArgb(red, green, blue);
-        }
+        public Image TextureImgage { get; set; }
+
         /// <summary>
         /// 
         /// </summary>
         /// <param name="interiorColor">Цвет, входящий в структуру Color.</param>
-        /// <param name="value"></param>
+        /// <param name="values"></param>
         /// <param name="name"></param>
-        public Bars(Color interiorColor, double[] values, string name = "Пусто")
+        public Bars(double[] values, Color interiorColor, string name = "Пусто")
         {
             BarName = name;
             BarValues = values;
             BarColor = interiorColor;
+            TextureImgage = null;
+        }
+
+        public Bars(double[] values, string textureFilePath, string name = "Пусто")
+        {
+            BarName = name;
+            BarValues = values;
+            if (File.Exists(textureFilePath))
+            {
+                TextureImgage = Image.FromFile(textureFilePath);
+            }
+            else throw new Exception("Файл, по указанному пути, не существует.");
         }
     }
 
@@ -102,6 +106,8 @@ namespace MyDrawing
             Config = new BarChartConfig();
             BarCollection = new List<Bars>();
             placeToDraw = picture;
+            g = placeToDraw.CreateGraphics();
+
             Config.DiagramColor = Color.Black;
             Config.DiagramPen = new Pen(Config.DiagramColor);
             Config.drawFont = new Font("Arial", 8);
@@ -109,8 +115,8 @@ namespace MyDrawing
             Config.Fileds = fields;
             Config.ShowGroupBorder = false;
             Config.LegendPosition = LegendPosition.Bottom;
-            g = placeToDraw.CreateGraphics();
             Config.NumberOfSepOY = 5;
+
             Title = "Название диаграммы";
             TitlePosition = TextPosition.Centre;
             TitleSize = 15;
@@ -278,7 +284,10 @@ namespace MyDrawing
                     BarPoint.Y = (float)(Center.Y - br.BarValues[i] * Config.StepOY / Config.PriceForPointOY);
 
                     RectangleF BarRectangle = new RectangleF(BarPoint.X, BarPoint.Y, (float)Config.BarWidth, Center.Y - BarPoint.Y);
-                    g.FillRectangle(new SolidBrush(br.BarColor), BarRectangle);
+                    
+                    if (br.TextureImgage == null)
+                        g.FillRectangle(new SolidBrush(br.BarColor), BarRectangle);
+                    else g.FillRectangle(new TextureBrush(br.TextureImgage, System.Drawing.Drawing2D.WrapMode.TileFlipXY), BarRectangle);
 
                     if (Config.ShowColumnValue == true)
                     {
