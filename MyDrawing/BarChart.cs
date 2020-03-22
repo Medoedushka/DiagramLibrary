@@ -413,7 +413,6 @@ namespace MyDrawing
             //Определение координаты Y в зависимости от выбраного способа отображения
             if (Config.LegendPosition == LegendPosition.Bottom) //под осью OX
             {
-                Space_From_Bottom += 30;
                 pt.Y = pt1.Y + 30;
             }
             else //под названием гистограммы
