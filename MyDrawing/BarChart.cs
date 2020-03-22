@@ -427,10 +427,18 @@ namespace MyDrawing
                 string str = " " + bar.BarName;
                 SizeF size = g.MeasureString(str, Config.drawFont);
                 RectangleF rect = new RectangleF(pt.X, pt.Y, CubeSide, CubeSide);
-                
-                if (bar.TextureImgage == null)
+
+                if (bar.TextureImgage != null)
+                    g.FillRectangle(new TextureBrush(bar.TextureImgage, System.Drawing.Drawing2D.WrapMode.TileFlipXY), rect);
+                else if (bar.GradientColor1 != Color.Transparent && bar.GradientColor2 != Color.Transparent)
+                    g.FillRectangle(new LinearGradientBrush(rect, bar.GradientColor2, bar.GradientColor1, LinearGradientMode.Vertical),
+                        rect);
+                else
                     g.FillRectangle(new SolidBrush(bar.BarColor), rect);
-                else g.FillRectangle(new TextureBrush(bar.TextureImgage), rect);
+
+                //if (bar.TextureImgage == null)
+                //    g.FillRectangle(new SolidBrush(bar.BarColor), rect);
+                //else g.FillRectangle(new TextureBrush(bar.TextureImgage), rect);
                 g.DrawString(str, new Font("Arial", 8), Config.drawBrush, pt.X + CubeSide, pt.Y - size.Height/ 3);
                 pt.X += CubeSide + size.Width + step;
             }

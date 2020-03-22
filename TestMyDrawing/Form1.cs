@@ -82,9 +82,9 @@ namespace TestMyDrawing
         {
             bc = new BarChart(pictureBox1, new string[] { "Сезон 1", "Сезон 2" });
             bc.AddBar(new Bars(new double[] { 45, 11 }, Color.IndianRed, Color.Indigo, "Data1"));
-            //bc.AddBar(new Bars(new double[] { 15, 12 }, @"C:\Users\Eremin\Desktop\Разное\383.jpg", "Data2"));
-            //bc.AddBar(new Bars(new double[] { 8, 40 }, @"C:\Users\Eremin\Desktop\Разное\weryt.jpg", "Data3"));
-            //bc.AddBar(new Bars(new double[] { 66, 46 }, @"C:\Users\Eremin\Desktop\Разное\pattern_texture1175.jpg", "Data4"));
+            bc.AddBar(new Bars(new double[] { 15, 20 }, Color.Red, Color.White, "Data2"));
+            bc.AddBar(new Bars(new double[] { 8, 40 }, Color.Teal, Color.Yellow, "Data3"));
+            bc.AddBar(new Bars(new double[] { 66, 46 }, Color.RoyalBlue, Color.Peru, "Data4"));
             bc.Config.ShowColumnValue = true;
             bc.AddDiagramLegend = true;
             bc.DrawDiagram();
