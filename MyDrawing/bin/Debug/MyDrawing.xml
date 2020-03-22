@@ -26,7 +26,17 @@
         </member>
         <member name="P:MyDrawing.Bars.TextureImgage">
             <summary>
-            Картинка для текстуры ряда данных
+            Картинка для текстуры ряда данных.
+            </summary>
+        </member>
+        <member name="P:MyDrawing.Bars.GradientColor1">
+            <summary>
+            Первый цвет градиента столбца.
+            </summary>
+        </member>
+        <member name="P:MyDrawing.Bars.GradientColor2">
+            <summary>
+            Второй цвет градиента столбца.
             </summary>
         </member>
         <member name="M:MyDrawing.Bars.#ctor(System.Double[],System.Drawing.Color,System.String)">

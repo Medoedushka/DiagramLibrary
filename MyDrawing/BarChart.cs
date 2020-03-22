@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing;
 using System.IO;
+using System.Drawing.Drawing2D;
 
 namespace MyDrawing
 {
@@ -59,11 +60,59 @@ namespace MyDrawing
         /// <summary>
         /// Цвет заливки столбца.
         /// </summary>
-        public Color BarColor { get; set; }
+        public Color BarColor
+        {
+            get { return barColor; }
+            set
+            {
+                textureImage = null;
+                gradientColor1 = gradientColor2 = Color.Transparent;
+                barColor = value;
+            }
+        }
+        private Color barColor;
         /// <summary>
-        /// Картинка для текстуры ряда данных
+        /// Картинка для текстуры ряда данных.
         /// </summary>
-        public Image TextureImgage { get; set; }
+        public Image TextureImgage
+        {
+            get { return textureImage; }
+            set
+            {
+                BarColor = Color.Transparent;
+                gradientColor1 = gradientColor2 = Color.Transparent;
+                textureImage = value;
+            }
+        }
+        private Image textureImage;
+        /// <summary>
+        /// Первый цвет градиента столбца.
+        /// </summary>
+        public Color GradientColor1
+        {
+            get { return gradientColor1; }
+            set
+            {
+                barColor = Color.Transparent;
+                textureImage = null;
+                gradientColor1 = value;
+            }
+        }
+        private Color gradientColor1;
+        /// <summary>
+        /// Второй цвет градиента столбца.
+        /// </summary>
+        public Color GradientColor2
+        {
+            get { return gradientColor2; }
+            set
+            {
+                barColor = Color.Transparent;
+                textureImage = null;
+                gradientColor2 = value;
+            }
+        }
+        private Color gradientColor2;
 
         /// <summary>
         /// 
@@ -76,14 +125,12 @@ namespace MyDrawing
             BarName = name;
             BarValues = values;
             BarColor = interiorColor;
-            TextureImgage = null;
         }
 
         public Bars(double[] values, string textureFilePath, string name = "Пусто")
         {
             BarName = name;
             BarValues = values;
-            
             if (File.Exists(textureFilePath) )
             {
                 FileInfo fi = new FileInfo(textureFilePath);
@@ -92,6 +139,14 @@ namespace MyDrawing
                 else throw new Exception("Расширение указаного файла не соответствует требуемым(.jpg; .png; .bmp)");
             }
             else throw new Exception("Файл, по указанному пути, не существует.");
+        }
+
+        public Bars(double[] values, Color gradient1, Color gradient2, string name = "Пусто")
+        {
+            BarName = name;
+            BarValues = values;
+            GradientColor1 = gradient1;
+            GradientColor2 = gradient2;
         }
     }
 
@@ -289,10 +344,14 @@ namespace MyDrawing
 
                     RectangleF BarRectangle = new RectangleF(BarPoint.X, BarPoint.Y, (float)Config.BarWidth, Center.Y - BarPoint.Y);
                     
-                    if (br.TextureImgage == null)
+                    if (br.TextureImgage != null)
+                        g.FillRectangle(new TextureBrush(br.TextureImgage, System.Drawing.Drawing2D.WrapMode.TileFlipXY), BarRectangle);
+                    else if (br.GradientColor1 != Color.Transparent && br.GradientColor2 != Color.Transparent)
+                        g.FillRectangle(new LinearGradientBrush(BarRectangle, br.GradientColor2, br.GradientColor1, LinearGradientMode.Vertical), 
+                            BarRectangle);
+                    else
                         g.FillRectangle(new SolidBrush(br.BarColor), BarRectangle);
-                    else g.FillRectangle(new TextureBrush(br.TextureImgage, System.Drawing.Drawing2D.WrapMode.TileFlipXY), BarRectangle);
-
+                   
                     if (Config.ShowColumnValue == true)
                     {
                         SizeF size = g.MeasureString(Convert.ToString(br.BarValues[i]), Config.drawFont);
@@ -368,6 +427,7 @@ namespace MyDrawing
                 string str = " " + bar.BarName;
                 SizeF size = g.MeasureString(str, Config.drawFont);
                 RectangleF rect = new RectangleF(pt.X, pt.Y, CubeSide, CubeSide);
+                
                 if (bar.TextureImgage == null)
                     g.FillRectangle(new SolidBrush(bar.BarColor), rect);
                 else g.FillRectangle(new TextureBrush(bar.TextureImgage), rect);

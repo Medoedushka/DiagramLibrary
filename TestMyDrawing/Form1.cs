@@ -81,10 +81,10 @@ namespace TestMyDrawing
         private void Form1_Load(object sender, EventArgs e)
         {
             bc = new BarChart(pictureBox1, new string[] { "Сезон 1", "Сезон 2" });
-            bc.AddBar(new Bars(new double[] { 45, 11 }, @"C:\Users\Eremin\Desktop\Разное\unnamed.jpg", "Data1"));
-            bc.AddBar(new Bars(new double[] { 15, 12 }, @"C:\Users\Eremin\Desktop\Разное\383.jpg", "Data2"));
-            bc.AddBar(new Bars(new double[] { 8, 40 }, @"C:\Users\Eremin\Desktop\Разное\weryt.jpg", "Data3"));
-            bc.AddBar(new Bars(new double[] { 66, 46 }, @"C:\Users\Eremin\Desktop\Разное\pattern_texture1175.jpg", "Data4"));
+            bc.AddBar(new Bars(new double[] { 45, 11 }, Color.IndianRed, Color.Indigo, "Data1"));
+            //bc.AddBar(new Bars(new double[] { 15, 12 }, @"C:\Users\Eremin\Desktop\Разное\383.jpg", "Data2"));
+            //bc.AddBar(new Bars(new double[] { 8, 40 }, @"C:\Users\Eremin\Desktop\Разное\weryt.jpg", "Data3"));
+            //bc.AddBar(new Bars(new double[] { 66, 46 }, @"C:\Users\Eremin\Desktop\Разное\pattern_texture1175.jpg", "Data4"));
             bc.Config.ShowColumnValue = true;
             bc.AddDiagramLegend = true;
             bc.DrawDiagram();
