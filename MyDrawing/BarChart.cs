@@ -83,9 +83,13 @@ namespace MyDrawing
         {
             BarName = name;
             BarValues = values;
-            if (File.Exists(textureFilePath))
+            
+            if (File.Exists(textureFilePath) )
             {
-                TextureImgage = Image.FromFile(textureFilePath);
+                FileInfo fi = new FileInfo(textureFilePath);
+                if (fi.Extension == ".jpg" || fi.Extension == ".png" || fi.Extension == ".bmp")
+                    TextureImgage = Image.FromFile(textureFilePath);
+                else throw new Exception("Расширение указаного файла не соответствует требуемым(.jpg; .png; .bmp)");
             }
             else throw new Exception("Файл, по указанному пути, не существует.");
         }
@@ -331,7 +335,7 @@ namespace MyDrawing
         }
         private void DrawLegend()
         {
-            int CubeSide = 5; // длина стороны кубика, представляющего цвета ряда
+            int CubeSide = 8; // длина стороны кубика, представляющего цвета ряда
             int step = 3; //расстояние между отдельными названиями рядов
             PointF pt = new PointF();
 
@@ -364,7 +368,9 @@ namespace MyDrawing
                 string str = " " + bar.BarName;
                 SizeF size = g.MeasureString(str, Config.drawFont);
                 RectangleF rect = new RectangleF(pt.X, pt.Y, CubeSide, CubeSide);
-                g.FillRectangle(new SolidBrush(bar.BarColor), rect);
+                if (bar.TextureImgage == null)
+                    g.FillRectangle(new SolidBrush(bar.BarColor), rect);
+                else g.FillRectangle(new TextureBrush(bar.TextureImgage), rect);
                 g.DrawString(str, new Font("Arial", 8), Config.drawBrush, pt.X + CubeSide, pt.Y - size.Height/ 3);
                 pt.X += CubeSide + size.Width + step;
             }
