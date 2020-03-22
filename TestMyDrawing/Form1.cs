@@ -82,12 +82,16 @@ namespace TestMyDrawing
         private void Form1_Load(object sender, EventArgs e)
         {
             bc = new BarChart(pictureBox1, new string[] { "Сезон 1", "Сезон 2" });
-            bc.AddBar(new Bars(new double[] { 45, 11 }, Color.IndianRed, Color.Indigo, "Data1"));
-            bc.AddBar(new Bars(new double[] { 15, 20 }, Color.Red, Color.White, "Data2"));
-            bc.AddBar(new Bars(new double[] { 8, 40 }, Color.Teal, Color.Yellow, "Data3"));
-            bc.AddBar(new Bars(new double[] { 66, 46 }, Color.RoyalBlue, Color.Peru, "Data4"));
+            bc.placeToDraw.BackColor = Color.White;
+            bc.AddBar(new Bars(new double[] { 45, 11, 24, 44 }, Color.IndianRed, Color.Indigo, "Data1"));
+            bc.AddBar(new Bars(new double[] { 15, 0, 16, 7 }, Color.Red, Color.SteelBlue, "Data2"));
+            bc.AddBar(new Bars(new double[] { 8, 40, 23, 11 }, Color.Teal, Color.Yellow, "Data3"));
+            bc.AddBar(new Bars(new double[] { 66, 46, 33, 21 }, Color.RoyalBlue, Color.Peru, "Data4"));
             bc.Config.ShowColumnValue = true;
             bc.AddDiagramLegend = true;
+            bc.Config.HorizontalLines = true;
+            bc.Config.ShowGroupBorder = true;
+            //bc.Config.ShowGroupBorder = true;
             bc.DrawDiagram();
         }
 

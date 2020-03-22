@@ -155,9 +155,9 @@ namespace MyDrawing
         public BarChartConfig Config { get; set; } //Настройки гистограммы
         public List<Bars> BarCollection { get; set; } // коллекция рядов данных
         private PointF[] fieldPt; // массив точек центров секторов
-        private int sectorStep = 50; // расстояние между секторами
+        private int sectorStep = 30; // расстояние между секторами
         private int columnStep = 5; // расстояние между колонками
-
+        private float Length;
         
         
         public BarChart(PictureBox picture, string[] fields)
@@ -258,31 +258,30 @@ namespace MyDrawing
             g.DrawLine(Config.DiagramPen, Center, pt2); //ось OY
             g.DrawString("0", Config.drawFont, Config.drawBrush, Center.X - 6, Center.Y);
 
-            float step = (pt4.X - pt1.X) / (1 + Config.Fileds.Length);
+            float step = (pt4.X - pt1.X) / (Config.Fileds.Length);
             fieldPt = new PointF[Config.Fileds.Length];
-            float d = (pt4.X - pt1.X) / (2 * Config.Fileds.Length);
-
-            //прорисовка полей
-            int a = 120; //слагаемое, для смещения точки отсчёта построения столбцов
-
+            float prevX = Center.X;
+            float Templen = 0;
             for (int i = 0; i < Config.Fileds.Length; i++)
             {
-                PointF secPt = new PointF(Center.X - a + (i + 1) * (step + sectorStep), Center.Y);
-                fieldPt[i] = secPt;
+                PointF secPt = new PointF(Center.X + (i + 1) * (step), Center.Y);
+                fieldPt[i] = new PointF(prevX + (secPt.X - prevX) / 2, Center.Y);
                 SizeF size = g.MeasureString(Config.Fileds[i], Config.drawFont);
-                g.DrawString(Config.Fileds[i], Config.drawFont, Config.drawBrush, secPt.X - size.Width / 2, secPt.Y);
+                Templen = secPt.X - prevX;
+                prevX = secPt.X;
 
                 if (Config.ShowGroupBorder)
                 {
-                    if (i == Config.Fileds.Length - 1)
-                        g.DrawLine(new Pen(Color.FromArgb(213, 209, 200)), pt4, pt3);
-                    else
-                    {
-                        float x = secPt.X + step / 2 + sectorStep / 2;
-                        g.DrawLine(new Pen(Color.FromArgb(213, 209, 200)), x, Center.Y, x, pt2.Y);
-                    }
+                    g.DrawLine(new Pen(Color.FromArgb(213, 209, 200)), secPt.X, secPt.Y, secPt.X, pt3.Y);
                 }
             }
+            PointF testP1 = fieldPt[0], testP2 = fieldPt[0];
+            while (testP2.X < fieldPt[0].X + Templen / 2 - sectorStep / 2)
+            {
+                testP1.X--;
+                testP2.X++;
+            }
+            Length = testP2.X - testP1.X;
 
             //прорисовка делений на оси OY
             Point[] Oypoints1 = new Point[Config.NumberOfSepOY];
@@ -323,7 +322,7 @@ namespace MyDrawing
                 Config.BarWidth = 0;
                 if (BarCollection.Count != 0)
                 {
-                    while (Config.BarWidth * BarCollection.Count + (BarCollection.Count - 1) * columnStep < step)
+                    while (Config.BarWidth * BarCollection.Count + (BarCollection.Count - 1) * columnStep < Length)
                         Config.BarWidth++;
                 }
 
@@ -334,13 +333,18 @@ namespace MyDrawing
         {
             for(int i = 0; i < Config.Fileds.Length; i++)
             {
-                float x = fieldPt[i].X - (pt4.X - pt1.X) / (2 * (1 + Config.Fileds.Length));
+                float x = fieldPt[i].X - Length / 2;
                 foreach(Bars br in BarCollection)
                 {
-                    
+                    if (br.BarValues[i] == 0)
+                    {
+                        x += (float)Config.BarWidth + columnStep;
+                        continue;
+                    }
                     PointF BarPoint = new PointF();
                     BarPoint.X = x;
                     BarPoint.Y = (float)(Center.Y - br.BarValues[i] * Config.StepOY / Config.PriceForPointOY);
+                    
 
                     RectangleF BarRectangle = new RectangleF(BarPoint.X, BarPoint.Y, (float)Config.BarWidth, Center.Y - BarPoint.Y);
                     
