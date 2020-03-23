@@ -156,8 +156,8 @@ namespace MyDrawing
         public List<Bars> BarCollection { get; set; } // коллекция рядов данных
         private PointF[] fieldPt; // массив точек центров секторов
         private int sectorStep = 30; // расстояние между секторами
-        private int columnStep = 5; // расстояние между колонками
-        private float Length;
+        private int columnStep = 0; // расстояние между колонками
+        private float Length; // длина области, доступной для построения столбцов в каждой категории.
         
         
         public BarChart(PictureBox picture, string[] fields)
@@ -258,8 +258,8 @@ namespace MyDrawing
             g.DrawLine(Config.DiagramPen, Center, pt2); //ось OY
             g.DrawString("0", Config.drawFont, Config.drawBrush, Center.X - 6, Center.Y);
 
-            float step = (pt4.X - pt1.X) / (Config.Fileds.Length);
-            fieldPt = new PointF[Config.Fileds.Length];
+            float step = (pt4.X - pt1.X) / (Config.Fileds.Length); // длина области одной категории
+            fieldPt = new PointF[Config.Fileds.Length]; // массив точек середин области категории
             float prevX = Center.X;
             float Templen = 0;
             for (int i = 0; i < Config.Fileds.Length; i++)
@@ -267,7 +267,7 @@ namespace MyDrawing
                 PointF secPt = new PointF(Center.X + (i + 1) * (step), Center.Y);
                 fieldPt[i] = new PointF(prevX + (secPt.X - prevX) / 2, Center.Y);
                 SizeF size = g.MeasureString(Config.Fileds[i], Config.drawFont);
-                Templen = secPt.X - prevX;
+                Templen = secPt.X - prevX; // длина области одной категории
                 prevX = secPt.X;
 
                 if (Config.ShowGroupBorder)
@@ -275,6 +275,8 @@ namespace MyDrawing
                     g.DrawLine(new Pen(Color.FromArgb(213, 209, 200)), secPt.X, secPt.Y, secPt.X, pt3.Y);
                 }
             }
+
+            // Вычисление длины области построения столбцов.
             PointF testP1 = fieldPt[0], testP2 = fieldPt[0];
             while (testP2.X < fieldPt[0].X + Templen / 2 - sectorStep / 2)
             {
@@ -283,7 +285,7 @@ namespace MyDrawing
             }
             Length = testP2.X - testP1.X;
 
-            //прорисовка делений на оси OY
+            #region<---Прорисовка делений на оси OY--->
             Point[] Oypoints1 = new Point[Config.NumberOfSepOY];
             Point[] Oypoints2 = new Point[Config.NumberOfSepOY];
             for(int i = 0; i < Config.NumberOfSepOY; i++)
@@ -317,15 +319,14 @@ namespace MyDrawing
                     PointF EndLine = new PointF(pt4.X, Oypoints1[i].Y);
                     g.DrawLine(new Pen(Color.FromArgb(213, 209, 200)), StartLine, EndLine);
                 }
-
-                //Рассчёт толщины столбца
-                Config.BarWidth = 0;
-                if (BarCollection.Count != 0)
-                {
-                    while (Config.BarWidth * BarCollection.Count + (BarCollection.Count - 1) * columnStep < Length)
-                        Config.BarWidth++;
-                }
-
+            }
+            #endregion
+            //Рассчёт толщины столбца
+            Config.BarWidth = 0;
+            if (BarCollection.Count != 0)
+            {
+                while (Config.BarWidth * BarCollection.Count + (BarCollection.Count - 1) * columnStep < Length)
+                    Config.BarWidth++;
             }
         }
 
@@ -438,10 +439,6 @@ namespace MyDrawing
                         rect);
                 else
                     g.FillRectangle(new SolidBrush(bar.BarColor), rect);
-
-                //if (bar.TextureImgage == null)
-                //    g.FillRectangle(new SolidBrush(bar.BarColor), rect);
-                //else g.FillRectangle(new TextureBrush(bar.TextureImgage), rect);
                 g.DrawString(str, new Font("Arial", 8), Config.drawBrush, pt.X + CubeSide, pt.Y - size.Height/ 3);
                 pt.X += CubeSide + size.Width + step;
             }
