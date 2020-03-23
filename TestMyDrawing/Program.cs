@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using TestMyDrawing.Presenter;
 
 namespace TestMyDrawing
 {
@@ -16,7 +17,9 @@ namespace TestMyDrawing
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            MainForm form = new MainForm();
+            DrawingPresenter presenter = new DrawingPresenter(form);
+            Application.Run(form);
         }
     }
 }
