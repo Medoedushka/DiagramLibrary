@@ -11,7 +11,7 @@ namespace TestMyDrawing.Model
     public class DrawingModel
     {
         TableOfData data;
-        FileStream crrStream;
+        public FileStream crrStream;
         PointF[] crrPoints;
 
         public DrawingModel()

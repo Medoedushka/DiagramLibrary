@@ -21,6 +21,12 @@ namespace TestMyDrawing.Presenter
             drawingView.LoadFile += DrawingView_LoadFile;
             drawingView.CreateNewFile += DrawingView_CreateNewFile;
             drawingView.SaveCreatedFile += DrawingView_SaveCreatedFile;
+            drawingView.CloseFile += () =>
+            {
+                _model.crrStream?.Close();
+                drawingView.CurrentFileName = "";
+                drawingView.TableTxt = "";
+            };
         }
 
         private bool DrawingView_SaveCreatedFile()

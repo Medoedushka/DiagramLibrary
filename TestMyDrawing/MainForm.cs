@@ -15,6 +15,7 @@ namespace TestMyDrawing
         public event EventHandler<EventArgs> SaveAS;
         public event EventHandler<EventArgs> LoadFile;
         public event EventHandler<EventArgs> Exit;
+        public event Action CloseFile;
 
         public MainForm()
         {
@@ -41,6 +42,11 @@ namespace TestMyDrawing
             bool? b = SaveCreatedFile?.Invoke();
             if (b == true)
                 MessageBox.Show("Файл успешно сохранён!", "Сохранение", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void закрытьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CloseFile?.Invoke();
         }
     }
 }

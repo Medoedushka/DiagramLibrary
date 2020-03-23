@@ -63,6 +63,7 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.lbl_CurrentFile = new System.Windows.Forms.ToolStripStatusLabel();
             this.rtb_TableTxt = new System.Windows.Forms.RichTextBox();
+            this.закрытьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -85,6 +86,7 @@
             this.файлToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.создатьToolStripMenuItem,
             this.открытьToolStripMenuItem,
+            this.закрытьToolStripMenuItem,
             this.toolStripSeparator,
             this.сохранитьToolStripMenuItem,
             this.сохранитькакToolStripMenuItem,
@@ -338,6 +340,13 @@
             this.rtb_TableTxt.TabIndex = 2;
             this.rtb_TableTxt.Text = "";
             // 
+            // закрытьToolStripMenuItem
+            // 
+            this.закрытьToolStripMenuItem.Name = "закрытьToolStripMenuItem";
+            this.закрытьToolStripMenuItem.Size = new System.Drawing.Size(233, 22);
+            this.закрытьToolStripMenuItem.Text = "Закрыть";
+            this.закрытьToolStripMenuItem.Click += new System.EventHandler(this.закрытьToolStripMenuItem_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -396,6 +405,7 @@
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel lbl_CurrentFile;
         private System.Windows.Forms.RichTextBox rtb_TableTxt;
+        private System.Windows.Forms.ToolStripMenuItem закрытьToolStripMenuItem;
     }
 }
 

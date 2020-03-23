@@ -13,6 +13,7 @@ namespace TestMyDrawing.View
         
         event EventHandler<EventArgs> CreateNewFile;
         event Func<bool> SaveCreatedFile;
+        event Action CloseFile;
         event EventHandler<EventArgs> LoadFile;
         event EventHandler<EventArgs> Exit;
     }
