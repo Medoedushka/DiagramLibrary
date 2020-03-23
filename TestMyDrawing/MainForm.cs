@@ -30,5 +30,10 @@ namespace TestMyDrawing
         {
             LoadFile?.Invoke(this, EventArgs.Empty);
         }
+
+        private void создатьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CreateNewFile?.Invoke(this, EventArgs.Empty);
+        }
     }
 }

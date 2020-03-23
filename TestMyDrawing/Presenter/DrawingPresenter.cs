@@ -19,6 +19,22 @@ namespace TestMyDrawing.Presenter
             drawingView = _drawingView;
             _model = new DrawingModel();
             drawingView.LoadFile += DrawingView_LoadFile;
+            drawingView.CreateNewFile += DrawingView_CreateNewFile;
+        }
+
+        private void DrawingView_CreateNewFile(object sender, EventArgs e)
+        {
+            string pathToCreate = "";
+            using (SaveFileDialog sf = new SaveFileDialog())
+            {
+                DialogResult res = sf.ShowDialog();
+                if (res == DialogResult.OK)
+                    pathToCreate = sf.FileName;
+            }
+            if (pathToCreate != "")
+            {
+                drawingView.CurrentFileName = _model.CreateNewFile(pathToCreate);
+            }
         }
 
         private void DrawingView_LoadFile(object sender, EventArgs e)

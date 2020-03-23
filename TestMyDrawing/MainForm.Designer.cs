@@ -105,6 +105,7 @@
             this.создатьToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
             this.создатьToolStripMenuItem.Size = new System.Drawing.Size(233, 22);
             this.создатьToolStripMenuItem.Text = "&Создать";
+            this.создатьToolStripMenuItem.Click += new System.EventHandler(this.создатьToolStripMenuItem_Click);
             // 
             // открытьToolStripMenuItem
             // 
@@ -327,10 +328,12 @@
             // 
             // rtb_TableTxt
             // 
+            this.rtb_TableTxt.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.rtb_TableTxt.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.rtb_TableTxt.Location = new System.Drawing.Point(12, 27);
             this.rtb_TableTxt.Name = "rtb_TableTxt";
-            this.rtb_TableTxt.Size = new System.Drawing.Size(305, 431);
+            this.rtb_TableTxt.Size = new System.Drawing.Size(332, 431);
             this.rtb_TableTxt.TabIndex = 2;
             this.rtb_TableTxt.Text = "";
             // 

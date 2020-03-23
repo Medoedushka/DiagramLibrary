@@ -11,9 +11,7 @@ namespace TestMyDrawing.Model
     public class DrawingModel
     {
         TableOfData data;
-        public string DataFilePath { get; set; }
-        public string DataTableTxt { get; set; }
-
+        FileStream crrStream;
         public DrawingModel()
         {
 
@@ -21,9 +19,19 @@ namespace TestMyDrawing.Model
 
         public string LoadData(string dataFilePath)
         {
+            crrStream?.Close();
             FileInfo fl = new FileInfo(dataFilePath);
             data = new TableOfData(dataFilePath, fl.Name);
+            crrStream = new FileStream(dataFilePath, FileMode.Open, FileAccess.ReadWrite);
             return data.Table_of_Function();
+        }
+
+        public string CreateNewFile(string pathToCreate)
+        {
+            DirectoryInfo di = Directory.CreateDirectory(pathToCreate);
+            string txtName = pathToCreate + "\\" + di.Name + ".txt";
+            crrStream = File.Create(txtName);
+            return txtName;
         }
     }
 }
