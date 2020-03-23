@@ -10,10 +10,9 @@ namespace TestMyDrawing.View
     {
         string TableTxt { get; set; }
         string CurrentFileName { get; set; }
-
+        
         event EventHandler<EventArgs> CreateNewFile;
-        event EventHandler<EventArgs> SaveCreatedFile;
-        event EventHandler<EventArgs> SaveAS;
+        event Func<bool> SaveCreatedFile;
         event EventHandler<EventArgs> LoadFile;
         event EventHandler<EventArgs> Exit;
     }

@@ -20,6 +20,17 @@ namespace TestMyDrawing.Presenter
             _model = new DrawingModel();
             drawingView.LoadFile += DrawingView_LoadFile;
             drawingView.CreateNewFile += DrawingView_CreateNewFile;
+            drawingView.SaveCreatedFile += DrawingView_SaveCreatedFile;
+        }
+
+        private bool DrawingView_SaveCreatedFile()
+        {
+            if (drawingView.CurrentFileName != "")
+            {
+                _model.SaveFile();
+                return true;
+            }
+            return false;
         }
 
         private void DrawingView_CreateNewFile(object sender, EventArgs e)

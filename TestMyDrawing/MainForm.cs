@@ -11,7 +11,7 @@ namespace TestMyDrawing
     public partial class MainForm : Form, IView
     {
         public event EventHandler<EventArgs> CreateNewFile;
-        public event EventHandler<EventArgs> SaveCreatedFile;
+        public event Func<bool> SaveCreatedFile;
         public event EventHandler<EventArgs> SaveAS;
         public event EventHandler<EventArgs> LoadFile;
         public event EventHandler<EventArgs> Exit;
@@ -20,7 +20,7 @@ namespace TestMyDrawing
         {
             InitializeComponent();
             
-            
+           
         }
 
         public string TableTxt { get => rtb_TableTxt.Text; set => rtb_TableTxt.Text = value; }
@@ -34,6 +34,13 @@ namespace TestMyDrawing
         private void создатьToolStripMenuItem_Click(object sender, EventArgs e)
         {
             CreateNewFile?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void сохранитьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            bool? b = SaveCreatedFile?.Invoke();
+            if (b == true)
+                MessageBox.Show("Файл успешно сохранён!", "Сохранение", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }
