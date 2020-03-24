@@ -19,5 +19,6 @@ namespace TestMyDrawing.View
         event Action CloseFile;
         event EventHandler<EventArgs> LoadFile;
         event EventHandler<EventArgs> InitGraphic;
+        event EventHandler<GraphicEventArgs> ResizePlot;
     }
 }

@@ -31,6 +31,13 @@ namespace TestMyDrawing.Presenter
             {
                drawingView.TableTxt =  _model.Init(drawingView.grpah);
             };
+            drawingView.ResizePlot += DrawingView_ResizePlot;
+        }
+
+        private void DrawingView_ResizePlot(object sender, GraphicEventArgs e)
+        {
+            if (e.EventType == EventType.ResizePlot)
+                _model.ResizePlot(drawingView.grpah);
         }
 
         private bool DrawingView_SaveCreatedFile()

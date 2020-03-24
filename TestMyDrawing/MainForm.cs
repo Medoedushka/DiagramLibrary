@@ -15,6 +15,7 @@ namespace TestMyDrawing
         public event EventHandler<EventArgs> LoadFile;
         public event Action CloseFile;
         public event EventHandler<EventArgs> InitGraphic;
+        public event EventHandler<GraphicEventArgs> ResizePlot;
 
         public MainForm()
         {
@@ -60,6 +61,11 @@ namespace TestMyDrawing
         private void MainForm_Load(object sender, EventArgs e)
         {
             InitGraphic?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void MainForm_SizeChanged(object sender, EventArgs e)
+        {
+            ResizePlot?.Invoke(this, new GraphicEventArgs(EventType.ResizePlot));
         }
     }
 }
