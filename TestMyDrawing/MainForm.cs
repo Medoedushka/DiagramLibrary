@@ -48,5 +48,14 @@ namespace TestMyDrawing
         {
             CloseFile?.Invoke();
         }
+
+        private void выходToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Вы действительно хотите закрыть приложение?", "Закрыть",
+                MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                Application.Exit();
+            }
+        }
     }
 }
