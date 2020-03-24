@@ -1,23 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using MyDrawing;
 using System.Drawing;
 using MAC_Dll;
 using System.IO;
 
 namespace TestMyDrawing.Model
 {
-    public class DrawingModel
+    public partial class DrawingModel
     {
         TableOfData data;
         public FileStream crrStream;
         PointF[] crrPoints;
 
-        public DrawingModel()
-        {
-            
-        }
+        
 
         public string LoadData(string dataFilePath)
         {

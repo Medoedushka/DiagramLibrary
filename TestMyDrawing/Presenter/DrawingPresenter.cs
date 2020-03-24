@@ -27,6 +27,10 @@ namespace TestMyDrawing.Presenter
                 drawingView.CurrentFileName = "";
                 drawingView.TableTxt = "";
             };
+            drawingView.InitGraphic += (object s, EventArgs e) =>
+            {
+                _model.Init(drawingView.grpah);
+            };
         }
 
         private bool DrawingView_SaveCreatedFile()

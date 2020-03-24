@@ -12,20 +12,19 @@ namespace TestMyDrawing
     {
         public event EventHandler<EventArgs> CreateNewFile;
         public event Func<bool> SaveCreatedFile;
-        public event EventHandler<EventArgs> SaveAS;
         public event EventHandler<EventArgs> LoadFile;
-        public event EventHandler<EventArgs> Exit;
         public event Action CloseFile;
+        public event EventHandler<EventArgs> InitGraphic;
 
         public MainForm()
         {
             InitializeComponent();
-            
-           
+            grpah = pictureBox1;
         }
 
         public string TableTxt { get => rtb_TableTxt.Text; set => rtb_TableTxt.Text = value; }
         public string CurrentFileName { get => lbl_CurrentFile.Text; set => lbl_CurrentFile.Text = value; }
+        public PictureBox grpah { get; set; }
 
         private void открытьToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -56,6 +55,11 @@ namespace TestMyDrawing
             {
                 Application.Exit();
             }
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            InitGraphic?.Invoke(this, EventArgs.Empty);
         }
     }
 }
