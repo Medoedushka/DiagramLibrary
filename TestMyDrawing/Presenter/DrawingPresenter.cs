@@ -29,7 +29,7 @@ namespace TestMyDrawing.Presenter
             };
             drawingView.InitGraphic += (object s, EventArgs e) =>
             {
-                _model.Init(drawingView.grpah);
+               drawingView.TableTxt =  _model.Init(drawingView.grpah);
             };
         }
 

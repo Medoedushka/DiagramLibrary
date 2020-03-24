@@ -16,11 +16,11 @@ namespace TestMyDrawing.Model
 
         
 
-        public string LoadData(string dataFilePath)
+        public string LoadData(string dataFilePath, bool sort = true)
         {
             crrStream?.Close();
             FileInfo fl = new FileInfo(dataFilePath);
-            data = new TableOfData(dataFilePath, fl.Name);
+            data = new TableOfData(dataFilePath, fl.Name, sort);
             crrStream = new FileStream(dataFilePath, FileMode.Open, FileAccess.ReadWrite);
 
             crrPoints = new PointF[data.Length];
