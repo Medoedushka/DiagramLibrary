@@ -135,7 +135,7 @@ namespace TestMyDrawing.Presenter
             }
             if (name != "")
             {
-                drawingView.TableTxt = _model.LoadData(name);
+                drawingView.TableTxt = _model.LoadTXTData(name);
                 drawingView.CurrentFileName = name;
             }
             

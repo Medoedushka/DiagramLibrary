@@ -236,7 +236,7 @@ namespace MyDrawing
 
             #region<---Рисование значков точки--->
             /* Формат ввода типа точки
-             * r/o/y/g/b/p/bl/w(цвет);с/t/s(тип);t/f(заливка: true/false); /*num*(размер значка, пробел - значение по умолчанию)
+             * r/o/y/g/b/p/bl/w(цвет);с/t/s(тип);t/f(заливка: true/false); /*num*(размер значка, d - значение по умолчанию)
              * Цвета:
                     r - красный
                     o - оранжевый
@@ -279,7 +279,7 @@ namespace MyDrawing
                         foreach (PointF pt in points)
                         {
                             int r;
-                            if (dotParams[3] == " ")
+                            if (dotParams[3] == "d")
                                 r = 4;
                             else r = int.Parse(dotParams[3]);
 
@@ -292,7 +292,7 @@ namespace MyDrawing
                     case "t":
                         foreach (PointF pt in points)
                         {
-                            if (dotParams[3] == " ")
+                            if (dotParams[3] == "d")
                                 l = 4;
                             else l = int.Parse(dotParams[3]);
 
@@ -310,7 +310,7 @@ namespace MyDrawing
                     case "s":
                         foreach (PointF pt in points)
                         {
-                            if (dotParams[3] == " ")
+                            if (dotParams[3] == "d")
                                 d = 4;
                             else d = int.Parse(dotParams[3]);
 
@@ -329,7 +329,7 @@ namespace MyDrawing
                         break;
                     case "r":
 
-                        if (dotParams[3] == " ")
+                        if (dotParams[3] == "d")
                             d = 4;
                         else d = int.Parse(dotParams[3]);
 
@@ -350,7 +350,7 @@ namespace MyDrawing
                         }
                         break;
                     case "st":
-                        if (dotParams[3] == " ")
+                        if (dotParams[3] == "d")
                             l = 4;
                         else l = int.Parse(dotParams[3]);
                         foreach (PointF pt in points)

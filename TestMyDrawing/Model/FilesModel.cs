@@ -15,8 +15,8 @@ namespace TestMyDrawing.Model
         PointF[] crrPoints;
 
         
-
-        public string LoadData(string dataFilePath, bool sort = true)
+        
+        public string LoadTXTData(string dataFilePath, bool sort = true)
         {
             crrStream?.Close();
             FileInfo fl = new FileInfo(dataFilePath);

@@ -35,9 +35,9 @@ namespace TestMyDrawing.Model
             gr.Config.OYNameSize = 12;
             gr.AddDiagramLegend = true;
             gr.Config.Grid = true;
-            string str = LoadData("defaultData3.txt", false);
+            string str = LoadTXTData("defaultData3.txt", false);
             crrStream?.Close();
-            gr.AddCurve(new Curves(crrPoints, Color.DodgerBlue, Legend: "Default data", dotsType: "r;t;t; "));
+            gr.AddCurve(new Curves(crrPoints, Color.DodgerBlue, Legend: "Default data", dotsType: "r;t;t;d"));
             gr.DrawDiagram();
             return str;
         }

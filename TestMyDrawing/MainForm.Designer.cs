@@ -66,6 +66,8 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.cmb_CurvesDots = new System.Windows.Forms.ComboBox();
+            this.label6 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.btn_DeleteCurve = new System.Windows.Forms.Button();
             this.btn_RefreshCurve = new System.Windows.Forms.Button();
@@ -355,11 +357,12 @@
             // 
             // rtb_TableTxt
             // 
-            this.rtb_TableTxt.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rtb_TableTxt.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.rtb_TableTxt.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.rtb_TableTxt.Location = new System.Drawing.Point(3, 3);
+            this.rtb_TableTxt.Location = new System.Drawing.Point(3, 38);
             this.rtb_TableTxt.Name = "rtb_TableTxt";
-            this.rtb_TableTxt.Size = new System.Drawing.Size(289, 399);
+            this.rtb_TableTxt.Size = new System.Drawing.Size(289, 370);
             this.rtb_TableTxt.TabIndex = 2;
             this.rtb_TableTxt.Text = "";
             this.rtb_TableTxt.WordWrap = false;
@@ -394,7 +397,10 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.cmb_CurvesDots);
+            this.tabPage1.Controls.Add(this.label6);
             this.tabPage1.Controls.Add(this.rtb_TableTxt);
+            this.tabPage1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
@@ -402,6 +408,25 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Таблица данных";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // cmb_CurvesDots
+            // 
+            this.cmb_CurvesDots.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmb_CurvesDots.FormattingEnabled = true;
+            this.cmb_CurvesDots.Location = new System.Drawing.Point(77, 6);
+            this.cmb_CurvesDots.Name = "cmb_CurvesDots";
+            this.cmb_CurvesDots.Size = new System.Drawing.Size(212, 26);
+            this.cmb_CurvesDots.TabIndex = 4;
+            this.cmb_CurvesDots.SelectedIndexChanged += new System.EventHandler(this.cmb_CurvesDots_SelectedIndexChanged);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(6, 9);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(65, 18);
+            this.label6.TabIndex = 3;
+            this.label6.Text = "Кривые:";
             // 
             // tabPage2
             // 
@@ -593,6 +618,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nud_Thickness)).EndInit();
@@ -656,6 +682,8 @@
         private System.Windows.Forms.Button btn_RefreshCurve;
         private System.Windows.Forms.NumericUpDown nud_Thickness;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.ComboBox cmb_CurvesDots;
+        private System.Windows.Forms.Label label6;
     }
 }
 

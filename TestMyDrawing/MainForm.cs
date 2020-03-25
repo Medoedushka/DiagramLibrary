@@ -33,7 +33,10 @@ namespace TestMyDrawing
         public PictureBox graph { get; set; }
         public bool MousePressed { get; set; } = false;
 
-        public string[] CurvesNames { get => new string[] { cmb_Curves.Items.ToString() }; set { cmb_Curves.Items.Clear(); cmb_Curves.Items.AddRange(value); } }
+        public string[] CurvesNames { get => new string[] { cmb_Curves.Items.ToString() }; set {
+                cmb_Curves.Items.Clear(); cmb_Curves.Items.AddRange(value);
+                cmb_CurvesDots.Items.Clear(); cmb_CurvesDots.Items.AddRange(value);
+            } }
         public Color CurveColor { get => pcb_CurveColor.BackColor; set => pcb_CurveColor.BackColor = value; }
         public string DotsSettings { get => txb_DotsString.Text; set => txb_DotsString.Text = value; }
         public int Thikness { get => (int)nud_Thickness.Value; set => nud_Thickness.Value = value; }
@@ -125,11 +128,22 @@ namespace TestMyDrawing
             graphicEvent.newCurve = newCurve;
             graphicEvent.Delete = true;
             ApdateCurvesList?.Invoke(this, graphicEvent);
+
+            cmb_Curves.SelectedItem = null;
+            txb_CurveLegend.Text = "";
+            pcb_CurveColor.BackColor = Color.Transparent;
+            txb_DotsString.Text = "";
+            nud_Thickness.Value = 1;
         }
 
         private void brn_SetCurveColor_Click(object sender, EventArgs e)
         {
             SetCurveColor?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void cmb_CurvesDots_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
