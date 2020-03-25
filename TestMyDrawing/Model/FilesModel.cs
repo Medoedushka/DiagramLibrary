@@ -14,14 +14,24 @@ namespace TestMyDrawing.Model
         public FileStream crrStream;
         PointF[] crrPoints;
 
-        
-        
-        public string LoadTXTData(string dataFilePath, bool sort = true)
+        public string ShowCurvePoints(string curveLegend)
         {
-            crrStream?.Close();
+            string table = "";
+            foreach(Curves c in gr.GraphCurves)
+            {
+                if (c.Legend == curveLegend)
+                {
+                    TableOfData d = new TableOfData(c.PointsToDraw, c.Legend, false);
+                    return d.Table_of_Function();
+                }
+            }
+            return table;
+        }
+        
+        public void LoadTXTData(string dataFilePath, bool sort = true)
+        {
             FileInfo fl = new FileInfo(dataFilePath);
             data = new TableOfData(dataFilePath, fl.Name, sort);
-            crrStream = new FileStream(dataFilePath, FileMode.Open, FileAccess.ReadWrite);
 
             crrPoints = new PointF[data.Length];
             for(int  i = 0; i < crrPoints.Length; i++)
@@ -29,8 +39,11 @@ namespace TestMyDrawing.Model
                 crrPoints[i].X = (float)data.Points[i].X;
                 crrPoints[i].Y = (float)data.Points[i].F;
             }
-
-            return data.Table_of_Function();
+            Random r = new Random();
+            string legend = "График" + Convert.ToString(gr.GraphCurves.Count + 1);
+            Curves curve = new Curves(crrPoints, Color.FromArgb(r.Next(1, 256), r.Next(1, 256), r.Next(1, 256)), Legend: legend);
+            gr.AddCurve(curve);
+            gr.DrawDiagram();
         }
 
         public string CreateNewFile(string pathToCreate)

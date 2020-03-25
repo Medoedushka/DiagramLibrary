@@ -30,7 +30,7 @@ namespace TestMyDrawing.Presenter
             };
             drawingView.InitGraphic += (object s, EventArgs e) =>
             {
-               drawingView.TableTxt =  _model.Init(drawingView.graph);
+               _model.Init(drawingView.graph);
                 InitCurvesNames();
             };
             drawingView.PlotAction += DrawingView_PlotAction;
@@ -64,6 +64,7 @@ namespace TestMyDrawing.Presenter
                         drawingView.CurveColor = cd.Color;
                 }
             };
+            drawingView.ShowCurvePoints += (string s) => { drawingView.TableTxt = _model.ShowCurvePoints(s); };
         }
 
         private void DrawingView_PlotAction(object sender, GraphicEventArgs e)
@@ -135,7 +136,7 @@ namespace TestMyDrawing.Presenter
             }
             if (name != "")
             {
-                drawingView.TableTxt = _model.LoadTXTData(name);
+                
                 drawingView.CurrentFileName = name;
             }
             

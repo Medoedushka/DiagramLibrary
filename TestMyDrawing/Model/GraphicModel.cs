@@ -17,7 +17,7 @@ namespace TestMyDrawing.Model
             
         }
 
-        public string Init(PictureBox picture)
+        public void Init(PictureBox picture)
         {
             gr = new PointsGraphic(picture);
             
@@ -35,11 +35,8 @@ namespace TestMyDrawing.Model
             gr.Config.OYNameSize = 12;
             gr.AddDiagramLegend = true;
             gr.Config.Grid = true;
-            string str = LoadTXTData("defaultData3.txt", false);
+            LoadTXTData("defaultData3.txt", false);
             crrStream?.Close();
-            gr.AddCurve(new Curves(crrPoints, Color.DodgerBlue, Legend: "Default data", dotsType: "r;t;t;d"));
-            gr.DrawDiagram();
-            return str;
         }
 
         public void ResizePlot(PictureBox picture)

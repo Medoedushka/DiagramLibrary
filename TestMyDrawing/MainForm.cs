@@ -21,6 +21,7 @@ namespace TestMyDrawing
         public event EventHandler<GraphicEventArgs> ApdateCurvesList;
         public event Action<string> FillCurveFields;
         public event EventHandler<EventArgs> SetCurveColor;
+        public event Action<string> ShowCurvePoints;
 
         public MainForm()
         {
@@ -143,7 +144,7 @@ namespace TestMyDrawing
 
         private void cmb_CurvesDots_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            ShowCurvePoints?.Invoke(cmb_CurvesDots.Text);
         }
     }
 }
