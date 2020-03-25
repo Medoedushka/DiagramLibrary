@@ -97,11 +97,18 @@ namespace TestMyDrawing
 
         private void btn_RefreshCurve_Click(object sender, EventArgs e)
         {
-            Curves newCurve = new Curves(new PointF[] { }, pcb_CurveColor.BackColor, (int)nud_Thickness.Value, txb_CurveLegend.Text, txb_DotsString.Text);
+            Curves newCurve = new Curves(new PointF[] { }, pcb_CurveColor.BackColor, (int)nud_Thickness.Value, cmb_Curves.Text, txb_DotsString.Text);
             GraphicEventArgs graphicEvent = new GraphicEventArgs(EventType.AdpdateCurve);
             graphicEvent.newCurve = newCurve;
             graphicEvent.Delete = false;
+            if (txb_CurveLegend.Text != "") graphicEvent.NewName = txb_CurveLegend.Text;
             ApdateCurvesList?.Invoke(this, graphicEvent);
+            
+            cmb_Curves.SelectedItem = null;
+            txb_CurveLegend.Text = "";
+            pcb_CurveColor.BackColor = Color.Transparent;
+            txb_DotsString.Text = "";
+            nud_Thickness.Value = 1;
         }
 
         private void cmb_Curves_TextChanged(object sender, EventArgs e)

@@ -31,13 +31,7 @@ namespace TestMyDrawing.Presenter
             drawingView.InitGraphic += (object s, EventArgs e) =>
             {
                drawingView.TableTxt =  _model.Init(drawingView.graph);
-                string[] curvesNames = new string[_model.gr.GraphCurves.Count];
-                int counter = 0;
-                foreach(Curves c in _model.gr.GraphCurves)
-                {
-                    curvesNames[counter] = c.Legend;
-                }
-                drawingView.CurvesNames = curvesNames;
+                InitCurvesNames();
             };
             drawingView.PlotAction += DrawingView_PlotAction;
             drawingView.PlotMouseDown += (object o, MouseEventArgs e) =>
@@ -72,8 +66,27 @@ namespace TestMyDrawing.Presenter
             }
             else if (e.EventType == EventType.AdpdateCurve)
             {
-                _model.ApdateCurvesList(e.newCurve, e.Delete);
+                try
+                {
+                    _model.ApdateCurvesList(e.newCurve, e.Delete, e.NewName);
+                    InitCurvesNames();
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
+        }
+
+        private void InitCurvesNames()
+        {
+            string[] curvesNames = new string[_model.gr.GraphCurves.Count];
+            int counter = 0;
+            foreach (Curves c in _model.gr.GraphCurves)
+            {
+                curvesNames[counter] = c.Legend;
+            }
+            drawingView.CurvesNames = curvesNames;
         }
 
         private bool DrawingView_SaveCreatedFile()

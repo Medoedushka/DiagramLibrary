@@ -24,7 +24,7 @@ namespace TestMyDrawing
         //Параметры для обновления кривой
         public Curves newCurve { get; set; }
         public bool Delete { get; set; } = false;
-
+        public string NewName { get; set; }
         public GraphicEventArgs(EventType type)
         {
             EventType = type;

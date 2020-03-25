@@ -506,6 +506,7 @@
             // 
             // cmb_Curves
             // 
+            this.cmb_Curves.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmb_Curves.FormattingEnabled = true;
             this.cmb_Curves.Location = new System.Drawing.Point(77, 6);
             this.cmb_Curves.Name = "cmb_Curves";

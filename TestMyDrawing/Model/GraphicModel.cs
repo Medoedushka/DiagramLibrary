@@ -70,7 +70,7 @@ namespace TestMyDrawing.Model
         }
 
 
-        public void ApdateCurvesList(Curves curve, bool delete)
+        public void ApdateCurvesList(Curves curve, bool delete, string newName)
         {
             if (!delete)
             {
@@ -78,8 +78,16 @@ namespace TestMyDrawing.Model
                 {
                     if (gr.GraphCurves[i].Legend == curve.Legend)
                     {
-                        gr.GraphCurves[i] = new Curves(gr.GraphCurves[i].PointsToDraw, curve.CurveColor,
+                        if (newName == "")
+                        {
+                            gr.GraphCurves[i] = new Curves(gr.GraphCurves[i].PointsToDraw, curve.CurveColor,
                             curve.CurveThickness, curve.Legend, curve.DotsType);
+                        }
+                        else
+                        {
+                            gr.GraphCurves[i] = new Curves(gr.GraphCurves[i].PointsToDraw, curve.CurveColor,
+                            curve.CurveThickness, newName, curve.DotsType);
+                        }
                         
                     }
                 }
