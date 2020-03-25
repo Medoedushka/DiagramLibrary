@@ -480,6 +480,7 @@
             this.brn_SetCurveColor.Size = new System.Drawing.Size(18, 18);
             this.brn_SetCurveColor.TabIndex = 4;
             this.brn_SetCurveColor.UseVisualStyleBackColor = true;
+            this.brn_SetCurveColor.Click += new System.EventHandler(this.brn_SetCurveColor_Click);
             // 
             // pcb_CurveColor
             // 

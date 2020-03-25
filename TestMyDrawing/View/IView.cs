@@ -31,5 +31,6 @@ namespace TestMyDrawing.View
         event EventHandler<MouseEventArgs> PlotMouseUp;
         event EventHandler<GraphicEventArgs> ApdateCurvesList;
         event Action<string> FillCurveFields;
+        event EventHandler<EventArgs> SetCurveColor;
     }
 }

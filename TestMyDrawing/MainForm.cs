@@ -20,6 +20,7 @@ namespace TestMyDrawing
         public event EventHandler<MouseEventArgs> PlotMouseUp;
         public event EventHandler<GraphicEventArgs> ApdateCurvesList;
         public event Action<string> FillCurveFields;
+        public event EventHandler<EventArgs> SetCurveColor;
 
         public MainForm()
         {
@@ -124,6 +125,11 @@ namespace TestMyDrawing
             graphicEvent.newCurve = newCurve;
             graphicEvent.Delete = true;
             ApdateCurvesList?.Invoke(this, graphicEvent);
+        }
+
+        private void brn_SetCurveColor_Click(object sender, EventArgs e)
+        {
+            SetCurveColor?.Invoke(this, EventArgs.Empty);
         }
     }
 }

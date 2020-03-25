@@ -54,6 +54,16 @@ namespace TestMyDrawing.Presenter
                     }
                 }
             };
+            drawingView.SetCurveColor += (object o, EventArgs e) =>
+            {
+                using (ColorDialog cd = new ColorDialog())
+                {
+                    cd.Color = drawingView.CurveColor;
+                    DialogResult res = cd.ShowDialog();
+                    if (res == DialogResult.OK)
+                        drawingView.CurveColor = cd.Color;
+                }
+            };
         }
 
         private void DrawingView_PlotAction(object sender, GraphicEventArgs e)
