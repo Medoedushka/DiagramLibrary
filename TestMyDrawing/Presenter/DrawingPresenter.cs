@@ -65,6 +65,7 @@ namespace TestMyDrawing.Presenter
                 }
             };
             drawingView.ShowCurvePoints += (string s) => { drawingView.TableTxt = _model.ShowCurvePoints(s); };
+            drawingView.AddNewCurve += DrawingView_PlotAction;
         }
 
         private void DrawingView_PlotAction(object sender, GraphicEventArgs e)
@@ -87,6 +88,18 @@ namespace TestMyDrawing.Presenter
                     MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+            else if (e.EventType == EventType.AddNewCurve)
+            {
+                using (OpenFileDialog od = new OpenFileDialog())
+                {
+                    od.Filter = ".txt (*.txt)|*.txt";
+                    if (od.ShowDialog() == DialogResult.Yes || od.FileName != "")
+                    {
+                        _model.LoadTXTData(od.FileName, e.SortValues);
+                    }
+                }
+                InitCurvesNames();
+            }
         }
 
         private void InitCurvesNames()
@@ -96,6 +109,7 @@ namespace TestMyDrawing.Presenter
             foreach (Curves c in _model.gr.GraphCurves)
             {
                 curvesNames[counter] = c.Legend;
+                counter++;
             }
             drawingView.CurvesNames = curvesNames;
         }

@@ -22,6 +22,7 @@ namespace TestMyDrawing
         public event Action<string> FillCurveFields;
         public event EventHandler<EventArgs> SetCurveColor;
         public event Action<string> ShowCurvePoints;
+        public event EventHandler<GraphicEventArgs> AddNewCurve;
 
         public MainForm()
         {
@@ -145,6 +146,17 @@ namespace TestMyDrawing
         private void cmb_CurvesDots_SelectedIndexChanged(object sender, EventArgs e)
         {
             ShowCurvePoints?.Invoke(cmb_CurvesDots.Text);
+        }
+
+        private void btn_AddNewCurve_Click(object sender, EventArgs e)
+        {
+            GraphicEventArgs graphicEvent = new GraphicEventArgs(EventType.AddNewCurve);
+            if (MessageBox.Show("Отсортировать данные в файле по возрастанию аргумента?", "Добавление кривой", MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question) == DialogResult.Yes)
+                graphicEvent.SortValues = true;
+            else graphicEvent.SortValues = false;
+
+            AddNewCurve?.Invoke(this, graphicEvent);
         }
     }
 }

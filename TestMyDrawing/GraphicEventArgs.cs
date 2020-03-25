@@ -12,7 +12,8 @@ namespace TestMyDrawing
     {
         ResizePlot, 
         MovePlot, 
-        AdpdateCurve
+        AdpdateCurve, 
+        AddNewCurve
     }
     public class GraphicEventArgs : EventArgs
     {
@@ -25,6 +26,10 @@ namespace TestMyDrawing
         public Curves newCurve { get; set; }
         public bool Delete { get; set; } = false;
         public string NewName { get; set; }
+
+        //Параметры для добавления новой кривой
+        public bool SortValues { get; set; } = true;
+
         public GraphicEventArgs(EventType type)
         {
             EventType = type;

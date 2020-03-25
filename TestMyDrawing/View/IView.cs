@@ -33,5 +33,6 @@ namespace TestMyDrawing.View
         event Action<string> FillCurveFields;
         event EventHandler<EventArgs> SetCurveColor;
         event Action<string> ShowCurvePoints;
+        event EventHandler<GraphicEventArgs> AddNewCurve;
     }
 }

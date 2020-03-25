@@ -69,8 +69,6 @@
             this.cmb_CurvesDots = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.btn_DeleteCurve = new System.Windows.Forms.Button();
-            this.btn_RefreshCurve = new System.Windows.Forms.Button();
             this.nud_Thickness = new System.Windows.Forms.NumericUpDown();
             this.brn_SetCurveColor = new System.Windows.Forms.Button();
             this.pcb_CurveColor = new System.Windows.Forms.PictureBox();
@@ -83,6 +81,9 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.btn_RefreshCurve = new System.Windows.Forms.Button();
+            this.btn_DeleteCurve = new System.Windows.Forms.Button();
+            this.btn_AddNewCurve = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -430,6 +431,7 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.btn_AddNewCurve);
             this.tabPage2.Controls.Add(this.btn_DeleteCurve);
             this.tabPage2.Controls.Add(this.btn_RefreshCurve);
             this.tabPage2.Controls.Add(this.nud_Thickness);
@@ -451,30 +453,6 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Параметры кривых";
             this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // btn_DeleteCurve
-            // 
-            this.btn_DeleteCurve.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btn_DeleteCurve.ForeColor = System.Drawing.Color.Red;
-            this.btn_DeleteCurve.Location = new System.Drawing.Point(114, 172);
-            this.btn_DeleteCurve.Name = "btn_DeleteCurve";
-            this.btn_DeleteCurve.Size = new System.Drawing.Size(150, 31);
-            this.btn_DeleteCurve.TabIndex = 6;
-            this.btn_DeleteCurve.Text = "Удалить кривую";
-            this.btn_DeleteCurve.UseVisualStyleBackColor = true;
-            this.btn_DeleteCurve.Click += new System.EventHandler(this.btn_DeleteCurve_Click);
-            // 
-            // btn_RefreshCurve
-            // 
-            this.btn_RefreshCurve.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btn_RefreshCurve.ForeColor = System.Drawing.Color.Green;
-            this.btn_RefreshCurve.Location = new System.Drawing.Point(9, 172);
-            this.btn_RefreshCurve.Name = "btn_RefreshCurve";
-            this.btn_RefreshCurve.Size = new System.Drawing.Size(99, 31);
-            this.btn_RefreshCurve.TabIndex = 6;
-            this.btn_RefreshCurve.Text = "Обновить";
-            this.btn_RefreshCurve.UseVisualStyleBackColor = true;
-            this.btn_RefreshCurve.Click += new System.EventHandler(this.btn_RefreshCurve_Click);
             // 
             // nud_Thickness
             // 
@@ -595,6 +573,42 @@
             this.tabPage3.Text = "Спирали";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
+            // btn_RefreshCurve
+            // 
+            this.btn_RefreshCurve.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btn_RefreshCurve.ForeColor = System.Drawing.Color.Green;
+            this.btn_RefreshCurve.Location = new System.Drawing.Point(20, 172);
+            this.btn_RefreshCurve.Name = "btn_RefreshCurve";
+            this.btn_RefreshCurve.Size = new System.Drawing.Size(99, 31);
+            this.btn_RefreshCurve.TabIndex = 6;
+            this.btn_RefreshCurve.Text = "Обновить";
+            this.btn_RefreshCurve.UseVisualStyleBackColor = true;
+            this.btn_RefreshCurve.Click += new System.EventHandler(this.btn_RefreshCurve_Click);
+            // 
+            // btn_DeleteCurve
+            // 
+            this.btn_DeleteCurve.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btn_DeleteCurve.ForeColor = System.Drawing.Color.Red;
+            this.btn_DeleteCurve.Location = new System.Drawing.Point(125, 172);
+            this.btn_DeleteCurve.Name = "btn_DeleteCurve";
+            this.btn_DeleteCurve.Size = new System.Drawing.Size(150, 31);
+            this.btn_DeleteCurve.TabIndex = 6;
+            this.btn_DeleteCurve.Text = "Удалить кривую";
+            this.btn_DeleteCurve.UseVisualStyleBackColor = true;
+            this.btn_DeleteCurve.Click += new System.EventHandler(this.btn_DeleteCurve_Click);
+            // 
+            // btn_AddNewCurve
+            // 
+            this.btn_AddNewCurve.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btn_AddNewCurve.ForeColor = System.Drawing.Color.Blue;
+            this.btn_AddNewCurve.Location = new System.Drawing.Point(6, 209);
+            this.btn_AddNewCurve.Name = "btn_AddNewCurve";
+            this.btn_AddNewCurve.Size = new System.Drawing.Size(283, 31);
+            this.btn_AddNewCurve.TabIndex = 6;
+            this.btn_AddNewCurve.Text = "Добавить кривую из файла";
+            this.btn_AddNewCurve.UseVisualStyleBackColor = true;
+            this.btn_AddNewCurve.Click += new System.EventHandler(this.btn_AddNewCurve_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -678,12 +692,13 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TabPage tabPage3;
-        private System.Windows.Forms.Button btn_DeleteCurve;
-        private System.Windows.Forms.Button btn_RefreshCurve;
         private System.Windows.Forms.NumericUpDown nud_Thickness;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ComboBox cmb_CurvesDots;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Button btn_AddNewCurve;
+        private System.Windows.Forms.Button btn_DeleteCurve;
+        private System.Windows.Forms.Button btn_RefreshCurve;
     }
 }
 

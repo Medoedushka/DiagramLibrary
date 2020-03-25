@@ -13,6 +13,7 @@ namespace TestMyDrawing.Model
         TableOfData data;
         public FileStream crrStream;
         PointF[] crrPoints;
+        int everCreatedCurvesCounter; //Содержит кол-во когда-либо, созданных кривых
 
         public string ShowCurvePoints(string curveLegend)
         {
@@ -40,7 +41,8 @@ namespace TestMyDrawing.Model
                 crrPoints[i].Y = (float)data.Points[i].F;
             }
             Random r = new Random();
-            string legend = "График" + Convert.ToString(gr.GraphCurves.Count + 1);
+            everCreatedCurvesCounter++;
+            string legend = "График" + everCreatedCurvesCounter;
             Curves curve = new Curves(crrPoints, Color.FromArgb(r.Next(1, 256), r.Next(1, 256), r.Next(1, 256)), Legend: legend);
             gr.AddCurve(curve);
             gr.DrawDiagram();
