@@ -12,13 +12,16 @@ namespace TestMyDrawing.View
     {
         string TableTxt { get; set; }
         string CurrentFileName { get; set; }
-        PictureBox grpah { get; set; }
+        bool MousePressed { get; set; }
+        PictureBox graph { get; set; }
 
         event EventHandler<EventArgs> CreateNewFile;
         event Func<bool> SaveCreatedFile;
         event Action CloseFile;
         event EventHandler<EventArgs> LoadFile;
         event EventHandler<EventArgs> InitGraphic;
-        event EventHandler<GraphicEventArgs> ResizePlot;
+        event EventHandler<GraphicEventArgs> PlotAction;
+        event EventHandler<MouseEventArgs> PlotMouseDown;
+        event EventHandler<MouseEventArgs> PlotMouseUp;
     }
 }

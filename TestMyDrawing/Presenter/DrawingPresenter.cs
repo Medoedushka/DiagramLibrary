@@ -29,15 +29,25 @@ namespace TestMyDrawing.Presenter
             };
             drawingView.InitGraphic += (object s, EventArgs e) =>
             {
-               drawingView.TableTxt =  _model.Init(drawingView.grpah);
+               drawingView.TableTxt =  _model.Init(drawingView.graph);
             };
-            drawingView.ResizePlot += DrawingView_ResizePlot;
+            drawingView.PlotAction += DrawingView_PlotAction;
+            drawingView.PlotMouseDown += (object o, MouseEventArgs e) =>
+            {
+                _model.PrimaryParamsInit(e.Location);
+                drawingView.graph.Cursor = Cursors.SizeAll;
+            };
+            drawingView.PlotMouseUp += (object o, MouseEventArgs e) => drawingView.graph.Cursor = Cursors.Default;
         }
 
-        private void DrawingView_ResizePlot(object sender, GraphicEventArgs e)
+        private void DrawingView_PlotAction(object sender, GraphicEventArgs e)
         {
             if (e.EventType == EventType.ResizePlot)
-                _model.ResizePlot(drawingView.grpah);
+                _model.ResizePlot(drawingView.graph);
+            else if (e.EventType == EventType.MovePlot && drawingView.graph.Cursor == Cursors.SizeAll)
+            {
+                _model.RefreshPlotByMoving(e.mouseLocation);
+            }
         }
 
         private bool DrawingView_SaveCreatedFile()

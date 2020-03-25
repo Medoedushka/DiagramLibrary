@@ -50,5 +50,23 @@ namespace TestMyDrawing.Model
                 gr.DrawDiagram();
             }
         }
+
+        Point mouseLoc;
+        float d, angle;
+        public void PrimaryParamsInit(Point firstMouseLoc)
+        {
+            mouseLoc = firstMouseLoc;
+            d = (float)Math.Sqrt(Math.Pow(gr.RealCenter.X - firstMouseLoc.X, 2) + Math.Pow(gr.RealCenter.Y - firstMouseLoc.Y, 2));
+            angle = (float)Math.Asin((gr.RealCenter.Y - firstMouseLoc.Y) / d);
+        }
+
+        public void RefreshPlotByMoving(Point crrMouseLoc)
+        {
+            if (mouseLoc.X > gr.RealCenter.X)
+                gr.RealCenter = new Point(crrMouseLoc.X - (int)(d * Math.Cos(angle)), crrMouseLoc.Y + (int)(d * Math.Sin(angle)));
+            else
+                gr.RealCenter = new Point(crrMouseLoc.X + (int)(d * Math.Cos(angle)), crrMouseLoc.Y + (int)(d * Math.Sin(angle)));
+            gr.DrawDiagram();
+        }
     }
 }

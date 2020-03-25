@@ -3,21 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
 
 namespace TestMyDrawing
 {
     public enum EventType
     {
-        ResizePlot
+        ResizePlot, 
+        MovePlot
     }
     public class GraphicEventArgs : EventArgs
     {
         public EventType EventType { get; set; }
 
-        //параметры для изменения размеров области построения
-        public int NewHeight { get; set; }
-        public int NewWidth { get; set; }
-
+        //Параметры для перемещения по графику
+        public Point mouseLocation { get; set; }
         public GraphicEventArgs(EventType type)
         {
             EventType = type;

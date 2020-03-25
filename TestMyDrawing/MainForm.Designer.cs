@@ -67,28 +67,28 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.label1 = new System.Windows.Forms.Label();
-            this.cmb_Curves = new System.Windows.Forms.ComboBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.txb_CurveLegend = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.pcb_CurveColor = new System.Windows.Forms.PictureBox();
-            this.brn_SetCurveColor = new System.Windows.Forms.Button();
-            this.label4 = new System.Windows.Forms.Label();
-            this.txb_DotsString = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.nud_Thickness = new System.Windows.Forms.NumericUpDown();
-            this.btn_RefreshCurve = new System.Windows.Forms.Button();
             this.btn_DeleteCurve = new System.Windows.Forms.Button();
+            this.btn_RefreshCurve = new System.Windows.Forms.Button();
+            this.nud_Thickness = new System.Windows.Forms.NumericUpDown();
+            this.brn_SetCurveColor = new System.Windows.Forms.Button();
+            this.pcb_CurveColor = new System.Windows.Forms.PictureBox();
+            this.txb_DotsString = new System.Windows.Forms.TextBox();
+            this.txb_CurveLegend = new System.Windows.Forms.TextBox();
+            this.cmb_Curves = new System.Windows.Forms.ComboBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pcb_CurveColor)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nud_Thickness)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pcb_CurveColor)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -375,6 +375,9 @@
             this.pictureBox1.Size = new System.Drawing.Size(560, 431);
             this.pictureBox1.TabIndex = 3;
             this.pictureBox1.TabStop = false;
+            this.pictureBox1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseDown);
+            this.pictureBox1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseMove);
+            this.pictureBox1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseUp);
             // 
             // tabControl1
             // 
@@ -424,99 +427,27 @@
             this.tabPage2.Text = "Параметры кривых";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // tabPage3
+            // btn_DeleteCurve
             // 
-            this.tabPage3.Location = new System.Drawing.Point(4, 22);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(295, 405);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "Спирали";
-            this.tabPage3.UseVisualStyleBackColor = true;
+            this.btn_DeleteCurve.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btn_DeleteCurve.ForeColor = System.Drawing.Color.Red;
+            this.btn_DeleteCurve.Location = new System.Drawing.Point(114, 172);
+            this.btn_DeleteCurve.Name = "btn_DeleteCurve";
+            this.btn_DeleteCurve.Size = new System.Drawing.Size(150, 31);
+            this.btn_DeleteCurve.TabIndex = 6;
+            this.btn_DeleteCurve.Text = "Удалить кривую";
+            this.btn_DeleteCurve.UseVisualStyleBackColor = true;
             // 
-            // label1
+            // btn_RefreshCurve
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(65, 18);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Кривые:";
-            // 
-            // cmb_Curves
-            // 
-            this.cmb_Curves.FormattingEnabled = true;
-            this.cmb_Curves.Location = new System.Drawing.Point(77, 6);
-            this.cmb_Curves.Name = "cmb_Curves";
-            this.cmb_Curves.Size = new System.Drawing.Size(212, 26);
-            this.cmb_Curves.TabIndex = 1;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(29, 42);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(42, 18);
-            this.label2.TabIndex = 0;
-            this.label2.Text = "Имя:";
-            // 
-            // txb_CurveLegend
-            // 
-            this.txb_CurveLegend.Location = new System.Drawing.Point(77, 39);
-            this.txb_CurveLegend.Name = "txb_CurveLegend";
-            this.txb_CurveLegend.Size = new System.Drawing.Size(212, 24);
-            this.txb_CurveLegend.TabIndex = 2;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(29, 73);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(46, 18);
-            this.label3.TabIndex = 0;
-            this.label3.Text = "Цвет:";
-            // 
-            // pcb_CurveColor
-            // 
-            this.pcb_CurveColor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pcb_CurveColor.Location = new System.Drawing.Point(81, 73);
-            this.pcb_CurveColor.Name = "pcb_CurveColor";
-            this.pcb_CurveColor.Size = new System.Drawing.Size(18, 18);
-            this.pcb_CurveColor.TabIndex = 3;
-            this.pcb_CurveColor.TabStop = false;
-            // 
-            // brn_SetCurveColor
-            // 
-            this.brn_SetCurveColor.Location = new System.Drawing.Point(105, 73);
-            this.brn_SetCurveColor.Name = "brn_SetCurveColor";
-            this.brn_SetCurveColor.Size = new System.Drawing.Size(18, 18);
-            this.brn_SetCurveColor.TabIndex = 4;
-            this.brn_SetCurveColor.UseVisualStyleBackColor = true;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(6, 103);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(136, 18);
-            this.label4.TabIndex = 0;
-            this.label4.Text = "Параметры точек:";
-            // 
-            // txb_DotsString
-            // 
-            this.txb_DotsString.Location = new System.Drawing.Point(148, 100);
-            this.txb_DotsString.Name = "txb_DotsString";
-            this.txb_DotsString.Size = new System.Drawing.Size(141, 24);
-            this.txb_DotsString.TabIndex = 2;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(10, 134);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(119, 18);
-            this.label5.TabIndex = 0;
-            this.label5.Text = "Толщина линии:";
+            this.btn_RefreshCurve.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btn_RefreshCurve.ForeColor = System.Drawing.Color.Green;
+            this.btn_RefreshCurve.Location = new System.Drawing.Point(9, 172);
+            this.btn_RefreshCurve.Name = "btn_RefreshCurve";
+            this.btn_RefreshCurve.Size = new System.Drawing.Size(99, 31);
+            this.btn_RefreshCurve.TabIndex = 6;
+            this.btn_RefreshCurve.Text = "Обновить";
+            this.btn_RefreshCurve.UseVisualStyleBackColor = true;
             // 
             // nud_Thickness
             // 
@@ -540,27 +471,99 @@
             0,
             0});
             // 
-            // btn_RefreshCurve
+            // brn_SetCurveColor
             // 
-            this.btn_RefreshCurve.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btn_RefreshCurve.ForeColor = System.Drawing.Color.Green;
-            this.btn_RefreshCurve.Location = new System.Drawing.Point(9, 172);
-            this.btn_RefreshCurve.Name = "btn_RefreshCurve";
-            this.btn_RefreshCurve.Size = new System.Drawing.Size(99, 31);
-            this.btn_RefreshCurve.TabIndex = 6;
-            this.btn_RefreshCurve.Text = "Обновить";
-            this.btn_RefreshCurve.UseVisualStyleBackColor = true;
+            this.brn_SetCurveColor.Location = new System.Drawing.Point(105, 73);
+            this.brn_SetCurveColor.Name = "brn_SetCurveColor";
+            this.brn_SetCurveColor.Size = new System.Drawing.Size(18, 18);
+            this.brn_SetCurveColor.TabIndex = 4;
+            this.brn_SetCurveColor.UseVisualStyleBackColor = true;
             // 
-            // btn_DeleteCurve
+            // pcb_CurveColor
             // 
-            this.btn_DeleteCurve.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btn_DeleteCurve.ForeColor = System.Drawing.Color.Red;
-            this.btn_DeleteCurve.Location = new System.Drawing.Point(114, 172);
-            this.btn_DeleteCurve.Name = "btn_DeleteCurve";
-            this.btn_DeleteCurve.Size = new System.Drawing.Size(150, 31);
-            this.btn_DeleteCurve.TabIndex = 6;
-            this.btn_DeleteCurve.Text = "Удалить кривую";
-            this.btn_DeleteCurve.UseVisualStyleBackColor = true;
+            this.pcb_CurveColor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pcb_CurveColor.Location = new System.Drawing.Point(81, 73);
+            this.pcb_CurveColor.Name = "pcb_CurveColor";
+            this.pcb_CurveColor.Size = new System.Drawing.Size(18, 18);
+            this.pcb_CurveColor.TabIndex = 3;
+            this.pcb_CurveColor.TabStop = false;
+            // 
+            // txb_DotsString
+            // 
+            this.txb_DotsString.Location = new System.Drawing.Point(148, 100);
+            this.txb_DotsString.Name = "txb_DotsString";
+            this.txb_DotsString.Size = new System.Drawing.Size(141, 24);
+            this.txb_DotsString.TabIndex = 2;
+            // 
+            // txb_CurveLegend
+            // 
+            this.txb_CurveLegend.Location = new System.Drawing.Point(77, 39);
+            this.txb_CurveLegend.Name = "txb_CurveLegend";
+            this.txb_CurveLegend.Size = new System.Drawing.Size(212, 24);
+            this.txb_CurveLegend.TabIndex = 2;
+            // 
+            // cmb_Curves
+            // 
+            this.cmb_Curves.FormattingEnabled = true;
+            this.cmb_Curves.Location = new System.Drawing.Point(77, 6);
+            this.cmb_Curves.Name = "cmb_Curves";
+            this.cmb_Curves.Size = new System.Drawing.Size(212, 26);
+            this.cmb_Curves.TabIndex = 1;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(6, 103);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(136, 18);
+            this.label4.TabIndex = 0;
+            this.label4.Text = "Параметры точек:";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(29, 73);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(46, 18);
+            this.label3.TabIndex = 0;
+            this.label3.Text = "Цвет:";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(29, 42);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(42, 18);
+            this.label2.TabIndex = 0;
+            this.label2.Text = "Имя:";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(10, 134);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(119, 18);
+            this.label5.TabIndex = 0;
+            this.label5.Text = "Толщина линии:";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(6, 9);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(65, 18);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Кривые:";
+            // 
+            // tabPage3
+            // 
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(295, 405);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "Спирали";
+            this.tabPage3.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
@@ -587,8 +590,8 @@
             this.tabPage1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pcb_CurveColor)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nud_Thickness)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pcb_CurveColor)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
