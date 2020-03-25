@@ -296,6 +296,9 @@ namespace MyDrawing
         /// <param name="height"></param>
         public void SetPlaceToDrawSize(int width, int height, bool defCenter = true)
         {
+            int n = 30, m = 15;
+            Space_From_Left = 25 + n;
+            Space_From_Bottom = 25 + m;
             //левая нижняя точка
             pt1 = new Point(Space_From_Left, height - Space_From_Bottom);
             //левая верхняя точка
@@ -343,8 +346,8 @@ namespace MyDrawing
                 {
                     if (Config.OXNameSize == 0) Config.OXNameSize = 10;
                     if (Config.OYNameSize == 0) Config.OYNameSize = 10;
-                    Space_From_Bottom = 45;
-                    Space_From_Left = 45;
+                    //Space_From_Bottom = 45;
+                    //Space_From_Left = 45;
                     SetPlaceToDrawSize(placeToDraw.Width, placeToDraw.Height, false);
 
                     DrawAxesNames();

@@ -43,6 +43,7 @@ namespace MyDrawing
             for (int i = 0; i < PosSepOX; i++)
             {
                 string num = Convert.ToString((i + 1) * Config.PriceForPointOX);
+                SizeF size = g.MeasureString(num, Config.DrawFont);
                 topP = new PointF(RealCenter.X + (i + 1) * Config.StepOX, pt1.Y - PointsGraphConfig.HEIGHT);
 
                 botP = new PointF(RealCenter.X + (i + 1) * Config.StepOX, pt1.Y + PointsGraphConfig.HEIGHT);
@@ -56,7 +57,7 @@ namespace MyDrawing
                     g.DrawLine(new Pen(Config.GridColor), StartLine, EndLine);
                 }
 
-                g.DrawString(num, Config.DrawFont, Config.drawBrush, botP.X - 3, botP.Y);
+                g.DrawString(num, Config.DrawFont, Config.drawBrush, botP.X - size.Width / 2, botP.Y);
                 g.DrawLine(new Pen(Config.GraphColor), topP, botP);
                 
                 
@@ -76,7 +77,7 @@ namespace MyDrawing
             for (int i = 0; i < PosSepOY; i++)
             {
                 string num = Convert.ToString((i + 1) * Config.PriceForPointOY);
-
+                SizeF size = g.MeasureString(num, Config.DrawFont);
                 topP = new PointF(pt1.X + PointsGraphConfig.HEIGHT, RealCenter.Y - (i + 1) * Config.StepOY);
                 botP = new PointF(pt1.X - PointsGraphConfig.HEIGHT, RealCenter.Y - (i + 1) * Config.StepOY);
 
@@ -87,7 +88,7 @@ namespace MyDrawing
                     EndLine = new PointF(pt4.X, RealCenter.Y - (i + 1) * Config.StepOY);
                     g.DrawLine(new Pen(Config.GridColor), StartLine, EndLine);
                 }
-                g.DrawString(num, Config.DrawFont, Config.drawBrush, botP.X - 10, botP.Y);
+                g.DrawString(num, Config.DrawFont, Config.drawBrush, botP.X - size.Width, botP.Y - size.Height / 2);
                 g.DrawLine(Config.GraphPen, topP, botP);
             }
             //Промежуточные деления
@@ -106,6 +107,7 @@ namespace MyDrawing
             {
 
                 string num = "-" + Convert.ToString((i + 1) * Config.PriceForPointOX);
+                SizeF size = g.MeasureString(num, Config.DrawFont);
                 topP = new PointF(RealCenter.X - (i + 1) * Config.StepOX, pt1.Y - PointsGraphConfig.HEIGHT);
                 botP = new PointF(RealCenter.X - (i + 1) * Config.StepOX, pt1.Y + PointsGraphConfig.HEIGHT);
 
@@ -116,7 +118,7 @@ namespace MyDrawing
                     EndLine = new PointF(RealCenter.X - (i + 1) * Config.StepOX, pt2.Y);
                     g.DrawLine(new Pen(Config.GridColor), StartLine, EndLine);
                 }
-                g.DrawString(num, Config.DrawFont, Config.drawBrush, botP.X - 3, botP.Y);
+                g.DrawString(num, Config.DrawFont, Config.drawBrush, botP.X - size.Width / 2, botP.Y);
                 g.DrawLine(new Pen(Config.GraphColor), topP, botP);
             }
             //Промежуточные деления
@@ -133,6 +135,8 @@ namespace MyDrawing
             for (int i = 0; i < NegSepOY; i++)
             {
                 string num = "-" + Convert.ToString((i + 1) * Config.PriceForPointOY);
+                SizeF size = g.MeasureString(num, Config.DrawFont);
+
                 topP = new PointF(pt1.X + PointsGraphConfig.HEIGHT, RealCenter.Y + (i + 1) * Config.StepOY);
                 botP = new PointF(pt1.X - PointsGraphConfig.HEIGHT, RealCenter.Y + (i + 1) * Config.StepOY);
                 if (topP.Y > pt1.Y || topP.Y < pt2.Y) continue;
@@ -142,7 +146,7 @@ namespace MyDrawing
                     EndLine = new PointF(pt4.X, RealCenter.Y + (i + 1) * Config.StepOY);
                     g.DrawLine(new Pen(Config.GridColor), StartLine, EndLine);
                 }
-                g.DrawString(num, Config.DrawFont, Config.drawBrush, botP.X - 10, botP.Y);
+                g.DrawString(num, Config.DrawFont, Config.drawBrush, botP.X - size.Width, botP.Y - size.Height / 2);
                 
                 g.DrawLine(Config.GraphPen, topP, botP);
             }
@@ -402,8 +406,8 @@ namespace MyDrawing
 
             if (Config.OXNamePosition == TextPosition.Centre)
             {
-                pointOX.X = pt4.X / 2 - size.Width / 2;
-                pointOX.Y = pt1.Y + size.Height;
+                pointOX.X = pt1.X + (pt4.X - pt1.X - size.Width) / 2;
+                pointOX.Y = pt1.Y + Space_From_Bottom - size.Height;
             }
             else if (Config.OXNamePosition == TextPosition.Left)
             {
@@ -425,8 +429,8 @@ namespace MyDrawing
             PointF pointOY = new PointF();
             if (Config.OYNamePosition == TextPosition.Centre)
             {
-                pointOY.X = pt1.X - 35;
-                pointOY.Y = pt1.Y / 2 - size.Width / 2;
+                pointOY.X = pt1.X - Space_From_Left;
+                pointOY.Y = pt1.Y - (pt1.Y - pt2.Y + size.Width) / 2;
             }
             if (Config.OYNamePosition == TextPosition.Left)
             {
@@ -482,6 +486,7 @@ namespace MyDrawing
         }
         private void DrawDiagramLegend()
         {
+            if (GraphCurves.Count == 0) return;
             int lineLength = 15;
             Font font = new Font("Arial", 9);
             PointF temp = new PointF(pt3.X, pt3.Y + 5);
