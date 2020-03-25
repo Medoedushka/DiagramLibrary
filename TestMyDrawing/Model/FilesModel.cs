@@ -40,10 +40,11 @@ namespace TestMyDrawing.Model
                 crrPoints[i].X = (float)data.Points[i].X;
                 crrPoints[i].Y = (float)data.Points[i].F;
             }
-            Random r = new Random();
             everCreatedCurvesCounter++;
             string legend = "График" + everCreatedCurvesCounter;
-            Curves curve = new Curves(crrPoints, Color.FromArgb(r.Next(1, 256), r.Next(1, 256), r.Next(1, 256)), Legend: legend);
+            Curves curve = new Curves(crrPoints, BaseColors[colorCounter], Legend: legend);
+            if (++colorCounter == BaseColors.Length) colorCounter = 0;
+
             gr.AddCurve(curve);
             gr.DrawDiagram();
         }

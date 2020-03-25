@@ -8,9 +8,25 @@ using System.Windows.Forms;
 
 namespace TestMyDrawing.Model
 {
+    
     public partial class DrawingModel
     {
         public PointsGraphic gr;
+
+        Color[] BaseColors =
+        {
+            Color.FromArgb(237, 125, 49),
+            Color.FromArgb(91, 155, 213),
+            Color.FromArgb(165, 165, 165),
+            Color.FromArgb(255, 192, 0),
+            Color.FromArgb(68, 114, 196),
+            Color.FromArgb(112, 173, 71),
+            Color.FromArgb(158, 72, 14),
+            Color.FromArgb(99, 99, 99),
+            Color.FromArgb(153, 115, 0),
+            Color.FromArgb(38, 68, 120),
+        };
+        int colorCounter = 0;
 
         public DrawingModel()
         {
