@@ -18,6 +18,8 @@ namespace TestMyDrawing
         public event EventHandler<GraphicEventArgs> PlotAction;
         public event EventHandler<MouseEventArgs> PlotMouseDown;
         public event EventHandler<MouseEventArgs> PlotMouseUp;
+        public event EventHandler<GraphicEventArgs> ApdateCurvesList;
+        public event Action<string> FillCurveFields;
 
         public MainForm()
         {
@@ -29,6 +31,11 @@ namespace TestMyDrawing
         public string CurrentFileName { get => lbl_CurrentFile.Text; set => lbl_CurrentFile.Text = value; }
         public PictureBox graph { get; set; }
         public bool MousePressed { get; set; } = false;
+
+        public string[] CurvesNames { get => new string[] { cmb_Curves.Items.ToString() }; set { cmb_Curves.Items.Clear(); cmb_Curves.Items.AddRange(value); } }
+        public Color CurveColor { get => pcb_CurveColor.BackColor; set => pcb_CurveColor.BackColor = value; }
+        public string DotsSettings { get => txb_DotsString.Text; set => txb_DotsString.Text = value; }
+        public int Thikness { get => (int)nud_Thickness.Value; set => nud_Thickness.Value = value; }
 
         private void открытьToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -86,6 +93,30 @@ namespace TestMyDrawing
         private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
         {
             PlotMouseUp?.Invoke(this, e);
+        }
+
+        private void btn_RefreshCurve_Click(object sender, EventArgs e)
+        {
+            Curves newCurve = new Curves(new PointF[] { }, pcb_CurveColor.BackColor, (int)nud_Thickness.Value, txb_CurveLegend.Text, txb_DotsString.Text);
+            GraphicEventArgs graphicEvent = new GraphicEventArgs(EventType.AdpdateCurve);
+            graphicEvent.newCurve = newCurve;
+            graphicEvent.Delete = false;
+            ApdateCurvesList?.Invoke(this, graphicEvent);
+        }
+
+        private void cmb_Curves_TextChanged(object sender, EventArgs e)
+        {
+            txb_CurveLegend.Text = cmb_Curves.Text;
+            FillCurveFields?.Invoke(cmb_Curves.Text);
+        }
+
+        private void btn_DeleteCurve_Click(object sender, EventArgs e)
+        {
+            Curves newCurve = new Curves(new PointF[] { }, pcb_CurveColor.BackColor, (int)nud_Thickness.Value, cmb_Curves.Text, txb_DotsString.Text);
+            GraphicEventArgs graphicEvent = new GraphicEventArgs(EventType.AdpdateCurve);
+            graphicEvent.newCurve = newCurve;
+            graphicEvent.Delete = true;
+            ApdateCurvesList?.Invoke(this, graphicEvent);
         }
     }
 }

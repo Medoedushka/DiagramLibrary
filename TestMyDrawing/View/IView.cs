@@ -15,6 +15,12 @@ namespace TestMyDrawing.View
         bool MousePressed { get; set; }
         PictureBox graph { get; set; }
 
+        //свойства, относящиеся к редактированию кривой
+        string[] CurvesNames { get; set; }
+        Color CurveColor { get; set; }
+        string DotsSettings { get; set; }
+        int Thikness { get; set; }
+
         event EventHandler<EventArgs> CreateNewFile;
         event Func<bool> SaveCreatedFile;
         event Action CloseFile;
@@ -23,5 +29,7 @@ namespace TestMyDrawing.View
         event EventHandler<GraphicEventArgs> PlotAction;
         event EventHandler<MouseEventArgs> PlotMouseDown;
         event EventHandler<MouseEventArgs> PlotMouseUp;
+        event EventHandler<GraphicEventArgs> ApdateCurvesList;
+        event Action<string> FillCurveFields;
     }
 }

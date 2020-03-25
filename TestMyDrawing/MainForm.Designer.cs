@@ -437,6 +437,7 @@
             this.btn_DeleteCurve.TabIndex = 6;
             this.btn_DeleteCurve.Text = "Удалить кривую";
             this.btn_DeleteCurve.UseVisualStyleBackColor = true;
+            this.btn_DeleteCurve.Click += new System.EventHandler(this.btn_DeleteCurve_Click);
             // 
             // btn_RefreshCurve
             // 
@@ -448,6 +449,7 @@
             this.btn_RefreshCurve.TabIndex = 6;
             this.btn_RefreshCurve.Text = "Обновить";
             this.btn_RefreshCurve.UseVisualStyleBackColor = true;
+            this.btn_RefreshCurve.Click += new System.EventHandler(this.btn_RefreshCurve_Click);
             // 
             // nud_Thickness
             // 
@@ -509,6 +511,7 @@
             this.cmb_Curves.Name = "cmb_Curves";
             this.cmb_Curves.Size = new System.Drawing.Size(212, 26);
             this.cmb_Curves.TabIndex = 1;
+            this.cmb_Curves.TextChanged += new System.EventHandler(this.cmb_Curves_TextChanged);
             // 
             // label4
             // 

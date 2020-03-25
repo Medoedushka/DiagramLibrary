@@ -10,7 +10,7 @@ namespace TestMyDrawing.Model
 {
     public partial class DrawingModel
     {
-        PointsGraphic gr;
+        public PointsGraphic gr;
 
         public DrawingModel()
         {
@@ -37,7 +37,7 @@ namespace TestMyDrawing.Model
             gr.Config.Grid = true;
             string str = LoadData("defaultData3.txt", false);
             crrStream?.Close();
-            gr.AddCurve(new Curves(crrPoints, Color.DodgerBlue, Legend: "Default data"));
+            gr.AddCurve(new Curves(crrPoints, Color.DodgerBlue, Legend: "Default data", dotsType: "r;t;t; "));
             gr.DrawDiagram();
             return str;
         }
@@ -66,6 +66,36 @@ namespace TestMyDrawing.Model
                 gr.RealCenter = new Point(crrMouseLoc.X - (int)(d * Math.Cos(angle)), crrMouseLoc.Y + (int)(d * Math.Sin(angle)));
             else
                 gr.RealCenter = new Point(crrMouseLoc.X + (int)(d * Math.Cos(angle)), crrMouseLoc.Y + (int)(d * Math.Sin(angle)));
+            gr.DrawDiagram();
+        }
+
+
+        public void ApdateCurvesList(Curves curve, bool delete)
+        {
+            if (!delete)
+            {
+                for(int i = 0; i < gr.GraphCurves.Count; i++)
+                {
+                    if (gr.GraphCurves[i].Legend == curve.Legend)
+                    {
+                        gr.GraphCurves[i] = new Curves(gr.GraphCurves[i].PointsToDraw, curve.CurveColor,
+                            curve.CurveThickness, curve.Legend, curve.DotsType);
+                        
+                    }
+                }
+            }
+            else
+            {
+                foreach(Curves c in gr.GraphCurves)
+                {
+                    if (c.Legend == curve.Legend)
+                    {
+                        gr.GraphCurves.Remove(c);
+                        break;
+                    }
+                        
+                }
+            }
             gr.DrawDiagram();
         }
     }

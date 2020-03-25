@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MyDrawing;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -30,6 +31,13 @@ namespace TestMyDrawing.Presenter
             drawingView.InitGraphic += (object s, EventArgs e) =>
             {
                drawingView.TableTxt =  _model.Init(drawingView.graph);
+                string[] curvesNames = new string[_model.gr.GraphCurves.Count];
+                int counter = 0;
+                foreach(Curves c in _model.gr.GraphCurves)
+                {
+                    curvesNames[counter] = c.Legend;
+                }
+                drawingView.CurvesNames = curvesNames;
             };
             drawingView.PlotAction += DrawingView_PlotAction;
             drawingView.PlotMouseDown += (object o, MouseEventArgs e) =>
@@ -38,6 +46,20 @@ namespace TestMyDrawing.Presenter
                 drawingView.graph.Cursor = Cursors.SizeAll;
             };
             drawingView.PlotMouseUp += (object o, MouseEventArgs e) => drawingView.graph.Cursor = Cursors.Default;
+            drawingView.ApdateCurvesList += DrawingView_PlotAction;
+            drawingView.FillCurveFields += (string s) =>
+            {
+                foreach (Curves c in _model.gr.GraphCurves)
+                {
+                    if (c.Legend == s)
+                    {
+                        drawingView.CurveColor = c.CurveColor;
+                        drawingView.DotsSettings = c.DotsType;
+                        drawingView.Thikness = c.CurveThickness;
+                        
+                    }
+                }
+            };
         }
 
         private void DrawingView_PlotAction(object sender, GraphicEventArgs e)
@@ -47,6 +69,10 @@ namespace TestMyDrawing.Presenter
             else if (e.EventType == EventType.MovePlot && drawingView.graph.Cursor == Cursors.SizeAll)
             {
                 _model.RefreshPlotByMoving(e.mouseLocation);
+            }
+            else if (e.EventType == EventType.AdpdateCurve)
+            {
+                _model.ApdateCurvesList(e.newCurve, e.Delete);
             }
         }
 
