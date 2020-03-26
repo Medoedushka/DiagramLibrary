@@ -13,7 +13,8 @@ namespace TestMyDrawing
         ResizePlot, 
         MovePlot, 
         AdpdateCurve, 
-        AddNewCurve
+        AddNewCurve,
+        Zoom
     }
     public class GraphicEventArgs : EventArgs
     {
@@ -29,6 +30,9 @@ namespace TestMyDrawing
 
         //Параметры для добавления новой кривой
         public bool SortValues { get; set; } = true;
+
+        //Параметры для масштабирования графика
+        public bool Zoom { get; set; }
 
         public GraphicEventArgs(EventType type)
         {

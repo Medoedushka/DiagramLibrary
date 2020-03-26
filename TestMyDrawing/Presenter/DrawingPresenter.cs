@@ -66,6 +66,7 @@ namespace TestMyDrawing.Presenter
             };
             drawingView.ShowCurvePoints += (string s) => { drawingView.TableTxt = _model.ShowCurvePoints(s); };
             drawingView.AddNewCurve += DrawingView_PlotAction;
+            drawingView.Zoom += DrawingView_PlotAction;
         }
 
         private void DrawingView_PlotAction(object sender, GraphicEventArgs e)
@@ -99,6 +100,10 @@ namespace TestMyDrawing.Presenter
                     }
                 }
                 InitCurvesNames();
+            }
+            else if (e.EventType == EventType.Zoom)
+            {
+                _model.ZoomPlot(e.Zoom);
             }
         }
 

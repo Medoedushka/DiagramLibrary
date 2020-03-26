@@ -42,7 +42,11 @@ namespace MyDrawing
             //Основные деления
             for (int i = 0; i < PosSepOX; i++)
             {
-                string num = Convert.ToString((i + 1) * Config.PriceForPointOX);
+                double p = (i + 1) * Config.PriceForPointOX;
+                string num;
+                if (p <= 0.001 || p >= 1000) num = MyClassLibrary.Standart.Converting(p);
+                else num = Convert.ToString(Math.Round(p,3));
+                
                 SizeF size = g.MeasureString(num, Config.DrawFont);
                 topP = new PointF(RealCenter.X + (i + 1) * Config.StepOX, pt1.Y - PointsGraphConfig.HEIGHT);
 
@@ -76,7 +80,11 @@ namespace MyDrawing
             //Основные деления
             for (int i = 0; i < PosSepOY; i++)
             {
-                string num = Convert.ToString((i + 1) * Config.PriceForPointOY);
+                double p = (i + 1) * Config.PriceForPointOY;
+                string num;
+                if (p <= 0.001 || p >= 1000) num = MyClassLibrary.Standart.Converting(p);
+                else num = Convert.ToString(Math.Round(p,3));
+                
                 SizeF size = g.MeasureString(num, Config.DrawFont);
                 topP = new PointF(pt1.X + PointsGraphConfig.HEIGHT, RealCenter.Y - (i + 1) * Config.StepOY);
                 botP = new PointF(pt1.X - PointsGraphConfig.HEIGHT, RealCenter.Y - (i + 1) * Config.StepOY);
@@ -105,8 +113,12 @@ namespace MyDrawing
             //Основные деления
             for (int i = 0; i < NegSepOX; i++)
             {
+                double p = (i + 1) * Config.PriceForPointOX;
+                string num;
+                if (Math.Abs(p) <= 0.001 || Math.Abs(p) >= 1000) num = MyClassLibrary.Standart.Converting(-p);
+                else num = Convert.ToString(Math.Round(-p,3));
 
-                string num = "-" + Convert.ToString((i + 1) * Config.PriceForPointOX);
+                
                 SizeF size = g.MeasureString(num, Config.DrawFont);
                 topP = new PointF(RealCenter.X - (i + 1) * Config.StepOX, pt1.Y - PointsGraphConfig.HEIGHT);
                 botP = new PointF(RealCenter.X - (i + 1) * Config.StepOX, pt1.Y + PointsGraphConfig.HEIGHT);
@@ -134,7 +146,11 @@ namespace MyDrawing
             #region<---Прорисовка отрицательных делений оси OY--->
             for (int i = 0; i < NegSepOY; i++)
             {
-                string num = "-" + Convert.ToString((i + 1) * Config.PriceForPointOY);
+                double p = (i + 1) * Config.PriceForPointOY;
+                string num;
+                if (p <= 0.001 || p >= 1000) num = MyClassLibrary.Standart.Converting(-p);
+                else num = Convert.ToString(Math.Round(-p,3));
+                
                 SizeF size = g.MeasureString(num, Config.DrawFont);
 
                 topP = new PointF(pt1.X + PointsGraphConfig.HEIGHT, RealCenter.Y + (i + 1) * Config.StepOY);

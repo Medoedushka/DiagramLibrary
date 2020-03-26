@@ -33,10 +33,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MAC_Dll">
+    <Reference Include="MAC_Dll, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\MAC\MAC_Dll\bin\Debug\MAC_Dll.dll</HintPath>
     </Reference>
-    <Reference Include="MyDrawing">
+    <Reference Include="MyClassLibrary">
+      <HintPath>..\..\MyClassLibrary\MyClassLibrary\bin\Debug\MyClassLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="MyDrawing, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\MyDrawing\bin\Debug\MyDrawing.dll</HintPath>
     </Reference>
     <Reference Include="System" />

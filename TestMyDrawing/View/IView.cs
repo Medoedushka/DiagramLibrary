@@ -34,5 +34,6 @@ namespace TestMyDrawing.View
         event EventHandler<EventArgs> SetCurveColor;
         event Action<string> ShowCurvePoints;
         event EventHandler<GraphicEventArgs> AddNewCurve;
+        event EventHandler<GraphicEventArgs> Zoom;
     }
 }

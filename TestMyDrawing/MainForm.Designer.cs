@@ -44,12 +44,6 @@
             this.правкаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.отменадействияToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.отменадействияToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-            this.вырезатьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.копироватьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.вставкаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
-            this.выделитьвсеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.сервисToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.настройкиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.параметрыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -69,6 +63,9 @@
             this.cmb_CurvesDots = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.btn_AddNewCurve = new System.Windows.Forms.Button();
+            this.btn_DeleteCurve = new System.Windows.Forms.Button();
+            this.btn_RefreshCurve = new System.Windows.Forms.Button();
             this.nud_Thickness = new System.Windows.Forms.NumericUpDown();
             this.brn_SetCurveColor = new System.Windows.Forms.Button();
             this.pcb_CurveColor = new System.Windows.Forms.PictureBox();
@@ -81,9 +78,6 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.btn_RefreshCurve = new System.Windows.Forms.Button();
-            this.btn_DeleteCurve = new System.Windows.Forms.Button();
-            this.btn_AddNewCurve = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -204,13 +198,7 @@
             // 
             this.правкаToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.отменадействияToolStripMenuItem,
-            this.отменадействияToolStripMenuItem1,
-            this.toolStripSeparator3,
-            this.вырезатьToolStripMenuItem,
-            this.копироватьToolStripMenuItem,
-            this.вставкаToolStripMenuItem,
-            this.toolStripSeparator4,
-            this.выделитьвсеToolStripMenuItem});
+            this.отменадействияToolStripMenuItem1});
             this.правкаToolStripMenuItem.Name = "правкаToolStripMenuItem";
             this.правкаToolStripMenuItem.Size = new System.Drawing.Size(59, 20);
             this.правкаToolStripMenuItem.Text = "&Правка";
@@ -219,58 +207,17 @@
             // 
             this.отменадействияToolStripMenuItem.Name = "отменадействияToolStripMenuItem";
             this.отменадействияToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Z)));
-            this.отменадействияToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
-            this.отменадействияToolStripMenuItem.Text = "&Отмена действия";
+            this.отменадействияToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
+            this.отменадействияToolStripMenuItem.Text = "Приблизить";
+            this.отменадействияToolStripMenuItem.Click += new System.EventHandler(this.отменадействияToolStripMenuItem_Click);
             // 
             // отменадействияToolStripMenuItem1
             // 
             this.отменадействияToolStripMenuItem1.Name = "отменадействияToolStripMenuItem1";
-            this.отменадействияToolStripMenuItem1.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Y)));
-            this.отменадействияToolStripMenuItem1.Size = new System.Drawing.Size(209, 22);
-            this.отменадействияToolStripMenuItem1.Text = "&Отмена действия";
-            // 
-            // toolStripSeparator3
-            // 
-            this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(206, 6);
-            // 
-            // вырезатьToolStripMenuItem
-            // 
-            this.вырезатьToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("вырезатьToolStripMenuItem.Image")));
-            this.вырезатьToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.вырезатьToolStripMenuItem.Name = "вырезатьToolStripMenuItem";
-            this.вырезатьToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.X)));
-            this.вырезатьToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
-            this.вырезатьToolStripMenuItem.Text = "Вырезат&ь";
-            // 
-            // копироватьToolStripMenuItem
-            // 
-            this.копироватьToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("копироватьToolStripMenuItem.Image")));
-            this.копироватьToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.копироватьToolStripMenuItem.Name = "копироватьToolStripMenuItem";
-            this.копироватьToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
-            this.копироватьToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
-            this.копироватьToolStripMenuItem.Text = "&Копировать";
-            // 
-            // вставкаToolStripMenuItem
-            // 
-            this.вставкаToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("вставкаToolStripMenuItem.Image")));
-            this.вставкаToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.вставкаToolStripMenuItem.Name = "вставкаToolStripMenuItem";
-            this.вставкаToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.V)));
-            this.вставкаToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
-            this.вставкаToolStripMenuItem.Text = "Вст&авка";
-            // 
-            // toolStripSeparator4
-            // 
-            this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(206, 6);
-            // 
-            // выделитьвсеToolStripMenuItem
-            // 
-            this.выделитьвсеToolStripMenuItem.Name = "выделитьвсеToolStripMenuItem";
-            this.выделитьвсеToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
-            this.выделитьвсеToolStripMenuItem.Text = "Выделить &все";
+            this.отменадействияToolStripMenuItem1.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.X)));
+            this.отменадействияToolStripMenuItem1.Size = new System.Drawing.Size(182, 22);
+            this.отменадействияToolStripMenuItem1.Text = "Отдалить";
+            this.отменадействияToolStripMenuItem1.Click += new System.EventHandler(this.отменадействияToolStripMenuItem1_Click);
             // 
             // сервисToolStripMenuItem
             // 
@@ -454,6 +401,42 @@
             this.tabPage2.Text = "Параметры кривых";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // btn_AddNewCurve
+            // 
+            this.btn_AddNewCurve.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btn_AddNewCurve.ForeColor = System.Drawing.Color.Blue;
+            this.btn_AddNewCurve.Location = new System.Drawing.Point(6, 209);
+            this.btn_AddNewCurve.Name = "btn_AddNewCurve";
+            this.btn_AddNewCurve.Size = new System.Drawing.Size(283, 31);
+            this.btn_AddNewCurve.TabIndex = 6;
+            this.btn_AddNewCurve.Text = "Добавить кривую из файла";
+            this.btn_AddNewCurve.UseVisualStyleBackColor = true;
+            this.btn_AddNewCurve.Click += new System.EventHandler(this.btn_AddNewCurve_Click);
+            // 
+            // btn_DeleteCurve
+            // 
+            this.btn_DeleteCurve.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btn_DeleteCurve.ForeColor = System.Drawing.Color.Red;
+            this.btn_DeleteCurve.Location = new System.Drawing.Point(125, 172);
+            this.btn_DeleteCurve.Name = "btn_DeleteCurve";
+            this.btn_DeleteCurve.Size = new System.Drawing.Size(150, 31);
+            this.btn_DeleteCurve.TabIndex = 6;
+            this.btn_DeleteCurve.Text = "Удалить кривую";
+            this.btn_DeleteCurve.UseVisualStyleBackColor = true;
+            this.btn_DeleteCurve.Click += new System.EventHandler(this.btn_DeleteCurve_Click);
+            // 
+            // btn_RefreshCurve
+            // 
+            this.btn_RefreshCurve.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btn_RefreshCurve.ForeColor = System.Drawing.Color.Green;
+            this.btn_RefreshCurve.Location = new System.Drawing.Point(20, 172);
+            this.btn_RefreshCurve.Name = "btn_RefreshCurve";
+            this.btn_RefreshCurve.Size = new System.Drawing.Size(99, 31);
+            this.btn_RefreshCurve.TabIndex = 6;
+            this.btn_RefreshCurve.Text = "Обновить";
+            this.btn_RefreshCurve.UseVisualStyleBackColor = true;
+            this.btn_RefreshCurve.Click += new System.EventHandler(this.btn_RefreshCurve_Click);
+            // 
             // nud_Thickness
             // 
             this.nud_Thickness.Location = new System.Drawing.Point(135, 132);
@@ -573,42 +556,6 @@
             this.tabPage3.Text = "Спирали";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
-            // btn_RefreshCurve
-            // 
-            this.btn_RefreshCurve.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btn_RefreshCurve.ForeColor = System.Drawing.Color.Green;
-            this.btn_RefreshCurve.Location = new System.Drawing.Point(20, 172);
-            this.btn_RefreshCurve.Name = "btn_RefreshCurve";
-            this.btn_RefreshCurve.Size = new System.Drawing.Size(99, 31);
-            this.btn_RefreshCurve.TabIndex = 6;
-            this.btn_RefreshCurve.Text = "Обновить";
-            this.btn_RefreshCurve.UseVisualStyleBackColor = true;
-            this.btn_RefreshCurve.Click += new System.EventHandler(this.btn_RefreshCurve_Click);
-            // 
-            // btn_DeleteCurve
-            // 
-            this.btn_DeleteCurve.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btn_DeleteCurve.ForeColor = System.Drawing.Color.Red;
-            this.btn_DeleteCurve.Location = new System.Drawing.Point(125, 172);
-            this.btn_DeleteCurve.Name = "btn_DeleteCurve";
-            this.btn_DeleteCurve.Size = new System.Drawing.Size(150, 31);
-            this.btn_DeleteCurve.TabIndex = 6;
-            this.btn_DeleteCurve.Text = "Удалить кривую";
-            this.btn_DeleteCurve.UseVisualStyleBackColor = true;
-            this.btn_DeleteCurve.Click += new System.EventHandler(this.btn_DeleteCurve_Click);
-            // 
-            // btn_AddNewCurve
-            // 
-            this.btn_AddNewCurve.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btn_AddNewCurve.ForeColor = System.Drawing.Color.Blue;
-            this.btn_AddNewCurve.Location = new System.Drawing.Point(6, 209);
-            this.btn_AddNewCurve.Name = "btn_AddNewCurve";
-            this.btn_AddNewCurve.Size = new System.Drawing.Size(283, 31);
-            this.btn_AddNewCurve.TabIndex = 6;
-            this.btn_AddNewCurve.Text = "Добавить кривую из файла";
-            this.btn_AddNewCurve.UseVisualStyleBackColor = true;
-            this.btn_AddNewCurve.Click += new System.EventHandler(this.btn_AddNewCurve_Click);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -658,12 +605,6 @@
         private System.Windows.Forms.ToolStripMenuItem правкаToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem отменадействияToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem отменадействияToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
-        private System.Windows.Forms.ToolStripMenuItem вырезатьToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem копироватьToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem вставкаToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
-        private System.Windows.Forms.ToolStripMenuItem выделитьвсеToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem сервисToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem настройкиToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem параметрыToolStripMenuItem;

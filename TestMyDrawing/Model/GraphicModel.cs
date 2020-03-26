@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Drawing;
+using MyClassLibrary;
 using MyDrawing;
 using System.Windows.Forms;
 
@@ -80,6 +78,39 @@ namespace TestMyDrawing.Model
             else
                 gr.RealCenter = new Point(crrMouseLoc.X + (int)(d * Math.Cos(angle)), crrMouseLoc.Y + (int)(d * Math.Sin(angle)));
             gr.DrawDiagram();
+        }
+
+        int counter = 0;
+        public void ZoomPlot(bool zoom)
+        {
+            if (zoom)
+            {
+                counter++;
+
+                PointF center0_cont = new PointF(gr.pt2.X + (gr.pt3.X - gr.pt2.X) / 2, gr.pt1.Y - (gr.pt1.Y - gr.pt2.Y) / 2);
+                PointF center0_dec = gr.ConvertValues(center0_cont, CoordType.GetRectangleCoord);
+
+                gr.Config.PriceForPointOX = gr.Config.PriceForPointOX / 2;
+                gr.Config.PriceForPointOY = gr.Config.PriceForPointOY / 2;
+
+                PointF center1_cont = gr.ConvertValues(center0_dec, CoordType.GetControlCoord);
+                PointF vector = new PointF(center1_cont.X - center0_cont.X, center1_cont.Y - center0_cont.Y);
+                gr.RealCenter = new Point(gr.RealCenter.X - (int)vector.X, gr.RealCenter.Y - (int)vector.Y);
+                gr.DrawDiagram();
+            }
+            else
+            {
+                PointF center0_cont = new PointF(gr.pt2.X + (gr.pt3.X - gr.pt2.X) / 2, gr.pt1.Y - (gr.pt1.Y - gr.pt2.Y) / 2);
+                PointF center0_dec = gr.ConvertValues(center0_cont, CoordType.GetRectangleCoord);
+
+                gr.Config.PriceForPointOX = gr.Config.PriceForPointOX * 2;
+                gr.Config.PriceForPointOY = gr.Config.PriceForPointOY * 2;
+
+                PointF center1_cont = gr.ConvertValues(center0_dec, CoordType.GetControlCoord);
+                PointF vector = new PointF(center1_cont.X - center0_cont.X, center1_cont.Y - center0_cont.Y);
+                gr.RealCenter = new Point(gr.RealCenter.X - (int)vector.X, gr.RealCenter.Y - (int)vector.Y);
+                gr.DrawDiagram();
+            }
         }
 
 

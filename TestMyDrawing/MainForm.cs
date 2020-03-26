@@ -23,6 +23,7 @@ namespace TestMyDrawing
         public event EventHandler<EventArgs> SetCurveColor;
         public event Action<string> ShowCurvePoints;
         public event EventHandler<GraphicEventArgs> AddNewCurve;
+        public event EventHandler<GraphicEventArgs> Zoom;
 
         public MainForm()
         {
@@ -157,6 +158,20 @@ namespace TestMyDrawing
             else graphicEvent.SortValues = false;
 
             AddNewCurve?.Invoke(this, graphicEvent);
+        }
+
+        private void отменадействияToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            GraphicEventArgs graphicEvent = new GraphicEventArgs(EventType.Zoom);
+            graphicEvent.Zoom = true;
+            Zoom?.Invoke(this, graphicEvent);
+        }
+
+        private void отменадействияToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            GraphicEventArgs graphicEvent = new GraphicEventArgs(EventType.Zoom);
+            graphicEvent.Zoom = false;
+            Zoom?.Invoke(this, graphicEvent);
         }
     }
 }
