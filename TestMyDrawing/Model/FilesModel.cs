@@ -47,6 +47,7 @@ namespace TestMyDrawing.Model
             if (++colorCounter == BaseColors.Length) colorCounter = 0;
 
             gr.AddCurve(curve);
+            gr.Config.PriceForPointOX = gr.Config.PriceForPointOY;
             gr.DrawDiagram();
         }
 
