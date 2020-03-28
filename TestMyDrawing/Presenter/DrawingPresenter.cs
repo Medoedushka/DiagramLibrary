@@ -155,7 +155,7 @@ namespace TestMyDrawing.Presenter
             }
             if (name != "")
             {
-                
+                _model.LoadJSONData(name);
                 drawingView.CurrentFileName = name;
             }
             

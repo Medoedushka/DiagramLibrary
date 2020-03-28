@@ -52,7 +52,19 @@ namespace TestMyDrawing.Model
 
         public void LoadJSONData(string path)
         {
+            string jsonData = "";
+            crrStream = new FileStream(path, FileMode.Open, FileAccess.ReadWrite);
+            using (StreamReader sr = new StreamReader(crrStream))
+            {
+                jsonData = sr.ReadToEnd();
+            }
 
+            if (jsonData != "")
+            {
+                var list = JsonConvert.DeserializeObject<List<Curves>>(jsonData);
+                gr.GraphCurves = list;
+                gr.DrawDiagram();
+            }
         }
 
         public string CreateNewFile(string pathToCreate)
