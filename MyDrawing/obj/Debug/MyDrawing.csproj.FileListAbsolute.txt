@@ -29,3 +29,4 @@ D:\Проекты C#\Библиотеки\DiagramLibrary\MyDrawing\bin\Debug\MyC
 D:\Проекты C#\Библиотеки\DiagramLibrary\MyDrawing\bin\Debug\MyClassLibrary.pdb
 D:\Проекты C#\Библиотеки\DiagramLibrary\MyDrawing\bin\Debug\MyClassLibrary.xml
 D:\Проекты C#\Библиотеки\DiagramLibrary\MyDrawing\obj\Debug\MyDrawing.csproj.CopyComplete
+D:\Проекты C#\Библиотеки\DiagramLibrary\MyDrawing\obj\Debug\MyDrawing.csprojAssemblyReference.cache

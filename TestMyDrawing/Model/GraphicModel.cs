@@ -49,6 +49,7 @@ namespace TestMyDrawing.Model
             gr.Config.OYNameSize = 12;
             gr.AddDiagramLegend = true;
             gr.Config.Grid = true;
+            gr.placeToDraw.BackColor = Color.White;
             LoadTXTData("defaultData3.txt", false);
             crrStream?.Close();
         }

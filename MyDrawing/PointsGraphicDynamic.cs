@@ -326,6 +326,7 @@ namespace MyDrawing
             Bitmap bm = new Bitmap(placeToDraw.Width, placeToDraw.Height);
             using (g = Graphics.FromImage(bm))
             {
+                g.Clear(placeToDraw.BackColor);
                 g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
                 g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit;
                 DrawAxes(true);
