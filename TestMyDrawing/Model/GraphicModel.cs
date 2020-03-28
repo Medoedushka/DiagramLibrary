@@ -23,8 +23,8 @@ namespace TestMyDrawing.Model
             Color.FromArgb(99, 99, 99),
             Color.FromArgb(153, 115, 0),
             Color.FromArgb(38, 68, 120),
-        };
-        int colorCounter = 0;
+        }; // Массив зарезервированных цветов.
+        int colorCounter = 0; // Порядковый номер текущего цвета.
 
         public DrawingModel()
         {
@@ -49,6 +49,7 @@ namespace TestMyDrawing.Model
             gr.Config.OYNameSize = 12;
             gr.AddDiagramLegend = true;
             gr.Config.Grid = true;
+            gr.placeToDraw.BackColor = Color.White;
             LoadTXTData("defaultData3.txt", false);
             crrStream?.Close();
         }

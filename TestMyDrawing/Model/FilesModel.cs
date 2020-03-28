@@ -5,6 +5,7 @@ using MyDrawing;
 using System.Drawing;
 using MAC_Dll;
 using System.IO;
+using Newtonsoft.Json;
 
 namespace TestMyDrawing.Model
 {
@@ -49,10 +50,27 @@ namespace TestMyDrawing.Model
             gr.DrawDiagram();
         }
 
+        public void LoadJSONData(string path)
+        {
+            string jsonData = "";
+            crrStream = new FileStream(path, FileMode.Open, FileAccess.ReadWrite);
+            using (StreamReader sr = new StreamReader(crrStream))
+            {
+                jsonData = sr.ReadToEnd();
+            }
+
+            if (jsonData != "")
+            {
+                var list = JsonConvert.DeserializeObject<List<Curves>>(jsonData);
+                gr.GraphCurves = list;
+                gr.DrawDiagram();
+            }
+        }
+
         public string CreateNewFile(string pathToCreate)
         {
             DirectoryInfo di = Directory.CreateDirectory(pathToCreate);
-            string txtName = pathToCreate + "\\" + di.Name + ".txt";
+            string txtName = pathToCreate + "\\" + di.Name + ".json";
             crrStream = File.Create(txtName);
             return txtName;
         }
@@ -62,15 +80,15 @@ namespace TestMyDrawing.Model
             string saveStr = "";
             string path = crrStream.Name;
             crrStream.Close();
-            for(int i = 0; i < crrPoints.Length; i++)
-            {
-                saveStr += crrPoints[i].X + " " + crrPoints[i].Y + "\n";
-            }
-                            
+
+            saveStr = JsonConvert.SerializeObject(gr.GraphCurves, Formatting.Indented);
+
             using (StreamWriter sw = new StreamWriter(path, false))
             {
                 sw.Write(saveStr);
             }
+            string dirPath = path.Remove(path.LastIndexOf("\\"));
+            gr.placeToDraw.Image.Save(dirPath + "\\file.png", System.Drawing.Imaging.ImageFormat.Png);
             crrStream = new FileStream(path, FileMode.Open, FileAccess.ReadWrite);
         }
     }
