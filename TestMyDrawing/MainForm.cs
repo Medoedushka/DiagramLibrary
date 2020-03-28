@@ -24,6 +24,8 @@ namespace TestMyDrawing
         public event Action<string> ShowCurvePoints;
         public event EventHandler<GraphicEventArgs> AddNewCurve;
         public event EventHandler<GraphicEventArgs> Zoom;
+        public event EventHandler<EventArgs> Print;
+        public event EventHandler<EventArgs> Preview;
 
         public MainForm()
         {
@@ -58,7 +60,14 @@ namespace TestMyDrawing
         {
             bool? b = SaveCreatedFile?.Invoke();
             if (b == true)
-                MessageBox.Show("Файл успешно сохранён!", "Сохранение", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            {
+                if (MessageBox.Show("Файл успешно сохранён! Желаете просмотреть файлы?", 
+                    "Сохранение", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
+                {
+                    string dirOpen = lbl_CurrentFile.Text.Remove(lbl_CurrentFile.Text.LastIndexOf("\\"));
+                    System.Diagnostics.Process.Start(dirOpen);
+                }
+            }
         }
 
         private void закрытьToolStripMenuItem_Click(object sender, EventArgs e)
@@ -172,6 +181,16 @@ namespace TestMyDrawing
             GraphicEventArgs graphicEvent = new GraphicEventArgs(EventType.Zoom);
             graphicEvent.Zoom = false;
             Zoom?.Invoke(this, graphicEvent);
+        }
+
+        private void печатьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Print?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void предварительныйПросмотрToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Preview?.Invoke(this, EventArgs.Empty);
         }
     }
 }

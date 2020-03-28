@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Printing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,10 +17,31 @@ namespace TestMyDrawing.Presenter
         DrawingModel _model;
         IView drawingView;
 
+        PrintDialog printDialog;
+        PrintDocument pd;
+        PrintPreviewDialog ppd;
+
         public DrawingPresenter(IView _drawingView)
         {
             drawingView = _drawingView;
             _model = new DrawingModel();
+
+            printDialog = new PrintDialog();
+            pd = new PrintDocument();
+            ppd = new PrintPreviewDialog();
+
+            ppd.Document = pd;
+            printDialog.Document = pd;
+
+            pd.DefaultPageSettings.Landscape = true;
+            pd.PrintPage += Pd_PrintPage;
+
+            drawingView.Print += (object o, EventArgs e) =>
+            {
+                if (printDialog.ShowDialog() == DialogResult.OK)
+                    pd.Print();
+            };
+            drawingView.Preview += (object o, EventArgs e) => { ppd.ShowDialog(); };
             drawingView.LoadFile += DrawingView_LoadFile;
             drawingView.CreateNewFile += DrawingView_CreateNewFile;
             drawingView.SaveCreatedFile += DrawingView_SaveCreatedFile;
@@ -68,6 +90,12 @@ namespace TestMyDrawing.Presenter
             drawingView.ShowCurvePoints += (string s) => { drawingView.TableTxt = _model.ShowCurvePoints(s); };
             drawingView.AddNewCurve += DrawingView_PlotAction;
             drawingView.Zoom += DrawingView_PlotAction;
+        }
+
+        private void Pd_PrintPage(object sender, PrintPageEventArgs e)
+        {
+            Point pageCenter = new Point(e.PageBounds.Location.X + e.PageBounds.Width / 2, e.PageBounds.Location.Y + e.PageBounds.Height / 2);
+            e.Graphics.DrawImage(_model.gr.placeToDraw.Image, pageCenter.X - _model.gr.placeToDraw.Width / 2, pageCenter.Y - _model.gr.placeToDraw.Height / 2);
         }
 
         private void DrawingView_PlotAction(object sender, GraphicEventArgs e)

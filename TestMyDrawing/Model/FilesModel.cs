@@ -87,8 +87,8 @@ namespace TestMyDrawing.Model
             {
                 sw.Write(saveStr);
             }
-            string dirPath = path.Remove(path.LastIndexOf("\\"));
-            gr.placeToDraw.Image.Save(dirPath + "\\file.png", System.Drawing.Imaging.ImageFormat.Png);
+            string dirPath = path.Remove(path.LastIndexOf('.'));
+            gr.placeToDraw.Image.Save(dirPath + ".png", System.Drawing.Imaging.ImageFormat.Png);
             crrStream = new FileStream(path, FileMode.Open, FileAccess.ReadWrite);
         }
     }

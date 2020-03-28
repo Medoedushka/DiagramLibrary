@@ -48,7 +48,8 @@ namespace TestMyDrawing.Model
             gr.Config.OYNamePosition = TextPosition.Centre;
             gr.Config.OYNameSize = 12;
             gr.AddDiagramLegend = true;
-            gr.Config.Grid = true;
+            gr.Config.Grid = false;
+            gr.Config.PriceForPointOX = gr.Config.PriceForPointOY;
             gr.placeToDraw.BackColor = Color.White;
             LoadTXTData("defaultData3.txt", false);
             crrStream?.Close();
@@ -84,6 +85,7 @@ namespace TestMyDrawing.Model
         int counter = 0;
         public void ZoomPlot(bool zoom)
         {
+            double k = 1.5;
             if (zoom)
             {
                 counter++;
@@ -91,8 +93,8 @@ namespace TestMyDrawing.Model
                 PointF center0_cont = new PointF(gr.pt2.X + (gr.pt3.X - gr.pt2.X) / 2, gr.pt1.Y - (gr.pt1.Y - gr.pt2.Y) / 2);
                 PointF center0_dec = gr.ConvertValues(center0_cont, CoordType.GetRectangleCoord);
 
-                gr.Config.PriceForPointOX = gr.Config.PriceForPointOX / 2;
-                gr.Config.PriceForPointOY = gr.Config.PriceForPointOY / 2;
+                gr.Config.PriceForPointOX = gr.Config.PriceForPointOX / k;
+                gr.Config.PriceForPointOY = gr.Config.PriceForPointOY / k;
 
                 PointF center1_cont = gr.ConvertValues(center0_dec, CoordType.GetControlCoord);
                 PointF vector = new PointF(center1_cont.X - center0_cont.X, center1_cont.Y - center0_cont.Y);
@@ -104,8 +106,8 @@ namespace TestMyDrawing.Model
                 PointF center0_cont = new PointF(gr.pt2.X + (gr.pt3.X - gr.pt2.X) / 2, gr.pt1.Y - (gr.pt1.Y - gr.pt2.Y) / 2);
                 PointF center0_dec = gr.ConvertValues(center0_cont, CoordType.GetRectangleCoord);
 
-                gr.Config.PriceForPointOX = gr.Config.PriceForPointOX * 2;
-                gr.Config.PriceForPointOY = gr.Config.PriceForPointOY * 2;
+                gr.Config.PriceForPointOX = gr.Config.PriceForPointOX * k;
+                gr.Config.PriceForPointOY = gr.Config.PriceForPointOY * k;
 
                 PointF center1_cont = gr.ConvertValues(center0_dec, CoordType.GetControlCoord);
                 PointF vector = new PointF(center1_cont.X - center0_cont.X, center1_cont.Y - center0_cont.Y);
