@@ -44,6 +44,8 @@ namespace TestMyDrawing.Model
             everCreatedCurvesCounter++;
             string legend = "График" + everCreatedCurvesCounter;
             Pen pen = new Pen(BaseColors[colorCounter], 2);
+            
+
             Curves curve = new Curves(crrPoints, pen, Legend: legend);
             if (++colorCounter == BaseColors.Length) colorCounter = 0;
 
