@@ -157,6 +157,7 @@ namespace TestMyDrawing.Presenter
             {
                 _model.LoadJSONData(name);
                 drawingView.CurrentFileName = name;
+                InitCurvesNames();
             }
             
         }
