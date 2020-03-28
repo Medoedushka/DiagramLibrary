@@ -418,6 +418,10 @@ namespace MyDrawing
         /// Строка, характеризующая наличие, цвет и тип отображаемых точек кривой.
         /// </summary>
         public string DotsType { get; set; }
+        /// <summary>
+        /// Объект, который задает цвет, толщину и стиль кривой.
+        /// </summary>
+        public Pen CurvePen { get; set; }
 
         public Curves(PointF[] pt, Color CurveColor, int CurveThickness = 1, string Legend = "Пусто", string dotsType = "")
         {
@@ -426,6 +430,17 @@ namespace MyDrawing
             this.CurveThickness = CurveThickness;
             this.Legend = Legend;
             this.DotsType = dotsType;
+            CurvePen = new Pen(this.CurveColor, this.CurveThickness);
+        }
+
+        public Curves(PointF[] pt, Pen curvePen, string Legend = "Пусто", string dotsType = "")
+        {
+            PointsToDraw = pt;
+            this.Legend = Legend;
+            this.DotsType = dotsType;
+            CurvePen = curvePen;
+            this.CurveColor = CurvePen.Color;
+            this.CurveThickness = (int)CurvePen.Width;
         }
     }
 

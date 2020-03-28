@@ -14,8 +14,8 @@ D:\Проекты C#\Библиотеки\DiagramLibrary\TestMyDrawing\obj\Debug
 D:\Проекты C#\Библиотеки\DiagramLibrary\TestMyDrawing\bin\Debug\MyClassLibrary.dll
 D:\Проекты C#\Библиотеки\DiagramLibrary\TestMyDrawing\bin\Debug\MyClassLibrary.pdb
 D:\Проекты C#\Библиотеки\DiagramLibrary\TestMyDrawing\bin\Debug\MyClassLibrary.xml
-D:\Проекты C#\Библиотеки\DiagramLibrary\TestMyDrawing\bin\Debug\MyDrawing.xml
 D:\Проекты C#\Библиотеки\DiagramLibrary\TestMyDrawing\bin\Debug\MyDrawing.dll
 D:\Проекты C#\Библиотеки\DiagramLibrary\TestMyDrawing\obj\Debug\TestMyDrawing.csprojAssemblyReference.cache
 D:\Проекты C#\Библиотеки\DiagramLibrary\TestMyDrawing\bin\Debug\Newtonsoft.Json.dll
 D:\Проекты C#\Библиотеки\DiagramLibrary\TestMyDrawing\bin\Debug\Newtonsoft.Json.xml
+D:\Проекты C#\Библиотеки\DiagramLibrary\TestMyDrawing\bin\Debug\MyDrawing.xml
