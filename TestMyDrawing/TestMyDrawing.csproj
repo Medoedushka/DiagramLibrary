@@ -83,7 +83,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <None Include="bin\Debug\TestMyDrawing.exe.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -124,20 +123,6 @@
   <ItemGroup>
     <None Include="Resources\new.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Content Include="bin\Debug\MAC_Dll.dll" />
-    <Content Include="bin\Debug\MAC_Dll.pdb" />
-    <Content Include="bin\Debug\MyClassLibrary.dll" />
-    <Content Include="bin\Debug\MyClassLibrary.pdb" />
-    <Content Include="bin\Debug\MyClassLibrary.xml" />
-    <Content Include="bin\Debug\MyDrawing.dll" />
-    <Content Include="bin\Debug\MyDrawing.pdb" />
-    <Content Include="bin\Debug\MyDrawing.xml" />
-    <Content Include="bin\Debug\TestMyDrawing.exe" />
-    <Content Include="bin\Debug\TestMyDrawing.pdb" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="bin\Release\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
