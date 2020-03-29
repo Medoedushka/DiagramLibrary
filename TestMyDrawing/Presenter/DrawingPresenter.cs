@@ -73,7 +73,16 @@ namespace TestMyDrawing.Presenter
                         drawingView.CurveColor = c.CurveColor;
                         drawingView.DotsSettings = c.DotsType;
                         drawingView.Thikness = c.CurveThickness;
-                        
+
+                        if (c.DashStyle == System.Drawing.Drawing2D.DashStyle.Dash)
+                            drawingView.dashStyle = DashStyle.Dash;
+                        else if (c.DashStyle == System.Drawing.Drawing2D.DashStyle.DashDot)
+                            drawingView.dashStyle = DashStyle.DashDot;
+                        else if (c.DashStyle == System.Drawing.Drawing2D.DashStyle.DashDotDot)
+                            drawingView.dashStyle = DashStyle.DashDotDot;
+                        else if (c.DashStyle == System.Drawing.Drawing2D.DashStyle.Dot)
+                            drawingView.dashStyle = DashStyle.Dot;
+                        else drawingView.dashStyle = DashStyle.Solid;
                     }
                 }
             };

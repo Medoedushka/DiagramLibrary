@@ -128,12 +128,12 @@ namespace TestMyDrawing.Model
                         if (newName == "")
                         {
                             gr.GraphCurves[i] = new Curves(gr.GraphCurves[i].PointsToDraw, curve.CurveColor,
-                            curve.CurveThickness, curve.Legend, curve.DotsType);
+                            curve.DashStyle, curve.CurveThickness, dotsType:curve.DotsType);
                         }
                         else
                         {
-                            gr.GraphCurves[i] = new Curves(gr.GraphCurves[i].PointsToDraw, curve.CurveColor,
-                            curve.CurveThickness, newName, curve.DotsType);
+                            gr.GraphCurves[i] = new Curves(gr.GraphCurves[i].PointsToDraw, curve.CurveColor, curve.DashStyle, curve.CurveThickness,
+                            newName, curve.DotsType);
                         }
                         
                     }

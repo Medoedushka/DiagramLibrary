@@ -281,9 +281,9 @@
             Строка, характеризующая наличие, цвет и тип отображаемых точек кривой.
             </summary>
         </member>
-        <member name="P:MyDrawing.Curves.CurvePen">
+        <member name="P:MyDrawing.Curves.DashStyle">
             <summary>
-            Объект, который задает цвет, толщину и стиль кривой.
+            Задаёт стиль рисования кривой.
             </summary>
         </member>
     </members>

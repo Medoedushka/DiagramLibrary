@@ -204,6 +204,8 @@ namespace MyDrawing
 
         private void StaticDrawCurrentCurve(Curves currentCurve)
         {
+            Pen grafpen = new Pen(currentCurve.CurveColor, currentCurve.CurveThickness);
+            grafpen.DashStyle = currentCurve.DashStyle;
             PointF[] points = new PointF[currentCurve.PointsToDraw.Length];
             bool isDotOut = false;
             string[] dotParams = currentCurve.DotsType.Split(';');
@@ -236,7 +238,7 @@ namespace MyDrawing
             {
                 if (points.Length >= 2)
                 {
-                    g.DrawCurve(currentCurve.CurvePen, points);
+                    g.DrawCurve(grafpen, points);
                     
                 }
             }
@@ -244,7 +246,7 @@ namespace MyDrawing
             {
                 if (points.Length >= 2)
                 {
-                    g.DrawLines(currentCurve.CurvePen, points);
+                    g.DrawLines(grafpen, points);
                    
                 }
             }
@@ -524,7 +526,7 @@ namespace MyDrawing
                 while (temp.X + size.Width > pt3.X) temp.X--;
                 g.DrawString(str, font, new SolidBrush(Color.Black), temp);
                 Pen legPen = new Pen(crrCurve.CurveColor, 2);
-                legPen.DashStyle = crrCurve.CurvePen.DashStyle;
+                legPen.DashStyle = crrCurve.DashStyle;
                 g.DrawLine(legPen, temp.X - lineLength, temp.Y + size.Height / 2, temp.X, temp.Y + size.Height / 2);
                 temp = new PointF(pt3.X, temp.Y + 20);
                 

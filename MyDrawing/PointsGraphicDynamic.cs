@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 
 namespace MyDrawing
 {
@@ -419,28 +420,18 @@ namespace MyDrawing
         /// </summary>
         public string DotsType { get; set; }
         /// <summary>
-        /// Объект, который задает цвет, толщину и стиль кривой.
+        /// Задаёт стиль рисования кривой.
         /// </summary>
-        public Pen CurvePen { get; set; }
+        public DashStyle DashStyle { get; set; }
 
-        public Curves(PointF[] pt, Color CurveColor, int CurveThickness = 1, string Legend = "Пусто", string dotsType = "")
+        public Curves(PointF[] pt, Color CurveColor, DashStyle style = DashStyle.Solid, int CurveThickness = 1, string Legend = "Пусто", string dotsType = "")
         {
             PointsToDraw = pt;
             this.CurveColor = CurveColor;
             this.CurveThickness = CurveThickness;
             this.Legend = Legend;
             this.DotsType = dotsType;
-            CurvePen = new Pen(this.CurveColor, this.CurveThickness);
-        }
-
-        public Curves(PointF[] pt, Pen curvePen, string Legend = "Пусто", string dotsType = "")
-        {
-            PointsToDraw = pt;
-            this.Legend = Legend;
-            this.DotsType = dotsType;
-            CurvePen = curvePen;
-            this.CurveColor = CurvePen.Color;
-            this.CurveThickness = (int)CurvePen.Width;
+            DashStyle = style;
         }
     }
 
