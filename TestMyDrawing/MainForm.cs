@@ -45,7 +45,53 @@ namespace TestMyDrawing
         public Color CurveColor { get => pcb_CurveColor.BackColor; set => pcb_CurveColor.BackColor = value; }
         public string DotsSettings { get => txb_DotsString.Text; set => txb_DotsString.Text = value; }
         public int Thikness { get => (int)nud_Thickness.Value; set => nud_Thickness.Value = value; }
-
+        public DashStyle dashStyle
+        {
+            get => dashStyle; set
+            {
+                if (value == DashStyle.Dash)
+                {
+                    rb_Dash.Checked = true;
+                    rb_DashDot.Checked = false;
+                    rb_DashDotDot.Checked = false;
+                    rb_Dot.Checked = false;
+                    rb_Solid.Checked = false;
+                }
+                else if (value == DashStyle.DashDot)
+                {
+                    rb_Dash.Checked = false;
+                    rb_DashDot.Checked = true;
+                    rb_DashDotDot.Checked = false;
+                    rb_Dot.Checked = false;
+                    rb_Solid.Checked = false;
+                }
+                else if (value == DashStyle.DashDotDot)
+                {
+                    rb_Dash.Checked = false;
+                    rb_DashDot.Checked = false;
+                    rb_DashDotDot.Checked = true;
+                    rb_Dot.Checked = false;
+                    rb_Solid.Checked = false;
+                }
+                else if (value == DashStyle.Dot)
+                {
+                    rb_Dash.Checked = false;
+                    rb_DashDot.Checked = false;
+                    rb_DashDotDot.Checked = false;
+                    rb_Dot.Checked = true;
+                    rb_Solid.Checked = false;
+                }
+                else
+                {
+                    rb_Dash.Checked = false;
+                    rb_DashDot.Checked = false;
+                    rb_DashDotDot.Checked = false;
+                    rb_Dot.Checked = false;
+                    rb_Solid.Checked = true;
+                }
+            }
+        }
+            
         private void открытьToolStripMenuItem_Click(object sender, EventArgs e)
         {
             LoadFile?.Invoke(this, EventArgs.Empty);
@@ -113,7 +159,18 @@ namespace TestMyDrawing
 
         private void btn_RefreshCurve_Click(object sender, EventArgs e)
         {
-            Curves newCurve = new Curves(new PointF[] { }, pcb_CurveColor.BackColor, (int)nud_Thickness.Value, cmb_Curves.Text, txb_DotsString.Text);
+            System.Drawing.Drawing2D.DashStyle style;
+            if (rb_Dash.Checked)
+                style = System.Drawing.Drawing2D.DashStyle.Dash;
+            else if (rb_DashDot.Checked)
+                style = System.Drawing.Drawing2D.DashStyle.DashDot;
+            else if (rb_DashDotDot.Checked)
+                style = System.Drawing.Drawing2D.DashStyle.DashDotDot;
+            else if (rb_Dot.Checked)
+                style = System.Drawing.Drawing2D.DashStyle.Dot;
+            else style = System.Drawing.Drawing2D.DashStyle.Solid;
+
+            Curves newCurve = new Curves(new PointF[] { }, pcb_CurveColor.BackColor, style, (int)nud_Thickness.Value ,cmb_Curves.Text, txb_DotsString.Text);
             GraphicEventArgs graphicEvent = new GraphicEventArgs(EventType.AdpdateCurve);
             graphicEvent.newCurve = newCurve;
             graphicEvent.Delete = false;
@@ -135,7 +192,7 @@ namespace TestMyDrawing
 
         private void btn_DeleteCurve_Click(object sender, EventArgs e)
         {
-            Curves newCurve = new Curves(new PointF[] { }, pcb_CurveColor.BackColor, (int)nud_Thickness.Value, cmb_Curves.Text, txb_DotsString.Text);
+            Curves newCurve = new Curves(new PointF[] { }, pcb_CurveColor.BackColor, CurveThickness:(int)nud_Thickness.Value,Legend:cmb_Curves.Text, dotsType: txb_DotsString.Text);
             GraphicEventArgs graphicEvent = new GraphicEventArgs(EventType.AdpdateCurve);
             graphicEvent.newCurve = newCurve;
             graphicEvent.Delete = true;

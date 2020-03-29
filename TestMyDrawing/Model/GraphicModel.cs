@@ -98,6 +98,7 @@ namespace TestMyDrawing.Model
                 PointF center1_cont = gr.ConvertValues(center0_dec, CoordType.GetControlCoord);
                 PointF vector = new PointF(center1_cont.X - center0_cont.X, center1_cont.Y - center0_cont.Y);
                 gr.RealCenter = new Point(gr.RealCenter.X - (int)vector.X, gr.RealCenter.Y - (int)vector.Y);
+                
                 gr.DrawDiagram();
             }
             else
@@ -127,12 +128,12 @@ namespace TestMyDrawing.Model
                         if (newName == "")
                         {
                             gr.GraphCurves[i] = new Curves(gr.GraphCurves[i].PointsToDraw, curve.CurveColor,
-                            curve.CurveThickness, curve.Legend, curve.DotsType);
+                            curve.DashStyle, curve.CurveThickness, dotsType:curve.DotsType);
                         }
                         else
                         {
-                            gr.GraphCurves[i] = new Curves(gr.GraphCurves[i].PointsToDraw, curve.CurveColor,
-                            curve.CurveThickness, newName, curve.DotsType);
+                            gr.GraphCurves[i] = new Curves(gr.GraphCurves[i].PointsToDraw, curve.CurveColor, curve.DashStyle, curve.CurveThickness,
+                            newName, curve.DotsType);
                         }
                         
                     }

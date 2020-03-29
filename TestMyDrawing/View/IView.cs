@@ -8,6 +8,14 @@ using System.Windows.Forms;
 
 namespace TestMyDrawing.View
 {
+    public enum DashStyle
+    {
+        Dash,
+        DashDot,
+        DashDotDot,
+        Dot, 
+        Solid
+    }
     public interface IView
     {
         string TableTxt { get; set; }
@@ -20,6 +28,7 @@ namespace TestMyDrawing.View
         Color CurveColor { get; set; }
         string DotsSettings { get; set; }
         int Thikness { get; set; }
+        DashStyle dashStyle { get; set; }
 
         event EventHandler<EventArgs> CreateNewFile;
         event Func<bool> SaveCreatedFile;

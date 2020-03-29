@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 
 namespace MyDrawing
 {
@@ -418,14 +419,19 @@ namespace MyDrawing
         /// Строка, характеризующая наличие, цвет и тип отображаемых точек кривой.
         /// </summary>
         public string DotsType { get; set; }
+        /// <summary>
+        /// Задаёт стиль рисования кривой.
+        /// </summary>
+        public DashStyle DashStyle { get; set; }
 
-        public Curves(PointF[] pt, Color CurveColor, int CurveThickness = 1, string Legend = "Пусто", string dotsType = "")
+        public Curves(PointF[] pt, Color CurveColor, DashStyle style = DashStyle.Solid, int CurveThickness = 1, string Legend = "Пусто", string dotsType = "")
         {
             PointsToDraw = pt;
             this.CurveColor = CurveColor;
             this.CurveThickness = CurveThickness;
             this.Legend = Legend;
             this.DotsType = dotsType;
+            DashStyle = style;
         }
     }
 
