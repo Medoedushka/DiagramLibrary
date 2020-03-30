@@ -28,8 +28,9 @@ namespace TestMyDrawing
         public event EventHandler<EventArgs> Print;
         public event EventHandler<EventArgs> Preview;
 
-        Color lblChecked = Color.FromArgb(5, 89, 107);
-        Color lblFree = Color.FromArgb(9, 154, 185);
+        Color lblChecked = Color.FromArgb(9, 154, 185);
+        Color lblFree = Color.FromArgb(5, 89, 107);
+        Color controlEnter = Color.FromArgb(177, 34, 207, 244);
 
         public MainForm()
         {
@@ -42,6 +43,7 @@ namespace TestMyDrawing
             Application.Exit();
         }
 
+        #region<---Обработка ленты-->
         private void lbl_File_Click(object sender, EventArgs e)
         {
             lbl_Service.BackColor = lblFree;
@@ -92,7 +94,7 @@ namespace TestMyDrawing
         }
         private void label1_MouseEnter(object sender, EventArgs e)
         {
-            label1.BackColor = Color.FromArgb(177, 5, 89, 107);
+            label1.BackColor = controlEnter;
         }
 
         private void lbl_File_MouseLeave(object sender, EventArgs e)
@@ -103,13 +105,13 @@ namespace TestMyDrawing
         private void lbl_File_MouseEnter(object sender, EventArgs e)
         {
             if (lbl_File.BackColor != lblChecked)
-                lbl_File.BackColor = Color.FromArgb(177, 5, 89, 107);
+                lbl_File.BackColor = controlEnter;
         }
 
         private void lbl_Service_MouseEnter(object sender, EventArgs e)
         {
             if (lbl_Service.BackColor != lblChecked)
-                lbl_Service.BackColor = Color.FromArgb(177, 5, 89, 107);
+                lbl_Service.BackColor = controlEnter;
         }
         private void lbl_Service_MouseLeave(object sender, EventArgs e)
         {
@@ -120,14 +122,16 @@ namespace TestMyDrawing
         private void lbl_Edit_MouseEnter(object sender, EventArgs e)
         {
             if (lbl_Edit.BackColor != lblChecked)
-                lbl_Edit.BackColor = Color.FromArgb(177, 5, 89, 107);
+                lbl_Edit.BackColor = controlEnter;
         }
-
         private void lbl_Edit_MouseLeave(object sender, EventArgs e)
         {
             if (lbl_Edit.BackColor != lblChecked)
                 lbl_Edit.BackColor = lblFree;
         }
+        #endregion
+
+
         /*
 public string TableTxt { get => rtb_TableTxt.Text; set => rtb_TableTxt.Text = value; }
 public string CurrentFileName { get => lbl_CurrentFile.Text; set => lbl_CurrentFile.Text = value; }
