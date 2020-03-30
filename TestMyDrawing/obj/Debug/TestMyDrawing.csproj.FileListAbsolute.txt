@@ -19,3 +19,9 @@ D:\Проекты C#\Библиотеки\DiagramLibrary\TestMyDrawing\obj\Debug
 D:\Проекты C#\Библиотеки\DiagramLibrary\TestMyDrawing\bin\Debug\Newtonsoft.Json.dll
 D:\Проекты C#\Библиотеки\DiagramLibrary\TestMyDrawing\bin\Debug\Newtonsoft.Json.xml
 D:\Проекты C#\Библиотеки\DiagramLibrary\TestMyDrawing\bin\Debug\MyDrawing.xml
+D:\Проекты C#\Библиотеки\DiagramLibrary\TestMyDrawing\bin\Debug\MetroFramework.Design.dll
+D:\Проекты C#\Библиотеки\DiagramLibrary\TestMyDrawing\bin\Debug\MetroFramework.dll
+D:\Проекты C#\Библиотеки\DiagramLibrary\TestMyDrawing\bin\Debug\MetroFramework.Fonts.dll
+D:\Проекты C#\Библиотеки\DiagramLibrary\TestMyDrawing\obj\Debug\TestMyDrawing.ElementsOfStrip.FileUC.resources
+D:\Проекты C#\Библиотеки\DiagramLibrary\TestMyDrawing\obj\Debug\TestMyDrawing.ElementsOfStrip.ServiceUC.resources
+D:\Проекты C#\Библиотеки\DiagramLibrary\TestMyDrawing\obj\Debug\TestMyDrawing.ElementsOfStrip.EditUC.resources

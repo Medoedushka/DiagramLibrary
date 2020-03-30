@@ -37,6 +37,15 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\MAC\MAC_Dll\bin\Debug\MAC_Dll.dll</HintPath>
     </Reference>
+    <Reference Include="MetroFramework, Version=1.4.0.0, Culture=neutral, PublicKeyToken=5f91a84759bf584a, processorArchitecture=MSIL">
+      <HintPath>..\packages\MetroModernUI.1.4.0.0\lib\net\MetroFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="MetroFramework.Design, Version=1.4.0.0, Culture=neutral, PublicKeyToken=5f91a84759bf584a, processorArchitecture=MSIL">
+      <HintPath>..\packages\MetroModernUI.1.4.0.0\lib\net\MetroFramework.Design.dll</HintPath>
+    </Reference>
+    <Reference Include="MetroFramework.Fonts, Version=1.4.0.0, Culture=neutral, PublicKeyToken=5f91a84759bf584a, processorArchitecture=MSIL">
+      <HintPath>..\packages\MetroModernUI.1.4.0.0\lib\net\MetroFramework.Fonts.dll</HintPath>
+    </Reference>
     <Reference Include="MyClassLibrary">
       <HintPath>..\..\MyClassLibrary\MyClassLibrary\bin\Debug\MyClassLibrary.dll</HintPath>
     </Reference>
@@ -60,6 +69,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ElementsOfStrip\EditUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ElementsOfStrip\EditUC.Designer.cs">
+      <DependentUpon>EditUC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ElementsOfStrip\ServiceUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ElementsOfStrip\ServiceUC.Designer.cs">
+      <DependentUpon>ServiceUC.cs</DependentUpon>
+    </Compile>
     <Compile Include="GraphicEventArgs.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
@@ -73,6 +94,18 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="View\IView.cs" />
+    <Compile Include="ElementsOfStrip\FileUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ElementsOfStrip\FileUC.Designer.cs">
+      <DependentUpon>FileUC.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="ElementsOfStrip\EditUC.resx">
+      <DependentUpon>EditUC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ElementsOfStrip\ServiceUC.resx">
+      <DependentUpon>ServiceUC.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -86,6 +119,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="ElementsOfStrip\FileUC.resx">
+      <DependentUpon>FileUC.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -101,46 +137,37 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\zoom-in.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\zoom-out.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\exit.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\preview.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\print.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\save.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\close.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\folder.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\new.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\dash.png" />
+    <None Include="Resources\save.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\dashdot.png" />
+    <None Include="Resources\print.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\dashdotdot.png" />
+    <None Include="Resources\preview.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\dot.png" />
+    <None Include="Resources\close1.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\solid.png" />
+    <None Include="Resources\diagramm.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\plot%281%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\curve%281%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\zoom-in.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\zoom-out.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -18,7 +18,7 @@ namespace TestMyDrawing
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             MainForm form = new MainForm();
-            DrawingPresenter presenter = new DrawingPresenter(form);
+            //DrawingPresenter presenter = new DrawingPresenter(form);
             Application.Run(form);
         }
     }
