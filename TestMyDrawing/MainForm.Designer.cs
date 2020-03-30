@@ -29,15 +29,17 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.lbl_CurrentFile = new MetroFramework.Controls.MetroLabel();
             this.lbl_Edit = new System.Windows.Forms.Label();
             this.lbl_Service = new System.Windows.Forms.Label();
             this.lbl_File = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.pnl_StripElements = new System.Windows.Forms.Panel();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
-            this.metroComboBox1 = new MetroFramework.Controls.MetroComboBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.cmb_Curves = new MetroFramework.Controls.MetroComboBox();
+            this.rtb_TableTxt = new System.Windows.Forms.RichTextBox();
+            this.pnl_StripElements = new System.Windows.Forms.Panel();
+            this.panel3 = new System.Windows.Forms.Panel();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -46,6 +48,7 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(5)))), ((int)(((byte)(89)))), ((int)(((byte)(107)))));
+            this.panel1.Controls.Add(this.lbl_CurrentFile);
             this.panel1.Controls.Add(this.lbl_Edit);
             this.panel1.Controls.Add(this.lbl_Service);
             this.panel1.Controls.Add(this.lbl_File);
@@ -57,6 +60,18 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(967, 58);
             this.panel1.TabIndex = 0;
+            // 
+            // lbl_CurrentFile
+            // 
+            this.lbl_CurrentFile.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.lbl_CurrentFile.AutoSize = true;
+            this.lbl_CurrentFile.Location = new System.Drawing.Point(443, 5);
+            this.lbl_CurrentFile.Name = "lbl_CurrentFile";
+            this.lbl_CurrentFile.Size = new System.Drawing.Size(0, 0);
+            this.lbl_CurrentFile.Style = MetroFramework.MetroColorStyle.White;
+            this.lbl_CurrentFile.TabIndex = 2;
+            this.lbl_CurrentFile.UseCustomBackColor = true;
+            this.lbl_CurrentFile.UseStyleColors = true;
             // 
             // lbl_Edit
             // 
@@ -90,7 +105,7 @@
             // 
             // lbl_File
             // 
-            this.lbl_File.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(5)))), ((int)(((byte)(89)))), ((int)(((byte)(107)))));
+            this.lbl_File.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(154)))), ((int)(((byte)(185)))));
             this.lbl_File.Font = new System.Drawing.Font("Myanmar Text", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_File.ForeColor = System.Drawing.Color.LightCyan;
             this.lbl_File.Location = new System.Drawing.Point(0, 35);
@@ -120,9 +135,11 @@
             // 
             // panel2
             // 
+            this.panel2.BackColor = System.Drawing.Color.LightCyan;
+            this.panel2.Controls.Add(this.panel3);
             this.panel2.Controls.Add(this.pictureBox1);
-            this.panel2.Controls.Add(this.metroComboBox1);
-            this.panel2.Controls.Add(this.richTextBox1);
+            this.panel2.Controls.Add(this.cmb_Curves);
+            this.panel2.Controls.Add(this.rtb_TableTxt);
             this.panel2.Controls.Add(this.pnl_StripElements);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 58);
@@ -130,48 +147,61 @@
             this.panel2.Size = new System.Drawing.Size(967, 490);
             this.panel2.TabIndex = 1;
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBox1.BackColor = System.Drawing.Color.White;
+            this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureBox1.Location = new System.Drawing.Point(5, 45);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(586, 429);
+            this.pictureBox1.TabIndex = 3;
+            this.pictureBox1.TabStop = false;
+            // 
+            // cmb_Curves
+            // 
+            this.cmb_Curves.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmb_Curves.FormattingEnabled = true;
+            this.cmb_Curves.ItemHeight = 23;
+            this.cmb_Curves.Location = new System.Drawing.Point(602, 45);
+            this.cmb_Curves.Name = "cmb_Curves";
+            this.cmb_Curves.Size = new System.Drawing.Size(353, 29);
+            this.cmb_Curves.TabIndex = 2;
+            this.cmb_Curves.UseSelectable = true;
+            // 
+            // rtb_TableTxt
+            // 
+            this.rtb_TableTxt.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.rtb_TableTxt.BackColor = System.Drawing.Color.White;
+            this.rtb_TableTxt.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.rtb_TableTxt.Location = new System.Drawing.Point(602, 80);
+            this.rtb_TableTxt.Name = "rtb_TableTxt";
+            this.rtb_TableTxt.ReadOnly = true;
+            this.rtb_TableTxt.Size = new System.Drawing.Size(353, 394);
+            this.rtb_TableTxt.TabIndex = 1;
+            this.rtb_TableTxt.Text = "";
+            // 
             // pnl_StripElements
             // 
+            this.pnl_StripElements.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(154)))), ((int)(((byte)(185)))));
             this.pnl_StripElements.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnl_StripElements.Location = new System.Drawing.Point(0, 0);
             this.pnl_StripElements.Name = "pnl_StripElements";
             this.pnl_StripElements.Size = new System.Drawing.Size(967, 39);
             this.pnl_StripElements.TabIndex = 0;
             // 
-            // richTextBox1
+            // panel3
             // 
-            this.richTextBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.panel3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.richTextBox1.BackColor = System.Drawing.Color.White;
-            this.richTextBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.richTextBox1.Location = new System.Drawing.Point(646, 80);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.ReadOnly = true;
-            this.richTextBox1.Size = new System.Drawing.Size(309, 394);
-            this.richTextBox1.TabIndex = 1;
-            this.richTextBox1.Text = "";
-            // 
-            // metroComboBox1
-            // 
-            this.metroComboBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.metroComboBox1.FormattingEnabled = true;
-            this.metroComboBox1.ItemHeight = 23;
-            this.metroComboBox1.Location = new System.Drawing.Point(646, 45);
-            this.metroComboBox1.Name = "metroComboBox1";
-            this.metroComboBox1.Size = new System.Drawing.Size(309, 29);
-            this.metroComboBox1.TabIndex = 2;
-            this.metroComboBox1.UseSelectable = true;
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Left;
-            this.pictureBox1.Location = new System.Drawing.Point(0, 39);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(640, 451);
-            this.pictureBox1.TabIndex = 3;
-            this.pictureBox1.TabStop = false;
+            this.panel3.Location = new System.Drawing.Point(602, 45);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(353, 429);
+            this.panel3.TabIndex = 4;
             // 
             // MainForm
             // 
@@ -186,6 +216,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.Load += new System.EventHandler(this.MainForm_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
@@ -203,9 +234,11 @@
         private System.Windows.Forms.Label lbl_Service;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel pnl_StripElements;
-        private MetroFramework.Controls.MetroComboBox metroComboBox1;
-        private System.Windows.Forms.RichTextBox richTextBox1;
+        private MetroFramework.Controls.MetroComboBox cmb_Curves;
+        private System.Windows.Forms.RichTextBox rtb_TableTxt;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private MetroFramework.Controls.MetroLabel lbl_CurrentFile;
+        private System.Windows.Forms.Panel panel3;
     }
 }
 

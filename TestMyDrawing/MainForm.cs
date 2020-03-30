@@ -28,6 +28,70 @@ namespace TestMyDrawing
         public event EventHandler<EventArgs> Print;
         public event EventHandler<EventArgs> Preview;
 
+        /*
+        public string TableTxt { get => rtb_TableTxt.Text; set => rtb_TableTxt.Text = value; }
+        public string CurrentFileName { get => lbl_CurrentFile.Text; set => lbl_CurrentFile.Text = value; }
+        public PictureBox graph { get; set; }
+        public bool MousePressed { get; set; } = false;
+
+        public string[] CurvesNames
+        {
+            get => new string[] { cmb_Curves.Items.ToString() }; set
+            {
+                cmb_Curves.Items.Clear(); cmb_Curves.Items.AddRange(value);
+                cmb_CurvesDots.Items.Clear(); cmb_CurvesDots.Items.AddRange(value);
+            }
+        }
+        public Color CurveColor { get => pcb_CurveColor.BackColor; set => pcb_CurveColor.BackColor = value; }
+        public string DotsSettings { get => txb_DotsString.Text; set => txb_DotsString.Text = value; }
+        public int Thikness { get => (int)nud_Thickness.Value; set => nud_Thickness.Value = value; }
+        public DashStyle dashStyle
+        {
+            get => dashStyle; set
+            {
+                if (value == DashStyle.Dash)
+                {
+                    rb_Dash.Checked = true;
+                    rb_DashDot.Checked = false;
+                    rb_DashDotDot.Checked = false;
+                    rb_Dot.Checked = false;
+                    rb_Solid.Checked = false;
+                }
+                else if (value == DashStyle.DashDot)
+                {
+                    rb_Dash.Checked = false;
+                    rb_DashDot.Checked = true;
+                    rb_DashDotDot.Checked = false;
+                    rb_Dot.Checked = false;
+                    rb_Solid.Checked = false;
+                }
+                else if (value == DashStyle.DashDotDot)
+                {
+                    rb_Dash.Checked = false;
+                    rb_DashDot.Checked = false;
+                    rb_DashDotDot.Checked = true;
+                    rb_Dot.Checked = false;
+                    rb_Solid.Checked = false;
+                }
+                else if (value == DashStyle.Dot)
+                {
+                    rb_Dash.Checked = false;
+                    rb_DashDot.Checked = false;
+                    rb_DashDotDot.Checked = false;
+                    rb_Dot.Checked = true;
+                    rb_Solid.Checked = false;
+                }
+                else
+                {
+                    rb_Dash.Checked = false;
+                    rb_DashDot.Checked = false;
+                    rb_DashDotDot.Checked = false;
+                    rb_Dot.Checked = false;
+                    rb_Solid.Checked = true;
+                }
+            }
+        }
+        */
         Color lblChecked = Color.FromArgb(9, 154, 185);
         Color lblFree = Color.FromArgb(5, 89, 107);
         Color controlEnter = Color.FromArgb(177, 34, 207, 244);
@@ -41,6 +105,11 @@ namespace TestMyDrawing
         private void label1_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            lbl_File_Click(this, EventArgs.Empty);
         }
 
         #region<---Обработка ленты-->
@@ -132,65 +201,10 @@ namespace TestMyDrawing
         #endregion
 
 
-        /*
-public string TableTxt { get => rtb_TableTxt.Text; set => rtb_TableTxt.Text = value; }
-public string CurrentFileName { get => lbl_CurrentFile.Text; set => lbl_CurrentFile.Text = value; }
-public PictureBox graph { get; set; }
-public bool MousePressed { get; set; } = false;
 
-public string[] CurvesNames { get => new string[] { cmb_Curves.Items.ToString() }; set {
-cmb_Curves.Items.Clear(); cmb_Curves.Items.AddRange(value);
-cmb_CurvesDots.Items.Clear(); cmb_CurvesDots.Items.AddRange(value);
-} }
-public Color CurveColor { get => pcb_CurveColor.BackColor; set => pcb_CurveColor.BackColor = value; }
-public string DotsSettings { get => txb_DotsString.Text; set => txb_DotsString.Text = value; }
-public int Thikness { get => (int)nud_Thickness.Value; set => nud_Thickness.Value = value; }
-public DashStyle dashStyle
-{
-get => dashStyle; set
-{
-if (value == DashStyle.Dash)
-{
-rb_Dash.Checked = true;
-rb_DashDot.Checked = false;
-rb_DashDotDot.Checked = false;
-rb_Dot.Checked = false;
-rb_Solid.Checked = false;
-}
-else if (value == DashStyle.DashDot)
-{
-rb_Dash.Checked = false;
-rb_DashDot.Checked = true;
-rb_DashDotDot.Checked = false;
-rb_Dot.Checked = false;
-rb_Solid.Checked = false;
-}
-else if (value == DashStyle.DashDotDot)
-{
-rb_Dash.Checked = false;
-rb_DashDot.Checked = false;
-rb_DashDotDot.Checked = true;
-rb_Dot.Checked = false;
-rb_Solid.Checked = false;
-}
-else if (value == DashStyle.Dot)
-{
-rb_Dash.Checked = false;
-rb_DashDot.Checked = false;
-rb_DashDotDot.Checked = false;
-rb_Dot.Checked = true;
-rb_Solid.Checked = false;
-}
-else
-{
-rb_Dash.Checked = false;
-rb_DashDot.Checked = false;
-rb_DashDotDot.Checked = false;
-rb_Dot.Checked = false;
-rb_Solid.Checked = true;
-}
-}
-}
+
+        /*
+
 
 private void открытьToolStripMenuItem_Click(object sender, EventArgs e)
 {
