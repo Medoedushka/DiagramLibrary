@@ -172,5 +172,29 @@
   <ItemGroup>
     <None Include="Resources\zoom-out.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\dash.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\dashdot.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\dashdotdot.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\dot.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\solid.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\refresh.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\trash%281%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\txt%281%29.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -198,6 +198,11 @@ namespace TestMyDrawing
             if (lbl_Edit.BackColor != lblChecked)
                 lbl_Edit.BackColor = lblFree;
         }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
+        }
         #endregion
 
 
