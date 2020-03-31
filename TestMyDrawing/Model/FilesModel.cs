@@ -99,7 +99,7 @@ namespace TestMyDrawing.Model
         public PointF[] GenerateSpiral(string path, double omega, double k, int start, int numsek)
         {
             double delta = 0.01;
-            PointF[] massiffchik = new PointF[(int)(numsek/delta) - start];
+            PointF[] pointsArray = new PointF[(int)(numsek/delta) - start];
             //start - point of starting spiral
             start = start < 0 ? (-1) * start : start;
             //numsek - the length of spiral
@@ -107,11 +107,11 @@ namespace TestMyDrawing.Model
             numsek += start;
             //k - koef of spiral
             //omega a hui eye znaet nahua tupa koeff
-            using (FileStream file = File.OpenWrite("dots" + omega + "_" + k + "_" + start + "_" + numsek))
+            using (FileStream file_bin= File.OpenWrite("dots" + omega + "_" + k + "_" + start + "_" + numsek + ".bin"))
             {
-                FileStream medoed_file = File.OpenWrite("dots" + omega + "_" + k + "_" + start + "_" + numsek + ".txt");
-                BinaryWriter br = new BinaryWriter(file);
-                StreamWriter sw = new StreamWriter(medoed_file);
+                FileStream file_txt = File.OpenWrite("dots" + omega + "_" + k + "_" + start + "_" + numsek + ".txt");
+                BinaryWriter br = new BinaryWriter(file_bin);
+                StreamWriter sw = new StreamWriter(file_txt);
                 int counter = 0;
                 for (double t = start; t < numsek; t += delta)
                 {
@@ -123,16 +123,16 @@ namespace TestMyDrawing.Model
                     br.Write(x);
                     br.Write(y);
                     sw.Write(x + " " + y + "\n");
-                    if (counter < massiffchik.Length)
+                    if (counter < pointsArray.Length)
                     {
-                        massiffchik[counter].X = (float)x;
-                        massiffchik[counter].Y = (float)y;
+                        pointsArray[counter].X = (float)x;
+                        pointsArray[counter].Y = (float)y;
                     }
                     else throw new Exception("Присти, медоед, я идиот. Передай мне, что тут говно");
                 }
-                medoed_file.Close();
+                file_txt.Close();
             }
-            return massiffchik;
+            return pointsArray;
         }
     }
 }
