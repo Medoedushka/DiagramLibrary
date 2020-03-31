@@ -228,32 +228,16 @@ namespace TestMyDrawing
                 lbl_Edit.BackColor = lblFree;
         }
         #endregion
-
-
-
-        private void label4_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btn_Back_Click(object sender, EventArgs e)
-        {
-
-            pnl_CurveSettings.Location = new Point(this.Width + 10, pnl_CurveSettings.Location.Y);
-            btn_Back.Visible = false;
-        }
-
-
+        
+        #region<---Элементы ленты "Файл"--->
         public void OpenFile(object sender, EventArgs e)
         {
             LoadFile?.Invoke(this, EventArgs.Empty);
         }
-
         public void CreateFile(object sender, EventArgs e)
         {
             CreateNewFile?.Invoke(this, EventArgs.Empty);
         }
-
         public void SaveFile(object sender, EventArgs e)
         {
             bool? b = SaveCreatedFile?.Invoke();
@@ -271,16 +255,28 @@ namespace TestMyDrawing
         {
             CloseFile?.Invoke();
         }
-
         public void PrintDiagram(object sender, EventArgs e)
         {
             Print?.Invoke(this, EventArgs.Empty);
         }
-
         public void ShowPreview(object sender, EventArgs e)
         {
             Preview?.Invoke(this, EventArgs.Empty);
         }
+        #endregion
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btn_Back_Click(object sender, EventArgs e)
+        {
+
+            pnl_CurveSettings.Location = new Point(this.Width + 10, pnl_CurveSettings.Location.Y);
+            btn_Back.Visible = false;
+        }
+
 
         public void ZoomIn(object sender, EventArgs e)
         {
