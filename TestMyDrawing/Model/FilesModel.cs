@@ -96,8 +96,10 @@ namespace TestMyDrawing.Model
             crrStream = new FileStream(path, FileMode.Open, FileAccess.ReadWrite);
         }
 
-        public void GenerateSpiral(string path, double omega, double k, int start, int numsek)
+        public PointF[] GenerateSpiral(string path, double omega, double k, int start, int numsek)
         {
+            double delta = 0.01;
+            PointF[] massiffchik = new PointF[(int)(numsek/delta) - start];
             //start - point of starting spiral
             start = start < 0 ? (-1) * start : start;
             //numsek - the length of spiral
@@ -110,8 +112,10 @@ namespace TestMyDrawing.Model
                 FileStream medoed_file = File.OpenWrite("dots" + omega + "_" + k + "_" + start + "_" + numsek + ".txt");
                 BinaryWriter br = new BinaryWriter(file);
                 StreamWriter sw = new StreamWriter(medoed_file);
-                for (double t = start; t < numsek; t += 0.01)
+                int counter = 0;
+                for (double t = start; t < numsek; t += delta)
                 {
+
                     br.Write(t);
                     double omt = omega * t;
                     double x = (double)(k * omt * Math.Cos(omt) / 4),
@@ -119,9 +123,16 @@ namespace TestMyDrawing.Model
                     br.Write(x);
                     br.Write(y);
                     sw.Write(x + " " + y + "\n");
+                    if (counter < massiffchik.Length)
+                    {
+                        massiffchik[counter].X = (float)x;
+                        massiffchik[counter].Y = (float)y;
+                    }
+                    else throw new Exception("Присти, медоед, я идиот. Передай мне, что тут говно");
                 }
                 medoed_file.Close();
             }
+            return massiffchik;
         }
     }
 }
