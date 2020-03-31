@@ -95,5 +95,29 @@ namespace TestMyDrawing.Model
             gr.placeToDraw.Image.Save(dirPath + ".png", System.Drawing.Imaging.ImageFormat.Png);
             crrStream = new FileStream(path, FileMode.Open, FileAccess.ReadWrite);
         }
+
+        public void GenerateSpiral(string path, double omega, double k, int start, int numsek)
+        {
+            start = start < 0 ? (-1) * start : start;
+            numsek = numsek < 0 ? (-1) * numsek : numsek;
+            numsek += start;
+            using (FileStream file = File.OpenWrite("dots" + omega + "_" + k + "_" + start + "_" + numsek))
+            {
+                FileStream medoed_file = File.OpenWrite("dots" + omega + "_" + k + "_" + start + "_" + numsek + ".txt");
+                BinaryWriter br = new BinaryWriter(file);
+                StreamWriter sw = new StreamWriter(medoed_file);
+                for (double t = start; t < numsek; t += 0.01)
+                {
+                    br.Write(t);
+                    double omt = omega * t;
+                    double x = (double)(k * omt * Math.Cos(omt) / 4),
+                        y = (double)(k * omt * Math.Sin(omt));
+                    br.Write(x);
+                    br.Write(y);
+                    sw.Write(x + " " + y + "\n");
+                }
+                medoed_file.Close();
+            }
+        }
     }
 }

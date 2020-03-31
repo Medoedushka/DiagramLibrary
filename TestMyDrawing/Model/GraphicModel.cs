@@ -153,5 +153,8 @@ namespace TestMyDrawing.Model
             }
             gr.DrawDiagram();
         }
+
+
+        
     }
 }
