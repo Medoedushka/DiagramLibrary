@@ -9,7 +9,7 @@ using TestMyDrawing.ElementsOfStrip;
 
 namespace TestMyDrawing
 {
-    public partial class MainForm : Form
+    public partial class MainForm : Form, IView
     {
         public event EventHandler<EventArgs> CreateNewFile;
         public event Func<bool> SaveCreatedFile;
@@ -28,7 +28,7 @@ namespace TestMyDrawing
         public event EventHandler<EventArgs> Print;
         public event EventHandler<EventArgs> Preview;
 
-        /*
+
         public string TableTxt { get => rtb_TableTxt.Text; set => rtb_TableTxt.Text = value; }
         public string CurrentFileName { get => lbl_CurrentFile.Text; set => lbl_CurrentFile.Text = value; }
         public PictureBox graph { get; set; }
@@ -91,7 +91,28 @@ namespace TestMyDrawing
                 }
             }
         }
-        */
+
+        static MainForm _obj;
+        public static MainForm Instance
+        {
+            get
+            {
+                if (_obj == null)
+                {
+                    _obj = new MainForm();
+                }
+                return _obj;
+            }
+        }
+        public Panel PnlCurvesSettings
+        {
+            get { return pnl_CurveSettings; }
+        }
+        public ComboBox cmbDotCurves
+        {
+            get { return cmb_CurvesDots; }
+        }
+
         Color lblChecked = Color.FromArgb(9, 154, 185);
         Color lblFree = Color.FromArgb(5, 89, 107);
         Color controlEnter = Color.FromArgb(177, 34, 207, 244);
@@ -99,7 +120,8 @@ namespace TestMyDrawing
         public MainForm()
         {
             InitializeComponent();
-            //graph = pictureBox1;
+            _obj = this;
+            graph = pictureBox1;
         }
 
         private void label1_Click(object sender, EventArgs e)

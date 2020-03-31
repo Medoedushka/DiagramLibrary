@@ -45,6 +45,7 @@
             this.btn_CurveParams.Size = new System.Drawing.Size(65, 65);
             this.btn_CurveParams.TabIndex = 0;
             this.btn_CurveParams.UseVisualStyleBackColor = true;
+            this.btn_CurveParams.Click += new System.EventHandler(this.btn_CurveParams_Click);
             // 
             // btn_DiagrammParams
             // 
