@@ -98,9 +98,13 @@ namespace TestMyDrawing.Model
 
         public void GenerateSpiral(string path, double omega, double k, int start, int numsek)
         {
+            //start - point of starting spiral
             start = start < 0 ? (-1) * start : start;
+            //numsek - the length of spiral
             numsek = numsek < 0 ? (-1) * numsek : numsek;
             numsek += start;
+            //k - koef of spiral
+            //omega a hui eye znaet nahua tupa koeff
             using (FileStream file = File.OpenWrite("dots" + omega + "_" + k + "_" + start + "_" + numsek))
             {
                 FileStream medoed_file = File.OpenWrite("dots" + omega + "_" + k + "_" + start + "_" + numsek + ".txt");
