@@ -5,6 +5,7 @@ using MyDrawing;
 using MAC_Dll;
 using System.Windows.Forms;
 using TestMyDrawing.View;
+using TestMyDrawing.ElementsOfStrip;
 
 namespace TestMyDrawing
 {
@@ -27,21 +28,20 @@ namespace TestMyDrawing
         public event EventHandler<EventArgs> Print;
         public event EventHandler<EventArgs> Preview;
 
-        public MainForm()
-        {
-            InitializeComponent();
-            graph = pictureBox1;
-        }
 
         public string TableTxt { get => rtb_TableTxt.Text; set => rtb_TableTxt.Text = value; }
         public string CurrentFileName { get => lbl_CurrentFile.Text; set => lbl_CurrentFile.Text = value; }
         public PictureBox graph { get; set; }
         public bool MousePressed { get; set; } = false;
 
-        public string[] CurvesNames { get => new string[] { cmb_Curves.Items.ToString() }; set {
+        public string[] CurvesNames
+        {
+            get => new string[] { cmb_Curves.Items.ToString() }; set
+            {
                 cmb_Curves.Items.Clear(); cmb_Curves.Items.AddRange(value);
                 cmb_CurvesDots.Items.Clear(); cmb_CurvesDots.Items.AddRange(value);
-            } }
+            }
+        }
         public Color CurveColor { get => pcb_CurveColor.BackColor; set => pcb_CurveColor.BackColor = value; }
         public string DotsSettings { get => txb_DotsString.Text; set => txb_DotsString.Text = value; }
         public int Thikness { get => (int)nud_Thickness.Value; set => nud_Thickness.Value = value; }
@@ -91,53 +91,209 @@ namespace TestMyDrawing
                 }
             }
         }
-            
-        private void открытьToolStripMenuItem_Click(object sender, EventArgs e)
+
+        static MainForm _obj;
+        public static MainForm Instance
+        {
+            get
+            {
+                if (_obj == null)
+                {
+                    _obj = new MainForm();
+                }
+                return _obj;
+            }
+        }
+        public Panel PnlCurvesSettings
+        {
+            get { return pnl_CurveSettings; }
+        }
+        public ComboBox cmbDotCurves
+        {
+            get { return cmb_CurvesDots; }
+        }
+        public Button btnBack
+        {
+            get { return btn_Back; }
+        }
+
+        Color lblChecked = Color.FromArgb(9, 154, 185);
+        Color lblFree = Color.FromArgb(5, 89, 107);
+        Color controlEnter = Color.FromArgb(177, 34, 207, 244);
+
+        public MainForm()
+        {
+            InitializeComponent();
+            _obj = this;
+            graph = pictureBox1;
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            lbl_File_Click(this, EventArgs.Empty);
+            InitGraphic?.Invoke(this, EventArgs.Empty);
+            this.Size = new Size(Screen.PrimaryScreen.WorkingArea.Width, Screen.PrimaryScreen.WorkingArea.Height);
+            PlotAction?.Invoke(this, new GraphicEventArgs(EventType.ResizePlot));
+        }
+
+        #region<---Обработка ленты-->
+        private void lbl_File_Click(object sender, EventArgs e)
+        {
+            lbl_Service.BackColor = lblFree;
+            lbl_Edit.BackColor = lblFree;
+            lbl_File.BackColor = lblChecked;
+            if (!pnl_StripElements.Controls.ContainsKey("FileUC"))
+            {
+                FileUC uc = new FileUC();
+                uc.Dock = DockStyle.Fill;
+                uc.BackColor = lblChecked;
+                pnl_StripElements.Controls.Add(uc);
+            }
+            pnl_StripElements.Controls["FileUC"].BringToFront();
+        }
+
+        private void lbl_Service_Click(object sender, EventArgs e)
+        {
+            lbl_File.BackColor = lblFree;
+            lbl_Edit.BackColor = lblFree;
+            lbl_Service.BackColor = lblChecked;
+            if (!pnl_StripElements.Controls.ContainsKey("ServiceUC"))
+            {
+                ServiceUC uc = new ServiceUC();
+                uc.Dock = DockStyle.Fill;
+                uc.BackColor = lblChecked;
+                pnl_StripElements.Controls.Add(uc);
+            }
+            pnl_StripElements.Controls["ServiceUC"].BringToFront();
+        }
+
+        private void lbl_Edit_Click(object sender, EventArgs e)
+        {
+            lbl_File.BackColor = lblFree;
+            lbl_Service.BackColor = lblFree;
+            lbl_Edit.BackColor = lblChecked;
+            if (!pnl_StripElements.Controls.ContainsKey("EditUC"))
+            {
+                EditUC uc = new EditUC();
+                uc.Dock = DockStyle.Fill;
+                uc.BackColor = lblChecked;
+                pnl_StripElements.Controls.Add(uc);
+            }
+            pnl_StripElements.Controls["EditUC"].BringToFront();
+        }
+        private void label1_MouseLeave(object sender, EventArgs e)
+        {
+            label1.BackColor = lblFree;
+        }
+        private void label1_MouseEnter(object sender, EventArgs e)
+        {
+            label1.BackColor = controlEnter;
+        }
+
+        private void lbl_File_MouseLeave(object sender, EventArgs e)
+        {
+            if (lbl_File.BackColor != lblChecked)
+                lbl_File.BackColor = lblFree;
+        }
+        private void lbl_File_MouseEnter(object sender, EventArgs e)
+        {
+            if (lbl_File.BackColor != lblChecked)
+                lbl_File.BackColor = controlEnter;
+        }
+
+        private void lbl_Service_MouseEnter(object sender, EventArgs e)
+        {
+            if (lbl_Service.BackColor != lblChecked)
+                lbl_Service.BackColor = controlEnter;
+        }
+        private void lbl_Service_MouseLeave(object sender, EventArgs e)
+        {
+            if (lbl_Service.BackColor != lblChecked)
+                lbl_Service.BackColor = lblFree;
+        }
+
+        private void lbl_Edit_MouseEnter(object sender, EventArgs e)
+        {
+            if (lbl_Edit.BackColor != lblChecked)
+                lbl_Edit.BackColor = controlEnter;
+        }
+        private void lbl_Edit_MouseLeave(object sender, EventArgs e)
+        {
+            if (lbl_Edit.BackColor != lblChecked)
+                lbl_Edit.BackColor = lblFree;
+        }
+        #endregion
+
+
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btn_Back_Click(object sender, EventArgs e)
+        {
+
+            pnl_CurveSettings.Location = new Point(this.Width + 10, pnl_CurveSettings.Location.Y);
+            btn_Back.Visible = false;
+        }
+
+
+        public void OpenFile(object sender, EventArgs e)
         {
             LoadFile?.Invoke(this, EventArgs.Empty);
         }
 
-        private void создатьToolStripMenuItem_Click(object sender, EventArgs e)
+        public void CreateFile(object sender, EventArgs e)
         {
             CreateNewFile?.Invoke(this, EventArgs.Empty);
         }
 
-        private void сохранитьToolStripMenuItem_Click(object sender, EventArgs e)
+        public void SaveFile(object sender, EventArgs e)
         {
             bool? b = SaveCreatedFile?.Invoke();
             if (b == true)
             {
-                if (MessageBox.Show("Файл успешно сохранён! Желаете просмотреть файлы?", 
-                    "Сохранение", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
+                if (MessageBox.Show("Файл успешно сохранён! Желаете просмотреть файлы?",
+                "Сохранение", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
                 {
                     string dirOpen = lbl_CurrentFile.Text.Remove(lbl_CurrentFile.Text.LastIndexOf("\\"));
                     System.Diagnostics.Process.Start(dirOpen);
                 }
             }
         }
-
-        private void закрытьToolStripMenuItem_Click(object sender, EventArgs e)
+        public void CloseCrrFile(object sender, EventArgs e)
         {
             CloseFile?.Invoke();
         }
 
-        private void выходToolStripMenuItem_Click(object sender, EventArgs e)
+        public void PrintDiagram(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Вы действительно хотите закрыть приложение?", "Закрыть",
-                MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-            {
-                Application.Exit();
-            }
+            Print?.Invoke(this, EventArgs.Empty);
         }
 
-        private void MainForm_Load(object sender, EventArgs e)
+        public void ShowPreview(object sender, EventArgs e)
         {
-            InitGraphic?.Invoke(this, EventArgs.Empty);
+            Preview?.Invoke(this, EventArgs.Empty);
         }
 
-        private void MainForm_SizeChanged(object sender, EventArgs e)
+        public void ZoomIn(object sender, EventArgs e)
         {
-            PlotAction?.Invoke(this, new GraphicEventArgs(EventType.ResizePlot));
+            GraphicEventArgs graphicEvent = new GraphicEventArgs(EventType.Zoom);
+            graphicEvent.Zoom = true;
+            Zoom?.Invoke(this, graphicEvent);
+        }
+
+        public void ZoomOut(object sender, EventArgs e)
+        {
+            GraphicEventArgs graphicEvent = new GraphicEventArgs(EventType.Zoom);
+            graphicEvent.Zoom = false;
+            Zoom?.Invoke(this, graphicEvent);
         }
 
         private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
@@ -156,6 +312,11 @@ namespace TestMyDrawing
         {
             PlotMouseUp?.Invoke(this, e);
         }
+        private void MainForm_SizeChanged(object sender, EventArgs e)
+        {
+            PlotAction?.Invoke(this, new GraphicEventArgs(EventType.ResizePlot));
+        }
+
 
         private void btn_RefreshCurve_Click(object sender, EventArgs e)
         {
@@ -170,14 +331,14 @@ namespace TestMyDrawing
                 style = System.Drawing.Drawing2D.DashStyle.Dot;
             else style = System.Drawing.Drawing2D.DashStyle.Solid;
 
-            Curves newCurve = new Curves(new PointF[] { }, pcb_CurveColor.BackColor, style, (int)nud_Thickness.Value ,cmb_Curves.Text, txb_DotsString.Text);
+            Curves newCurve = new Curves(new PointF[] { }, pcb_CurveColor.BackColor, style, (int)nud_Thickness.Value, cmb_Curves.Text, txb_DotsString.Text);
             GraphicEventArgs graphicEvent = new GraphicEventArgs(EventType.AdpdateCurve);
             graphicEvent.newCurve = newCurve;
             graphicEvent.Delete = false;
             if (txb_CurveLegend.Text != "") graphicEvent.NewName = txb_CurveLegend.Text;
             ApdateCurvesList?.Invoke(this, graphicEvent);
-            
-            cmb_Curves.SelectedItem = null;
+
+            cmb_Curves.Text = "";
             txb_CurveLegend.Text = "";
             pcb_CurveColor.BackColor = Color.Transparent;
             txb_DotsString.Text = "";
@@ -192,13 +353,13 @@ namespace TestMyDrawing
 
         private void btn_DeleteCurve_Click(object sender, EventArgs e)
         {
-            Curves newCurve = new Curves(new PointF[] { }, pcb_CurveColor.BackColor, CurveThickness:(int)nud_Thickness.Value,Legend:cmb_Curves.Text, dotsType: txb_DotsString.Text);
+            Curves newCurve = new Curves(new PointF[] { }, pcb_CurveColor.BackColor, CurveThickness: (int)nud_Thickness.Value, Legend: cmb_Curves.Text, dotsType: txb_DotsString.Text);
             GraphicEventArgs graphicEvent = new GraphicEventArgs(EventType.AdpdateCurve);
             graphicEvent.newCurve = newCurve;
             graphicEvent.Delete = true;
             ApdateCurvesList?.Invoke(this, graphicEvent);
 
-            cmb_Curves.SelectedItem = null;
+            cmb_Curves.Text = "";
             txb_CurveLegend.Text = "";
             pcb_CurveColor.BackColor = Color.Transparent;
             txb_DotsString.Text = "";
@@ -219,35 +380,19 @@ namespace TestMyDrawing
         {
             GraphicEventArgs graphicEvent = new GraphicEventArgs(EventType.AddNewCurve);
             if (MessageBox.Show("Отсортировать данные в файле по возрастанию аргумента?", "Добавление кривой", MessageBoxButtons.YesNo,
-                MessageBoxIcon.Question) == DialogResult.Yes)
+            MessageBoxIcon.Question) == DialogResult.Yes)
                 graphicEvent.SortValues = true;
             else graphicEvent.SortValues = false;
 
             AddNewCurve?.Invoke(this, graphicEvent);
         }
 
-        private void отменадействияToolStripMenuItem_Click(object sender, EventArgs e)
+        private void MainForm_KeyDown(object sender, KeyEventArgs e)
         {
-            GraphicEventArgs graphicEvent = new GraphicEventArgs(EventType.Zoom);
-            graphicEvent.Zoom = true;
-            Zoom?.Invoke(this, graphicEvent);
-        }
-
-        private void отменадействияToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            GraphicEventArgs graphicEvent = new GraphicEventArgs(EventType.Zoom);
-            graphicEvent.Zoom = false;
-            Zoom?.Invoke(this, graphicEvent);
-        }
-
-        private void печатьToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Print?.Invoke(this, EventArgs.Empty);
-        }
-
-        private void предварительныйПросмотрToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Preview?.Invoke(this, EventArgs.Empty);
+            if (e.Control && e.KeyCode == Keys.Z)
+                ZoomIn(this, EventArgs.Empty);
+            if (e.Control && e.KeyCode == Keys.X)
+                ZoomOut(this, EventArgs.Empty);
         }
     }
 }
