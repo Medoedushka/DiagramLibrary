@@ -196,5 +196,11 @@
   <ItemGroup>
     <None Include="Resources\txt%281%29.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8_undo_50px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8_undo_50px1.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

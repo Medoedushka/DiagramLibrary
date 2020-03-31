@@ -35,7 +35,7 @@ namespace TestMyDrawing.ElementsOfStrip
 
         private void btn_CurveParams_Click(object sender, EventArgs e)
         {
-            
+            MainForm.Instance.btnBack.Visible = true;
             timer.Start();
            
         }

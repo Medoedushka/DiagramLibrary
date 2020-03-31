@@ -49,6 +49,7 @@
             this.btn_Prev.Size = new System.Drawing.Size(65, 29);
             this.btn_Prev.TabIndex = 0;
             this.btn_Prev.UseVisualStyleBackColor = true;
+            this.btn_Prev.Click += new System.EventHandler(this.btn_Prev_Click);
             // 
             // btn_Print
             // 
@@ -63,6 +64,7 @@
             this.btn_Print.Size = new System.Drawing.Size(65, 29);
             this.btn_Print.TabIndex = 0;
             this.btn_Print.UseVisualStyleBackColor = true;
+            this.btn_Print.Click += new System.EventHandler(this.btn_Print_Click);
             // 
             // btn_SaveFile
             // 
@@ -77,6 +79,7 @@
             this.btn_SaveFile.Size = new System.Drawing.Size(65, 29);
             this.btn_SaveFile.TabIndex = 0;
             this.btn_SaveFile.UseVisualStyleBackColor = true;
+            this.btn_SaveFile.Click += new System.EventHandler(this.btn_SaveFile_Click);
             // 
             // btn_CloseCurrentFile
             // 
@@ -91,6 +94,7 @@
             this.btn_CloseCurrentFile.Size = new System.Drawing.Size(65, 29);
             this.btn_CloseCurrentFile.TabIndex = 0;
             this.btn_CloseCurrentFile.UseVisualStyleBackColor = true;
+            this.btn_CloseCurrentFile.Click += new System.EventHandler(this.btn_CloseCurrentFile_Click);
             // 
             // btn_OpenFile
             // 
@@ -105,6 +109,7 @@
             this.btn_OpenFile.Size = new System.Drawing.Size(65, 29);
             this.btn_OpenFile.TabIndex = 0;
             this.btn_OpenFile.UseVisualStyleBackColor = true;
+            this.btn_OpenFile.Click += new System.EventHandler(this.btn_OpenFile_Click);
             // 
             // btn_CreateNewFile
             // 
@@ -119,6 +124,7 @@
             this.btn_CreateNewFile.Size = new System.Drawing.Size(65, 29);
             this.btn_CreateNewFile.TabIndex = 0;
             this.btn_CreateNewFile.UseVisualStyleBackColor = true;
+            this.btn_CreateNewFile.Click += new System.EventHandler(this.btn_CreateNewFile_Click);
             // 
             // FileUC
             // 

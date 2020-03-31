@@ -45,6 +45,7 @@
             this.btn_ZoomOut.Size = new System.Drawing.Size(65, 65);
             this.btn_ZoomOut.TabIndex = 0;
             this.btn_ZoomOut.UseVisualStyleBackColor = true;
+            this.btn_ZoomOut.Click += new System.EventHandler(this.btn_ZoomOut_Click);
             // 
             // btn_ZoomIn
             // 
@@ -59,6 +60,7 @@
             this.btn_ZoomIn.Size = new System.Drawing.Size(65, 65);
             this.btn_ZoomIn.TabIndex = 0;
             this.btn_ZoomIn.UseVisualStyleBackColor = true;
+            this.btn_ZoomIn.Click += new System.EventHandler(this.btn_ZoomIn_Click);
             // 
             // EditUC
             // 

@@ -16,5 +16,15 @@ namespace TestMyDrawing.ElementsOfStrip
         {
             InitializeComponent();
         }
+
+        private void btn_ZoomIn_Click(object sender, EventArgs e)
+        {
+            MainForm.Instance.ZoomIn(this, EventArgs.Empty);
+        }
+
+        private void btn_ZoomOut_Click(object sender, EventArgs e)
+        {
+            MainForm.Instance.ZoomOut(this, EventArgs.Empty);
+        }
     }
 }

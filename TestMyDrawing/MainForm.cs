@@ -112,6 +112,10 @@ namespace TestMyDrawing
         {
             get { return cmb_CurvesDots; }
         }
+        public Button btnBack
+        {
+            get { return btn_Back; }
+        }
 
         Color lblChecked = Color.FromArgb(9, 154, 185);
         Color lblFree = Color.FromArgb(5, 89, 107);
@@ -132,6 +136,9 @@ namespace TestMyDrawing
         private void MainForm_Load(object sender, EventArgs e)
         {
             lbl_File_Click(this, EventArgs.Empty);
+            InitGraphic?.Invoke(this, EventArgs.Empty);
+            this.Size = new Size(Screen.PrimaryScreen.WorkingArea.Width, Screen.PrimaryScreen.WorkingArea.Height);
+            PlotAction?.Invoke(this, new GraphicEventArgs(EventType.ResizePlot));
         }
 
         #region<---Обработка ленты-->
@@ -220,176 +227,172 @@ namespace TestMyDrawing
             if (lbl_Edit.BackColor != lblChecked)
                 lbl_Edit.BackColor = lblFree;
         }
+        #endregion
+
+
 
         private void label4_Click(object sender, EventArgs e)
         {
 
         }
-        #endregion
+
+        private void btn_Back_Click(object sender, EventArgs e)
+        {
+
+            pnl_CurveSettings.Location = new Point(this.Width + 10, pnl_CurveSettings.Location.Y);
+            btn_Back.Visible = false;
+        }
 
 
+        public void OpenFile(object sender, EventArgs e)
+        {
+            LoadFile?.Invoke(this, EventArgs.Empty);
+        }
+
+        public void CreateFile(object sender, EventArgs e)
+        {
+            CreateNewFile?.Invoke(this, EventArgs.Empty);
+        }
+
+        public void SaveFile(object sender, EventArgs e)
+        {
+            bool? b = SaveCreatedFile?.Invoke();
+            if (b == true)
+            {
+                if (MessageBox.Show("Файл успешно сохранён! Желаете просмотреть файлы?",
+                "Сохранение", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
+                {
+                    string dirOpen = lbl_CurrentFile.Text.Remove(lbl_CurrentFile.Text.LastIndexOf("\\"));
+                    System.Diagnostics.Process.Start(dirOpen);
+                }
+            }
+        }
+        public void CloseCrrFile(object sender, EventArgs e)
+        {
+            CloseFile?.Invoke();
+        }
+
+        public void PrintDiagram(object sender, EventArgs e)
+        {
+            Print?.Invoke(this, EventArgs.Empty);
+        }
+
+        public void ShowPreview(object sender, EventArgs e)
+        {
+            Preview?.Invoke(this, EventArgs.Empty);
+        }
+
+        public void ZoomIn(object sender, EventArgs e)
+        {
+            GraphicEventArgs graphicEvent = new GraphicEventArgs(EventType.Zoom);
+            graphicEvent.Zoom = true;
+            Zoom?.Invoke(this, graphicEvent);
+        }
+
+        public void ZoomOut(object sender, EventArgs e)
+        {
+            GraphicEventArgs graphicEvent = new GraphicEventArgs(EventType.Zoom);
+            graphicEvent.Zoom = false;
+            Zoom?.Invoke(this, graphicEvent);
+        }
+
+        private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
+        {
+            PlotMouseDown?.Invoke(this, e);
+        }
+
+        private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
+        {
+            GraphicEventArgs eventArgs = new GraphicEventArgs(EventType.MovePlot);
+            eventArgs.mouseLocation = e.Location;
+            PlotAction?.Invoke(this, eventArgs);
+        }
+
+        private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
+        {
+            PlotMouseUp?.Invoke(this, e);
+        }
+        private void MainForm_SizeChanged(object sender, EventArgs e)
+        {
+            PlotAction?.Invoke(this, new GraphicEventArgs(EventType.ResizePlot));
+        }
 
 
-        /*
+        private void btn_RefreshCurve_Click(object sender, EventArgs e)
+        {
+            System.Drawing.Drawing2D.DashStyle style;
+            if (rb_Dash.Checked)
+                style = System.Drawing.Drawing2D.DashStyle.Dash;
+            else if (rb_DashDot.Checked)
+                style = System.Drawing.Drawing2D.DashStyle.DashDot;
+            else if (rb_DashDotDot.Checked)
+                style = System.Drawing.Drawing2D.DashStyle.DashDotDot;
+            else if (rb_Dot.Checked)
+                style = System.Drawing.Drawing2D.DashStyle.Dot;
+            else style = System.Drawing.Drawing2D.DashStyle.Solid;
 
+            Curves newCurve = new Curves(new PointF[] { }, pcb_CurveColor.BackColor, style, (int)nud_Thickness.Value, cmb_Curves.Text, txb_DotsString.Text);
+            GraphicEventArgs graphicEvent = new GraphicEventArgs(EventType.AdpdateCurve);
+            graphicEvent.newCurve = newCurve;
+            graphicEvent.Delete = false;
+            if (txb_CurveLegend.Text != "") graphicEvent.NewName = txb_CurveLegend.Text;
+            ApdateCurvesList?.Invoke(this, graphicEvent);
 
-private void открытьToolStripMenuItem_Click(object sender, EventArgs e)
-{
-LoadFile?.Invoke(this, EventArgs.Empty);
-}
+            cmb_Curves.Text = "";
+            txb_CurveLegend.Text = "";
+            pcb_CurveColor.BackColor = Color.Transparent;
+            txb_DotsString.Text = "";
+            nud_Thickness.Value = 1;
+        }
 
-private void создатьToolStripMenuItem_Click(object sender, EventArgs e)
-{
-CreateNewFile?.Invoke(this, EventArgs.Empty);
-}
+        private void cmb_Curves_TextChanged(object sender, EventArgs e)
+        {
+            txb_CurveLegend.Text = cmb_Curves.Text;
+            FillCurveFields?.Invoke(cmb_Curves.Text);
+        }
 
-private void сохранитьToolStripMenuItem_Click(object sender, EventArgs e)
-{
-bool? b = SaveCreatedFile?.Invoke();
-if (b == true)
-{
-if (MessageBox.Show("Файл успешно сохранён! Желаете просмотреть файлы?", 
-"Сохранение", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
-{
-string dirOpen = lbl_CurrentFile.Text.Remove(lbl_CurrentFile.Text.LastIndexOf("\\"));
-System.Diagnostics.Process.Start(dirOpen);
-}
-}
-}
+        private void btn_DeleteCurve_Click(object sender, EventArgs e)
+        {
+            Curves newCurve = new Curves(new PointF[] { }, pcb_CurveColor.BackColor, CurveThickness: (int)nud_Thickness.Value, Legend: cmb_Curves.Text, dotsType: txb_DotsString.Text);
+            GraphicEventArgs graphicEvent = new GraphicEventArgs(EventType.AdpdateCurve);
+            graphicEvent.newCurve = newCurve;
+            graphicEvent.Delete = true;
+            ApdateCurvesList?.Invoke(this, graphicEvent);
 
-private void закрытьToolStripMenuItem_Click(object sender, EventArgs e)
-{
-CloseFile?.Invoke();
-}
+            cmb_Curves.Text = "";
+            txb_CurveLegend.Text = "";
+            pcb_CurveColor.BackColor = Color.Transparent;
+            txb_DotsString.Text = "";
+            nud_Thickness.Value = 1;
+        }
 
-private void выходToolStripMenuItem_Click(object sender, EventArgs e)
-{
-if (MessageBox.Show("Вы действительно хотите закрыть приложение?", "Закрыть",
-MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-{
-Application.Exit();
-}
-}
+        private void brn_SetCurveColor_Click(object sender, EventArgs e)
+        {
+            SetCurveColor?.Invoke(this, EventArgs.Empty);
+        }
 
-private void MainForm_Load(object sender, EventArgs e)
-{
-InitGraphic?.Invoke(this, EventArgs.Empty);
-}
+        private void cmb_CurvesDots_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ShowCurvePoints?.Invoke(cmb_CurvesDots.Text);
+        }
 
-private void MainForm_SizeChanged(object sender, EventArgs e)
-{
-PlotAction?.Invoke(this, new GraphicEventArgs(EventType.ResizePlot));
-}
+        private void btn_AddNewCurve_Click(object sender, EventArgs e)
+        {
+            GraphicEventArgs graphicEvent = new GraphicEventArgs(EventType.AddNewCurve);
+            if (MessageBox.Show("Отсортировать данные в файле по возрастанию аргумента?", "Добавление кривой", MessageBoxButtons.YesNo,
+            MessageBoxIcon.Question) == DialogResult.Yes)
+                graphicEvent.SortValues = true;
+            else graphicEvent.SortValues = false;
 
-private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
-{
-PlotMouseDown?.Invoke(this, e);
-}
+            AddNewCurve?.Invoke(this, graphicEvent);
+        }
 
-private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
-{
-GraphicEventArgs eventArgs = new GraphicEventArgs(EventType.MovePlot);
-eventArgs.mouseLocation = e.Location;
-PlotAction?.Invoke(this, eventArgs);
-}
-
-private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
-{
-PlotMouseUp?.Invoke(this, e);
-}
-
-private void btn_RefreshCurve_Click(object sender, EventArgs e)
-{
-System.Drawing.Drawing2D.DashStyle style;
-if (rb_Dash.Checked)
-style = System.Drawing.Drawing2D.DashStyle.Dash;
-else if (rb_DashDot.Checked)
-style = System.Drawing.Drawing2D.DashStyle.DashDot;
-else if (rb_DashDotDot.Checked)
-style = System.Drawing.Drawing2D.DashStyle.DashDotDot;
-else if (rb_Dot.Checked)
-style = System.Drawing.Drawing2D.DashStyle.Dot;
-else style = System.Drawing.Drawing2D.DashStyle.Solid;
-
-Curves newCurve = new Curves(new PointF[] { }, pcb_CurveColor.BackColor, style, (int)nud_Thickness.Value ,cmb_Curves.Text, txb_DotsString.Text);
-GraphicEventArgs graphicEvent = new GraphicEventArgs(EventType.AdpdateCurve);
-graphicEvent.newCurve = newCurve;
-graphicEvent.Delete = false;
-if (txb_CurveLegend.Text != "") graphicEvent.NewName = txb_CurveLegend.Text;
-ApdateCurvesList?.Invoke(this, graphicEvent);
-
-cmb_Curves.SelectedItem = null;
-txb_CurveLegend.Text = "";
-pcb_CurveColor.BackColor = Color.Transparent;
-txb_DotsString.Text = "";
-nud_Thickness.Value = 1;
-}
-
-private void cmb_Curves_TextChanged(object sender, EventArgs e)
-{
-txb_CurveLegend.Text = cmb_Curves.Text;
-FillCurveFields?.Invoke(cmb_Curves.Text);
-}
-
-private void btn_DeleteCurve_Click(object sender, EventArgs e)
-{
-Curves newCurve = new Curves(new PointF[] { }, pcb_CurveColor.BackColor, CurveThickness:(int)nud_Thickness.Value,Legend:cmb_Curves.Text, dotsType: txb_DotsString.Text);
-GraphicEventArgs graphicEvent = new GraphicEventArgs(EventType.AdpdateCurve);
-graphicEvent.newCurve = newCurve;
-graphicEvent.Delete = true;
-ApdateCurvesList?.Invoke(this, graphicEvent);
-
-cmb_Curves.SelectedItem = null;
-txb_CurveLegend.Text = "";
-pcb_CurveColor.BackColor = Color.Transparent;
-txb_DotsString.Text = "";
-nud_Thickness.Value = 1;
-}
-
-private void brn_SetCurveColor_Click(object sender, EventArgs e)
-{
-SetCurveColor?.Invoke(this, EventArgs.Empty);
-}
-
-private void cmb_CurvesDots_SelectedIndexChanged(object sender, EventArgs e)
-{
-ShowCurvePoints?.Invoke(cmb_CurvesDots.Text);
-}
-
-private void btn_AddNewCurve_Click(object sender, EventArgs e)
-{
-GraphicEventArgs graphicEvent = new GraphicEventArgs(EventType.AddNewCurve);
-if (MessageBox.Show("Отсортировать данные в файле по возрастанию аргумента?", "Добавление кривой", MessageBoxButtons.YesNo,
-MessageBoxIcon.Question) == DialogResult.Yes)
-graphicEvent.SortValues = true;
-else graphicEvent.SortValues = false;
-
-AddNewCurve?.Invoke(this, graphicEvent);
-}
-
-private void отменадействияToolStripMenuItem_Click(object sender, EventArgs e)
-{
-GraphicEventArgs graphicEvent = new GraphicEventArgs(EventType.Zoom);
-graphicEvent.Zoom = true;
-Zoom?.Invoke(this, graphicEvent);
-}
-
-private void отменадействияToolStripMenuItem1_Click(object sender, EventArgs e)
-{
-GraphicEventArgs graphicEvent = new GraphicEventArgs(EventType.Zoom);
-graphicEvent.Zoom = false;
-Zoom?.Invoke(this, graphicEvent);
-}
-
-private void печатьToolStripMenuItem_Click(object sender, EventArgs e)
-{
-Print?.Invoke(this, EventArgs.Empty);
-}
-
-private void предварительныйПросмотрToolStripMenuItem_Click(object sender, EventArgs e)
-{
-Preview?.Invoke(this, EventArgs.Empty);
-}
-*/
+        private void MainForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Control && e.KeyCode == Keys.Z)
+                ZoomIn(this, EventArgs.Empty);
+            if (e.Control && e.KeyCode == Keys.X)
+                ZoomOut(this, EventArgs.Empty);
+        }
     }
 }
