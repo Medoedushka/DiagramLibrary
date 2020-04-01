@@ -7,11 +7,21 @@ using System.Windows.Forms;
 using TestMyDrawing.View;
 using TestMyDrawing.ElementsOfStrip;
 using System.Drawing.Text;
+using System.Runtime.InteropServices;
 
 namespace TestMyDrawing
 {
     public partial class MainForm : Form, IView
     {
+        [DllImport("user32", CharSet = CharSet.Auto)]
+        internal extern static bool PostMessage(IntPtr hWnd, uint Msg, uint WParam, uint LParam);
+        [DllImport("user32", CharSet = CharSet.Auto)]
+        internal extern static bool ReleaseCapture();
+
+        const uint WM_SYSCOMMAND = 0x0112;
+        const uint DOMOVE = 0xF012;
+        const uint DOSIZE = 0xF008;
+
         public event EventHandler<EventArgs> CreateNewFile;
         public event Func<bool> SaveCreatedFile;
         public event EventHandler<EventArgs> LoadFile;
@@ -438,6 +448,10 @@ namespace TestMyDrawing
                 ZoomOut(this, EventArgs.Empty);
         }
 
-        
+        private void panel1_MouseDown(object sender, MouseEventArgs e)
+        {
+            ReleaseCapture();
+            PostMessage(this.Handle, WM_SYSCOMMAND, DOMOVE, 0);
+        }
     }
 }
