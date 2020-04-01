@@ -6,6 +6,7 @@ using MAC_Dll;
 using System.Windows.Forms;
 using TestMyDrawing.View;
 using TestMyDrawing.ElementsOfStrip;
+using System.Drawing.Text;
 
 namespace TestMyDrawing
 {
@@ -188,11 +189,11 @@ namespace TestMyDrawing
         }
         private void label1_MouseLeave(object sender, EventArgs e)
         {
-            label1.BackColor = lblFree;
+            pictureBox3.BackColor = lblFree;
         }
         private void label1_MouseEnter(object sender, EventArgs e)
         {
-            label1.BackColor = controlEnter;
+            pictureBox3.BackColor = controlEnter;
         }
 
         private void lbl_File_MouseLeave(object sender, EventArgs e)

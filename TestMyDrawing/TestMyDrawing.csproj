@@ -213,6 +213,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="icons8_plot.ico" />
+    <None Include="Resources\close.png" />
+    <None Include="Resources\icons8_checkmark_50px_1.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
