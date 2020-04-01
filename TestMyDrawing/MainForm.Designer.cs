@@ -300,7 +300,7 @@
             this.pnl_CurveSettings.Font = new System.Drawing.Font("Cambria", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.pnl_CurveSettings.Location = new System.Drawing.Point(1050, 45);
             this.pnl_CurveSettings.Name = "pnl_CurveSettings";
-            this.pnl_CurveSettings.Size = new System.Drawing.Size(353, 423);
+            this.pnl_CurveSettings.Size = new System.Drawing.Size(353, 485);
             this.pnl_CurveSettings.TabIndex = 4;
             // 
             // cmb_Curves
