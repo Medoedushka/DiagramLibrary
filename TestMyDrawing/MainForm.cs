@@ -137,6 +137,13 @@ namespace TestMyDrawing
             this.Size = new Size(Screen.PrimaryScreen.WorkingArea.Width, Screen.PrimaryScreen.WorkingArea.Height);
             PlotAction?.Invoke(this, new GraphicEventArgs(EventType.ResizePlot));
         }
+        private void MainForm_SizeChanged(object sender, EventArgs e)
+        {
+            if (this.WindowState != FormWindowState.Minimized)
+            {
+                PlotAction?.Invoke(this, new GraphicEventArgs(EventType.ResizePlot));
+            }
+        }
 
         #region<---Обработка ленты-->
         private void lbl_File_Click(object sender, EventArgs e)
@@ -197,9 +204,24 @@ namespace TestMyDrawing
             Application.Exit();
         }
 
+        bool workArea = true;
         private void pcb_Normalize_Click(object sender, EventArgs e)
         {
-
+            if (workArea)
+            {
+                pcb_Normalize.BackgroundImage = Properties.Resources.maximize;
+                this.Size = new Size(800, 600);
+                this.Location = new Point(this.Location.X + (Screen.PrimaryScreen.WorkingArea.Width - this.Width) / 2,
+                    this.Location.Y + (Screen.PrimaryScreen.WorkingArea.Height - this.Height / 2)/ 2);
+                workArea = false;
+            }
+            else
+            {
+                pcb_Normalize.BackgroundImage = Properties.Resources.normalize;
+                this.Location = Screen.PrimaryScreen.WorkingArea.Location;
+                this.Size = this.Size = new Size(Screen.PrimaryScreen.WorkingArea.Width, Screen.PrimaryScreen.WorkingArea.Height);
+                workArea = true;
+            }
         }
         private void pcb_Normalize_MouseEnter(object sender, EventArgs e)
         {
@@ -220,7 +242,7 @@ namespace TestMyDrawing
         }
         private void pcb_Minimize_Click(object sender, EventArgs e)
         {
-
+            this.WindowState = FormWindowState.Minimized;
         }
 
         private void lbl_File_MouseLeave(object sender, EventArgs e)
@@ -336,10 +358,7 @@ namespace TestMyDrawing
         {
             PlotMouseUp?.Invoke(this, e);
         }
-        private void MainForm_SizeChanged(object sender, EventArgs e)
-        {
-            PlotAction?.Invoke(this, new GraphicEventArgs(EventType.ResizePlot));
-        }
+        
 
 
         private void btn_RefreshCurve_Click(object sender, EventArgs e)
