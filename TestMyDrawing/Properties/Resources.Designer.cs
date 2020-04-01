@@ -93,6 +93,16 @@ namespace TestMyDrawing.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap close2 {
+            get {
+                object obj = ResourceManager.GetObject("close2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap curve_1_ {
             get {
                 object obj = ResourceManager.GetObject("curve(1)", resourceCulture);
@@ -206,6 +216,26 @@ namespace TestMyDrawing.Properties {
         internal static System.Drawing.Bitmap icons8_undo_50px1 {
             get {
                 object obj = ResourceManager.GetObject("icons8_undo_50px1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap minimize {
+            get {
+                object obj = ResourceManager.GetObject("minimize", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap normalize {
+            get {
+                object obj = ResourceManager.GetObject("normalize", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

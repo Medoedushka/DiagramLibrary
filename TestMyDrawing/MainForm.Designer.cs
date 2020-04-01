@@ -30,9 +30,6 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.panel1 = new System.Windows.Forms.Panel();
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.btn_Back = new System.Windows.Forms.Button();
             this.lbl_CurrentFile = new MetroFramework.Controls.MetroLabel();
             this.lbl_Edit = new System.Windows.Forms.Label();
             this.lbl_Service = new System.Windows.Forms.Label();
@@ -41,17 +38,8 @@
             this.pnl_CurveSettings = new System.Windows.Forms.Panel();
             this.cmb_Curves = new MetroFramework.Controls.MetroComboBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.btn_RefreshCurve = new System.Windows.Forms.Button();
-            this.btn_AddNewCurve = new System.Windows.Forms.Button();
-            this.btn_DeleteCurve = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.rb_Solid = new System.Windows.Forms.RadioButton();
-            this.rb_Dot = new System.Windows.Forms.RadioButton();
-            this.rb_DashDotDot = new System.Windows.Forms.RadioButton();
-            this.rb_DashDot = new System.Windows.Forms.RadioButton();
-            this.rb_Dash = new System.Windows.Forms.RadioButton();
             this.nud_Thickness = new System.Windows.Forms.NumericUpDown();
-            this.pcb_CurveColor = new System.Windows.Forms.PictureBox();
             this.txb_DotsString = new System.Windows.Forms.TextBox();
             this.panel4 = new System.Windows.Forms.Panel();
             this.txb_CurveLegend = new System.Windows.Forms.TextBox();
@@ -61,10 +49,8 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pnl_StripElements = new System.Windows.Forms.Panel();
             this.panel5 = new System.Windows.Forms.Panel();
-            this.button1 = new System.Windows.Forms.Button();
             this.chb_Smooth = new System.Windows.Forms.CheckBox();
             this.chb_Grid = new System.Windows.Forms.CheckBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
@@ -97,26 +83,46 @@
             this.panel6 = new System.Windows.Forms.Panel();
             this.cmb_CurvesDots = new MetroFramework.Controls.MetroComboBox();
             this.rtb_TableTxt = new System.Windows.Forms.RichTextBox();
+            this.btn_RefreshCurve = new System.Windows.Forms.Button();
+            this.btn_AddNewCurve = new System.Windows.Forms.Button();
+            this.btn_DeleteCurve = new System.Windows.Forms.Button();
+            this.rb_Solid = new System.Windows.Forms.RadioButton();
+            this.rb_Dot = new System.Windows.Forms.RadioButton();
+            this.rb_DashDotDot = new System.Windows.Forms.RadioButton();
+            this.rb_DashDot = new System.Windows.Forms.RadioButton();
+            this.rb_Dash = new System.Windows.Forms.RadioButton();
+            this.pcb_CurveColor = new System.Windows.Forms.PictureBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.pictureBox5 = new System.Windows.Forms.PictureBox();
+            this.pictureBox4 = new System.Windows.Forms.PictureBox();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.btn_Back = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.panel2.SuspendLayout();
             this.pnl_CurveSettings.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nud_Thickness)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pcb_CurveColor)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel5.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pcb_CurveColor)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(5)))), ((int)(((byte)(89)))), ((int)(((byte)(107)))));
+            this.panel1.Controls.Add(this.pictureBox5);
+            this.panel1.Controls.Add(this.pictureBox4);
             this.panel1.Controls.Add(this.pictureBox3);
             this.panel1.Controls.Add(this.pictureBox2);
             this.panel1.Controls.Add(this.btn_Back);
@@ -131,39 +137,6 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1030, 58);
             this.panel1.TabIndex = 0;
-            // 
-            // pictureBox3
-            // 
-            this.pictureBox3.Image = global::TestMyDrawing.Properties.Resources.close;
-            this.pictureBox3.Location = new System.Drawing.Point(1000, 0);
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(30, 30);
-            this.pictureBox3.TabIndex = 6;
-            this.pictureBox3.TabStop = false;
-            // 
-            // pictureBox2
-            // 
-            this.pictureBox2.BackgroundImage = global::TestMyDrawing.Properties.Resources.icons8_plot_50px;
-            this.pictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pictureBox2.Location = new System.Drawing.Point(3, 2);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(30, 30);
-            this.pictureBox2.TabIndex = 4;
-            this.pictureBox2.TabStop = false;
-            // 
-            // btn_Back
-            // 
-            this.btn_Back.BackgroundImage = global::TestMyDrawing.Properties.Resources.icons8_undo_50px1;
-            this.btn_Back.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.btn_Back.FlatAppearance.BorderSize = 0;
-            this.btn_Back.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_Back.Location = new System.Drawing.Point(38, 2);
-            this.btn_Back.Name = "btn_Back";
-            this.btn_Back.Size = new System.Drawing.Size(30, 30);
-            this.btn_Back.TabIndex = 3;
-            this.btn_Back.UseVisualStyleBackColor = true;
-            this.btn_Back.Visible = false;
-            this.btn_Back.Click += new System.EventHandler(this.btn_Back_Click);
             // 
             // lbl_CurrentFile
             // 
@@ -285,45 +258,6 @@
             this.groupBox2.TabIndex = 8;
             this.groupBox2.TabStop = false;
             // 
-            // btn_RefreshCurve
-            // 
-            this.btn_RefreshCurve.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_RefreshCurve.Image = global::TestMyDrawing.Properties.Resources.refresh;
-            this.btn_RefreshCurve.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btn_RefreshCurve.Location = new System.Drawing.Point(6, 18);
-            this.btn_RefreshCurve.Name = "btn_RefreshCurve";
-            this.btn_RefreshCurve.Size = new System.Drawing.Size(117, 35);
-            this.btn_RefreshCurve.TabIndex = 7;
-            this.btn_RefreshCurve.Text = "       Обновить";
-            this.btn_RefreshCurve.UseVisualStyleBackColor = true;
-            this.btn_RefreshCurve.Click += new System.EventHandler(this.btn_RefreshCurve_Click);
-            // 
-            // btn_AddNewCurve
-            // 
-            this.btn_AddNewCurve.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_AddNewCurve.Image = global::TestMyDrawing.Properties.Resources.txt_1_;
-            this.btn_AddNewCurve.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btn_AddNewCurve.Location = new System.Drawing.Point(6, 100);
-            this.btn_AddNewCurve.Name = "btn_AddNewCurve";
-            this.btn_AddNewCurve.Size = new System.Drawing.Size(117, 35);
-            this.btn_AddNewCurve.TabIndex = 7;
-            this.btn_AddNewCurve.Text = "       Добавить";
-            this.btn_AddNewCurve.UseVisualStyleBackColor = true;
-            this.btn_AddNewCurve.Click += new System.EventHandler(this.btn_AddNewCurve_Click);
-            // 
-            // btn_DeleteCurve
-            // 
-            this.btn_DeleteCurve.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_DeleteCurve.Image = global::TestMyDrawing.Properties.Resources.trash_1_;
-            this.btn_DeleteCurve.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btn_DeleteCurve.Location = new System.Drawing.Point(6, 59);
-            this.btn_DeleteCurve.Name = "btn_DeleteCurve";
-            this.btn_DeleteCurve.Size = new System.Drawing.Size(117, 35);
-            this.btn_DeleteCurve.TabIndex = 7;
-            this.btn_DeleteCurve.Text = "       Удалить";
-            this.btn_DeleteCurve.UseVisualStyleBackColor = true;
-            this.btn_DeleteCurve.Click += new System.EventHandler(this.btn_DeleteCurve_Click);
-            // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.rb_Solid);
@@ -337,61 +271,6 @@
             this.groupBox1.TabIndex = 6;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Тип линии";
-            // 
-            // rb_Solid
-            // 
-            this.rb_Solid.AutoSize = true;
-            this.rb_Solid.Image = global::TestMyDrawing.Properties.Resources.solid;
-            this.rb_Solid.Location = new System.Drawing.Point(3, 141);
-            this.rb_Solid.Name = "rb_Solid";
-            this.rb_Solid.Size = new System.Drawing.Size(114, 22);
-            this.rb_Solid.TabIndex = 0;
-            this.rb_Solid.TabStop = true;
-            this.rb_Solid.UseVisualStyleBackColor = true;
-            // 
-            // rb_Dot
-            // 
-            this.rb_Dot.AutoSize = true;
-            this.rb_Dot.Image = global::TestMyDrawing.Properties.Resources.dot;
-            this.rb_Dot.Location = new System.Drawing.Point(3, 112);
-            this.rb_Dot.Name = "rb_Dot";
-            this.rb_Dot.Size = new System.Drawing.Size(114, 22);
-            this.rb_Dot.TabIndex = 0;
-            this.rb_Dot.TabStop = true;
-            this.rb_Dot.UseVisualStyleBackColor = true;
-            // 
-            // rb_DashDotDot
-            // 
-            this.rb_DashDotDot.AutoSize = true;
-            this.rb_DashDotDot.Image = global::TestMyDrawing.Properties.Resources.dashdotdot;
-            this.rb_DashDotDot.Location = new System.Drawing.Point(3, 83);
-            this.rb_DashDotDot.Name = "rb_DashDotDot";
-            this.rb_DashDotDot.Size = new System.Drawing.Size(114, 22);
-            this.rb_DashDotDot.TabIndex = 0;
-            this.rb_DashDotDot.TabStop = true;
-            this.rb_DashDotDot.UseVisualStyleBackColor = true;
-            // 
-            // rb_DashDot
-            // 
-            this.rb_DashDot.AutoSize = true;
-            this.rb_DashDot.Image = global::TestMyDrawing.Properties.Resources.dashdot;
-            this.rb_DashDot.Location = new System.Drawing.Point(3, 54);
-            this.rb_DashDot.Name = "rb_DashDot";
-            this.rb_DashDot.Size = new System.Drawing.Size(112, 22);
-            this.rb_DashDot.TabIndex = 0;
-            this.rb_DashDot.TabStop = true;
-            this.rb_DashDot.UseVisualStyleBackColor = true;
-            // 
-            // rb_Dash
-            // 
-            this.rb_Dash.AutoSize = true;
-            this.rb_Dash.Image = global::TestMyDrawing.Properties.Resources.dash;
-            this.rb_Dash.Location = new System.Drawing.Point(3, 25);
-            this.rb_Dash.Name = "rb_Dash";
-            this.rb_Dash.Size = new System.Drawing.Size(114, 22);
-            this.rb_Dash.TabIndex = 0;
-            this.rb_Dash.TabStop = true;
-            this.rb_Dash.UseVisualStyleBackColor = true;
             // 
             // nud_Thickness
             // 
@@ -414,16 +293,6 @@
             0,
             0,
             0});
-            // 
-            // pcb_CurveColor
-            // 
-            this.pcb_CurveColor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pcb_CurveColor.Location = new System.Drawing.Point(319, 143);
-            this.pcb_CurveColor.Name = "pcb_CurveColor";
-            this.pcb_CurveColor.Size = new System.Drawing.Size(20, 20);
-            this.pcb_CurveColor.TabIndex = 4;
-            this.pcb_CurveColor.TabStop = false;
-            this.pcb_CurveColor.Click += new System.EventHandler(this.brn_SetCurveColor_Click);
             // 
             // txb_DotsString
             // 
@@ -510,24 +379,10 @@
             this.label2.TabIndex = 0;
             this.label2.Text = "Выбрать кривую:";
             // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBox1.BackColor = System.Drawing.Color.White;
-            this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBox1.Location = new System.Drawing.Point(5, 45);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(649, 485);
-            this.pictureBox1.TabIndex = 3;
-            this.pictureBox1.TabStop = false;
-            this.pictureBox1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseDown);
-            this.pictureBox1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseMove);
-            this.pictureBox1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseUp);
-            // 
             // pnl_StripElements
             // 
+            this.pnl_StripElements.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.pnl_StripElements.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(154)))), ((int)(((byte)(185)))));
             this.pnl_StripElements.Location = new System.Drawing.Point(0, 0);
             this.pnl_StripElements.Name = "pnl_StripElements";
@@ -549,18 +404,6 @@
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(353, 485);
             this.panel5.TabIndex = 5;
-            // 
-            // button1
-            // 
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Image = global::TestMyDrawing.Properties.Resources.icons8_checkmark_50px_1;
-            this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button1.Location = new System.Drawing.Point(212, 440);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(119, 35);
-            this.button1.TabIndex = 12;
-            this.button1.Text = "          Применить";
-            this.button1.UseVisualStyleBackColor = true;
             // 
             // chb_Smooth
             // 
@@ -996,6 +839,195 @@
             this.rtb_TableTxt.Text = "";
             this.rtb_TableTxt.WordWrap = false;
             // 
+            // btn_RefreshCurve
+            // 
+            this.btn_RefreshCurve.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_RefreshCurve.Image = global::TestMyDrawing.Properties.Resources.refresh;
+            this.btn_RefreshCurve.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btn_RefreshCurve.Location = new System.Drawing.Point(6, 18);
+            this.btn_RefreshCurve.Name = "btn_RefreshCurve";
+            this.btn_RefreshCurve.Size = new System.Drawing.Size(117, 35);
+            this.btn_RefreshCurve.TabIndex = 7;
+            this.btn_RefreshCurve.Text = "       Обновить";
+            this.btn_RefreshCurve.UseVisualStyleBackColor = true;
+            this.btn_RefreshCurve.Click += new System.EventHandler(this.btn_RefreshCurve_Click);
+            // 
+            // btn_AddNewCurve
+            // 
+            this.btn_AddNewCurve.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_AddNewCurve.Image = global::TestMyDrawing.Properties.Resources.txt_1_;
+            this.btn_AddNewCurve.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btn_AddNewCurve.Location = new System.Drawing.Point(6, 100);
+            this.btn_AddNewCurve.Name = "btn_AddNewCurve";
+            this.btn_AddNewCurve.Size = new System.Drawing.Size(117, 35);
+            this.btn_AddNewCurve.TabIndex = 7;
+            this.btn_AddNewCurve.Text = "       Добавить";
+            this.btn_AddNewCurve.UseVisualStyleBackColor = true;
+            this.btn_AddNewCurve.Click += new System.EventHandler(this.btn_AddNewCurve_Click);
+            // 
+            // btn_DeleteCurve
+            // 
+            this.btn_DeleteCurve.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_DeleteCurve.Image = global::TestMyDrawing.Properties.Resources.trash_1_;
+            this.btn_DeleteCurve.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btn_DeleteCurve.Location = new System.Drawing.Point(6, 59);
+            this.btn_DeleteCurve.Name = "btn_DeleteCurve";
+            this.btn_DeleteCurve.Size = new System.Drawing.Size(117, 35);
+            this.btn_DeleteCurve.TabIndex = 7;
+            this.btn_DeleteCurve.Text = "       Удалить";
+            this.btn_DeleteCurve.UseVisualStyleBackColor = true;
+            this.btn_DeleteCurve.Click += new System.EventHandler(this.btn_DeleteCurve_Click);
+            // 
+            // rb_Solid
+            // 
+            this.rb_Solid.AutoSize = true;
+            this.rb_Solid.Image = global::TestMyDrawing.Properties.Resources.solid;
+            this.rb_Solid.Location = new System.Drawing.Point(3, 141);
+            this.rb_Solid.Name = "rb_Solid";
+            this.rb_Solid.Size = new System.Drawing.Size(114, 22);
+            this.rb_Solid.TabIndex = 0;
+            this.rb_Solid.TabStop = true;
+            this.rb_Solid.UseVisualStyleBackColor = true;
+            // 
+            // rb_Dot
+            // 
+            this.rb_Dot.AutoSize = true;
+            this.rb_Dot.Image = global::TestMyDrawing.Properties.Resources.dot;
+            this.rb_Dot.Location = new System.Drawing.Point(3, 112);
+            this.rb_Dot.Name = "rb_Dot";
+            this.rb_Dot.Size = new System.Drawing.Size(114, 22);
+            this.rb_Dot.TabIndex = 0;
+            this.rb_Dot.TabStop = true;
+            this.rb_Dot.UseVisualStyleBackColor = true;
+            // 
+            // rb_DashDotDot
+            // 
+            this.rb_DashDotDot.AutoSize = true;
+            this.rb_DashDotDot.Image = global::TestMyDrawing.Properties.Resources.dashdotdot;
+            this.rb_DashDotDot.Location = new System.Drawing.Point(3, 83);
+            this.rb_DashDotDot.Name = "rb_DashDotDot";
+            this.rb_DashDotDot.Size = new System.Drawing.Size(114, 22);
+            this.rb_DashDotDot.TabIndex = 0;
+            this.rb_DashDotDot.TabStop = true;
+            this.rb_DashDotDot.UseVisualStyleBackColor = true;
+            // 
+            // rb_DashDot
+            // 
+            this.rb_DashDot.AutoSize = true;
+            this.rb_DashDot.Image = global::TestMyDrawing.Properties.Resources.dashdot;
+            this.rb_DashDot.Location = new System.Drawing.Point(3, 54);
+            this.rb_DashDot.Name = "rb_DashDot";
+            this.rb_DashDot.Size = new System.Drawing.Size(112, 22);
+            this.rb_DashDot.TabIndex = 0;
+            this.rb_DashDot.TabStop = true;
+            this.rb_DashDot.UseVisualStyleBackColor = true;
+            // 
+            // rb_Dash
+            // 
+            this.rb_Dash.AutoSize = true;
+            this.rb_Dash.Image = global::TestMyDrawing.Properties.Resources.dash;
+            this.rb_Dash.Location = new System.Drawing.Point(3, 25);
+            this.rb_Dash.Name = "rb_Dash";
+            this.rb_Dash.Size = new System.Drawing.Size(114, 22);
+            this.rb_Dash.TabIndex = 0;
+            this.rb_Dash.TabStop = true;
+            this.rb_Dash.UseVisualStyleBackColor = true;
+            // 
+            // pcb_CurveColor
+            // 
+            this.pcb_CurveColor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pcb_CurveColor.Location = new System.Drawing.Point(319, 143);
+            this.pcb_CurveColor.Name = "pcb_CurveColor";
+            this.pcb_CurveColor.Size = new System.Drawing.Size(20, 20);
+            this.pcb_CurveColor.TabIndex = 4;
+            this.pcb_CurveColor.TabStop = false;
+            this.pcb_CurveColor.Click += new System.EventHandler(this.brn_SetCurveColor_Click);
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBox1.BackColor = System.Drawing.Color.White;
+            this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureBox1.Location = new System.Drawing.Point(5, 45);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(649, 485);
+            this.pictureBox1.TabIndex = 3;
+            this.pictureBox1.TabStop = false;
+            this.pictureBox1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseDown);
+            this.pictureBox1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseMove);
+            this.pictureBox1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseUp);
+            // 
+            // button1
+            // 
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Image = global::TestMyDrawing.Properties.Resources.icons8_checkmark_50px_1;
+            this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button1.Location = new System.Drawing.Point(212, 440);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(119, 35);
+            this.button1.TabIndex = 12;
+            this.button1.Text = "          Применить";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // pictureBox5
+            // 
+            this.pictureBox5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBox5.BackgroundImage = global::TestMyDrawing.Properties.Resources.minimize;
+            this.pictureBox5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.pictureBox5.Location = new System.Drawing.Point(958, 0);
+            this.pictureBox5.Name = "pictureBox5";
+            this.pictureBox5.Size = new System.Drawing.Size(20, 20);
+            this.pictureBox5.TabIndex = 6;
+            this.pictureBox5.TabStop = false;
+            // 
+            // pictureBox4
+            // 
+            this.pictureBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBox4.BackgroundImage = global::TestMyDrawing.Properties.Resources.normalize;
+            this.pictureBox4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.pictureBox4.Location = new System.Drawing.Point(984, 0);
+            this.pictureBox4.Name = "pictureBox4";
+            this.pictureBox4.Size = new System.Drawing.Size(20, 20);
+            this.pictureBox4.TabIndex = 6;
+            this.pictureBox4.TabStop = false;
+            // 
+            // pictureBox3
+            // 
+            this.pictureBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBox3.BackgroundImage = global::TestMyDrawing.Properties.Resources.close2;
+            this.pictureBox3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.pictureBox3.Location = new System.Drawing.Point(1010, 0);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(20, 20);
+            this.pictureBox3.TabIndex = 6;
+            this.pictureBox3.TabStop = false;
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.BackgroundImage = global::TestMyDrawing.Properties.Resources.icons8_plot_50px;
+            this.pictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.pictureBox2.Location = new System.Drawing.Point(3, 2);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(30, 30);
+            this.pictureBox2.TabIndex = 4;
+            this.pictureBox2.TabStop = false;
+            // 
+            // btn_Back
+            // 
+            this.btn_Back.BackgroundImage = global::TestMyDrawing.Properties.Resources.icons8_undo_50px1;
+            this.btn_Back.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btn_Back.FlatAppearance.BorderSize = 0;
+            this.btn_Back.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_Back.Location = new System.Drawing.Point(38, 2);
+            this.btn_Back.Name = "btn_Back";
+            this.btn_Back.Size = new System.Drawing.Size(30, 30);
+            this.btn_Back.TabIndex = 3;
+            this.btn_Back.UseVisualStyleBackColor = true;
+            this.btn_Back.Visible = false;
+            this.btn_Back.Click += new System.EventHandler(this.btn_Back_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1014,8 +1046,6 @@
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainForm_KeyDown);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.panel2.ResumeLayout(false);
             this.pnl_CurveSettings.ResumeLayout(false);
             this.pnl_CurveSettings.PerformLayout();
@@ -1023,8 +1053,6 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nud_Thickness)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pcb_CurveColor)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel5.ResumeLayout(false);
             this.panel5.PerformLayout();
             this.groupBox3.ResumeLayout(false);
@@ -1032,6 +1060,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pcb_CurveColor)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1106,6 +1140,8 @@
         private System.Windows.Forms.CheckBox chb_Grid;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.PictureBox pictureBox3;
+        private System.Windows.Forms.PictureBox pictureBox5;
+        private System.Windows.Forms.PictureBox pictureBox4;
     }
 }
 
