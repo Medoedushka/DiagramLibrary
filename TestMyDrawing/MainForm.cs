@@ -129,10 +129,6 @@ namespace TestMyDrawing
             graph = pictureBox1;
         }
 
-        private void label1_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
-        }
 
         private void MainForm_Load(object sender, EventArgs e)
         {
@@ -187,13 +183,44 @@ namespace TestMyDrawing
             }
             pnl_StripElements.Controls["EditUC"].BringToFront();
         }
-        private void label1_MouseLeave(object sender, EventArgs e)
+
+        private void pcb_CloseApp_MouseLeave(object sender, EventArgs e)
         {
-            pictureBox3.BackColor = lblFree;
+            pcb_CloseApp.BackColor = lblFree;
         }
-        private void label1_MouseEnter(object sender, EventArgs e)
+        private void pcb_CloseApp_MouseEnter(object sender, EventArgs e)
         {
-            pictureBox3.BackColor = controlEnter;
+            pcb_CloseApp.BackColor = controlEnter;
+        }
+        private void pcb_CloseApp_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void pcb_Normalize_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void pcb_Normalize_MouseEnter(object sender, EventArgs e)
+        {
+            pcb_Normalize.BackColor = controlEnter;
+        }
+        private void pcb_Normalize_MouseLeave(object sender, EventArgs e)
+        {
+            pcb_Normalize.BackColor = lblFree;
+        }
+
+        private void pcb_Minimize_MouseEnter(object sender, EventArgs e)
+        {
+            pcb_Minimize.BackColor = controlEnter;
+        }
+        private void pcb_Minimize_MouseLeave(object sender, EventArgs e)
+        {
+            pcb_Minimize.BackColor = lblFree;
+        }
+        private void pcb_Minimize_Click(object sender, EventArgs e)
+        {
+
         }
 
         private void lbl_File_MouseLeave(object sender, EventArgs e)
@@ -391,5 +418,7 @@ namespace TestMyDrawing
             if (e.Control && e.KeyCode == Keys.X)
                 ZoomOut(this, EventArgs.Empty);
         }
+
+        
     }
 }

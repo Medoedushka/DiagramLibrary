@@ -214,6 +214,8 @@
   <ItemGroup>
     <Content Include="icons8_plot.ico" />
     <None Include="Resources\minimize.png" />
+    <None Include="Resources\normalize1.png" />
+    <None Include="Resources\close4.png" />
     <None Include="Resources\normalize.png" />
     <None Include="Resources\close3.png" />
     <None Include="Resources\close2.png" />

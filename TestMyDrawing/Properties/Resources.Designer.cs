@@ -93,16 +93,6 @@ namespace TestMyDrawing.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap close2 {
-            get {
-                object obj = ResourceManager.GetObject("close2", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap curve_1_ {
             get {
                 object obj = ResourceManager.GetObject("curve(1)", resourceCulture);
@@ -176,16 +166,6 @@ namespace TestMyDrawing.Properties {
         internal static System.Drawing.Bitmap icons8_checkmark_50px_1 {
             get {
                 object obj = ResourceManager.GetObject("icons8_checkmark_50px_1", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap icons8_coordinate_system_50px {
-            get {
-                object obj = ResourceManager.GetObject("icons8_coordinate_system_50px", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
