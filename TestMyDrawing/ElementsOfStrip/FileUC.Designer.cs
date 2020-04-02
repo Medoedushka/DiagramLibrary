@@ -31,13 +31,13 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FileUC));
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.panel3 = new System.Windows.Forms.Panel();
             this.btn_Prev = new System.Windows.Forms.Button();
             this.btn_Print = new System.Windows.Forms.Button();
             this.btn_SaveFile = new System.Windows.Forms.Button();
             this.btn_CloseCurrentFile = new System.Windows.Forms.Button();
             this.btn_OpenFile = new System.Windows.Forms.Button();
             this.btn_CreateNewFile = new System.Windows.Forms.Button();
-            this.panel3 = new System.Windows.Forms.Panel();
             this.SuspendLayout();
             // 
             // panel1
@@ -51,10 +51,18 @@
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(106)))), ((int)(((byte)(106)))), ((int)(((byte)(106)))));
-            this.panel2.Location = new System.Drawing.Point(219, 3);
+            this.panel2.Location = new System.Drawing.Point(223, 3);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(1, 54);
             this.panel2.TabIndex = 1;
+            // 
+            // panel3
+            // 
+            this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(106)))), ((int)(((byte)(106)))), ((int)(((byte)(106)))));
+            this.panel3.Location = new System.Drawing.Point(381, 3);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(1, 54);
+            this.panel3.TabIndex = 1;
             // 
             // btn_Prev
             // 
@@ -64,14 +72,14 @@
             this.btn_Prev.FlatAppearance.BorderSize = 0;
             this.btn_Prev.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_Prev.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btn_Prev.Image = ((System.Drawing.Image)(resources.GetObject("btn_Prev.Image")));
+            this.btn_Prev.Image = global::TestMyDrawing.Properties.Resources.preview;
             this.btn_Prev.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btn_Prev.Location = new System.Drawing.Point(230, 3);
+            this.btn_Prev.Location = new System.Drawing.Point(295, 3);
             this.btn_Prev.Margin = new System.Windows.Forms.Padding(7, 3, 7, 3);
             this.btn_Prev.Name = "btn_Prev";
-            this.btn_Prev.Size = new System.Drawing.Size(50, 50);
+            this.btn_Prev.Size = new System.Drawing.Size(76, 50);
             this.btn_Prev.TabIndex = 0;
-            this.btn_Prev.Text = "Печать";
+            this.btn_Prev.Text = "Предпросмотр";
             this.btn_Prev.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btn_Prev.UseVisualStyleBackColor = true;
             this.btn_Prev.Click += new System.EventHandler(this.btn_Prev_Click);
@@ -84,14 +92,14 @@
             this.btn_Print.FlatAppearance.BorderSize = 0;
             this.btn_Print.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_Print.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btn_Print.Image = ((System.Drawing.Image)(resources.GetObject("btn_Print.Image")));
+            this.btn_Print.Image = global::TestMyDrawing.Properties.Resources.print;
             this.btn_Print.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btn_Print.Location = new System.Drawing.Point(140, 3);
+            this.btn_Print.Location = new System.Drawing.Point(234, 3);
             this.btn_Print.Margin = new System.Windows.Forms.Padding(7, 3, 7, 3);
             this.btn_Print.Name = "btn_Print";
-            this.btn_Print.Size = new System.Drawing.Size(69, 50);
+            this.btn_Print.Size = new System.Drawing.Size(47, 50);
             this.btn_Print.TabIndex = 0;
-            this.btn_Print.Text = "Сохранить";
+            this.btn_Print.Text = "Печать";
             this.btn_Print.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btn_Print.UseVisualStyleBackColor = true;
             this.btn_Print.Click += new System.EventHandler(this.btn_Print_Click);
@@ -104,14 +112,14 @@
             this.btn_SaveFile.FlatAppearance.BorderSize = 0;
             this.btn_SaveFile.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_SaveFile.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btn_SaveFile.Image = ((System.Drawing.Image)(resources.GetObject("btn_SaveFile.Image")));
+            this.btn_SaveFile.Image = global::TestMyDrawing.Properties.Resources.save;
             this.btn_SaveFile.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btn_SaveFile.Location = new System.Drawing.Point(294, 3);
+            this.btn_SaveFile.Location = new System.Drawing.Point(140, 3);
             this.btn_SaveFile.Margin = new System.Windows.Forms.Padding(7, 3, 7, 3);
             this.btn_SaveFile.Name = "btn_SaveFile";
-            this.btn_SaveFile.Size = new System.Drawing.Size(77, 50);
+            this.btn_SaveFile.Size = new System.Drawing.Size(73, 50);
             this.btn_SaveFile.TabIndex = 0;
-            this.btn_SaveFile.Text = "Предпросмотр";
+            this.btn_SaveFile.Text = "Сохранить";
             this.btn_SaveFile.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btn_SaveFile.UseVisualStyleBackColor = true;
             this.btn_SaveFile.Click += new System.EventHandler(this.btn_SaveFile_Click);
@@ -175,14 +183,6 @@
             this.btn_CreateNewFile.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btn_CreateNewFile.UseVisualStyleBackColor = true;
             this.btn_CreateNewFile.Click += new System.EventHandler(this.btn_CreateNewFile_Click);
-            // 
-            // panel3
-            // 
-            this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(106)))), ((int)(((byte)(106)))), ((int)(((byte)(106)))));
-            this.panel3.Location = new System.Drawing.Point(381, 3);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(1, 54);
-            this.panel3.TabIndex = 1;
             // 
             // FileUC
             // 

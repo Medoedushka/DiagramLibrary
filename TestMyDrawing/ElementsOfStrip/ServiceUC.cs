@@ -14,11 +14,12 @@ namespace TestMyDrawing.ElementsOfStrip
     {
         Timer timer;
         bool curveSettings = true;
+        int step = 20;
         public ServiceUC()
         {
             InitializeComponent();
             timer = new Timer();
-            timer.Interval = 10;
+            timer.Interval = 1;
             timer.Tick += Timer_Tick;
         }
 
@@ -26,23 +27,31 @@ namespace TestMyDrawing.ElementsOfStrip
         {
             if (curveSettings)
             {
-                while (MainForm.Instance.PnlCurvesSettings.Location.X > MainForm.Instance.cmbDotCurves.Location.X)
+                if (MainForm.Instance.PnlCurvesSettings.Location.X > MainForm.Instance.cmbDotCurves.Location.X)
                 {
-                    MainForm.Instance.PnlCurvesSettings.Location = new Point(MainForm.Instance.PnlCurvesSettings.Location.X - 10,
+                    MainForm.Instance.PnlCurvesSettings.Location = new Point(MainForm.Instance.PnlCurvesSettings.Location.X - step,
                         MainForm.Instance.PnlCurvesSettings.Location.Y);
                 }
-                MainForm.Instance.PnlCurvesSettings.Location = MainForm.Instance.cmbDotCurves.Location;
+                else
+                {
+                    MainForm.Instance.PnlCurvesSettings.Location = MainForm.Instance.cmbDotCurves.Location;
+                    timer.Stop();
+                }
             }
             else
             {
-                while (MainForm.Instance.PnlDiagramSettings.Location.X > MainForm.Instance.cmbDotCurves.Location.X)
+                if (MainForm.Instance.PnlDiagramSettings.Location.X > MainForm.Instance.cmbDotCurves.Location.X)
                 {
-                    MainForm.Instance.PnlDiagramSettings.Location = new Point(MainForm.Instance.PnlDiagramSettings.Location.X - 10,
+                    MainForm.Instance.PnlDiagramSettings.Location = new Point(MainForm.Instance.PnlDiagramSettings.Location.X - step,
                         MainForm.Instance.PnlDiagramSettings.Location.Y);
                 }
-                MainForm.Instance.PnlDiagramSettings.Location = MainForm.Instance.cmbDotCurves.Location;
+                else
+                {
+                    MainForm.Instance.PnlDiagramSettings.Location = MainForm.Instance.cmbDotCurves.Location;
+                    timer.Stop();
+                }
             }
-            timer.Stop();
+            
             
         }
 
