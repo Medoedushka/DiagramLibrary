@@ -38,13 +38,13 @@ namespace TestMyDrawing
         public event EventHandler<GraphicEventArgs> Zoom;
         public event EventHandler<EventArgs> Print;
         public event EventHandler<EventArgs> Preview;
-
+        public event EventHandler<EventArgs> InitDiagramParams;
+        public event EventHandler<EventArgs> ApdateDiagramParams;
 
         public string TableTxt { get => rtb_TableTxt.Text; set => rtb_TableTxt.Text = value; }
         public string CurrentFileName { get => lbl_CurrentFile.Text; set => lbl_CurrentFile.Text = value; }
         public PictureBox graph { get; set; }
         public bool MousePressed { get; set; } = false;
-
         public string[] CurvesNames
         {
             get => new string[] { cmb_Curves.Items.ToString() }; set
@@ -119,6 +119,10 @@ namespace TestMyDrawing
         {
             get { return pnl_CurveSettings; }
         }
+        public Panel PnlDiagramSettings
+        {
+            get { return pnl_DiagramParams; }
+        }
         public ComboBox cmbDotCurves
         {
             get { return cmb_CurvesDots; }
@@ -127,6 +131,74 @@ namespace TestMyDrawing
         {
             get { return btn_Back; }
         }
+
+        public bool Grid { get => chb_Grid.Checked; set => chb_Grid.Checked = value; }
+        public bool Smooth { get => chb_Smooth.Checked; set => chb_Smooth.Checked = value; }
+        public string Title { get => txb_Title.Text; set => txb_Title.Text = value; }
+        public TextPosition TitlePos
+        {
+            get
+            {
+                if (cmb_TitlePos.Text == cmb_TitlePos.Items[0].ToString())
+                    return TextPosition.Right;
+                else if (cmb_TitlePos.Text == cmb_TitlePos.Items[1].ToString())
+                    return TextPosition.Left;
+                else return TextPosition.Centre;
+            }
+            set
+            {
+                if (value == TextPosition.Right)
+                    cmb_TitlePos.Text = cmb_TitlePos.Items[0].ToString();
+                else if (value == TextPosition.Left)
+                    cmb_TitlePos.Text = cmb_TitlePos.Items[1].ToString();
+                else cmb_TitlePos.Text = cmb_TitlePos.Items[2].ToString();
+            }
+        }
+        public double TitleSize { get => (double)nud_TitleSize.Value; set => nud_TitleSize.Value = (decimal)value; }
+        public string OXName { get => txb_OXName.Text; set => txb_OXName.Text = value; }
+        public TextPosition OXPos
+        {
+            get
+            {
+                if (cmb_OXPos.Text == cmb_OXPos.Items[0].ToString())
+                    return TextPosition.Right;
+                else if (cmb_OXPos.Text == cmb_OXPos.Items[1].ToString())
+                    return TextPosition.Left;
+                else return TextPosition.Centre;
+            }
+            set
+            {
+                if (value == TextPosition.Right)
+                    cmb_OXPos.Text = cmb_OXPos.Items[0].ToString();
+                else if (value == TextPosition.Left)
+                    cmb_OXPos.Text = cmb_OXPos.Items[1].ToString();
+                else cmb_OXPos.Text = cmb_OXPos.Items[2].ToString();
+            }
+        }
+        public double OXSize { get => (double)nud_OXSize.Value; set => nud_OXSize.Value = (decimal)value; }
+        public double OXPrice { get => double.Parse(txb_OXPrice.Text); set => txb_OXPrice.Text = value.ToString(); }
+        public string OYName { get => txb_OYName.Text; set => txb_OYName.Text = value; }
+        public TextPosition OYPos
+        {
+            get
+            {
+                if (cmb_OYPos.Text == cmb_OYPos.Items[0].ToString())
+                    return TextPosition.Right;
+                else if (cmb_OYPos.Text == cmb_OYPos.Items[1].ToString())
+                    return TextPosition.Left;
+                else return TextPosition.Centre;
+            }
+            set
+            {
+                if (value == TextPosition.Right)
+                    cmb_OYPos.Text = cmb_OYPos.Items[0].ToString();
+                else if (value == TextPosition.Left)
+                    cmb_OYPos.Text = cmb_OYPos.Items[1].ToString();
+                else cmb_OYPos.Text = cmb_OYPos.Items[2].ToString();
+            }
+        }
+        public double OYSize { get => (double)nud_OYSize.Value; set => nud_OYSize.Value = (decimal)value; }
+        public double OYPrice { get => double.Parse(txb_OYPrice.Text); set => txb_OYPrice.Text = value.ToString(); }
 
         Color lblChecked = Color.FromArgb(9, 154, 185);
         Color lblFree = Color.FromArgb(5, 89, 107);
@@ -334,6 +406,7 @@ namespace TestMyDrawing
         {
 
             pnl_CurveSettings.Location = new Point(this.Width + 10, pnl_CurveSettings.Location.Y);
+            pnl_DiagramParams.Location = new Point(this.Width + 10, pnl_CurveSettings.Location.Y);
             btn_Back.Visible = false;
         }
 
@@ -350,6 +423,11 @@ namespace TestMyDrawing
             GraphicEventArgs graphicEvent = new GraphicEventArgs(EventType.Zoom);
             graphicEvent.Zoom = false;
             Zoom?.Invoke(this, graphicEvent);
+        }
+
+        public void InitDiagramFields(object sender, EventArgs e)
+        {
+            InitDiagramParams?.Invoke(this, EventArgs.Empty);
         }
 
         private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
@@ -452,6 +530,11 @@ namespace TestMyDrawing
         {
             ReleaseCapture();
             PostMessage(this.Handle, WM_SYSCOMMAND, DOMOVE, 0);
+        }
+
+        private void btn_Apply_Click(object sender, EventArgs e)
+        {
+            ApdateDiagramParams?.Invoke(this, EventArgs.Empty);
         }
     }
 }

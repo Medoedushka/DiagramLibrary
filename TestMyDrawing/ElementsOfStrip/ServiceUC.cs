@@ -13,6 +13,7 @@ namespace TestMyDrawing.ElementsOfStrip
     public partial class ServiceUC : UserControl
     {
         Timer timer;
+        bool curveSettings = true;
         public ServiceUC()
         {
             InitializeComponent();
@@ -23,21 +24,44 @@ namespace TestMyDrawing.ElementsOfStrip
 
         private void Timer_Tick(object sender, EventArgs e)
         {
-            while (MainForm.Instance.PnlCurvesSettings.Location.X > MainForm.Instance.cmbDotCurves.Location.X)
+            if (curveSettings)
             {
-                MainForm.Instance.PnlCurvesSettings.Location = new Point(MainForm.Instance.PnlCurvesSettings.Location.X - 10,
-                    MainForm.Instance.PnlCurvesSettings.Location.Y);
+                while (MainForm.Instance.PnlCurvesSettings.Location.X > MainForm.Instance.cmbDotCurves.Location.X)
+                {
+                    MainForm.Instance.PnlCurvesSettings.Location = new Point(MainForm.Instance.PnlCurvesSettings.Location.X - 10,
+                        MainForm.Instance.PnlCurvesSettings.Location.Y);
+                }
+                MainForm.Instance.PnlCurvesSettings.Location = MainForm.Instance.cmbDotCurves.Location;
             }
-            MainForm.Instance.PnlCurvesSettings.Location = MainForm.Instance.cmbDotCurves.Location;
+            else
+            {
+                while (MainForm.Instance.PnlDiagramSettings.Location.X > MainForm.Instance.cmbDotCurves.Location.X)
+                {
+                    MainForm.Instance.PnlDiagramSettings.Location = new Point(MainForm.Instance.PnlDiagramSettings.Location.X - 10,
+                        MainForm.Instance.PnlDiagramSettings.Location.Y);
+                }
+                MainForm.Instance.PnlDiagramSettings.Location = MainForm.Instance.cmbDotCurves.Location;
+            }
             timer.Stop();
             
         }
 
         private void btn_CurveParams_Click(object sender, EventArgs e)
         {
+            MainForm.Instance.PnlCurvesSettings.BringToFront();
             MainForm.Instance.btnBack.Visible = true;
+            curveSettings = true;
             timer.Start();
            
+        }
+
+        private void btn_DiagrammParams_Click(object sender, EventArgs e)
+        {
+            MainForm.Instance.PnlDiagramSettings.BringToFront();
+            MainForm.Instance.InitDiagramFields(this, EventArgs.Empty);
+            MainForm.Instance.btnBack.Visible = true;
+            curveSettings = false;
+            timer.Start();
         }
     }
 }

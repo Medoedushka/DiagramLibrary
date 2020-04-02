@@ -60,6 +60,7 @@
             this.btn_DiagrammParams.Size = new System.Drawing.Size(65, 65);
             this.btn_DiagrammParams.TabIndex = 0;
             this.btn_DiagrammParams.UseVisualStyleBackColor = true;
+            this.btn_DiagrammParams.Click += new System.EventHandler(this.btn_DiagrammParams_Click);
             // 
             // ServiceUC
             // 

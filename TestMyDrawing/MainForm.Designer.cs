@@ -65,17 +65,17 @@
             this.label2 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pnl_StripElements = new System.Windows.Forms.Panel();
-            this.panel5 = new System.Windows.Forms.Panel();
-            this.button1 = new System.Windows.Forms.Button();
+            this.pnl_DiagramParams = new System.Windows.Forms.Panel();
+            this.btn_Apply = new System.Windows.Forms.Button();
             this.chb_Smooth = new System.Windows.Forms.CheckBox();
             this.chb_Grid = new System.Windows.Forms.CheckBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.numericUpDown3 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
-            this.metroComboBox3 = new MetroFramework.Controls.MetroComboBox();
-            this.metroComboBox2 = new MetroFramework.Controls.MetroComboBox();
-            this.metroComboBox1 = new MetroFramework.Controls.MetroComboBox();
+            this.nud_OYSize = new System.Windows.Forms.NumericUpDown();
+            this.nud_OXSize = new System.Windows.Forms.NumericUpDown();
+            this.nud_TitleSize = new System.Windows.Forms.NumericUpDown();
+            this.cmb_OYPos = new MetroFramework.Controls.MetroComboBox();
+            this.cmb_OXPos = new MetroFramework.Controls.MetroComboBox();
+            this.cmb_TitlePos = new MetroFramework.Controls.MetroComboBox();
             this.label15 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
@@ -83,19 +83,19 @@
             this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.txb_OYName = new System.Windows.Forms.TextBox();
             this.label17 = new System.Windows.Forms.Label();
-            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.txb_OYPrice = new System.Windows.Forms.TextBox();
             this.label16 = new System.Windows.Forms.Label();
-            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.txb_OXPrice = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.txb_OXName = new System.Windows.Forms.TextBox();
             this.panel10 = new System.Windows.Forms.Panel();
             this.panel8 = new System.Windows.Forms.Panel();
             this.panel9 = new System.Windows.Forms.Panel();
             this.label7 = new System.Windows.Forms.Label();
             this.panel7 = new System.Windows.Forms.Panel();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txb_Title = new System.Windows.Forms.TextBox();
             this.panel6 = new System.Windows.Forms.Panel();
             this.cmb_CurvesDots = new MetroFramework.Controls.MetroComboBox();
             this.rtb_TableTxt = new System.Windows.Forms.RichTextBox();
@@ -111,11 +111,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.nud_Thickness)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pcb_CurveColor)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            this.panel5.SuspendLayout();
+            this.pnl_DiagramParams.SuspendLayout();
             this.groupBox3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nud_OYSize)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nud_OXSize)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nud_TitleSize)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -268,7 +268,7 @@
             this.panel2.Controls.Add(this.pnl_CurveSettings);
             this.panel2.Controls.Add(this.pictureBox1);
             this.panel2.Controls.Add(this.pnl_StripElements);
-            this.panel2.Controls.Add(this.panel5);
+            this.panel2.Controls.Add(this.pnl_DiagramParams);
             this.panel2.Controls.Add(this.cmb_CurvesDots);
             this.panel2.Controls.Add(this.rtb_TableTxt);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -576,33 +576,34 @@
             this.pnl_StripElements.Size = new System.Drawing.Size(1030, 39);
             this.pnl_StripElements.TabIndex = 0;
             // 
-            // panel5
+            // pnl_DiagramParams
             // 
-            this.panel5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.pnl_DiagramParams.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel5.AutoScroll = true;
-            this.panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel5.Controls.Add(this.button1);
-            this.panel5.Controls.Add(this.chb_Smooth);
-            this.panel5.Controls.Add(this.chb_Grid);
-            this.panel5.Controls.Add(this.groupBox3);
-            this.panel5.Font = new System.Drawing.Font("Cambria", 10F);
-            this.panel5.Location = new System.Drawing.Point(665, 45);
-            this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(353, 485);
-            this.panel5.TabIndex = 5;
+            this.pnl_DiagramParams.AutoScroll = true;
+            this.pnl_DiagramParams.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnl_DiagramParams.Controls.Add(this.btn_Apply);
+            this.pnl_DiagramParams.Controls.Add(this.chb_Smooth);
+            this.pnl_DiagramParams.Controls.Add(this.chb_Grid);
+            this.pnl_DiagramParams.Controls.Add(this.groupBox3);
+            this.pnl_DiagramParams.Font = new System.Drawing.Font("Cambria", 10F);
+            this.pnl_DiagramParams.Location = new System.Drawing.Point(1050, 45);
+            this.pnl_DiagramParams.Name = "pnl_DiagramParams";
+            this.pnl_DiagramParams.Size = new System.Drawing.Size(353, 485);
+            this.pnl_DiagramParams.TabIndex = 5;
             // 
-            // button1
+            // btn_Apply
             // 
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Image = global::TestMyDrawing.Properties.Resources.icons8_checkmark_50px_1;
-            this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button1.Location = new System.Drawing.Point(212, 440);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(119, 35);
-            this.button1.TabIndex = 12;
-            this.button1.Text = "          Применить";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btn_Apply.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_Apply.Image = global::TestMyDrawing.Properties.Resources.icons8_checkmark_50px_1;
+            this.btn_Apply.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btn_Apply.Location = new System.Drawing.Point(212, 440);
+            this.btn_Apply.Name = "btn_Apply";
+            this.btn_Apply.Size = new System.Drawing.Size(119, 35);
+            this.btn_Apply.TabIndex = 12;
+            this.btn_Apply.Text = "          Применить";
+            this.btn_Apply.UseVisualStyleBackColor = true;
+            this.btn_Apply.Click += new System.EventHandler(this.btn_Apply_Click);
             // 
             // chb_Smooth
             // 
@@ -626,12 +627,12 @@
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.numericUpDown3);
-            this.groupBox3.Controls.Add(this.numericUpDown2);
-            this.groupBox3.Controls.Add(this.numericUpDown1);
-            this.groupBox3.Controls.Add(this.metroComboBox3);
-            this.groupBox3.Controls.Add(this.metroComboBox2);
-            this.groupBox3.Controls.Add(this.metroComboBox1);
+            this.groupBox3.Controls.Add(this.nud_OYSize);
+            this.groupBox3.Controls.Add(this.nud_OXSize);
+            this.groupBox3.Controls.Add(this.nud_TitleSize);
+            this.groupBox3.Controls.Add(this.cmb_OYPos);
+            this.groupBox3.Controls.Add(this.cmb_OXPos);
+            this.groupBox3.Controls.Add(this.cmb_TitlePos);
             this.groupBox3.Controls.Add(this.label15);
             this.groupBox3.Controls.Add(this.label11);
             this.groupBox3.Controls.Add(this.label14);
@@ -639,19 +640,19 @@
             this.groupBox3.Controls.Add(this.label9);
             this.groupBox3.Controls.Add(this.label8);
             this.groupBox3.Controls.Add(this.label13);
-            this.groupBox3.Controls.Add(this.textBox3);
+            this.groupBox3.Controls.Add(this.txb_OYName);
             this.groupBox3.Controls.Add(this.label17);
-            this.groupBox3.Controls.Add(this.textBox5);
+            this.groupBox3.Controls.Add(this.txb_OYPrice);
             this.groupBox3.Controls.Add(this.label16);
-            this.groupBox3.Controls.Add(this.textBox4);
+            this.groupBox3.Controls.Add(this.txb_OXPrice);
             this.groupBox3.Controls.Add(this.label10);
-            this.groupBox3.Controls.Add(this.textBox2);
+            this.groupBox3.Controls.Add(this.txb_OXName);
             this.groupBox3.Controls.Add(this.panel10);
             this.groupBox3.Controls.Add(this.panel8);
             this.groupBox3.Controls.Add(this.panel9);
             this.groupBox3.Controls.Add(this.label7);
             this.groupBox3.Controls.Add(this.panel7);
-            this.groupBox3.Controls.Add(this.textBox1);
+            this.groupBox3.Controls.Add(this.txb_Title);
             this.groupBox3.Controls.Add(this.panel6);
             this.groupBox3.Location = new System.Drawing.Point(3, 6);
             this.groupBox3.Name = "groupBox3";
@@ -660,113 +661,125 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Название осей и диаграммы";
             // 
-            // numericUpDown3
+            // nud_OYSize
             // 
-            this.numericUpDown3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.nud_OYSize.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.numericUpDown3.Location = new System.Drawing.Point(158, 342);
-            this.numericUpDown3.Maximum = new decimal(new int[] {
+            this.nud_OYSize.Location = new System.Drawing.Point(158, 342);
+            this.nud_OYSize.Maximum = new decimal(new int[] {
             15,
             0,
             0,
             0});
-            this.numericUpDown3.Minimum = new decimal(new int[] {
+            this.nud_OYSize.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             0});
-            this.numericUpDown3.Name = "numericUpDown3";
-            this.numericUpDown3.Size = new System.Drawing.Size(46, 23);
-            this.numericUpDown3.TabIndex = 11;
-            this.numericUpDown3.Value = new decimal(new int[] {
+            this.nud_OYSize.Name = "nud_OYSize";
+            this.nud_OYSize.Size = new System.Drawing.Size(46, 23);
+            this.nud_OYSize.TabIndex = 11;
+            this.nud_OYSize.Value = new decimal(new int[] {
             1,
             0,
             0,
             0});
             // 
-            // numericUpDown2
+            // nud_OXSize
             // 
-            this.numericUpDown2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.nud_OXSize.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.numericUpDown2.Location = new System.Drawing.Point(158, 198);
-            this.numericUpDown2.Maximum = new decimal(new int[] {
+            this.nud_OXSize.Location = new System.Drawing.Point(158, 198);
+            this.nud_OXSize.Maximum = new decimal(new int[] {
             15,
             0,
             0,
             0});
-            this.numericUpDown2.Minimum = new decimal(new int[] {
+            this.nud_OXSize.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             0});
-            this.numericUpDown2.Name = "numericUpDown2";
-            this.numericUpDown2.Size = new System.Drawing.Size(46, 23);
-            this.numericUpDown2.TabIndex = 11;
-            this.numericUpDown2.Value = new decimal(new int[] {
+            this.nud_OXSize.Name = "nud_OXSize";
+            this.nud_OXSize.Size = new System.Drawing.Size(46, 23);
+            this.nud_OXSize.TabIndex = 11;
+            this.nud_OXSize.Value = new decimal(new int[] {
             1,
             0,
             0,
             0});
             // 
-            // numericUpDown1
+            // nud_TitleSize
             // 
-            this.numericUpDown1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.nud_TitleSize.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.numericUpDown1.Location = new System.Drawing.Point(158, 92);
-            this.numericUpDown1.Maximum = new decimal(new int[] {
+            this.nud_TitleSize.Location = new System.Drawing.Point(158, 92);
+            this.nud_TitleSize.Maximum = new decimal(new int[] {
             15,
             0,
             0,
             0});
-            this.numericUpDown1.Minimum = new decimal(new int[] {
+            this.nud_TitleSize.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             0});
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(46, 23);
-            this.numericUpDown1.TabIndex = 11;
-            this.numericUpDown1.Value = new decimal(new int[] {
+            this.nud_TitleSize.Name = "nud_TitleSize";
+            this.nud_TitleSize.Size = new System.Drawing.Size(46, 23);
+            this.nud_TitleSize.TabIndex = 11;
+            this.nud_TitleSize.Value = new decimal(new int[] {
             1,
             0,
             0,
             0});
             // 
-            // metroComboBox3
+            // cmb_OYPos
             // 
-            this.metroComboBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.cmb_OYPos.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.metroComboBox3.FormattingEnabled = true;
-            this.metroComboBox3.ItemHeight = 23;
-            this.metroComboBox3.Location = new System.Drawing.Point(158, 304);
-            this.metroComboBox3.Name = "metroComboBox3";
-            this.metroComboBox3.Size = new System.Drawing.Size(155, 29);
-            this.metroComboBox3.TabIndex = 10;
-            this.metroComboBox3.UseSelectable = true;
+            this.cmb_OYPos.FormattingEnabled = true;
+            this.cmb_OYPos.ItemHeight = 23;
+            this.cmb_OYPos.Items.AddRange(new object[] {
+            "Справа",
+            "Слева",
+            "Посередине"});
+            this.cmb_OYPos.Location = new System.Drawing.Point(158, 304);
+            this.cmb_OYPos.Name = "cmb_OYPos";
+            this.cmb_OYPos.Size = new System.Drawing.Size(155, 29);
+            this.cmb_OYPos.TabIndex = 10;
+            this.cmb_OYPos.UseSelectable = true;
             // 
-            // metroComboBox2
+            // cmb_OXPos
             // 
-            this.metroComboBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.cmb_OXPos.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.metroComboBox2.FormattingEnabled = true;
-            this.metroComboBox2.ItemHeight = 23;
-            this.metroComboBox2.Location = new System.Drawing.Point(158, 160);
-            this.metroComboBox2.Name = "metroComboBox2";
-            this.metroComboBox2.Size = new System.Drawing.Size(155, 29);
-            this.metroComboBox2.TabIndex = 10;
-            this.metroComboBox2.UseSelectable = true;
+            this.cmb_OXPos.FormattingEnabled = true;
+            this.cmb_OXPos.ItemHeight = 23;
+            this.cmb_OXPos.Items.AddRange(new object[] {
+            "Справа",
+            "Слева",
+            "Посередине"});
+            this.cmb_OXPos.Location = new System.Drawing.Point(158, 160);
+            this.cmb_OXPos.Name = "cmb_OXPos";
+            this.cmb_OXPos.Size = new System.Drawing.Size(155, 29);
+            this.cmb_OXPos.TabIndex = 10;
+            this.cmb_OXPos.UseSelectable = true;
             // 
-            // metroComboBox1
+            // cmb_TitlePos
             // 
-            this.metroComboBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.cmb_TitlePos.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.metroComboBox1.FormattingEnabled = true;
-            this.metroComboBox1.ItemHeight = 23;
-            this.metroComboBox1.Location = new System.Drawing.Point(159, 55);
-            this.metroComboBox1.Name = "metroComboBox1";
-            this.metroComboBox1.Size = new System.Drawing.Size(155, 29);
-            this.metroComboBox1.TabIndex = 10;
-            this.metroComboBox1.UseSelectable = true;
+            this.cmb_TitlePos.FormattingEnabled = true;
+            this.cmb_TitlePos.ItemHeight = 23;
+            this.cmb_TitlePos.Items.AddRange(new object[] {
+            "Справа",
+            "Слева",
+            "Посередине"});
+            this.cmb_TitlePos.Location = new System.Drawing.Point(159, 55);
+            this.cmb_TitlePos.Name = "cmb_TitlePos";
+            this.cmb_TitlePos.Size = new System.Drawing.Size(155, 29);
+            this.cmb_TitlePos.TabIndex = 10;
+            this.cmb_TitlePos.UseSelectable = true;
             // 
             // label15
             // 
@@ -852,17 +865,17 @@
             this.label13.TabIndex = 7;
             this.label13.Text = "Название оси OY:";
             // 
-            // textBox3
+            // txb_OYName
             // 
-            this.textBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.txb_OYName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox3.BackColor = System.Drawing.Color.LightCyan;
-            this.textBox3.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox3.Font = new System.Drawing.Font("Cambria", 10F);
-            this.textBox3.Location = new System.Drawing.Point(158, 275);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(156, 16);
-            this.textBox3.TabIndex = 9;
+            this.txb_OYName.BackColor = System.Drawing.Color.LightCyan;
+            this.txb_OYName.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txb_OYName.Font = new System.Drawing.Font("Cambria", 10F);
+            this.txb_OYName.Location = new System.Drawing.Point(158, 275);
+            this.txb_OYName.Name = "txb_OYName";
+            this.txb_OYName.Size = new System.Drawing.Size(156, 16);
+            this.txb_OYName.TabIndex = 9;
             // 
             // label17
             // 
@@ -876,17 +889,17 @@
             this.label17.TabIndex = 7;
             this.label17.Text = "Цена деления OY:";
             // 
-            // textBox5
+            // txb_OYPrice
             // 
-            this.textBox5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.txb_OYPrice.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox5.BackColor = System.Drawing.Color.LightCyan;
-            this.textBox5.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox5.Font = new System.Drawing.Font("Cambria", 10F);
-            this.textBox5.Location = new System.Drawing.Point(159, 376);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(156, 16);
-            this.textBox5.TabIndex = 9;
+            this.txb_OYPrice.BackColor = System.Drawing.Color.LightCyan;
+            this.txb_OYPrice.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txb_OYPrice.Font = new System.Drawing.Font("Cambria", 10F);
+            this.txb_OYPrice.Location = new System.Drawing.Point(159, 376);
+            this.txb_OYPrice.Name = "txb_OYPrice";
+            this.txb_OYPrice.Size = new System.Drawing.Size(156, 16);
+            this.txb_OYPrice.TabIndex = 9;
             // 
             // label16
             // 
@@ -900,17 +913,17 @@
             this.label16.TabIndex = 7;
             this.label16.Text = "Цена деления OX:";
             // 
-            // textBox4
+            // txb_OXPrice
             // 
-            this.textBox4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.txb_OXPrice.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox4.BackColor = System.Drawing.Color.LightCyan;
-            this.textBox4.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox4.Font = new System.Drawing.Font("Cambria", 10F);
-            this.textBox4.Location = new System.Drawing.Point(159, 230);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(156, 16);
-            this.textBox4.TabIndex = 9;
+            this.txb_OXPrice.BackColor = System.Drawing.Color.LightCyan;
+            this.txb_OXPrice.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txb_OXPrice.Font = new System.Drawing.Font("Cambria", 10F);
+            this.txb_OXPrice.Location = new System.Drawing.Point(159, 230);
+            this.txb_OXPrice.Name = "txb_OXPrice";
+            this.txb_OXPrice.Size = new System.Drawing.Size(156, 16);
+            this.txb_OXPrice.TabIndex = 9;
             // 
             // label10
             // 
@@ -924,17 +937,17 @@
             this.label10.TabIndex = 7;
             this.label10.Text = "Название оси OX:";
             // 
-            // textBox2
+            // txb_OXName
             // 
-            this.textBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.txb_OXName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox2.BackColor = System.Drawing.Color.LightCyan;
-            this.textBox2.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox2.Font = new System.Drawing.Font("Cambria", 10F);
-            this.textBox2.Location = new System.Drawing.Point(158, 131);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(156, 16);
-            this.textBox2.TabIndex = 9;
+            this.txb_OXName.BackColor = System.Drawing.Color.LightCyan;
+            this.txb_OXName.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txb_OXName.Font = new System.Drawing.Font("Cambria", 10F);
+            this.txb_OXName.Location = new System.Drawing.Point(158, 131);
+            this.txb_OXName.Name = "txb_OXName";
+            this.txb_OXName.Size = new System.Drawing.Size(156, 16);
+            this.txb_OXName.TabIndex = 9;
             // 
             // panel10
             // 
@@ -988,17 +1001,17 @@
             this.panel7.Size = new System.Drawing.Size(156, 3);
             this.panel7.TabIndex = 8;
             // 
-            // textBox1
+            // txb_Title
             // 
-            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.txb_Title.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox1.BackColor = System.Drawing.Color.LightCyan;
-            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox1.Font = new System.Drawing.Font("Cambria", 10F);
-            this.textBox1.Location = new System.Drawing.Point(158, 28);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(156, 16);
-            this.textBox1.TabIndex = 9;
+            this.txb_Title.BackColor = System.Drawing.Color.LightCyan;
+            this.txb_Title.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txb_Title.Font = new System.Drawing.Font("Cambria", 10F);
+            this.txb_Title.Location = new System.Drawing.Point(158, 28);
+            this.txb_Title.Name = "txb_Title";
+            this.txb_Title.Size = new System.Drawing.Size(156, 16);
+            this.txb_Title.TabIndex = 9;
             // 
             // panel6
             // 
@@ -1070,13 +1083,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.nud_Thickness)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pcb_CurveColor)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            this.panel5.ResumeLayout(false);
-            this.panel5.PerformLayout();
+            this.pnl_DiagramParams.ResumeLayout(false);
+            this.pnl_DiagramParams.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nud_OYSize)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nud_OXSize)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nud_TitleSize)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1118,38 +1131,38 @@
         private System.Windows.Forms.Button btn_Back;
         private MetroFramework.Controls.MetroComboBox cmb_Curves;
         private System.Windows.Forms.PictureBox pictureBox2;
-        private System.Windows.Forms.Panel panel5;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Panel pnl_DiagramParams;
+        private System.Windows.Forms.TextBox txb_Title;
         private System.Windows.Forms.Panel panel6;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.NumericUpDown numericUpDown2;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
-        private MetroFramework.Controls.MetroComboBox metroComboBox2;
-        private MetroFramework.Controls.MetroComboBox metroComboBox1;
+        private System.Windows.Forms.NumericUpDown nud_OXSize;
+        private System.Windows.Forms.NumericUpDown nud_TitleSize;
+        private MetroFramework.Controls.MetroComboBox cmb_OXPos;
+        private MetroFramework.Controls.MetroComboBox cmb_TitlePos;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox txb_OXName;
         private System.Windows.Forms.Panel panel7;
-        private System.Windows.Forms.NumericUpDown numericUpDown3;
-        private MetroFramework.Controls.MetroComboBox metroComboBox3;
+        private System.Windows.Forms.NumericUpDown nud_OYSize;
+        private MetroFramework.Controls.MetroComboBox cmb_OYPos;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox txb_OYName;
         private System.Windows.Forms.Panel panel8;
         private System.Windows.Forms.Label label17;
-        private System.Windows.Forms.TextBox textBox5;
+        private System.Windows.Forms.TextBox txb_OYPrice;
         private System.Windows.Forms.Label label16;
-        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.TextBox txb_OXPrice;
         private System.Windows.Forms.Panel panel10;
         private System.Windows.Forms.Panel panel9;
         private System.Windows.Forms.CheckBox chb_Smooth;
         private System.Windows.Forms.CheckBox chb_Grid;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btn_Apply;
         private System.Windows.Forms.PictureBox pcb_CloseApp;
         private System.Windows.Forms.PictureBox pcb_Minimize;
         private System.Windows.Forms.PictureBox pcb_Normalize;

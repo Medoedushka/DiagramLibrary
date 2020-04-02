@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
 using System.Windows.Forms;
+using MyDrawing;
 
 namespace TestMyDrawing.View
 {
@@ -30,11 +31,37 @@ namespace TestMyDrawing.View
         int Thikness { get; set; }
         DashStyle dashStyle { get; set; }
 
+        // Свойства, относящиеся к редактированию диаграммы
+        bool Grid { get; set; }
+        bool Smooth { get; set; }
+        //
+        //Свойства заголовка
+        //
+        string Title { get; set; }
+        TextPosition TitlePos { get; set; }
+        double TitleSize { get; set; }
+        //
+        //Свойства оси абсцисс
+        //
+        string  OXName { get; set; }
+        TextPosition OXPos { get; set; }
+        double OXSize { get; set; }
+        double OXPrice { get; set; }
+        //
+        //Свойства оси ординат
+        //
+        string OYName { get; set; }
+        TextPosition OYPos { get; set; }
+        double OYSize { get; set; }
+        double OYPrice { get; set; }
+
         event EventHandler<EventArgs> CreateNewFile;
         event Func<bool> SaveCreatedFile;
         event Action CloseFile;
         event EventHandler<EventArgs> LoadFile;
         event EventHandler<EventArgs> InitGraphic;
+        event EventHandler<EventArgs> InitDiagramParams;
+        event EventHandler<EventArgs> ApdateDiagramParams;
         event EventHandler<GraphicEventArgs> PlotAction;
         event EventHandler<MouseEventArgs> PlotMouseDown;
         event EventHandler<MouseEventArgs> PlotMouseUp;

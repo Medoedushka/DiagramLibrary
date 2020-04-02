@@ -99,6 +99,45 @@ namespace TestMyDrawing.Presenter
             drawingView.ShowCurvePoints += (string s) => { drawingView.TableTxt = _model.ShowCurvePoints(s); };
             drawingView.AddNewCurve += DrawingView_PlotAction;
             drawingView.Zoom += DrawingView_PlotAction;
+            drawingView.InitDiagramParams += (object s, EventArgs e) =>
+            {
+                drawingView.Title = _model.gr.Title;
+                drawingView.TitlePos = _model.gr.TitlePosition;
+                drawingView.TitleSize = _model.gr.TitleSize;
+
+                drawingView.OXName = _model.gr.Config.OXName;
+                drawingView.OXSize = _model.gr.Config.OXNameSize;
+                drawingView.OXPos = _model.gr.Config.OXNamePosition;
+                drawingView.OXPrice = _model.gr.Config.PriceForPointOX;
+
+                drawingView.OYName = _model.gr.Config.OYName;
+                drawingView.OYSize = _model.gr.Config.OYNameSize;
+                drawingView.OYPos = _model.gr.Config.OYNamePosition;
+                drawingView.OYPrice = _model.gr.Config.PriceForPointOY;
+
+                drawingView.Grid = _model.gr.Config.Grid;
+                drawingView.Smooth = _model.gr.Config.SmoothAngles;
+            };
+            drawingView.ApdateDiagramParams += (object s, EventArgs e) =>
+            {
+                _model.gr.Title = drawingView.Title;
+                _model.gr.TitlePosition = drawingView.TitlePos;
+                _model.gr.TitleSize = (int)drawingView.TitleSize;
+
+                _model.gr.Config.OXName = drawingView.OXName;
+                _model.gr.Config.OXNamePosition = drawingView.OXPos;
+                _model.gr.Config.OXNameSize = drawingView.OXSize;
+                _model.gr.Config.PriceForPointOX = drawingView.OXPrice;
+
+                _model.gr.Config.OYName = drawingView.OYName;
+                _model.gr.Config.OYNamePosition = drawingView.OYPos;
+                _model.gr.Config.OYNameSize = drawingView.OYSize;
+                _model.gr.Config.PriceForPointOY = drawingView.OYPrice;
+
+                _model.gr.Config.Grid = drawingView.Grid;
+                _model.gr.Config.SmoothAngles = drawingView.Smooth;
+                _model.gr.DrawDiagram();
+            };
         }
 
         private void Pd_PrintPage(object sender, PrintPageEventArgs e)
