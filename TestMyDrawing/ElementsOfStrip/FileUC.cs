@@ -46,5 +46,10 @@ namespace TestMyDrawing.ElementsOfStrip
         {
             MainForm.Instance.ShowPreview(this, EventArgs.Empty);
         }
+
+        private void FileUC_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

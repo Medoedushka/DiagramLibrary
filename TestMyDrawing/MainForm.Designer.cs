@@ -99,6 +99,7 @@
             this.panel6 = new System.Windows.Forms.Panel();
             this.cmb_CurvesDots = new MetroFramework.Controls.MetroComboBox();
             this.rtb_TableTxt = new System.Windows.Forms.RichTextBox();
+            this.panel5 = new System.Windows.Forms.Panel();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pcb_Minimize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pcb_Normalize)).BeginInit();
@@ -116,6 +117,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.nud_OYSize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nud_OXSize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nud_TitleSize)).BeginInit();
+            this.panel5.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -265,12 +267,10 @@
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.LightCyan;
+            this.panel2.Controls.Add(this.panel5);
             this.panel2.Controls.Add(this.pnl_CurveSettings);
-            this.panel2.Controls.Add(this.pictureBox1);
             this.panel2.Controls.Add(this.pnl_StripElements);
             this.panel2.Controls.Add(this.pnl_DiagramParams);
-            this.panel2.Controls.Add(this.cmb_CurvesDots);
-            this.panel2.Controls.Add(this.rtb_TableTxt);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 58);
             this.panel2.Name = "panel2";
@@ -557,9 +557,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox1.BackColor = System.Drawing.Color.White;
             this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBox1.Location = new System.Drawing.Point(5, 45);
+            this.pictureBox1.Location = new System.Drawing.Point(5, 6);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(649, 485);
+            this.pictureBox1.Size = new System.Drawing.Size(701, 467);
             this.pictureBox1.TabIndex = 3;
             this.pictureBox1.TabStop = false;
             this.pictureBox1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseDown);
@@ -568,12 +568,11 @@
             // 
             // pnl_StripElements
             // 
-            this.pnl_StripElements.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.pnl_StripElements.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(154)))), ((int)(((byte)(185)))));
+            this.pnl_StripElements.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnl_StripElements.Location = new System.Drawing.Point(0, 0);
             this.pnl_StripElements.Name = "pnl_StripElements";
-            this.pnl_StripElements.Size = new System.Drawing.Size(1030, 25);
+            this.pnl_StripElements.Size = new System.Drawing.Size(1030, 60);
             this.pnl_StripElements.TabIndex = 0;
             // 
             // pnl_DiagramParams
@@ -1029,9 +1028,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cmb_CurvesDots.FormattingEnabled = true;
             this.cmb_CurvesDots.ItemHeight = 23;
-            this.cmb_CurvesDots.Location = new System.Drawing.Point(665, 45);
+            this.cmb_CurvesDots.Location = new System.Drawing.Point(712, 6);
             this.cmb_CurvesDots.Name = "cmb_CurvesDots";
-            this.cmb_CurvesDots.Size = new System.Drawing.Size(353, 29);
+            this.cmb_CurvesDots.Size = new System.Drawing.Size(315, 29);
             this.cmb_CurvesDots.TabIndex = 2;
             this.cmb_CurvesDots.UseSelectable = true;
             this.cmb_CurvesDots.SelectedIndexChanged += new System.EventHandler(this.cmb_CurvesDots_SelectedIndexChanged);
@@ -1043,13 +1042,25 @@
             this.rtb_TableTxt.BackColor = System.Drawing.Color.White;
             this.rtb_TableTxt.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.rtb_TableTxt.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rtb_TableTxt.Location = new System.Drawing.Point(665, 80);
+            this.rtb_TableTxt.Location = new System.Drawing.Point(712, 41);
             this.rtb_TableTxt.Name = "rtb_TableTxt";
             this.rtb_TableTxt.ReadOnly = true;
-            this.rtb_TableTxt.Size = new System.Drawing.Size(353, 450);
+            this.rtb_TableTxt.Size = new System.Drawing.Size(315, 429);
             this.rtb_TableTxt.TabIndex = 1;
             this.rtb_TableTxt.Text = "";
             this.rtb_TableTxt.WordWrap = false;
+            // 
+            // panel5
+            // 
+            this.panel5.BackColor = System.Drawing.Color.LightCyan;
+            this.panel5.Controls.Add(this.pictureBox1);
+            this.panel5.Controls.Add(this.cmb_CurvesDots);
+            this.panel5.Controls.Add(this.rtb_TableTxt);
+            this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel5.Location = new System.Drawing.Point(0, 60);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(1030, 482);
+            this.panel5.TabIndex = 6;
             // 
             // MainForm
             // 
@@ -1090,6 +1101,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.nud_OYSize)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nud_OXSize)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nud_TitleSize)).EndInit();
+            this.panel5.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -1166,6 +1178,7 @@
         private System.Windows.Forms.PictureBox pcb_CloseApp;
         private System.Windows.Forms.PictureBox pcb_Minimize;
         private System.Windows.Forms.PictureBox pcb_Normalize;
+        private System.Windows.Forms.Panel panel5;
     }
 }
 

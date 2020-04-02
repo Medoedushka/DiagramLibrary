@@ -143,24 +143,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\folder.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\new.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\save.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\print.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\preview.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\close1.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\diagramm.png" />
   </ItemGroup>
   <ItemGroup>
@@ -213,6 +195,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="icons8_plot.ico" />
+    <None Include="Resources\preview.png" />
+    <None Include="Resources\print.png" />
+    <None Include="Resources\save.png" />
+    <None Include="Resources\close1.png" />
+    <None Include="Resources\folder.png" />
+    <None Include="Resources\new.png" />
     <None Include="Resources\maximize.png" />
     <None Include="Resources\maximize.bmp" />
     <None Include="Resources\minimize.png" />
