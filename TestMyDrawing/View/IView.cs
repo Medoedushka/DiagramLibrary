@@ -57,7 +57,7 @@ namespace TestMyDrawing.View
 
         event EventHandler<EventArgs> CreateNewFile;
         event Func<bool> SaveCreatedFile;
-        event Action CloseFile;
+        event Action<bool> CloseFile;
         event EventHandler<EventArgs> LoadFile;
         event EventHandler<EventArgs> InitGraphic;
         event EventHandler<EventArgs> InitDiagramParams;

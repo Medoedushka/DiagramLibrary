@@ -45,11 +45,16 @@ namespace TestMyDrawing.Presenter
             drawingView.LoadFile += DrawingView_LoadFile;
             drawingView.CreateNewFile += DrawingView_CreateNewFile;
             drawingView.SaveCreatedFile += DrawingView_SaveCreatedFile;
-            drawingView.CloseFile += () =>
+            drawingView.CloseFile += (bool b) =>
             {
                 _model.crrStream?.Close();
                 drawingView.CurrentFileName = "";
                 drawingView.TableTxt = "";
+                if (b == true)
+                {
+                    _model.gr.GraphCurves.Clear();
+                    _model.gr.DrawDiagram();
+                }
             };
             drawingView.InitGraphic += (object s, EventArgs e) =>
             {

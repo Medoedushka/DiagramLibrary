@@ -25,7 +25,7 @@ namespace TestMyDrawing
         public event EventHandler<EventArgs> CreateNewFile;
         public event Func<bool> SaveCreatedFile;
         public event EventHandler<EventArgs> LoadFile;
-        public event Action CloseFile;
+        public event Action<bool> CloseFile;
         public event EventHandler<EventArgs> InitGraphic;
         public event EventHandler<GraphicEventArgs> PlotAction;
         public event EventHandler<MouseEventArgs> PlotMouseDown;
@@ -385,7 +385,12 @@ namespace TestMyDrawing
         }
         public void CloseCrrFile(object sender, EventArgs e)
         {
-            CloseFile?.Invoke();
+            bool val = false;
+            if (MessageBox.Show("Очистить спискок созданных кривых?", "Закрытие файла",
+                MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                val = true;
+
+            CloseFile?.Invoke(val);
         }
         public void PrintDiagram(object sender, EventArgs e)
         {
