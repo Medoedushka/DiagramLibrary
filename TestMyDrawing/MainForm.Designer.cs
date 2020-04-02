@@ -573,7 +573,7 @@
             this.pnl_StripElements.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(154)))), ((int)(((byte)(185)))));
             this.pnl_StripElements.Location = new System.Drawing.Point(0, 0);
             this.pnl_StripElements.Name = "pnl_StripElements";
-            this.pnl_StripElements.Size = new System.Drawing.Size(1030, 39);
+            this.pnl_StripElements.Size = new System.Drawing.Size(1030, 25);
             this.pnl_StripElements.TabIndex = 0;
             // 
             // pnl_DiagramParams

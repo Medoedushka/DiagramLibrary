@@ -44,9 +44,10 @@
             this.btn_Prev.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.btn_Prev.FlatAppearance.BorderSize = 0;
             this.btn_Prev.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_Prev.Location = new System.Drawing.Point(358, 2);
+            this.btn_Prev.Location = new System.Drawing.Point(170, 3);
+            this.btn_Prev.Margin = new System.Windows.Forms.Padding(10, 3, 10, 3);
             this.btn_Prev.Name = "btn_Prev";
-            this.btn_Prev.Size = new System.Drawing.Size(65, 29);
+            this.btn_Prev.Size = new System.Drawing.Size(20, 20);
             this.btn_Prev.TabIndex = 0;
             this.btn_Prev.UseVisualStyleBackColor = true;
             this.btn_Prev.Click += new System.EventHandler(this.btn_Prev_Click);
@@ -59,9 +60,10 @@
             this.btn_Print.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.btn_Print.FlatAppearance.BorderSize = 0;
             this.btn_Print.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_Print.Location = new System.Drawing.Point(287, 3);
+            this.btn_Print.Location = new System.Drawing.Point(130, 3);
+            this.btn_Print.Margin = new System.Windows.Forms.Padding(10, 3, 10, 3);
             this.btn_Print.Name = "btn_Print";
-            this.btn_Print.Size = new System.Drawing.Size(65, 29);
+            this.btn_Print.Size = new System.Drawing.Size(20, 20);
             this.btn_Print.TabIndex = 0;
             this.btn_Print.UseVisualStyleBackColor = true;
             this.btn_Print.Click += new System.EventHandler(this.btn_Print_Click);
@@ -74,9 +76,10 @@
             this.btn_SaveFile.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.btn_SaveFile.FlatAppearance.BorderSize = 0;
             this.btn_SaveFile.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_SaveFile.Location = new System.Drawing.Point(216, 3);
+            this.btn_SaveFile.Location = new System.Drawing.Point(210, 3);
+            this.btn_SaveFile.Margin = new System.Windows.Forms.Padding(10, 3, 10, 3);
             this.btn_SaveFile.Name = "btn_SaveFile";
-            this.btn_SaveFile.Size = new System.Drawing.Size(65, 29);
+            this.btn_SaveFile.Size = new System.Drawing.Size(20, 20);
             this.btn_SaveFile.TabIndex = 0;
             this.btn_SaveFile.UseVisualStyleBackColor = true;
             this.btn_SaveFile.Click += new System.EventHandler(this.btn_SaveFile_Click);
@@ -89,9 +92,10 @@
             this.btn_CloseCurrentFile.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.btn_CloseCurrentFile.FlatAppearance.BorderSize = 0;
             this.btn_CloseCurrentFile.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_CloseCurrentFile.Location = new System.Drawing.Point(145, 2);
+            this.btn_CloseCurrentFile.Location = new System.Drawing.Point(90, 3);
+            this.btn_CloseCurrentFile.Margin = new System.Windows.Forms.Padding(10, 3, 10, 3);
             this.btn_CloseCurrentFile.Name = "btn_CloseCurrentFile";
-            this.btn_CloseCurrentFile.Size = new System.Drawing.Size(65, 29);
+            this.btn_CloseCurrentFile.Size = new System.Drawing.Size(20, 20);
             this.btn_CloseCurrentFile.TabIndex = 0;
             this.btn_CloseCurrentFile.UseVisualStyleBackColor = true;
             this.btn_CloseCurrentFile.Click += new System.EventHandler(this.btn_CloseCurrentFile_Click);
@@ -104,9 +108,10 @@
             this.btn_OpenFile.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.btn_OpenFile.FlatAppearance.BorderSize = 0;
             this.btn_OpenFile.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_OpenFile.Location = new System.Drawing.Point(74, 2);
+            this.btn_OpenFile.Location = new System.Drawing.Point(50, 3);
+            this.btn_OpenFile.Margin = new System.Windows.Forms.Padding(10, 3, 10, 3);
             this.btn_OpenFile.Name = "btn_OpenFile";
-            this.btn_OpenFile.Size = new System.Drawing.Size(65, 29);
+            this.btn_OpenFile.Size = new System.Drawing.Size(20, 20);
             this.btn_OpenFile.TabIndex = 0;
             this.btn_OpenFile.UseVisualStyleBackColor = true;
             this.btn_OpenFile.Click += new System.EventHandler(this.btn_OpenFile_Click);
@@ -119,9 +124,10 @@
             this.btn_CreateNewFile.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.btn_CreateNewFile.FlatAppearance.BorderSize = 0;
             this.btn_CreateNewFile.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_CreateNewFile.Location = new System.Drawing.Point(3, 3);
+            this.btn_CreateNewFile.Location = new System.Drawing.Point(10, 3);
+            this.btn_CreateNewFile.Margin = new System.Windows.Forms.Padding(10, 3, 10, 3);
             this.btn_CreateNewFile.Name = "btn_CreateNewFile";
-            this.btn_CreateNewFile.Size = new System.Drawing.Size(65, 29);
+            this.btn_CreateNewFile.Size = new System.Drawing.Size(20, 20);
             this.btn_CreateNewFile.TabIndex = 0;
             this.btn_CreateNewFile.UseVisualStyleBackColor = true;
             this.btn_CreateNewFile.Click += new System.EventHandler(this.btn_CreateNewFile_Click);
@@ -137,7 +143,7 @@
             this.Controls.Add(this.btn_OpenFile);
             this.Controls.Add(this.btn_CreateNewFile);
             this.Name = "FileUC";
-            this.Size = new System.Drawing.Size(925, 34);
+            this.Size = new System.Drawing.Size(925, 25);
             this.ResumeLayout(false);
 
         }
