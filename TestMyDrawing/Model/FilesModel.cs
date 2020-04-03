@@ -109,7 +109,7 @@ namespace TestMyDrawing.Model
             //omega a hui eye znaet nahua tupa koeff
            
             int counter = 0;
-            for (double t = start; t < numsek; t += delta)
+            for (double t = start; t <( numsek - delta/2); t += delta)
             {
 
                 
@@ -129,7 +129,7 @@ namespace TestMyDrawing.Model
             counter = 0;
             if (save_into_file)
             {
-                FileStream file_bin = File.OpenWrite("dots" + omega + "_" + k + "_" + start + "_" + numsek + ".bin");
+                FileStream file_bin = File.OpenWrite("dots" + omega + "_" + k + "_" + start + "_" + numsek + ".bin"); 
                 FileStream file_txt = File.OpenWrite("dots" + omega + "_" + k + "_" + start + "_" + numsek + ".txt");
                 BinaryWriter br = new BinaryWriter(file_bin);
                 StreamWriter sw = new StreamWriter(file_txt);
