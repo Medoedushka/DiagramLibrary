@@ -44,6 +44,7 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel5 = new System.Windows.Forms.Panel();
             this.pnl_CreateSpiral = new System.Windows.Forms.Panel();
+            this.btn_DeleteSpiral = new System.Windows.Forms.Button();
             this.btn_AddSpiralToMainList = new System.Windows.Forms.Button();
             this.btn_BuildSpiral = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
@@ -116,7 +117,6 @@
             this.rtb_TableTxt = new System.Windows.Forms.RichTextBox();
             this.pnl_StripElements = new System.Windows.Forms.Panel();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.btn_DeleteSpiral = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pcb_Minimize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pcb_Normalize)).BeginInit();
@@ -340,6 +340,20 @@
             this.pnl_CreateSpiral.Size = new System.Drawing.Size(353, 461);
             this.pnl_CreateSpiral.TabIndex = 6;
             // 
+            // btn_DeleteSpiral
+            // 
+            this.btn_DeleteSpiral.FlatAppearance.BorderSize = 0;
+            this.btn_DeleteSpiral.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_DeleteSpiral.Image = global::TestMyDrawing.Properties.Resources.icons8_delete_30px;
+            this.btn_DeleteSpiral.Location = new System.Drawing.Point(174, 200);
+            this.btn_DeleteSpiral.Name = "btn_DeleteSpiral";
+            this.btn_DeleteSpiral.Size = new System.Drawing.Size(35, 35);
+            this.btn_DeleteSpiral.TabIndex = 0;
+            this.btn_DeleteSpiral.TabStop = false;
+            this.btn_DeleteSpiral.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btn_DeleteSpiral.UseVisualStyleBackColor = true;
+            this.btn_DeleteSpiral.Click += new System.EventHandler(this.btn_DeleteSpiral_Click);
+            // 
             // btn_AddSpiralToMainList
             // 
             this.btn_AddSpiralToMainList.FlatAppearance.BorderSize = 0;
@@ -348,10 +362,11 @@
             this.btn_AddSpiralToMainList.Location = new System.Drawing.Point(133, 200);
             this.btn_AddSpiralToMainList.Name = "btn_AddSpiralToMainList";
             this.btn_AddSpiralToMainList.Size = new System.Drawing.Size(35, 35);
-            this.btn_AddSpiralToMainList.TabIndex = 3;
+            this.btn_AddSpiralToMainList.TabIndex = 0;
             this.btn_AddSpiralToMainList.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.toolTip1.SetToolTip(this.btn_AddSpiralToMainList, "Добавить созданную спираль в общий список кривых");
             this.btn_AddSpiralToMainList.UseVisualStyleBackColor = true;
+            this.btn_AddSpiralToMainList.Click += new System.EventHandler(this.btn_AddSpiralToMainList_Click);
             // 
             // btn_BuildSpiral
             // 
@@ -361,7 +376,7 @@
             this.btn_BuildSpiral.Location = new System.Drawing.Point(3, 202);
             this.btn_BuildSpiral.Name = "btn_BuildSpiral";
             this.btn_BuildSpiral.Size = new System.Drawing.Size(124, 31);
-            this.btn_BuildSpiral.TabIndex = 3;
+            this.btn_BuildSpiral.TabIndex = 5;
             this.btn_BuildSpiral.Text = "     Построить";
             this.btn_BuildSpiral.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btn_BuildSpiral.UseVisualStyleBackColor = true;
@@ -389,14 +404,14 @@
             this.txb_SpiralCoef.Location = new System.Drawing.Point(76, 117);
             this.txb_SpiralCoef.Name = "txb_SpiralCoef";
             this.txb_SpiralCoef.Size = new System.Drawing.Size(112, 26);
-            this.txb_SpiralCoef.TabIndex = 2;
+            this.txb_SpiralCoef.TabIndex = 4;
             // 
             // txb_SpiralOmega
             // 
             this.txb_SpiralOmega.Location = new System.Drawing.Point(76, 85);
             this.txb_SpiralOmega.Name = "txb_SpiralOmega";
             this.txb_SpiralOmega.Size = new System.Drawing.Size(112, 26);
-            this.txb_SpiralOmega.TabIndex = 2;
+            this.txb_SpiralOmega.TabIndex = 3;
             // 
             // txb_SpiralLenght
             // 
@@ -420,7 +435,7 @@
             this.txb_SpiralStart.Location = new System.Drawing.Point(76, 21);
             this.txb_SpiralStart.Name = "txb_SpiralStart";
             this.txb_SpiralStart.Size = new System.Drawing.Size(112, 26);
-            this.txb_SpiralStart.TabIndex = 2;
+            this.txb_SpiralStart.TabIndex = 1;
             // 
             // label20
             // 
@@ -1233,18 +1248,6 @@
             this.pnl_StripElements.Name = "pnl_StripElements";
             this.pnl_StripElements.Size = new System.Drawing.Size(1030, 60);
             this.pnl_StripElements.TabIndex = 0;
-            // 
-            // btn_DeleteSpiral
-            // 
-            this.btn_DeleteSpiral.FlatAppearance.BorderSize = 0;
-            this.btn_DeleteSpiral.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_DeleteSpiral.Image = global::TestMyDrawing.Properties.Resources.icons8_delete_30px;
-            this.btn_DeleteSpiral.Location = new System.Drawing.Point(174, 200);
-            this.btn_DeleteSpiral.Name = "btn_DeleteSpiral";
-            this.btn_DeleteSpiral.Size = new System.Drawing.Size(35, 35);
-            this.btn_DeleteSpiral.TabIndex = 3;
-            this.btn_DeleteSpiral.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btn_DeleteSpiral.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 

@@ -147,12 +147,13 @@ namespace TestMyDrawing.Presenter
             };
             drawingView.DrawSpiral += (object s, EventArgs e) =>
             {
-                List<Curves> temp = new List<Curves>();
                 PointF[] pt = _model.GenerateSpiral(drawingView.OmegaSpiral, drawingView.CoefSpiral, drawingView.StartSpiral, drawingView.LenghtSpiral);
-                Curves curve = new Curves(pt, Color.Cyan);
-                temp.Add(curve);
-                _model.gr.GraphCurves = temp;
-                _model.gr.DrawDiagram();
+                _model.ShowCreatedSpiral(pt);
+
+            };
+            drawingView.SpiralAction += (bool b) =>
+            {
+                _model.SpiralAction(b);
             };
         }
 

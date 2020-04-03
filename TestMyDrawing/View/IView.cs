@@ -80,5 +80,6 @@ namespace TestMyDrawing.View
         event EventHandler<EventArgs> Print;
         event EventHandler<EventArgs> Preview;
         event EventHandler<EventArgs> DrawSpiral;
+        event Action<bool> SpiralAction;
     }
 }

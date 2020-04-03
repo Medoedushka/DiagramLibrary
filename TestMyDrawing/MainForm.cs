@@ -42,6 +42,7 @@ namespace TestMyDrawing
         public event EventHandler<EventArgs> InitDiagramParams;
         public event EventHandler<EventArgs> ApdateDiagramParams;
         public event EventHandler<EventArgs> DrawSpiral;
+        public event Action<bool> SpiralAction;
         #endregion
         #region<---Свойства для изменения параметров кривой--->
         public string TableTxt { get => rtb_TableTxt.Text; set => rtb_TableTxt.Text = value; }
@@ -555,6 +556,16 @@ namespace TestMyDrawing
         private void btn_BuildSpiral_Click(object sender, EventArgs e)
         {
             DrawSpiral?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void btn_AddSpiralToMainList_Click(object sender, EventArgs e)
+        {
+            SpiralAction?.Invoke(true);
+        }
+
+        private void btn_DeleteSpiral_Click(object sender, EventArgs e)
+        {
+            SpiralAction?.Invoke(false);
         }
     }
 }
