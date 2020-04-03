@@ -173,6 +173,16 @@ namespace TestMyDrawing.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap icons8_delete_30px {
+            get {
+                object obj = ResourceManager.GetObject("icons8_delete_30px", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap icons8_edit_graph_report_20px {
             get {
                 object obj = ResourceManager.GetObject("icons8_edit_graph_report_20px", resourceCulture);

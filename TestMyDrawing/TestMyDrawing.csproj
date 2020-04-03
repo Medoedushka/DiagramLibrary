@@ -189,6 +189,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="icons8_plot.ico" />
+    <None Include="Resources\icons8_delete_30px.png" />
     <None Include="Resources\icons8_add_new_30px.png" />
     <None Include="Resources\icons8_pencil_30px.png" />
     <None Include="Resources\spiral.png" />
