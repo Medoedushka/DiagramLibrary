@@ -96,7 +96,7 @@ namespace TestMyDrawing.Model
             crrStream = new FileStream(path, FileMode.Open, FileAccess.ReadWrite);
         }
 
-        public PointF[] GenerateSpiral(string path, double omega, double k, int start, int numsek)
+        public PointF[] GenerateSpiral(double omega, double k, int start, int numsek)
         {
             double delta = 0.01;
             PointF[] pointsArray = new PointF[(int)(numsek/delta) - start];

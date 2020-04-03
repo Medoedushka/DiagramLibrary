@@ -21,6 +21,8 @@ namespace TestMyDrawing.Presenter
         PrintDocument pd;
         PrintPreviewDialog ppd;
 
+        
+
         public DrawingPresenter(IView _drawingView)
         {
             drawingView = _drawingView;
@@ -141,6 +143,15 @@ namespace TestMyDrawing.Presenter
 
                 _model.gr.Config.Grid = drawingView.Grid;
                 _model.gr.Config.SmoothAngles = drawingView.Smooth;
+                _model.gr.DrawDiagram();
+            };
+            drawingView.DrawSpiral += (object s, EventArgs e) =>
+            {
+                List<Curves> temp = new List<Curves>();
+                PointF[] pt = _model.GenerateSpiral(drawingView.OmegaSpiral, drawingView.CoefSpiral, drawingView.StartSpiral, drawingView.LenghtSpiral);
+                Curves curve = new Curves(pt, Color.Cyan);
+                temp.Add(curve);
+                _model.gr.GraphCurves = temp;
                 _model.gr.DrawDiagram();
             };
         }

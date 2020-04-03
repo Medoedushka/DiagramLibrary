@@ -41,6 +41,7 @@ namespace TestMyDrawing
         public event EventHandler<EventArgs> Preview;
         public event EventHandler<EventArgs> InitDiagramParams;
         public event EventHandler<EventArgs> ApdateDiagramParams;
+        public event EventHandler<EventArgs> DrawSpiral;
         #endregion
         #region<---Свойства для изменения параметров кривой--->
         public string TableTxt { get => rtb_TableTxt.Text; set => rtb_TableTxt.Text = value; }
@@ -173,6 +174,12 @@ namespace TestMyDrawing
         }
         public double OYSize { get => (double)nud_OYSize.Value; set => nud_OYSize.Value = (decimal)value; }
         public double OYPrice { get => double.Parse(txb_OYPrice.Text); set => txb_OYPrice.Text = value.ToString(); }
+        #endregion
+        #region<---Свойства для генерации спирали--->
+        public int StartSpiral { get => int.Parse(txb_SpiralStart.Text); set => txb_SpiralStart.Text = value.ToString(); }
+        public int LenghtSpiral { get => int.Parse(txb_SpiralLenght.Text); set => txb_SpiralLenght.Text = value.ToString(); }
+        public double OmegaSpiral { get => double.Parse(txb_SpiralOmega.Text); set => txb_SpiralOmega.Text = value.ToString(); }
+        public double CoefSpiral { get => double.Parse(txb_SpiralCoef.Text); set => txb_SpiralCoef.Text = value.ToString(); }
         #endregion
 
         static MainForm _obj;
@@ -376,8 +383,19 @@ namespace TestMyDrawing
             if (lbl_Edit.BackColor != lblChecked)
                 lbl_Edit.BackColor = lblFree;
         }
+
+        private void lbl_Tools_MouseEnter(object sender, EventArgs e)
+        {
+            if (lbl_Tools.BackColor != lblChecked)
+                lbl_Tools.BackColor = controlEnter;
+        }
+        private void lbl_Tools_MouseLeave(object sender, EventArgs e)
+        {
+            if (lbl_Tools.BackColor != lblChecked)
+                lbl_Tools.BackColor = lblFree;
+        }
         #endregion
-        
+
         #region<---Элементы ленты "Файл"--->
         public void OpenFile(object sender, EventArgs e)
         {
@@ -532,6 +550,11 @@ namespace TestMyDrawing
         private void btn_Apply_Click(object sender, EventArgs e)
         {
             ApdateDiagramParams?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void btn_BuildSpiral_Click(object sender, EventArgs e)
+        {
+            DrawSpiral?.Invoke(this, EventArgs.Empty);
         }
     }
 }

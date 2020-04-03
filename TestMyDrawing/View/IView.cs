@@ -55,6 +55,12 @@ namespace TestMyDrawing.View
         double OYSize { get; set; }
         double OYPrice { get; set; }
 
+        //Свойства для генерации спирали
+        int StartSpiral { get; set; }
+        int LenghtSpiral { get; set; }
+        double OmegaSpiral { get; set; }
+        double CoefSpiral { get; set; }
+
         event EventHandler<EventArgs> CreateNewFile;
         event Func<bool> SaveCreatedFile;
         event Action<bool> CloseFile;
@@ -73,5 +79,6 @@ namespace TestMyDrawing.View
         event EventHandler<GraphicEventArgs> Zoom;
         event EventHandler<EventArgs> Print;
         event EventHandler<EventArgs> Preview;
+        event EventHandler<EventArgs> DrawSpiral;
     }
 }

@@ -40,9 +40,10 @@
             this.btn_ZoomOut.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.btn_ZoomOut.FlatAppearance.BorderSize = 0;
             this.btn_ZoomOut.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_ZoomOut.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.btn_ZoomOut.Image = ((System.Drawing.Image)(resources.GetObject("btn_ZoomOut.Image")));
             this.btn_ZoomOut.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btn_ZoomOut.Location = new System.Drawing.Point(86, 2);
+            this.btn_ZoomOut.Location = new System.Drawing.Point(86, 3);
             this.btn_ZoomOut.Margin = new System.Windows.Forms.Padding(7, 3, 7, 3);
             this.btn_ZoomOut.Name = "btn_ZoomOut";
             this.btn_ZoomOut.Size = new System.Drawing.Size(65, 50);
