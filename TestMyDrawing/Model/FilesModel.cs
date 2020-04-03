@@ -96,7 +96,7 @@ namespace TestMyDrawing.Model
             crrStream = new FileStream(path, FileMode.Open, FileAccess.ReadWrite);
         }
 
-        public PointF[] GenerateSpiral(double omega, double k, int start, int numsek)
+        public PointF[] GenerateSpiral(double omega, double k, int start, int numsek, bool save_into_file)
         {
             double delta = 0.01;
             PointF[] pointsArray = new PointF[(int)(numsek/delta) - start];
@@ -107,31 +107,46 @@ namespace TestMyDrawing.Model
             numsek += start;
             //k - koef of spiral
             //omega a hui eye znaet nahua tupa koeff
-            using (FileStream file_bin= File.OpenWrite("dots" + omega + "_" + k + "_" + start + "_" + numsek + ".bin"))
+           
+            int counter = 0;
+            for (double t = start; t < numsek; t += delta)
             {
+
+                
+                double omt = omega * t;
+                double x = (double)(k * omt * Math.Cos(omt) / 4),
+                    y = (double)(k * omt * Math.Sin(omt));
+                
+                if (counter < pointsArray.Length)
+                {
+                    pointsArray[counter].X = (float)x;
+                    pointsArray[counter].Y = (float)y;
+                }
+                else throw new Exception("Прoсти, медоед, я идиот. Передай мне, что тут говно");
+                counter++;
+            }
+
+            counter = 0;
+            if (save_into_file)
+            {
+                FileStream file_bin = File.OpenWrite("dots" + omega + "_" + k + "_" + start + "_" + numsek + ".bin");
                 FileStream file_txt = File.OpenWrite("dots" + omega + "_" + k + "_" + start + "_" + numsek + ".txt");
                 BinaryWriter br = new BinaryWriter(file_bin);
                 StreamWriter sw = new StreamWriter(file_txt);
-                int counter = 0;
+
                 for (double t = start; t < numsek; t += delta)
                 {
-
                     br.Write(t);
-                    double omt = omega * t;
-                    double x = (double)(k * omt * Math.Cos(omt) / 4),
-                        y = (double)(k * omt * Math.Sin(omt));
-                    br.Write(x);
-                    br.Write(y);
-                    sw.Write(x + " " + y + "\n");
-                    if (counter < pointsArray.Length)
-                    {
-                        pointsArray[counter].X = (float)x;
-                        pointsArray[counter].Y = (float)y;
-                    }
-                    else throw new Exception("Присти, медоед, я идиот. Передай мне, что тут говно");
+                    br.Write(pointsArray[counter].X);
+                    br.Write(pointsArray[counter].Y);
+                    sw.Write(pointsArray[counter].X + " " + pointsArray[counter].Y + "\n");
+                    counter++;
                 }
+                
                 file_txt.Close();
+                file_bin.Close();
             }
+
             return pointsArray;
         }
     }
