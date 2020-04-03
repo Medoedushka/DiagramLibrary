@@ -1005,7 +1005,6 @@
             this.label5.Size = new System.Drawing.Size(127, 19);
             this.label5.TabIndex = 0;
             this.label5.Text = "Толщина линии:";
-            this.label5.Click += new System.EventHandler(this.label4_Click);
             // 
             // label4
             // 

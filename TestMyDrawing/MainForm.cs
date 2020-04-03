@@ -13,15 +13,16 @@ namespace TestMyDrawing
 {
     public partial class MainForm : Form, IView
     {
+        // Код, позволяющий перемещать плоское окно.
         [DllImport("user32", CharSet = CharSet.Auto)]
         internal extern static bool PostMessage(IntPtr hWnd, uint Msg, uint WParam, uint LParam);
         [DllImport("user32", CharSet = CharSet.Auto)]
         internal extern static bool ReleaseCapture();
-
         const uint WM_SYSCOMMAND = 0x0112;
         const uint DOMOVE = 0xF012;
         const uint DOSIZE = 0xF008;
 
+        #region<---События формы--->
         public event EventHandler<EventArgs> CreateNewFile;
         public event Func<bool> SaveCreatedFile;
         public event EventHandler<EventArgs> LoadFile;
@@ -40,7 +41,8 @@ namespace TestMyDrawing
         public event EventHandler<EventArgs> Preview;
         public event EventHandler<EventArgs> InitDiagramParams;
         public event EventHandler<EventArgs> ApdateDiagramParams;
-
+        #endregion
+        #region<---Свойства для изменения параметров кривой--->
         public string TableTxt { get => rtb_TableTxt.Text; set => rtb_TableTxt.Text = value; }
         public string CurrentFileName { get => lbl_CurrentFile.Text; set => lbl_CurrentFile.Text = value; }
         public PictureBox graph { get; set; }
@@ -102,36 +104,8 @@ namespace TestMyDrawing
                 }
             }
         }
-
-        static MainForm _obj;
-        public static MainForm Instance
-        {
-            get
-            {
-                if (_obj == null)
-                {
-                    _obj = new MainForm();
-                }
-                return _obj;
-            }
-        }
-        public Panel PnlCurvesSettings
-        {
-            get { return pnl_CurveSettings; }
-        }
-        public Panel PnlDiagramSettings
-        {
-            get { return pnl_DiagramParams; }
-        }
-        public ComboBox cmbDotCurves
-        {
-            get { return cmb_CurvesDots; }
-        }
-        public Button btnBack
-        {
-            get { return btn_Back; }
-        }
-
+        #endregion
+        #region<---Свойства для изменения параметров диаграммы--->
         public bool Grid { get => chb_Grid.Checked; set => chb_Grid.Checked = value; }
         public bool Smooth { get => chb_Smooth.Checked; set => chb_Smooth.Checked = value; }
         public string Title { get => txb_Title.Text; set => txb_Title.Text = value; }
@@ -199,6 +173,36 @@ namespace TestMyDrawing
         }
         public double OYSize { get => (double)nud_OYSize.Value; set => nud_OYSize.Value = (decimal)value; }
         public double OYPrice { get => double.Parse(txb_OYPrice.Text); set => txb_OYPrice.Text = value.ToString(); }
+        #endregion
+
+        static MainForm _obj;
+        public static MainForm Instance
+        {
+            get
+            {
+                if (_obj == null)
+                {
+                    _obj = new MainForm();
+                }
+                return _obj;
+            }
+        }
+        public Panel PnlCurvesSettings
+        {
+            get { return pnl_CurveSettings; }
+        }
+        public Panel PnlDiagramSettings
+        {
+            get { return pnl_DiagramParams; }
+        }
+        public ComboBox cmbDotCurves
+        {
+            get { return cmb_CurvesDots; }
+        }
+        public Button btnBack
+        {
+            get { return btn_Back; }
+        }
 
         Color lblChecked = Color.FromArgb(9, 154, 185);
         Color lblFree = Color.FromArgb(5, 89, 107);
@@ -211,7 +215,12 @@ namespace TestMyDrawing
             graph = pictureBox1;
         }
 
-
+        // Метод для перемещения формы.
+        private void panel1_MouseDown(object sender, MouseEventArgs e)
+        {
+            ReleaseCapture();
+            PostMessage(this.Handle, WM_SYSCOMMAND, DOMOVE, 0);
+        }
         private void MainForm_Load(object sender, EventArgs e)
         {
             lbl_File_Click(this, EventArgs.Empty);
@@ -225,6 +234,14 @@ namespace TestMyDrawing
             {
                 PlotAction?.Invoke(this, new GraphicEventArgs(EventType.ResizePlot));
             }
+        }
+        // Горячие клавиши для приближения и отдаления.
+        private void MainForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Control && e.KeyCode == Keys.Z)
+                ZoomIn(this, EventArgs.Empty);
+            if (e.Control && e.KeyCode == Keys.X)
+                ZoomOut(this, EventArgs.Empty);
         }
 
         #region<---Обработка ленты-->
@@ -402,11 +419,6 @@ namespace TestMyDrawing
         }
         #endregion
 
-        private void label4_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void btn_Back_Click(object sender, EventArgs e)
         {
 
@@ -415,14 +427,13 @@ namespace TestMyDrawing
             btn_Back.Visible = false;
         }
 
-
+        // Изменение масштаба области посмтроения.
         public void ZoomIn(object sender, EventArgs e)
         {
             GraphicEventArgs graphicEvent = new GraphicEventArgs(EventType.Zoom);
             graphicEvent.Zoom = true;
             Zoom?.Invoke(this, graphicEvent);
         }
-
         public void ZoomOut(object sender, EventArgs e)
         {
             GraphicEventArgs graphicEvent = new GraphicEventArgs(EventType.Zoom);
@@ -430,30 +441,29 @@ namespace TestMyDrawing
             Zoom?.Invoke(this, graphicEvent);
         }
 
+        // Инициализация диаграммы и построение графика по умолчанию.
         public void InitDiagramFields(object sender, EventArgs e)
         {
             InitDiagramParams?.Invoke(this, EventArgs.Empty);
         }
 
+        // Перемещение по области построения.
         private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
         {
             PlotMouseDown?.Invoke(this, e);
         }
-
         private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
         {
             GraphicEventArgs eventArgs = new GraphicEventArgs(EventType.MovePlot);
             eventArgs.mouseLocation = e.Location;
             PlotAction?.Invoke(this, eventArgs);
         }
-
         private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
         {
             PlotMouseUp?.Invoke(this, e);
         }
         
-
-
+        // Методы для редактирования кривой.
         private void btn_RefreshCurve_Click(object sender, EventArgs e)
         {
             System.Drawing.Drawing2D.DashStyle style;
@@ -480,13 +490,11 @@ namespace TestMyDrawing
             txb_DotsString.Text = "";
             nud_Thickness.Value = 1;
         }
-
         private void cmb_Curves_TextChanged(object sender, EventArgs e)
         {
             txb_CurveLegend.Text = cmb_Curves.Text;
             FillCurveFields?.Invoke(cmb_Curves.Text);
         }
-
         private void btn_DeleteCurve_Click(object sender, EventArgs e)
         {
             Curves newCurve = new Curves(new PointF[] { }, pcb_CurveColor.BackColor, CurveThickness: (int)nud_Thickness.Value, Legend: cmb_Curves.Text, dotsType: txb_DotsString.Text);
@@ -501,17 +509,14 @@ namespace TestMyDrawing
             txb_DotsString.Text = "";
             nud_Thickness.Value = 1;
         }
-
         private void brn_SetCurveColor_Click(object sender, EventArgs e)
         {
             SetCurveColor?.Invoke(this, EventArgs.Empty);
         }
-
         private void cmb_CurvesDots_SelectedIndexChanged(object sender, EventArgs e)
         {
             ShowCurvePoints?.Invoke(cmb_CurvesDots.Text);
         }
-
         private void btn_AddNewCurve_Click(object sender, EventArgs e)
         {
             GraphicEventArgs graphicEvent = new GraphicEventArgs(EventType.AddNewCurve);
@@ -522,21 +527,8 @@ namespace TestMyDrawing
 
             AddNewCurve?.Invoke(this, graphicEvent);
         }
-
-        private void MainForm_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Control && e.KeyCode == Keys.Z)
-                ZoomIn(this, EventArgs.Empty);
-            if (e.Control && e.KeyCode == Keys.X)
-                ZoomOut(this, EventArgs.Empty);
-        }
-
-        private void panel1_MouseDown(object sender, MouseEventArgs e)
-        {
-            ReleaseCapture();
-            PostMessage(this.Handle, WM_SYSCOMMAND, DOMOVE, 0);
-        }
-
+        
+        // Применить новые параметры диаграммы.
         private void btn_Apply_Click(object sender, EventArgs e)
         {
             ApdateDiagramParams?.Invoke(this, EventArgs.Empty);
