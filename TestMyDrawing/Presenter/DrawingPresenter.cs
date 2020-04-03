@@ -147,7 +147,7 @@ namespace TestMyDrawing.Presenter
             };
             drawingView.DrawSpiral += (object s, EventArgs e) =>
             {
-                PointF[] pt = _model.GenerateSpiral(drawingView.OmegaSpiral, drawingView.CoefSpiral, drawingView.StartSpiral, drawingView.LenghtSpiral);
+                PointF[] pt = _model.GenerateSpiral(drawingView.OmegaSpiral, drawingView.CoefSpiral, drawingView.StartSpiral, drawingView.LenghtSpiral, false);
                 _model.ShowCreatedSpiral(pt);
 
             };

@@ -99,7 +99,7 @@ namespace TestMyDrawing.Model
         public PointF[] GenerateSpiral(double omega, double k, int start, int numsek, bool save_into_file)
         {
             double delta = 0.01;
-            PointF[] pointsArray = new PointF[(int)(numsek/delta) - start];
+            PointF[] pointsArray = new PointF[(int)(numsek/delta)];
             //start - point of starting spiral
             start = start < 0 ? (-1) * start : start;
             //numsek - the length of spiral
