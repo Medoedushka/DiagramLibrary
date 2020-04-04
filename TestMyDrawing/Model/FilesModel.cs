@@ -134,7 +134,7 @@ namespace TestMyDrawing.Model
                 BinaryWriter br = new BinaryWriter(file_bin);
                 StreamWriter sw = new StreamWriter(file_txt);
 
-                for (double t = start; t < numsek; t += delta)
+                for (double t = start; t < (numsek - delta / 2); t += delta)
                 {
                     br.Write(t);
                     br.Write(pointsArray[counter].X);
