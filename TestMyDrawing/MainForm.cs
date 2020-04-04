@@ -41,6 +41,8 @@ namespace TestMyDrawing
         public event EventHandler<EventArgs> Preview;
         public event EventHandler<EventArgs> InitDiagramParams;
         public event EventHandler<EventArgs> ApdateDiagramParams;
+        public event Action<bool> DrawSpiral;
+        public event Action<bool> SpiralAction;
         #endregion
         #region<---Свойства для изменения параметров кривой--->
         public string TableTxt { get => rtb_TableTxt.Text; set => rtb_TableTxt.Text = value; }
@@ -174,8 +176,14 @@ namespace TestMyDrawing
         public double OYSize { get => (double)nud_OYSize.Value; set => nud_OYSize.Value = (decimal)value; }
         public double OYPrice { get => double.Parse(txb_OYPrice.Text); set => txb_OYPrice.Text = value.ToString(); }
         #endregion
-
-        static MainForm _obj;
+        #region<---Свойства для генерации спирали--->
+        public int StartSpiral { get => int.Parse(txb_SpiralStart.Text); set => txb_SpiralStart.Text = value.ToString(); }
+        public int LenghtSpiral { get => int.Parse(txb_SpiralLenght.Text); set => txb_SpiralLenght.Text = value.ToString(); }
+        public double OmegaSpiral { get => double.Parse(txb_SpiralOmega.Text); set => txb_SpiralOmega.Text = value.ToString(); }
+        public double CoefSpiral { get => double.Parse(txb_SpiralCoef.Text); set => txb_SpiralCoef.Text = value.ToString(); }
+        public bool SaveToFile { get => chb_SaveToFile.Checked; set => chb_SaveToFile.Checked = value; }
+        #endregion
+        private static MainForm _obj;
         public static MainForm Instance
         {
             get
@@ -194,6 +202,10 @@ namespace TestMyDrawing
         public Panel PnlDiagramSettings
         {
             get { return pnl_DiagramParams; }
+        }
+        public Panel PnlSpiralSettings
+        {
+            get { return pnl_CreateSpiral; }
         }
         public ComboBox cmbDotCurves
         {
@@ -248,6 +260,7 @@ namespace TestMyDrawing
         private void lbl_File_Click(object sender, EventArgs e)
         {
             lbl_Service.BackColor = lblFree;
+            lbl_Tools.BackColor = lblFree;
             lbl_Edit.BackColor = lblFree;
             lbl_File.BackColor = lblChecked;
             if (!pnl_StripElements.Controls.ContainsKey("FileUC"))
@@ -264,6 +277,7 @@ namespace TestMyDrawing
         {
             lbl_File.BackColor = lblFree;
             lbl_Edit.BackColor = lblFree;
+            lbl_Tools.BackColor = lblFree;
             lbl_Service.BackColor = lblChecked;
             if (!pnl_StripElements.Controls.ContainsKey("ServiceUC"))
             {
@@ -279,6 +293,7 @@ namespace TestMyDrawing
         {
             lbl_File.BackColor = lblFree;
             lbl_Service.BackColor = lblFree;
+            lbl_Tools.BackColor = lblFree;
             lbl_Edit.BackColor = lblChecked;
             if (!pnl_StripElements.Controls.ContainsKey("EditUC"))
             {
@@ -288,6 +303,22 @@ namespace TestMyDrawing
                 pnl_StripElements.Controls.Add(uc);
             }
             pnl_StripElements.Controls["EditUC"].BringToFront();
+        }
+
+        private void lbl_Tools_Click(object sender, EventArgs e)
+        {
+            lbl_File.BackColor = lblFree;
+            lbl_Service.BackColor = lblFree;
+            lbl_Edit.BackColor = lblFree;
+            lbl_Tools.BackColor = lblChecked;
+            if (!pnl_StripElements.Controls.ContainsKey("ToolsUC"))
+            {
+                ToolsUC uc = new ToolsUC();
+                uc.Dock = DockStyle.Fill;
+                uc.BackColor = lblChecked;
+                pnl_StripElements.Controls.Add(uc);
+            }
+            pnl_StripElements.Controls["ToolsUC"].BringToFront();
         }
 
         private void pcb_CloseApp_MouseLeave(object sender, EventArgs e)
@@ -376,8 +407,19 @@ namespace TestMyDrawing
             if (lbl_Edit.BackColor != lblChecked)
                 lbl_Edit.BackColor = lblFree;
         }
+
+        private void lbl_Tools_MouseEnter(object sender, EventArgs e)
+        {
+            if (lbl_Tools.BackColor != lblChecked)
+                lbl_Tools.BackColor = controlEnter;
+        }
+        private void lbl_Tools_MouseLeave(object sender, EventArgs e)
+        {
+            if (lbl_Tools.BackColor != lblChecked)
+                lbl_Tools.BackColor = lblFree;
+        }
         #endregion
-        
+
         #region<---Элементы ленты "Файл"--->
         public void OpenFile(object sender, EventArgs e)
         {
@@ -424,6 +466,7 @@ namespace TestMyDrawing
 
             pnl_CurveSettings.Location = new Point(this.Width + 10, pnl_CurveSettings.Location.Y);
             pnl_DiagramParams.Location = new Point(this.Width + 10, pnl_CurveSettings.Location.Y);
+            pnl_CreateSpiral.Location = new Point(this.Width + 10, pnl_CurveSettings.Location.Y);
             btn_Back.Visible = false;
         }
 
@@ -533,5 +576,31 @@ namespace TestMyDrawing
         {
             ApdateDiagramParams?.Invoke(this, EventArgs.Empty);
         }
+
+        // Методы для создание спирали.
+        public bool ValidateSpiralParams()
+        {
+            int a = 0; double b = 0;
+            if (int.TryParse(txb_SpiralStart.Text, out a) && int.TryParse(txb_SpiralLenght.Text, out a) &&
+                double.TryParse(txb_SpiralOmega.Text, out b) && double.TryParse(txb_SpiralCoef.Text, out b))
+                return true;
+            else return false;
+        }
+        private void btn_BuildSpiral_Click(object sender, EventArgs e)
+        {
+            if (ValidateSpiralParams())
+                DrawSpiral?.Invoke(chb_SaveToFile.Checked);
+            else MessageBox.Show("Недопустимое значение параметров.", "Неверный формат данных", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+        private void btn_AddSpiralToMainList_Click(object sender, EventArgs e)
+        {
+            SpiralAction?.Invoke(true);
+        }
+        private void btn_DeleteSpiral_Click(object sender, EventArgs e)
+        {
+            SpiralAction?.Invoke(false);
+        }
+
+        
     }
 }

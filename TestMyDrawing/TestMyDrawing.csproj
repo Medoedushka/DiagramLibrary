@@ -87,6 +87,12 @@
     <Compile Include="ElementsOfStrip\ServiceUC.Designer.cs">
       <DependentUpon>ServiceUC.cs</DependentUpon>
     </Compile>
+    <Compile Include="ElementsOfStrip\ToolsUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ElementsOfStrip\ToolsUC.Designer.cs">
+      <DependentUpon>ToolsUC.cs</DependentUpon>
+    </Compile>
     <Compile Include="GraphicEventArgs.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
@@ -111,6 +117,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ElementsOfStrip\ServiceUC.resx">
       <DependentUpon>ServiceUC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ElementsOfStrip\ToolsUC.resx">
+      <DependentUpon>ToolsUC.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
@@ -180,6 +189,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="icons8_plot.ico" />
+    <None Include="Resources\icons8_delete_30px.png" />
+    <None Include="Resources\icons8_add_new_30px.png" />
+    <None Include="Resources\icons8_pencil_30px.png" />
+    <None Include="Resources\spiral.png" />
     <None Include="Resources\zoom-out.png" />
     <None Include="Resources\zoom-in.png" />
     <None Include="Resources\curve%281%29.png" />

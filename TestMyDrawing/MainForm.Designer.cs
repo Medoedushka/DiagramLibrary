@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.panel1 = new System.Windows.Forms.Panel();
             this.pcb_Minimize = new System.Windows.Forms.PictureBox();
@@ -36,11 +37,27 @@
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.btn_Back = new System.Windows.Forms.Button();
             this.lbl_CurrentFile = new MetroFramework.Controls.MetroLabel();
+            this.lbl_Tools = new System.Windows.Forms.Label();
             this.lbl_Edit = new System.Windows.Forms.Label();
             this.lbl_Service = new System.Windows.Forms.Label();
             this.lbl_File = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel5 = new System.Windows.Forms.Panel();
+            this.pnl_CreateSpiral = new System.Windows.Forms.Panel();
+            this.chb_SaveToFile = new System.Windows.Forms.CheckBox();
+            this.btn_DeleteSpiral = new System.Windows.Forms.Button();
+            this.btn_AddSpiralToMainList = new System.Windows.Forms.Button();
+            this.btn_BuildSpiral = new System.Windows.Forms.Button();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.txb_SpiralCoef = new System.Windows.Forms.TextBox();
+            this.txb_SpiralOmega = new System.Windows.Forms.TextBox();
+            this.txb_SpiralLenght = new System.Windows.Forms.TextBox();
+            this.label21 = new System.Windows.Forms.Label();
+            this.txb_SpiralStart = new System.Windows.Forms.TextBox();
+            this.label20 = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.pnl_DiagramParams = new System.Windows.Forms.Panel();
             this.btn_Apply = new System.Windows.Forms.Button();
             this.chb_Smooth = new System.Windows.Forms.CheckBox();
@@ -73,8 +90,6 @@
             this.panel7 = new System.Windows.Forms.Panel();
             this.txb_Title = new System.Windows.Forms.TextBox();
             this.panel6 = new System.Windows.Forms.Panel();
-            this.cmb_CurvesDots = new MetroFramework.Controls.MetroComboBox();
-            this.rtb_TableTxt = new System.Windows.Forms.RichTextBox();
             this.pnl_CurveSettings = new System.Windows.Forms.Panel();
             this.cmb_Curves = new MetroFramework.Controls.MetroComboBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -99,7 +114,10 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.cmb_CurvesDots = new MetroFramework.Controls.MetroComboBox();
+            this.rtb_TableTxt = new System.Windows.Forms.RichTextBox();
             this.pnl_StripElements = new System.Windows.Forms.Panel();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pcb_Minimize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pcb_Normalize)).BeginInit();
@@ -107,6 +125,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.panel2.SuspendLayout();
             this.panel5.SuspendLayout();
+            this.pnl_CreateSpiral.SuspendLayout();
+            this.groupBox4.SuspendLayout();
             this.pnl_DiagramParams.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nud_OYSize)).BeginInit();
@@ -129,6 +149,7 @@
             this.panel1.Controls.Add(this.pictureBox2);
             this.panel1.Controls.Add(this.btn_Back);
             this.panel1.Controls.Add(this.lbl_CurrentFile);
+            this.panel1.Controls.Add(this.lbl_Tools);
             this.panel1.Controls.Add(this.lbl_Edit);
             this.panel1.Controls.Add(this.lbl_Service);
             this.panel1.Controls.Add(this.lbl_File);
@@ -219,6 +240,21 @@
             this.lbl_CurrentFile.UseCustomBackColor = true;
             this.lbl_CurrentFile.UseStyleColors = true;
             // 
+            // lbl_Tools
+            // 
+            this.lbl_Tools.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(5)))), ((int)(((byte)(89)))), ((int)(((byte)(107)))));
+            this.lbl_Tools.Font = new System.Drawing.Font("Myanmar Text", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_Tools.ForeColor = System.Drawing.Color.LightCyan;
+            this.lbl_Tools.Location = new System.Drawing.Point(234, 35);
+            this.lbl_Tools.Name = "lbl_Tools";
+            this.lbl_Tools.Size = new System.Drawing.Size(117, 23);
+            this.lbl_Tools.TabIndex = 1;
+            this.lbl_Tools.Text = "Инструменты";
+            this.lbl_Tools.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lbl_Tools.Click += new System.EventHandler(this.lbl_Tools_Click);
+            this.lbl_Tools.MouseEnter += new System.EventHandler(this.lbl_Tools_MouseEnter);
+            this.lbl_Tools.MouseLeave += new System.EventHandler(this.lbl_Tools_MouseLeave);
+            // 
             // lbl_Edit
             // 
             this.lbl_Edit.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(5)))), ((int)(((byte)(89)))), ((int)(((byte)(107)))));
@@ -278,6 +314,7 @@
             // panel5
             // 
             this.panel5.BackColor = System.Drawing.Color.LightCyan;
+            this.panel5.Controls.Add(this.pnl_CreateSpiral);
             this.panel5.Controls.Add(this.pnl_DiagramParams);
             this.panel5.Controls.Add(this.pnl_CurveSettings);
             this.panel5.Controls.Add(this.pictureBox1);
@@ -288,6 +325,171 @@
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(1030, 482);
             this.panel5.TabIndex = 6;
+            // 
+            // pnl_CreateSpiral
+            // 
+            this.pnl_CreateSpiral.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pnl_CreateSpiral.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnl_CreateSpiral.Controls.Add(this.chb_SaveToFile);
+            this.pnl_CreateSpiral.Controls.Add(this.btn_DeleteSpiral);
+            this.pnl_CreateSpiral.Controls.Add(this.btn_AddSpiralToMainList);
+            this.pnl_CreateSpiral.Controls.Add(this.btn_BuildSpiral);
+            this.pnl_CreateSpiral.Controls.Add(this.groupBox4);
+            this.pnl_CreateSpiral.Controls.Add(this.label1);
+            this.pnl_CreateSpiral.Font = new System.Drawing.Font("Cambria", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.pnl_CreateSpiral.Location = new System.Drawing.Point(1050, 9);
+            this.pnl_CreateSpiral.Name = "pnl_CreateSpiral";
+            this.pnl_CreateSpiral.Size = new System.Drawing.Size(353, 461);
+            this.pnl_CreateSpiral.TabIndex = 6;
+            // 
+            // chb_SaveToFile
+            // 
+            this.chb_SaveToFile.AutoSize = true;
+            this.chb_SaveToFile.Location = new System.Drawing.Point(3, 239);
+            this.chb_SaveToFile.Name = "chb_SaveToFile";
+            this.chb_SaveToFile.Size = new System.Drawing.Size(221, 23);
+            this.chb_SaveToFile.TabIndex = 6;
+            this.chb_SaveToFile.Text = "Сохранить спираль в файл";
+            this.chb_SaveToFile.UseVisualStyleBackColor = true;
+            // 
+            // btn_DeleteSpiral
+            // 
+            this.btn_DeleteSpiral.FlatAppearance.BorderSize = 0;
+            this.btn_DeleteSpiral.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_DeleteSpiral.Image = global::TestMyDrawing.Properties.Resources.icons8_delete_30px;
+            this.btn_DeleteSpiral.Location = new System.Drawing.Point(174, 200);
+            this.btn_DeleteSpiral.Name = "btn_DeleteSpiral";
+            this.btn_DeleteSpiral.Size = new System.Drawing.Size(35, 35);
+            this.btn_DeleteSpiral.TabIndex = 0;
+            this.btn_DeleteSpiral.TabStop = false;
+            this.btn_DeleteSpiral.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.toolTip1.SetToolTip(this.btn_DeleteSpiral, "Сбросить построение");
+            this.btn_DeleteSpiral.UseVisualStyleBackColor = true;
+            this.btn_DeleteSpiral.Click += new System.EventHandler(this.btn_DeleteSpiral_Click);
+            // 
+            // btn_AddSpiralToMainList
+            // 
+            this.btn_AddSpiralToMainList.FlatAppearance.BorderSize = 0;
+            this.btn_AddSpiralToMainList.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_AddSpiralToMainList.Image = global::TestMyDrawing.Properties.Resources.icons8_add_new_30px;
+            this.btn_AddSpiralToMainList.Location = new System.Drawing.Point(133, 200);
+            this.btn_AddSpiralToMainList.Name = "btn_AddSpiralToMainList";
+            this.btn_AddSpiralToMainList.Size = new System.Drawing.Size(35, 35);
+            this.btn_AddSpiralToMainList.TabIndex = 0;
+            this.btn_AddSpiralToMainList.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.toolTip1.SetToolTip(this.btn_AddSpiralToMainList, "Добавить созданную спираль в общий список кривых");
+            this.btn_AddSpiralToMainList.UseVisualStyleBackColor = true;
+            this.btn_AddSpiralToMainList.Click += new System.EventHandler(this.btn_AddSpiralToMainList_Click);
+            // 
+            // btn_BuildSpiral
+            // 
+            this.btn_BuildSpiral.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_BuildSpiral.Image = global::TestMyDrawing.Properties.Resources.icons8_pencil_30px;
+            this.btn_BuildSpiral.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btn_BuildSpiral.Location = new System.Drawing.Point(3, 202);
+            this.btn_BuildSpiral.Name = "btn_BuildSpiral";
+            this.btn_BuildSpiral.Size = new System.Drawing.Size(124, 31);
+            this.btn_BuildSpiral.TabIndex = 5;
+            this.btn_BuildSpiral.Text = "     Построить";
+            this.btn_BuildSpiral.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btn_BuildSpiral.UseVisualStyleBackColor = true;
+            this.btn_BuildSpiral.Click += new System.EventHandler(this.btn_BuildSpiral_Click);
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.txb_SpiralCoef);
+            this.groupBox4.Controls.Add(this.txb_SpiralOmega);
+            this.groupBox4.Controls.Add(this.txb_SpiralLenght);
+            this.groupBox4.Controls.Add(this.label21);
+            this.groupBox4.Controls.Add(this.txb_SpiralStart);
+            this.groupBox4.Controls.Add(this.label20);
+            this.groupBox4.Controls.Add(this.label19);
+            this.groupBox4.Controls.Add(this.label18);
+            this.groupBox4.Location = new System.Drawing.Point(3, 47);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(206, 149);
+            this.groupBox4.TabIndex = 2;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Параметры спирали";
+            // 
+            // txb_SpiralCoef
+            // 
+            this.txb_SpiralCoef.Location = new System.Drawing.Point(76, 117);
+            this.txb_SpiralCoef.Name = "txb_SpiralCoef";
+            this.txb_SpiralCoef.Size = new System.Drawing.Size(112, 26);
+            this.txb_SpiralCoef.TabIndex = 4;
+            // 
+            // txb_SpiralOmega
+            // 
+            this.txb_SpiralOmega.Location = new System.Drawing.Point(76, 85);
+            this.txb_SpiralOmega.Name = "txb_SpiralOmega";
+            this.txb_SpiralOmega.Size = new System.Drawing.Size(112, 26);
+            this.txb_SpiralOmega.TabIndex = 3;
+            // 
+            // txb_SpiralLenght
+            // 
+            this.txb_SpiralLenght.Location = new System.Drawing.Point(76, 53);
+            this.txb_SpiralLenght.Name = "txb_SpiralLenght";
+            this.txb_SpiralLenght.Size = new System.Drawing.Size(112, 26);
+            this.txb_SpiralLenght.TabIndex = 2;
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Font = new System.Drawing.Font("Cambria", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.label21.Location = new System.Drawing.Point(47, 123);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(22, 19);
+            this.label21.TabIndex = 1;
+            this.label21.Text = "k:";
+            // 
+            // txb_SpiralStart
+            // 
+            this.txb_SpiralStart.Location = new System.Drawing.Point(76, 21);
+            this.txb_SpiralStart.Name = "txb_SpiralStart";
+            this.txb_SpiralStart.Size = new System.Drawing.Size(112, 26);
+            this.txb_SpiralStart.TabIndex = 1;
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Font = new System.Drawing.Font("Cambria", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.label20.Location = new System.Drawing.Point(44, 91);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(25, 19);
+            this.label20.TabIndex = 1;
+            this.label20.Text = "Ω:";
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Font = new System.Drawing.Font("Cambria", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label19.Location = new System.Drawing.Point(6, 56);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(64, 19);
+            this.label19.TabIndex = 1;
+            this.label19.Text = "Lenght:";
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Font = new System.Drawing.Font("Cambria", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label18.Location = new System.Drawing.Point(21, 24);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(49, 19);
+            this.label18.TabIndex = 1;
+            this.label18.Text = "Start:";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Cambria", 13F);
+            this.label1.Location = new System.Drawing.Point(100, 9);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(169, 21);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Генератор спирали";
             // 
             // pnl_DiagramParams
             // 
@@ -736,34 +938,6 @@
             this.panel6.Size = new System.Drawing.Size(156, 3);
             this.panel6.TabIndex = 8;
             // 
-            // cmb_CurvesDots
-            // 
-            this.cmb_CurvesDots.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmb_CurvesDots.FormattingEnabled = true;
-            this.cmb_CurvesDots.ItemHeight = 23;
-            this.cmb_CurvesDots.Location = new System.Drawing.Point(674, 9);
-            this.cmb_CurvesDots.Name = "cmb_CurvesDots";
-            this.cmb_CurvesDots.Size = new System.Drawing.Size(353, 29);
-            this.cmb_CurvesDots.TabIndex = 2;
-            this.cmb_CurvesDots.UseSelectable = true;
-            this.cmb_CurvesDots.SelectedIndexChanged += new System.EventHandler(this.cmb_CurvesDots_SelectedIndexChanged);
-            // 
-            // rtb_TableTxt
-            // 
-            this.rtb_TableTxt.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.rtb_TableTxt.BackColor = System.Drawing.Color.White;
-            this.rtb_TableTxt.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.rtb_TableTxt.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rtb_TableTxt.Location = new System.Drawing.Point(674, 44);
-            this.rtb_TableTxt.Name = "rtb_TableTxt";
-            this.rtb_TableTxt.ReadOnly = true;
-            this.rtb_TableTxt.Size = new System.Drawing.Size(353, 426);
-            this.rtb_TableTxt.TabIndex = 1;
-            this.rtb_TableTxt.Text = "";
-            this.rtb_TableTxt.WordWrap = false;
-            // 
             // pnl_CurveSettings
             // 
             this.pnl_CurveSettings.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -1052,6 +1226,34 @@
             this.pictureBox1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseMove);
             this.pictureBox1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseUp);
             // 
+            // cmb_CurvesDots
+            // 
+            this.cmb_CurvesDots.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmb_CurvesDots.FormattingEnabled = true;
+            this.cmb_CurvesDots.ItemHeight = 23;
+            this.cmb_CurvesDots.Location = new System.Drawing.Point(674, 9);
+            this.cmb_CurvesDots.Name = "cmb_CurvesDots";
+            this.cmb_CurvesDots.Size = new System.Drawing.Size(353, 29);
+            this.cmb_CurvesDots.TabIndex = 2;
+            this.cmb_CurvesDots.UseSelectable = true;
+            this.cmb_CurvesDots.SelectedIndexChanged += new System.EventHandler(this.cmb_CurvesDots_SelectedIndexChanged);
+            // 
+            // rtb_TableTxt
+            // 
+            this.rtb_TableTxt.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.rtb_TableTxt.BackColor = System.Drawing.Color.White;
+            this.rtb_TableTxt.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.rtb_TableTxt.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rtb_TableTxt.Location = new System.Drawing.Point(674, 44);
+            this.rtb_TableTxt.Name = "rtb_TableTxt";
+            this.rtb_TableTxt.ReadOnly = true;
+            this.rtb_TableTxt.Size = new System.Drawing.Size(353, 426);
+            this.rtb_TableTxt.TabIndex = 1;
+            this.rtb_TableTxt.Text = "";
+            this.rtb_TableTxt.WordWrap = false;
+            // 
             // pnl_StripElements
             // 
             this.pnl_StripElements.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(154)))), ((int)(((byte)(185)))));
@@ -1086,6 +1288,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel5.ResumeLayout(false);
+            this.pnl_CreateSpiral.ResumeLayout(false);
+            this.pnl_CreateSpiral.PerformLayout();
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
             this.pnl_DiagramParams.ResumeLayout(false);
             this.pnl_DiagramParams.PerformLayout();
             this.groupBox3.ResumeLayout(false);
@@ -1178,6 +1384,23 @@
         private System.Windows.Forms.PictureBox pcb_Minimize;
         private System.Windows.Forms.PictureBox pcb_Normalize;
         private System.Windows.Forms.Panel panel5;
+        private System.Windows.Forms.Label lbl_Tools;
+        private System.Windows.Forms.Panel pnl_CreateSpiral;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.TextBox txb_SpiralLenght;
+        private System.Windows.Forms.TextBox txb_SpiralStart;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.TextBox txb_SpiralOmega;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.TextBox txb_SpiralCoef;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.Button btn_BuildSpiral;
+        private System.Windows.Forms.Button btn_AddSpiralToMainList;
+        private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.Button btn_DeleteSpiral;
+        private System.Windows.Forms.CheckBox chb_SaveToFile;
     }
 }
 

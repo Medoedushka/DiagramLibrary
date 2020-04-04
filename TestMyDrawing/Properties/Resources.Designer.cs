@@ -153,6 +153,16 @@ namespace TestMyDrawing.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap icons8_add_new_30px {
+            get {
+                object obj = ResourceManager.GetObject("icons8_add_new_30px", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap icons8_checkmark_50px_1 {
             get {
                 object obj = ResourceManager.GetObject("icons8_checkmark_50px_1", resourceCulture);
@@ -163,9 +173,29 @@ namespace TestMyDrawing.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap icons8_delete_30px {
+            get {
+                object obj = ResourceManager.GetObject("icons8_delete_30px", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap icons8_edit_graph_report_20px {
             get {
                 object obj = ResourceManager.GetObject("icons8_edit_graph_report_20px", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap icons8_pencil_30px {
+            get {
+                object obj = ResourceManager.GetObject("icons8_pencil_30px", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -276,6 +306,16 @@ namespace TestMyDrawing.Properties {
         internal static System.Drawing.Bitmap solid {
             get {
                 object obj = ResourceManager.GetObject("solid", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap spiral {
+            get {
+                object obj = ResourceManager.GetObject("spiral", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

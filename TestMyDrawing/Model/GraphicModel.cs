@@ -3,6 +3,7 @@ using System.Drawing;
 using MyClassLibrary;
 using MyDrawing;
 using System.Windows.Forms;
+using System.Collections.Generic;
 
 namespace TestMyDrawing.Model
 {
@@ -10,6 +11,7 @@ namespace TestMyDrawing.Model
     public partial class DrawingModel
     {
         public PointsGraphic gr;
+        List<Curves> SavedCurves;
 
         Color[] BaseColors =
         {
@@ -154,7 +156,36 @@ namespace TestMyDrawing.Model
             gr.DrawDiagram();
         }
 
+        bool isCreating = false;
+        public void ShowCreatedSpiral(PointF[] pt)
+        {
+            List<Curves> temp = new List<Curves>();
+            Curves curve = new Curves(pt, Color.Cyan);
+            temp.Add(curve);
+            if (!isCreating)
+                SavedCurves = gr.GraphCurves;
 
+            gr.GraphCurves = temp;
+            isCreating = true;
+            gr.DrawDiagram();
+        }
+
+        public void SpiralAction(bool action)
+        {
+            if (action)
+            {
+                Curves spiral = gr.GraphCurves[0];
+                gr.GraphCurves = SavedCurves;
+                gr.AddCurve(spiral);
+            }
+            else
+            {
+                gr.GraphCurves = SavedCurves;
+                isCreating = false;
+            }
+
+            gr.DrawDiagram();
+        }
         
     }
 }

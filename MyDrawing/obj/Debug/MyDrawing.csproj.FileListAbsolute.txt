@@ -29,3 +29,13 @@ D:\Проекты C#\Библиотеки\DiagramLibrary\MyDrawing\bin\Debug\MyC
 D:\Проекты C#\Библиотеки\DiagramLibrary\MyDrawing\bin\Debug\MyClassLibrary.pdb
 D:\Проекты C#\Библиотеки\DiagramLibrary\MyDrawing\bin\Debug\MyClassLibrary.xml
 D:\Проекты C#\Библиотеки\DiagramLibrary\MyDrawing\obj\Debug\MyDrawing.csproj.CopyComplete
+D:\Documents_D\Medoed\fix\DiagramLibrary\MyDrawing\bin\Debug\MyDrawing.xml
+D:\Documents_D\Medoed\fix\DiagramLibrary\MyDrawing\bin\Debug\MyDrawing.dll
+D:\Documents_D\Medoed\fix\DiagramLibrary\MyDrawing\bin\Debug\MyDrawing.pdb
+D:\Documents_D\Medoed\fix\DiagramLibrary\MyDrawing\bin\Debug\MyClassLibrary.pdb
+D:\Documents_D\Medoed\fix\DiagramLibrary\MyDrawing\bin\Debug\MyClassLibrary.xml
+D:\Documents_D\Medoed\fix\DiagramLibrary\MyDrawing\obj\Debug\MyDrawing.csprojAssemblyReference.cache
+D:\Documents_D\Medoed\fix\DiagramLibrary\MyDrawing\obj\Debug\MyDrawing.csproj.CoreCompileInputs.cache
+D:\Documents_D\Medoed\fix\DiagramLibrary\MyDrawing\obj\Debug\MyDrawing.csproj.CopyComplete
+D:\Documents_D\Medoed\fix\DiagramLibrary\MyDrawing\obj\Debug\MyDrawing.dll
+D:\Documents_D\Medoed\fix\DiagramLibrary\MyDrawing\obj\Debug\MyDrawing.pdb
