@@ -577,6 +577,7 @@ namespace TestMyDrawing
             ApdateDiagramParams?.Invoke(this, EventArgs.Empty);
         }
 
+        // Методы для создание спирали.
         public bool ValidateSpiralParams()
         {
             int a = 0; double b = 0;
@@ -591,12 +592,10 @@ namespace TestMyDrawing
                 DrawSpiral?.Invoke(chb_SaveToFile.Checked);
             else MessageBox.Show("Недопустимое значение параметров.", "Неверный формат данных", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
-
         private void btn_AddSpiralToMainList_Click(object sender, EventArgs e)
         {
             SpiralAction?.Invoke(true);
         }
-
         private void btn_DeleteSpiral_Click(object sender, EventArgs e)
         {
             SpiralAction?.Invoke(false);

@@ -156,13 +156,17 @@ namespace TestMyDrawing.Model
             gr.DrawDiagram();
         }
 
+        bool isCreating = false;
         public void ShowCreatedSpiral(PointF[] pt)
         {
             List<Curves> temp = new List<Curves>();
             Curves curve = new Curves(pt, Color.Cyan);
             temp.Add(curve);
-            SavedCurves = gr.GraphCurves;
+            if (!isCreating)
+                SavedCurves = gr.GraphCurves;
+
             gr.GraphCurves = temp;
+            isCreating = true;
             gr.DrawDiagram();
         }
 
@@ -173,9 +177,12 @@ namespace TestMyDrawing.Model
                 Curves spiral = gr.GraphCurves[0];
                 gr.GraphCurves = SavedCurves;
                 gr.AddCurve(spiral);
-                
             }
-            else gr.GraphCurves = SavedCurves;
+            else
+            {
+                gr.GraphCurves = SavedCurves;
+                isCreating = false;
+            }
 
             gr.DrawDiagram();
         }

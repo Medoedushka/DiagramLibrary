@@ -364,6 +364,7 @@
             this.btn_DeleteSpiral.TabIndex = 0;
             this.btn_DeleteSpiral.TabStop = false;
             this.btn_DeleteSpiral.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.toolTip1.SetToolTip(this.btn_DeleteSpiral, "Сбросить построение");
             this.btn_DeleteSpiral.UseVisualStyleBackColor = true;
             this.btn_DeleteSpiral.Click += new System.EventHandler(this.btn_DeleteSpiral_Click);
             // 
