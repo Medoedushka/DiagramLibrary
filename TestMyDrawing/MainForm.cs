@@ -183,8 +183,7 @@ namespace TestMyDrawing
         public double CoefSpiral { get => double.Parse(txb_SpiralCoef.Text); set => txb_SpiralCoef.Text = value.ToString(); }
         public bool SaveToFile { get => chb_SaveToFile.Checked; set => chb_SaveToFile.Checked = value; }
         #endregion
-
-        static MainForm _obj;
+        private static MainForm _obj;
         public static MainForm Instance
         {
             get

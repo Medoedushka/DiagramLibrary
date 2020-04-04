@@ -154,6 +154,7 @@ namespace TestMyDrawing.Presenter
             drawingView.SpiralAction += (bool b) =>
             {
                 _model.SpiralAction(b);
+                if (b) InitCurvesNames();
             };
         }
 
