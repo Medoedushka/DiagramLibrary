@@ -203,6 +203,10 @@ namespace TestMyDrawing
         {
             get { return pnl_DiagramParams; }
         }
+        public Panel PnlSpiralSettings
+        {
+            get { return pnl_CreateSpiral; }
+        }
         public ComboBox cmbDotCurves
         {
             get { return cmb_CurvesDots; }
@@ -256,6 +260,7 @@ namespace TestMyDrawing
         private void lbl_File_Click(object sender, EventArgs e)
         {
             lbl_Service.BackColor = lblFree;
+            lbl_Tools.BackColor = lblFree;
             lbl_Edit.BackColor = lblFree;
             lbl_File.BackColor = lblChecked;
             if (!pnl_StripElements.Controls.ContainsKey("FileUC"))
@@ -272,6 +277,7 @@ namespace TestMyDrawing
         {
             lbl_File.BackColor = lblFree;
             lbl_Edit.BackColor = lblFree;
+            lbl_Tools.BackColor = lblFree;
             lbl_Service.BackColor = lblChecked;
             if (!pnl_StripElements.Controls.ContainsKey("ServiceUC"))
             {
@@ -287,6 +293,7 @@ namespace TestMyDrawing
         {
             lbl_File.BackColor = lblFree;
             lbl_Service.BackColor = lblFree;
+            lbl_Tools.BackColor = lblFree;
             lbl_Edit.BackColor = lblChecked;
             if (!pnl_StripElements.Controls.ContainsKey("EditUC"))
             {
@@ -296,6 +303,22 @@ namespace TestMyDrawing
                 pnl_StripElements.Controls.Add(uc);
             }
             pnl_StripElements.Controls["EditUC"].BringToFront();
+        }
+
+        private void lbl_Tools_Click(object sender, EventArgs e)
+        {
+            lbl_File.BackColor = lblFree;
+            lbl_Service.BackColor = lblFree;
+            lbl_Edit.BackColor = lblFree;
+            lbl_Tools.BackColor = lblChecked;
+            if (!pnl_StripElements.Controls.ContainsKey("ToolsUC"))
+            {
+                ToolsUC uc = new ToolsUC();
+                uc.Dock = DockStyle.Fill;
+                uc.BackColor = lblChecked;
+                pnl_StripElements.Controls.Add(uc);
+            }
+            pnl_StripElements.Controls["ToolsUC"].BringToFront();
         }
 
         private void pcb_CloseApp_MouseLeave(object sender, EventArgs e)
@@ -443,6 +466,7 @@ namespace TestMyDrawing
 
             pnl_CurveSettings.Location = new Point(this.Width + 10, pnl_CurveSettings.Location.Y);
             pnl_DiagramParams.Location = new Point(this.Width + 10, pnl_CurveSettings.Location.Y);
+            pnl_CreateSpiral.Location = new Point(this.Width + 10, pnl_CurveSettings.Location.Y);
             btn_Back.Visible = false;
         }
 
@@ -577,5 +601,7 @@ namespace TestMyDrawing
         {
             SpiralAction?.Invoke(false);
         }
+
+        
     }
 }

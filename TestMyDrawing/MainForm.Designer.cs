@@ -44,6 +44,7 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel5 = new System.Windows.Forms.Panel();
             this.pnl_CreateSpiral = new System.Windows.Forms.Panel();
+            this.chb_SaveToFile = new System.Windows.Forms.CheckBox();
             this.btn_DeleteSpiral = new System.Windows.Forms.Button();
             this.btn_AddSpiralToMainList = new System.Windows.Forms.Button();
             this.btn_BuildSpiral = new System.Windows.Forms.Button();
@@ -117,7 +118,6 @@
             this.rtb_TableTxt = new System.Windows.Forms.RichTextBox();
             this.pnl_StripElements = new System.Windows.Forms.Panel();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.chb_SaveToFile = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pcb_Minimize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pcb_Normalize)).BeginInit();
@@ -251,6 +251,7 @@
             this.lbl_Tools.TabIndex = 1;
             this.lbl_Tools.Text = "Инструменты";
             this.lbl_Tools.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lbl_Tools.Click += new System.EventHandler(this.lbl_Tools_Click);
             this.lbl_Tools.MouseEnter += new System.EventHandler(this.lbl_Tools_MouseEnter);
             this.lbl_Tools.MouseLeave += new System.EventHandler(this.lbl_Tools_MouseLeave);
             // 
@@ -337,10 +338,20 @@
             this.pnl_CreateSpiral.Controls.Add(this.groupBox4);
             this.pnl_CreateSpiral.Controls.Add(this.label1);
             this.pnl_CreateSpiral.Font = new System.Drawing.Font("Cambria", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.pnl_CreateSpiral.Location = new System.Drawing.Point(674, 9);
+            this.pnl_CreateSpiral.Location = new System.Drawing.Point(1050, 9);
             this.pnl_CreateSpiral.Name = "pnl_CreateSpiral";
             this.pnl_CreateSpiral.Size = new System.Drawing.Size(353, 461);
             this.pnl_CreateSpiral.TabIndex = 6;
+            // 
+            // chb_SaveToFile
+            // 
+            this.chb_SaveToFile.AutoSize = true;
+            this.chb_SaveToFile.Location = new System.Drawing.Point(3, 239);
+            this.chb_SaveToFile.Name = "chb_SaveToFile";
+            this.chb_SaveToFile.Size = new System.Drawing.Size(221, 23);
+            this.chb_SaveToFile.TabIndex = 6;
+            this.chb_SaveToFile.Text = "Сохранить спираль в файл";
+            this.chb_SaveToFile.UseVisualStyleBackColor = true;
             // 
             // btn_DeleteSpiral
             // 
@@ -1250,16 +1261,6 @@
             this.pnl_StripElements.Name = "pnl_StripElements";
             this.pnl_StripElements.Size = new System.Drawing.Size(1030, 60);
             this.pnl_StripElements.TabIndex = 0;
-            // 
-            // chb_SaveToFile
-            // 
-            this.chb_SaveToFile.AutoSize = true;
-            this.chb_SaveToFile.Location = new System.Drawing.Point(3, 239);
-            this.chb_SaveToFile.Name = "chb_SaveToFile";
-            this.chb_SaveToFile.Size = new System.Drawing.Size(221, 23);
-            this.chb_SaveToFile.TabIndex = 6;
-            this.chb_SaveToFile.Text = "Сохранить спираль в файл";
-            this.chb_SaveToFile.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 

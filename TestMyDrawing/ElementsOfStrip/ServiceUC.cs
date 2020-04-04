@@ -19,7 +19,7 @@ namespace TestMyDrawing.ElementsOfStrip
         {
             InitializeComponent();
             timer = new Timer();
-            timer.Interval = 1;
+            timer.Interval = 10;
             timer.Tick += Timer_Tick;
         }
 
