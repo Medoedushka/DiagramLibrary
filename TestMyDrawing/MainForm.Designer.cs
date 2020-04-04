@@ -117,6 +117,7 @@
             this.rtb_TableTxt = new System.Windows.Forms.RichTextBox();
             this.pnl_StripElements = new System.Windows.Forms.Panel();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.chb_SaveToFile = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pcb_Minimize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pcb_Normalize)).BeginInit();
@@ -329,6 +330,7 @@
             this.pnl_CreateSpiral.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pnl_CreateSpiral.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnl_CreateSpiral.Controls.Add(this.chb_SaveToFile);
             this.pnl_CreateSpiral.Controls.Add(this.btn_DeleteSpiral);
             this.pnl_CreateSpiral.Controls.Add(this.btn_AddSpiralToMainList);
             this.pnl_CreateSpiral.Controls.Add(this.btn_BuildSpiral);
@@ -1249,6 +1251,16 @@
             this.pnl_StripElements.Size = new System.Drawing.Size(1030, 60);
             this.pnl_StripElements.TabIndex = 0;
             // 
+            // chb_SaveToFile
+            // 
+            this.chb_SaveToFile.AutoSize = true;
+            this.chb_SaveToFile.Location = new System.Drawing.Point(3, 239);
+            this.chb_SaveToFile.Name = "chb_SaveToFile";
+            this.chb_SaveToFile.Size = new System.Drawing.Size(221, 23);
+            this.chb_SaveToFile.TabIndex = 6;
+            this.chb_SaveToFile.Text = "Сохранить спираль в файл";
+            this.chb_SaveToFile.UseVisualStyleBackColor = true;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1386,6 +1398,7 @@
         private System.Windows.Forms.Button btn_AddSpiralToMainList;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.Button btn_DeleteSpiral;
+        private System.Windows.Forms.CheckBox chb_SaveToFile;
     }
 }
 

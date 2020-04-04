@@ -145,9 +145,9 @@ namespace TestMyDrawing.Presenter
                 _model.gr.Config.SmoothAngles = drawingView.Smooth;
                 _model.gr.DrawDiagram();
             };
-            drawingView.DrawSpiral += (object s, EventArgs e) =>
+            drawingView.DrawSpiral += (bool b) =>
             {
-                PointF[] pt = _model.GenerateSpiral(drawingView.OmegaSpiral, drawingView.CoefSpiral, drawingView.StartSpiral, drawingView.LenghtSpiral, false);
+                PointF[] pt = _model.GenerateSpiral(drawingView.OmegaSpiral, drawingView.CoefSpiral, drawingView.StartSpiral, drawingView.LenghtSpiral, b);
                 _model.ShowCreatedSpiral(pt);
 
             };

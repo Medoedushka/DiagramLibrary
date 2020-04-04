@@ -41,7 +41,7 @@ namespace TestMyDrawing
         public event EventHandler<EventArgs> Preview;
         public event EventHandler<EventArgs> InitDiagramParams;
         public event EventHandler<EventArgs> ApdateDiagramParams;
-        public event EventHandler<EventArgs> DrawSpiral;
+        public event Action<bool> DrawSpiral;
         public event Action<bool> SpiralAction;
         #endregion
         #region<---Свойства для изменения параметров кривой--->
@@ -181,6 +181,7 @@ namespace TestMyDrawing
         public int LenghtSpiral { get => int.Parse(txb_SpiralLenght.Text); set => txb_SpiralLenght.Text = value.ToString(); }
         public double OmegaSpiral { get => double.Parse(txb_SpiralOmega.Text); set => txb_SpiralOmega.Text = value.ToString(); }
         public double CoefSpiral { get => double.Parse(txb_SpiralCoef.Text); set => txb_SpiralCoef.Text = value.ToString(); }
+        public bool SaveToFile { get => chb_SaveToFile.Checked; set => chb_SaveToFile.Checked = value; }
         #endregion
 
         static MainForm _obj;
@@ -553,9 +554,19 @@ namespace TestMyDrawing
             ApdateDiagramParams?.Invoke(this, EventArgs.Empty);
         }
 
+        public bool ValidateSpiralParams()
+        {
+            int a = 0; double b = 0;
+            if (int.TryParse(txb_SpiralStart.Text, out a) && int.TryParse(txb_SpiralLenght.Text, out a) &&
+                double.TryParse(txb_SpiralOmega.Text, out b) && double.TryParse(txb_SpiralCoef.Text, out b))
+                return true;
+            else return false;
+        }
         private void btn_BuildSpiral_Click(object sender, EventArgs e)
         {
-            DrawSpiral?.Invoke(this, EventArgs.Empty);
+            if (ValidateSpiralParams())
+                DrawSpiral?.Invoke(chb_SaveToFile.Checked);
+            else MessageBox.Show("Недопустимое значение параметров.", "Неверный формат данных", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         private void btn_AddSpiralToMainList_Click(object sender, EventArgs e)

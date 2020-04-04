@@ -60,6 +60,7 @@ namespace TestMyDrawing.View
         int LenghtSpiral { get; set; }
         double OmegaSpiral { get; set; }
         double CoefSpiral { get; set; }
+        bool SaveToFile { get; set; }
 
         event EventHandler<EventArgs> CreateNewFile;
         event Func<bool> SaveCreatedFile;
@@ -79,7 +80,9 @@ namespace TestMyDrawing.View
         event EventHandler<GraphicEventArgs> Zoom;
         event EventHandler<EventArgs> Print;
         event EventHandler<EventArgs> Preview;
-        event EventHandler<EventArgs> DrawSpiral;
+        event Action<bool> DrawSpiral;
         event Action<bool> SpiralAction;
+
+        bool ValidateSpiralParams();
     }
 }
