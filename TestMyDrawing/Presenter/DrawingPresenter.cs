@@ -55,7 +55,7 @@ namespace TestMyDrawing.Presenter
                 if (b == true)
                 {
                     _model.gr.GraphCurves.Clear();
-                    _model.gr.DrawDiagram();
+                    
                 }
             };
             drawingView.InitGraphic += (object s, EventArgs e) =>
@@ -143,7 +143,7 @@ namespace TestMyDrawing.Presenter
 
                 _model.gr.Config.Grid = drawingView.Grid;
                 _model.gr.Config.SmoothAngles = drawingView.Smooth;
-                _model.gr.DrawDiagram();
+                
             };
             drawingView.DrawSpiral += (bool b) =>
             {

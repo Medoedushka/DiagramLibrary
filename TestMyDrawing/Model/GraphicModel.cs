@@ -12,6 +12,7 @@ namespace TestMyDrawing.Model
     {
         public PointsGraphic gr;
         List<Curves> SavedCurves;
+        Timer timer;
 
         Color[] BaseColors =
         {
@@ -36,7 +37,10 @@ namespace TestMyDrawing.Model
         public void Init(PictureBox picture)
         {
             gr = new PointsGraphic(picture);
-            
+            timer = new Timer();
+            timer.Interval = 33;
+            timer.Tick += Timer_Tick;
+            timer.Start();
             //инициализация параметров по умолчанию
             gr.Title = "Название диаграммы";
             gr.TitlePosition = TextPosition.Centre;
@@ -56,12 +60,17 @@ namespace TestMyDrawing.Model
             crrStream?.Close();
         }
 
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            gr.DrawDiagram();
+        }
+
         public void ResizePlot(PictureBox picture)
         {
             if (gr != null)
             {
                 gr.SetPlaceToDrawSize(picture.Width, picture.Height);
-                gr.DrawDiagram();
+                
             }
         }
 
@@ -80,7 +89,7 @@ namespace TestMyDrawing.Model
                 gr.RealCenter = new Point(crrMouseLoc.X - (int)(d * Math.Cos(angle)), crrMouseLoc.Y + (int)(d * Math.Sin(angle)));
             else
                 gr.RealCenter = new Point(crrMouseLoc.X + (int)(d * Math.Cos(angle)), crrMouseLoc.Y + (int)(d * Math.Sin(angle)));
-            gr.DrawDiagram();
+            
         }
 
         int counter = 0;
@@ -101,7 +110,7 @@ namespace TestMyDrawing.Model
                 PointF vector = new PointF(center1_cont.X - center0_cont.X, center1_cont.Y - center0_cont.Y);
                 gr.RealCenter = new Point(gr.RealCenter.X - (int)vector.X, gr.RealCenter.Y - (int)vector.Y);
                 
-                gr.DrawDiagram();
+                
             }
             else
             {
@@ -114,7 +123,7 @@ namespace TestMyDrawing.Model
                 PointF center1_cont = gr.ConvertValues(center0_dec, CoordType.GetControlCoord);
                 PointF vector = new PointF(center1_cont.X - center0_cont.X, center1_cont.Y - center0_cont.Y);
                 gr.RealCenter = new Point(gr.RealCenter.X - (int)vector.X, gr.RealCenter.Y - (int)vector.Y);
-                gr.DrawDiagram();
+                
             }
         }
 
@@ -153,7 +162,7 @@ namespace TestMyDrawing.Model
                         
                 }
             }
-            gr.DrawDiagram();
+            
         }
 
         bool isCreating = false;
@@ -167,7 +176,7 @@ namespace TestMyDrawing.Model
 
             gr.GraphCurves = temp;
             isCreating = true;
-            gr.DrawDiagram();
+            
         }
 
         public void SpiralAction(bool action)
@@ -184,7 +193,7 @@ namespace TestMyDrawing.Model
                 isCreating = false;
             }
 
-            gr.DrawDiagram();
+            
         }
         
     }
