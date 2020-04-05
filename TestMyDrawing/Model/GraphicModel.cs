@@ -37,6 +37,7 @@ namespace TestMyDrawing.Model
         public void Init(PictureBox picture)
         {
             gr = new PointsGraphic(picture);
+            gr.placeToDraw.Paint += PlaceToDraw_Paint;
             timer = new Timer();
             timer.Interval = 33;
             timer.Tick += Timer_Tick;
@@ -60,8 +61,17 @@ namespace TestMyDrawing.Model
             crrStream?.Close();
         }
 
+        private void PlaceToDraw_Paint(object sender, PaintEventArgs e)
+        {
+            Line line = new Line(gr.ConvertValues(1, 0, CoordType.GetControlCoord), gr.ConvertValues(10, 3, CoordType.GetControlCoord), e.Graphics);
+            line.SmoothLine = true;
+            line.StrokeWidth = 2;
+            line.DrawFigure();
+        }
+
         private void Timer_Tick(object sender, EventArgs e)
         {
+            gr.placeToDraw.Invalidate();
             gr.DrawDiagram();
         }
 
