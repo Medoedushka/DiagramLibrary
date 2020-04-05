@@ -43,7 +43,7 @@ namespace TestMyDrawing.Model
             }
             everCreatedCurvesCounter++;
             string legend = "График" + everCreatedCurvesCounter;
-            Curves curve = new Curves(crrPoints, BaseColors[colorCounter], CurveThickness: 2 ,Legend: legend);
+            Curves curve = new Curves(crrPoints, BaseColors[colorCounter], CurveThickness: 2,Legend: legend);
             if (++colorCounter == BaseColors.Length)
             {
                 colorCounter = 0;

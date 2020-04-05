@@ -208,7 +208,7 @@ namespace MyDrawing
             grafpen.DashStyle = currentCurve.DashStyle;
             PointF[] points = new PointF[currentCurve.PointsToDraw.Length];
             bool isDotOut = false;
-            string[] dotParams = currentCurve.DotsType.Split(';');
+            string[] dotParams = currentCurve.DotsType.Split('-');
             for (int i = 0; i < currentCurve.PointsToDraw.Length; i++)
             {
 
@@ -253,16 +253,11 @@ namespace MyDrawing
 
             #region<---Рисование значков точки--->
             /* Формат ввода типа точки
-             * r/o/y/g/b/p/bl/w(цвет);с/t/s(тип);t/f(заливка: true/false); /*num*(размер значка, d - значение по умолчанию)
+             * [r,g,b](цвет)-с/t/s(тип)-t/f(заливка: true/false)-*num*(размер значка, d - значение по умолчанию)
              * Цвета:
-                    r - красный
-                    o - оранжевый
-                    y - желтый
-                    g - зелёный
-                    b - синий
-                    p - фиолетовый
-                    bl - чёрный
-                    w - белый
+                    r - красная компонента 
+                    g - зелёная компонента
+                    b - синяя компонента
                  Тип:
                     с - круг
                     t - треугольник
@@ -274,18 +269,10 @@ namespace MyDrawing
             {
                 
                 Color dotColor;
-                switch (dotParams[0])
-                {
-                    case "r": dotColor = Color.Red; break;
-                    case "o": dotColor = Color.Orange; break;
-                    case "y": dotColor = Color.Yellow; break;
-                    case "g": dotColor = Color.Green; break;
-                    case "b": dotColor = Color.Blue; break;
-                    case "p": dotColor = Color.Purple; break;
-                    case "bl": dotColor = Color.Black; break;
-                    case "w": dotColor = Color.White; break;
-                    default: throw new Exception("Указан неверный параметр цвета.");
-                }
+                dotParams[0] = dotParams[0].Remove(0, 1).Remove(dotParams[0].Length - 2);
+                string[] rgb = dotParams[0].Split(',');
+                dotColor = Color.FromArgb(int.Parse(rgb[0]), int.Parse(rgb[1]), int.Parse(rgb[2]));
+
                 int d;
                 double l;
                 PointF[] polyg;
@@ -345,7 +332,6 @@ namespace MyDrawing
                         }
                         break;
                     case "r":
-
                         if (dotParams[3] == "d")
                             d = 4;
                         else d = int.Parse(dotParams[3]);

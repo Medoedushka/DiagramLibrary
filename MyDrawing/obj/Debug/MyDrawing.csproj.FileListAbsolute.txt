@@ -39,3 +39,4 @@ D:\Documents_D\Medoed\fix\DiagramLibrary\MyDrawing\obj\Debug\MyDrawing.csproj.Co
 D:\Documents_D\Medoed\fix\DiagramLibrary\MyDrawing\obj\Debug\MyDrawing.csproj.CopyComplete
 D:\Documents_D\Medoed\fix\DiagramLibrary\MyDrawing\obj\Debug\MyDrawing.dll
 D:\Documents_D\Medoed\fix\DiagramLibrary\MyDrawing\obj\Debug\MyDrawing.pdb
+D:\Проекты C#\Библиотеки\DiagramLibrary\MyDrawing\obj\Debug\MyDrawing.csprojAssemblyReference.cache

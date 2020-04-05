@@ -58,7 +58,79 @@ namespace TestMyDrawing
             }
         }
         public Color CurveColor { get => pcb_CurveColor.BackColor; set => pcb_CurveColor.BackColor = value; }
-        public string DotsSettings { get => txb_DotsString.Text; set => txb_DotsString.Text = value; }
+        public string DotsSettings
+        {
+            get
+            {
+                if (chb_ShowDots.Checked)
+                {
+                    string dotsType = "";
+                    Color color = pcb_DotColor.BackColor;
+
+                    string type = "";
+                    if (cmb_DotType.Text == cmb_DotType.Items[0].ToString())
+                        type = "c";
+                    else if (cmb_DotType.Text == cmb_DotType.Items[1].ToString())
+                        type = "t";
+                    else if (cmb_DotType.Text == cmb_DotType.Items[2].ToString())
+                        type = "s";
+                    else if (cmb_DotType.Text == cmb_DotType.Items[3].ToString())
+                        type = "r";
+                    else if (cmb_DotType.Text == cmb_DotType.Items[4].ToString())
+                        type = "st";
+                    int v = 0;
+                    if (txb_DotSize.Text != "d")
+                    {
+                        if (!int.TryParse(txb_DotSize.Text, out v))
+                            throw new FormatException("Введённый размер точки не соответствует требуемому формату.");
+                        else if (int.Parse(txb_DotSize.Text) > 20)
+                            throw new ArgumentOutOfRangeException("Введёное значение размера точки превышает максимально допустимое значение(20).", new Exception());
+                    }
+                        
+
+                   dotsType = String.Format($"[{color.R},{color.G},{color.B}]-{type}-{(chb_FillDot.Checked ? true : false)}-{txb_DotSize.Text}");
+                    dotsType = dotsType.Replace("True", "t");
+                    dotsType = dotsType.Replace("False", "f");
+                    return dotsType;
+                }
+                else return "";
+            }
+            set
+            {
+                if (value == "")
+                {
+                    chb_ShowDots.Checked = false;
+                }
+                else
+                {
+                    chb_ShowDots.Checked = true;
+
+                    string[] el = value.Split('-');
+                    el[0] = el[0].Remove(0, 1).Remove(el[0].Length - 2, 1);
+                    string[] rgb = el[0].Split(',');
+                    Color color = Color.FromArgb(int.Parse(rgb[0]), int.Parse(rgb[1]), int.Parse(rgb[2]));
+                    pcb_DotColor.BackColor = color;
+
+                    if (el[1] == "c")
+                        cmb_DotType.Text = cmb_DotType.Items[0].ToString();
+                    else if (el[1] == "t")
+                        cmb_DotType.Text = cmb_DotType.Items[1].ToString();
+                    else if (el[1] == "s")
+                        cmb_DotType.Text = cmb_DotType.Items[2].ToString();
+                    else if (el[1] == "r")
+                        cmb_DotType.Text = cmb_DotType.Items[3].ToString();
+                    else if (el[1] == "st")
+                        cmb_DotType.Text = cmb_DotType.Items[4].ToString();
+
+                    if (el[2] == "t")
+                        chb_FillDot.Checked = true;
+                    else if (el[2] == "f")
+                        chb_FillDot.Checked = false;
+
+                    txb_DotSize.Text = el[3];
+                }
+            }
+        }
         public int Thikness { get => (int)nud_Thickness.Value; set => nud_Thickness.Value = value; }
         public DashStyle dashStyle
         {
@@ -225,6 +297,7 @@ namespace TestMyDrawing
             InitializeComponent();
             _obj = this;
             graph = pictureBox1;
+            cmb_DotType.Items.Add(Properties.Resources.close);
         }
 
         // Метод для перемещения формы.
@@ -519,19 +592,29 @@ namespace TestMyDrawing
             else if (rb_Dot.Checked)
                 style = System.Drawing.Drawing2D.DashStyle.Dot;
             else style = System.Drawing.Drawing2D.DashStyle.Solid;
+            try
+            {
+                Curves newCurve = new Curves(new PointF[] { }, pcb_CurveColor.BackColor, style, (int)nud_Thickness.Value, cmb_Curves.Text, DotsSettings);
+            
+                GraphicEventArgs graphicEvent = new GraphicEventArgs(EventType.AdpdateCurve);
+                graphicEvent.newCurve = newCurve;
+                graphicEvent.Delete = false;
+                if (txb_CurveLegend.Text != "") graphicEvent.NewName = txb_CurveLegend.Text;
+                ApdateCurvesList?.Invoke(this, graphicEvent);
 
-            Curves newCurve = new Curves(new PointF[] { }, pcb_CurveColor.BackColor, style, (int)nud_Thickness.Value, cmb_Curves.Text, txb_DotsString.Text);
-            GraphicEventArgs graphicEvent = new GraphicEventArgs(EventType.AdpdateCurve);
-            graphicEvent.newCurve = newCurve;
-            graphicEvent.Delete = false;
-            if (txb_CurveLegend.Text != "") graphicEvent.NewName = txb_CurveLegend.Text;
-            ApdateCurvesList?.Invoke(this, graphicEvent);
-
-            cmb_Curves.Text = "";
-            txb_CurveLegend.Text = "";
-            pcb_CurveColor.BackColor = Color.Transparent;
-            txb_DotsString.Text = "";
-            nud_Thickness.Value = 1;
+                cmb_Curves.Text = "";
+                txb_CurveLegend.Text = "";
+                pcb_CurveColor.BackColor = Color.Transparent;
+                nud_Thickness.Value = 1;
+            }
+            catch (FormatException ex)
+            {
+                MessageBox.Show(ex.Message, "Неверный формат", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch(ArgumentOutOfRangeException ex)
+            {
+                MessageBox.Show(ex.Message, "Превышен предел", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
         private void cmb_Curves_TextChanged(object sender, EventArgs e)
         {
@@ -540,7 +623,7 @@ namespace TestMyDrawing
         }
         private void btn_DeleteCurve_Click(object sender, EventArgs e)
         {
-            Curves newCurve = new Curves(new PointF[] { }, pcb_CurveColor.BackColor, CurveThickness: (int)nud_Thickness.Value, Legend: cmb_Curves.Text, dotsType: txb_DotsString.Text);
+            Curves newCurve = new Curves(new PointF[] { }, pcb_CurveColor.BackColor, CurveThickness: (int)nud_Thickness.Value, Legend: cmb_Curves.Text, dotsType: "");
             GraphicEventArgs graphicEvent = new GraphicEventArgs(EventType.AdpdateCurve);
             graphicEvent.newCurve = newCurve;
             graphicEvent.Delete = true;
@@ -549,7 +632,6 @@ namespace TestMyDrawing
             cmb_Curves.Text = "";
             txb_CurveLegend.Text = "";
             pcb_CurveColor.BackColor = Color.Transparent;
-            txb_DotsString.Text = "";
             nud_Thickness.Value = 1;
         }
         private void brn_SetCurveColor_Click(object sender, EventArgs e)
@@ -601,6 +683,27 @@ namespace TestMyDrawing
             SpiralAction?.Invoke(false);
         }
 
-        
+        private void chb_ShowDots_CheckedChanged(object sender, EventArgs e)
+        {
+            
+            if (chb_ShowDots.Checked)
+            {
+                groupBox5.Enabled = true;
+            }
+            else groupBox5.Enabled = false;
+
+            chb_ShowDots.Enabled = true;
+        }
+
+        private void pcb_DotColor_Click(object sender, EventArgs e)
+        {
+            using (ColorDialog cd = new ColorDialog())
+            {
+                if (cd.ShowDialog() == DialogResult.OK)
+                {
+                    pcb_DotColor.BackColor = cd.Color;
+                }
+            }
+        }
     }
 }
