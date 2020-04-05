@@ -297,7 +297,6 @@ namespace TestMyDrawing
             InitializeComponent();
             _obj = this;
             graph = pictureBox1;
-            cmb_DotType.Items.Add(Properties.Resources.close);
         }
 
         // Метод для перемещения формы.
