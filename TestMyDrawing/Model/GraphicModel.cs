@@ -39,7 +39,6 @@ namespace TestMyDrawing.Model
         {
             gr = new PointsGraphic(picture);
             gr.placeToDraw.Paint += PlaceToDraw_Paint;
-            gr.placeToDraw.MouseMove += PlaceToDraw_MouseMove;
             timer = new Timer();
             timer.Interval = 33;
             timer.Tick += Timer_Tick;
@@ -64,22 +63,8 @@ namespace TestMyDrawing.Model
             //LoadTXTData("defaultData3.txt", false);
             crrStream?.Close();
         }
-
-        int x = 0, y = 0;
-        private void PlaceToDraw_MouseMove(object sender, MouseEventArgs e)
-        {
-            x = e.X; y = e.Y;
-        }
-
         private void PlaceToDraw_Paint(object sender, PaintEventArgs e)
         {
-            Arrow line = new Arrow(gr.ConvertValues(0, 0, CoordType.GetControlCoord), new PointF(x, y), e.Graphics);
-            line.SmoothLine = true;
-            line.StrokeColor = Color.Red;
-            line.StrokeWidth = 2;
-            //line.FillColor = Color.Transparent;
-            line.FillArrowEnd = false;
-            line.DrawFigure();
         }
 
         private void Timer_Tick(object sender, EventArgs e)

@@ -704,5 +704,93 @@ namespace TestMyDrawing
                 }
             }
         }
+
+        Color pcbFigureChecked = Color.FromArgb(130, 175, 255);
+        Color onPcbFigure = Color.FromArgb(177, 204, 222, 255);
+        private void pcb_Rectangle_Click(object sender, EventArgs e)
+        {
+            pcb_Rectangle.BackColor = pcbFigureChecked;
+            pcb_Circle.BackColor = pcb_Line.BackColor = pcb_Arrow.BackColor = pcb_Text.BackColor = 
+                Color.LightCyan;
+        }
+        private void pcb_Circle_Click(object sender, EventArgs e)
+        {
+            pcb_Circle.BackColor = pcbFigureChecked;
+            pcb_Rectangle.BackColor = pcb_Line.BackColor = pcb_Arrow.BackColor = pcb_Text.BackColor =
+                Color.LightCyan;
+        }
+
+        private void pcb_Line_Click(object sender, EventArgs e)
+        {
+            pcb_Line.BackColor = pcbFigureChecked;
+            pcb_Rectangle.BackColor = pcb_Circle.BackColor = pcb_Arrow.BackColor = pcb_Text.BackColor =
+                Color.LightCyan;
+        }
+
+        private void pcb_Arrow_Click(object sender, EventArgs e)
+        {
+            pcb_Arrow.BackColor = pcbFigureChecked;
+            pcb_Rectangle.BackColor = pcb_Line.BackColor = pcb_Circle.BackColor = pcb_Text.BackColor =
+                Color.LightCyan;
+        }
+
+        private void pcb_Text_Click(object sender, EventArgs e)
+        {
+            pcb_Text.BackColor = pcbFigureChecked;
+            pcb_Rectangle.BackColor = pcb_Line.BackColor = pcb_Arrow.BackColor = pcb_Circle.BackColor =
+                Color.LightCyan;
+        }
+
+        private void pcb_Rectangle_MouseEnter(object sender, EventArgs e)
+        {
+            if (pcb_Rectangle.BackColor != pcbFigureChecked)
+                pcb_Rectangle.BackColor = onPcbFigure;
+        }
+        private void pcb_Rectangle_MouseLeave(object sender, EventArgs e)
+        {
+            if (pcb_Rectangle.BackColor != pcbFigureChecked)
+                pcb_Rectangle.BackColor = Color.LightCyan;
+        }
+        private void pcb_Circle_MouseEnter(object sender, EventArgs e)
+        {
+            if (pcb_Circle.BackColor != pcbFigureChecked)
+                pcb_Circle.BackColor = onPcbFigure;
+        }
+        private void pcb_Circle_MouseLeave(object sender, EventArgs e)
+        {
+            if (pcb_Circle.BackColor != pcbFigureChecked)
+                pcb_Circle.BackColor = Color.LightCyan;
+        }
+        private void pcb_Line_MouseEnter(object sender, EventArgs e)
+        {
+            if (pcb_Line.BackColor != pcbFigureChecked)
+                pcb_Line.BackColor = onPcbFigure;
+        }
+        private void pcb_Line_MouseLeave(object sender, EventArgs e)
+        {
+            if (pcb_Line.BackColor != pcbFigureChecked)
+                pcb_Line.BackColor = Color.LightCyan;
+        }
+        private void pcb_Arrow_MouseEnter(object sender, EventArgs e)
+        {
+            if (pcb_Arrow.BackColor != pcbFigureChecked)
+                pcb_Arrow.BackColor = onPcbFigure;
+        }
+        private void pcb_Arrow_MouseLeave(object sender, EventArgs e)
+        {
+            if (pcb_Arrow.BackColor != pcbFigureChecked)
+                pcb_Arrow.BackColor = Color.LightCyan;
+        }
+
+        private void pcb_Text_MouseEnter(object sender, EventArgs e)
+        {
+            if (pcb_Text.BackColor != pcbFigureChecked)
+                pcb_Text.BackColor = onPcbFigure;
+        }
+        private void pcb_Text_MouseLeave(object sender, EventArgs e)
+        {
+            if (pcb_Text.BackColor != pcbFigureChecked)
+                pcb_Text.BackColor = Color.LightCyan;
+        }
     }
 }
