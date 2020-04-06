@@ -57,15 +57,18 @@ namespace TestMyDrawing.Model
             gr.AddDiagramLegend = true;
             gr.Config.Grid = false;
             gr.placeToDraw.BackColor = Color.White;
-            LoadTXTData("defaultData3.txt", false);
+            gr.Config.PriceForPointOX = gr.Config.PriceForPointOY = 1;
+            gr.Config.Grid = true;
+            //LoadTXTData("defaultData3.txt", false);
             crrStream?.Close();
         }
 
         private void PlaceToDraw_Paint(object sender, PaintEventArgs e)
         {
-            Line line = new Line(gr.ConvertValues(1, 0, CoordType.GetControlCoord), gr.ConvertValues(10, 3, CoordType.GetControlCoord), e.Graphics);
+            Arrow line = new Arrow(gr.ConvertValues(1, 0, CoordType.GetControlCoord), gr.ConvertValues(-10, 7, CoordType.GetControlCoord), e.Graphics);
+            line.StrokeColor = Color.Red;
             line.SmoothLine = true;
-            line.StrokeWidth = 2;
+            line.StrokeWidth = 1;
             line.DrawFigure();
         }
 
