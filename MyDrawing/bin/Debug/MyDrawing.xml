@@ -103,6 +103,36 @@
             Точка начала отсчёта.
             </summary>
         </member>
+        <member name="T:MyDrawing.Figures.Figure">
+            <summary>
+            Абстрактный класс, представляющий характеристики рисуемых фигур.
+            </summary>
+        </member>
+        <member name="T:MyDrawing.Figures.Line">
+            <summary>
+            Наследник класса Figure для отрисовки обычной прямой линии.
+            </summary>
+        </member>
+        <member name="T:MyDrawing.Figures.Arrow">
+            <summary>
+            Наследник класса Line для отрисовки прямой стрелки.
+            </summary>
+        </member>
+        <member name="T:MyDrawing.Figures.Rectangle">
+            <summary>
+            Наследник класса Figure для отрисовки прямоугольника.
+            </summary>
+        </member>
+        <member name="T:MyDrawing.Figures.Circle">
+            <summary>
+            Наследник класса Rectangle для отрисовки окружност или круга.
+            </summary>
+        </member>
+        <member name="T:MyDrawing.Figures.Text">
+            <summary>
+            Наследник класса Figure для отрисовки текста.
+            </summary>
+        </member>
         <member name="T:MyDrawing.PointsGraphConfig">
             <summary>
             Содержит свойства для настройки графика.

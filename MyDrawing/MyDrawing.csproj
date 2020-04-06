@@ -50,6 +50,7 @@
     <Compile Include="BarChart.cs" />
     <Compile Include="CircleDiagram.cs" />
     <Compile Include="Diagram.cs" />
+    <Compile Include="Figures\Figure.cs" />
     <Compile Include="PointsGraphicDynamic.cs" />
     <Compile Include="PointsGraphicStatic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

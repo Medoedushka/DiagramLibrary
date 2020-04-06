@@ -1,15 +1,16 @@
-﻿using MyDrawing;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
-using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
+using System.Drawing.Drawing2D;
 
-namespace TestMyDrawing
+namespace MyDrawing.Figures
 {
-    
+    /// <summary>
+    /// Абстрактный класс, представляющий характеристики рисуемых фигур.
+    /// </summary>
     public abstract class Figure
     {
         public Color FillColor { get; set; }
@@ -22,7 +23,9 @@ namespace TestMyDrawing
 
         public abstract void DrawFigure();
     }
-
+    /// <summary>
+    /// Наследник класса Figure для отрисовки обычной прямой линии.
+    /// </summary>
     public class Line : Figure
     {
         LineCap lineCap;
@@ -50,7 +53,9 @@ namespace TestMyDrawing
             GraphPlace.DrawLine(LinePen, DotA, DotB);
         }
     }
-
+    /// <summary>
+    /// Наследник класса Line для отрисовки прямой стрелки.
+    /// </summary>
     public class Arrow : Line
     {
         public bool FillArrowEnd { get; set; }
@@ -77,13 +82,16 @@ namespace TestMyDrawing
             pt1 = new PointF((float)(e_v.X * Math.Cos(rotang) - e_v.Y * Math.Sin(rotang)),
                 (float)(e_v.X * Math.Sin(rotang) + e_v.Y * Math.Cos(rotang)));
             GraphPlace.DrawLine(LinePen, DotB.X, DotB.Y, DotB.X + pt1.X, DotB.Y + pt1.Y);
+
             pts[2] = new PointF(DotB.X + pt1.X, DotB.Y + pt1.Y);
 
             if (FillArrowEnd)
-            GraphPlace.FillPolygon(Brushes.Red, pts);
+                GraphPlace.FillPolygon(new SolidBrush(LinePen.Color), pts);
         }
     }
-
+    /// <summary>
+    /// Наследник класса Figure для отрисовки прямоугольника.
+    /// </summary>
     public class Rectangle : Figure
     {
         public Rectangle(PointF a, PointF b, Graphics g)
@@ -128,10 +136,12 @@ namespace TestMyDrawing
             GraphPlace.FillRectangle(new SolidBrush(FillColor), new RectangleF(pt.X, pt.Y, w, h));
         }
     }
-
+    /// <summary>
+    /// Наследник класса Rectangle для отрисовки окружност или круга.
+    /// </summary>
     public class Circle : Rectangle
     {
-        public Circle(PointF a, PointF b, Graphics g) : base(a, b, g) {}
+        public Circle(PointF a, PointF b, Graphics g) : base(a, b, g) { }
 
         public override void DrawFigure()
         {
@@ -148,7 +158,9 @@ namespace TestMyDrawing
             GraphPlace.FillEllipse(new SolidBrush(FillColor), new RectangleF(pt.X, pt.Y, w, h));
         }
     }
-
+    /// <summary>
+    /// Наследник класса Figure для отрисовки текста.
+    /// </summary>
     public class Text : Figure
     {
         public string Value { get; set; }
@@ -160,6 +172,7 @@ namespace TestMyDrawing
         {
             DotA = a;
             GraphPlace = g;
+            GraphPlace.SmoothingMode = SmoothingMode.AntiAlias;
             Value = text;
             TextColor = Color.Black;
             Font = new Font("Arial", 12);

@@ -2,6 +2,7 @@
 using System.Drawing;
 using MyClassLibrary;
 using MyDrawing;
+using MyDrawing.Figures;
 using System.Windows.Forms;
 using System.Collections.Generic;
 
@@ -38,6 +39,7 @@ namespace TestMyDrawing.Model
         {
             gr = new PointsGraphic(picture);
             gr.placeToDraw.Paint += PlaceToDraw_Paint;
+            gr.placeToDraw.MouseMove += PlaceToDraw_MouseMove;
             timer = new Timer();
             timer.Interval = 33;
             timer.Tick += Timer_Tick;
@@ -63,13 +65,20 @@ namespace TestMyDrawing.Model
             crrStream?.Close();
         }
 
+        int x = 0, y = 0;
+        private void PlaceToDraw_MouseMove(object sender, MouseEventArgs e)
+        {
+            x = e.X; y = e.Y;
+        }
+
         private void PlaceToDraw_Paint(object sender, PaintEventArgs e)
         {
-            Text line = new Text(gr.ConvertValues(1, 0.5, CoordType.GetControlCoord), e.Graphics);
-            line.Value = "Hello world!";
-            line.TextColor = Color.Orange;
-            line.Background = true;
-            line.FillColor = Color.Purple;
+            Arrow line = new Arrow(gr.ConvertValues(0, 0, CoordType.GetControlCoord), new PointF(x, y), e.Graphics);
+            line.SmoothLine = true;
+            line.StrokeColor = Color.Red;
+            line.StrokeWidth = 2;
+            //line.FillColor = Color.Transparent;
+            line.FillArrowEnd = false;
             line.DrawFigure();
         }
 
