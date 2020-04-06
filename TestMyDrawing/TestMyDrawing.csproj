@@ -189,6 +189,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="icons8_plot.ico" />
+    <None Include="Resources\icons8_text_30px_1.png" />
+    <None Include="Resources\icons8_right_arrow_30px_2.png" />
+    <None Include="Resources\icons8_horizontal_line_30px_3.png" />
+    <None Include="Resources\icons8_filled_circle_30px_2.png" />
+    <None Include="Resources\icons8_rectangle_30px_3.png" />
     <None Include="Resources\icons8_delete_30px.png" />
     <None Include="Resources\icons8_add_new_30px.png" />
     <None Include="Resources\icons8_pencil_30px.png" />

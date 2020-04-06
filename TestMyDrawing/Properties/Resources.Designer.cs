@@ -193,6 +193,26 @@ namespace TestMyDrawing.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap icons8_filled_circle_30px_2 {
+            get {
+                object obj = ResourceManager.GetObject("icons8_filled_circle_30px_2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap icons8_horizontal_line_30px_3 {
+            get {
+                object obj = ResourceManager.GetObject("icons8_horizontal_line_30px_3", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap icons8_pencil_30px {
             get {
                 object obj = ResourceManager.GetObject("icons8_pencil_30px", resourceCulture);
@@ -206,6 +226,36 @@ namespace TestMyDrawing.Properties {
         internal static System.Drawing.Bitmap icons8_plot_50px {
             get {
                 object obj = ResourceManager.GetObject("icons8_plot_50px", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap icons8_rectangle_30px_3 {
+            get {
+                object obj = ResourceManager.GetObject("icons8_rectangle_30px_3", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap icons8_right_arrow_30px_2 {
+            get {
+                object obj = ResourceManager.GetObject("icons8_right_arrow_30px_2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap icons8_text_30px_1 {
+            get {
+                object obj = ResourceManager.GetObject("icons8_text_30px_1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
