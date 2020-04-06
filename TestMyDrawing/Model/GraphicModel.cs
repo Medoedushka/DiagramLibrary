@@ -65,10 +65,11 @@ namespace TestMyDrawing.Model
 
         private void PlaceToDraw_Paint(object sender, PaintEventArgs e)
         {
-            Arrow line = new Arrow(gr.ConvertValues(1, 0, CoordType.GetControlCoord), gr.ConvertValues(-10, 7, CoordType.GetControlCoord), e.Graphics);
-            line.StrokeColor = Color.Red;
-            line.SmoothLine = true;
-            line.StrokeWidth = 1;
+            Text line = new Text(gr.ConvertValues(1, 0.5, CoordType.GetControlCoord), e.Graphics);
+            line.Value = "Hello world!";
+            line.TextColor = Color.Orange;
+            line.Background = true;
+            line.FillColor = Color.Purple;
             line.DrawFigure();
         }
 
