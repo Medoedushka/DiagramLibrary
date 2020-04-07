@@ -16,13 +16,12 @@ namespace MyDrawing.Figures
         public Color FillColor { get; set; }
         public Color StrokeColor { get; set; }
         public int StrokeWidth { get; set; }
-        public Graphics GraphPlace { get; set; }
         public bool Smooth { get; set; } = false;
 
         public PointF DotA { get; set; }
         public PointF DotB { get; set; }
 
-        public abstract void DrawFigure();
+        public abstract void DrawFigure(Graphics GraphPlace);
     }
     /// <summary>
     /// Наследник класса Figure для отрисовки обычной прямой линии.
@@ -31,21 +30,20 @@ namespace MyDrawing.Figures
     {
         LineCap lineCap;
         protected Pen LinePen { get; set; }
-        public Line(PointF a, PointF b, Graphics g)
+        public Line(PointF a, PointF b)
         {
             StrokeColor = Color.Black;
-            GraphPlace = g;
-            GraphPlace.SmoothingMode = SmoothingMode.AntiAlias;
             StrokeWidth = 3;
             DotA = a;
             DotB = b;
         }
 
-        public override void DrawFigure()
+        public override void DrawFigure(Graphics GraphPlace)
         {
             if (Smooth)
                 lineCap = LineCap.Round;
             else lineCap = LineCap.Flat;
+            GraphPlace.SmoothingMode = SmoothingMode.AntiAlias;
             LinePen = new Pen(StrokeColor, StrokeWidth);
             LinePen.StartCap = LinePen.EndCap = lineCap;
 
@@ -58,11 +56,11 @@ namespace MyDrawing.Figures
     public class Arrow : Line
     {
         public bool FillArrowEnd { get; set; }
-        public Arrow(PointF a, PointF b, Graphics g) : base(a, b, g) { FillArrowEnd = false; }
+        public Arrow(PointF a, PointF b) : base(a, b) { FillArrowEnd = false; }
 
-        public override void DrawFigure()
+        public override void DrawFigure(Graphics GraphPlace)
         {
-            base.DrawFigure();
+            base.DrawFigure(GraphPlace);
 
             PointF vector = new PointF(DotB.X - DotA.X, DotB.Y - DotA.Y);
             float mod_v = (float)Math.Sqrt(vector.X * vector.X + vector.Y * vector.Y);
@@ -93,12 +91,10 @@ namespace MyDrawing.Figures
     /// </summary>
     public class Rectangle : Figure
     {
-        public Rectangle(PointF a, PointF b, Graphics g)
+        public Rectangle(PointF a, PointF b)
         {
             FillColor = Color.Black;
             StrokeColor = Color.Black;
-            GraphPlace = g;
-            GraphPlace.SmoothingMode = SmoothingMode.AntiAlias;
             StrokeWidth = 3;
             DotA = a;
             DotB = b;
@@ -119,12 +115,12 @@ namespace MyDrawing.Figures
                 pt = new PointF(DotB.X - w, DotB.Y - h);
         }
 
-        public override void DrawFigure()
+        public override void DrawFigure(Graphics GraphPlace)
         {
             float w, h;
             PointF pt;
             InitRectParams(out pt, out w, out h);
-
+            GraphPlace.SmoothingMode = SmoothingMode.AntiAlias;
             //рисование контура
             if (StrokeWidth > 0)
             {
@@ -143,10 +139,11 @@ namespace MyDrawing.Figures
     /// </summary>
     public class Circle : Rectangle
     {
-        public Circle(PointF a, PointF b, Graphics g) : base(a, b, g) { }
+        public Circle(PointF a, PointF b) : base(a, b) { }
 
-        public override void DrawFigure()
+        public override void DrawFigure(Graphics GraphPlace)
         {
+            GraphPlace.SmoothingMode = SmoothingMode.AntiAlias;
             float w, h;
             PointF pt;
             InitRectParams(out pt, out w, out h);
@@ -170,19 +167,19 @@ namespace MyDrawing.Figures
         public Color TextColor { get; set; }
         public bool Background { get; set; }
 
-        public Text(PointF a, Graphics g, string text = "")
+        public Text(PointF a, string text = "")
         {
             DotA = a;
-            GraphPlace = g;
-            GraphPlace.SmoothingMode = SmoothingMode.AntiAlias;
             Value = text;
             TextColor = Color.Black;
             Font = new Font("Arial", 12);
             FillColor = Color.White;
         }
 
-        public override void DrawFigure()
+        public override void DrawFigure(Graphics GraphPlace)
         {
+
+            GraphPlace.SmoothingMode = SmoothingMode.AntiAlias;
             if (Background)
             {
                 SizeF size = GraphPlace.MeasureString(Value, Font);

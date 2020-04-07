@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MyDrawing;
+using MyDrawing.Figures;
 using System.Drawing;
 
 namespace TestMyDrawing
@@ -14,7 +15,8 @@ namespace TestMyDrawing
         MovePlot, 
         AdpdateCurve, 
         AddNewCurve,
-        Zoom
+        Zoom, 
+        DrawFigure
     }
     public class GraphicEventArgs : EventArgs
     {
@@ -33,6 +35,9 @@ namespace TestMyDrawing
 
         //Параметры для масштабирования графика
         public bool Zoom { get; set; }
+
+        //Параметр для рисования фигуры
+        public Figure figure { get; set; }
 
         public GraphicEventArgs(EventType type)
         {

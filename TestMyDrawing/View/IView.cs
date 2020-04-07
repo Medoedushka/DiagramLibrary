@@ -17,6 +17,15 @@ namespace TestMyDrawing.View
         Dot, 
         Solid
     }
+    public enum DrawState
+    {
+        None,
+        Rectangle,
+        Circle,
+        Line,
+        Arrow,
+        Text
+    }
     public interface IView
     {
         string TableTxt { get; set; }
@@ -63,6 +72,7 @@ namespace TestMyDrawing.View
         bool SaveToFile { get; set; }
 
         //Свойства фигур
+        DrawState DrawState { get; set; }
         Color FillColor { get; set; }
         Color StrokeColor { get; set; }
         bool SmoothAngles { get; set; }

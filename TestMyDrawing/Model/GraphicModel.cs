@@ -4,7 +4,9 @@ using MyClassLibrary;
 using MyDrawing;
 using MyDrawing.Figures;
 using System.Windows.Forms;
+using TestMyDrawing.View;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace TestMyDrawing.Model
 {
@@ -12,7 +14,13 @@ namespace TestMyDrawing.Model
     public partial class DrawingModel
     {
         public PointsGraphic gr;
+        public bool isDrawing = false;
         List<Curves> SavedCurves;
+
+        List<Figure> Figures = new List<Figure>();
+        public Figure crrFigure;
+        public PointF firstPt;
+
         Timer timer;
 
         Color[] BaseColors =
@@ -65,10 +73,14 @@ namespace TestMyDrawing.Model
         }
         private void PlaceToDraw_Paint(object sender, PaintEventArgs e)
         {
-            MyDrawing.Figures.Rectangle rectangle = new MyDrawing.Figures.Rectangle(gr.ConvertValues(1, 1, CoordType.GetControlCoord),
-                gr.ConvertValues(5, 5, CoordType.GetControlCoord), e.Graphics);
-            rectangle.StrokeWidth = 20;
-            rectangle.DrawFigure();
+            if (Figures.Count > 0)
+            {
+                foreach (Figure f in Figures)
+                    f?.DrawFigure(e.Graphics);
+            }
+                if (isDrawing && crrFigure != null)
+                    crrFigure.DrawFigure(e.Graphics);
+            
         }
 
         private void Timer_Tick(object sender, EventArgs e)
@@ -207,6 +219,11 @@ namespace TestMyDrawing.Model
 
             
         }
-        
+
+        public void ApdateFiguresList()
+        {
+            Figures.Add(crrFigure);
+            crrFigure = null;
+        }
     }
 }

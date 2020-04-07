@@ -1,4 +1,5 @@
 ﻿using MyDrawing;
+using MyDrawing.Figures;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -36,6 +37,17 @@ namespace TestMyDrawing.Presenter
             pd.DefaultPageSettings.Landscape = true;
             pd.PrintPage += Pd_PrintPage;
 
+            drawingView.graph.MouseEnter += (object o, EventArgs e) =>
+            {
+                if (drawingView.DrawState == DrawState.None)
+                {
+                    drawingView.graph.Cursor = Cursors.Default;
+                }
+                else
+                {
+                    drawingView.graph.Cursor = Cursors.Cross;
+                }
+            };
             drawingView.Print += (object o, EventArgs e) =>
             {
                 if (printDialog.ShowDialog() == DialogResult.OK)
@@ -64,10 +76,27 @@ namespace TestMyDrawing.Presenter
             drawingView.PlotAction += DrawingView_PlotAction;
             drawingView.PlotMouseDown += (object o, MouseEventArgs e) =>
             {
-                _model.PrimaryParamsInit(e.Location);
-                drawingView.graph.Cursor = Cursors.SizeAll;
+                if (drawingView.DrawState == DrawState.None)
+                {
+                    drawingView.graph.Cursor = Cursors.SizeAll;
+                    _model.PrimaryParamsInit(e.Location);
+                }
+                else
+                {
+                    _model.isDrawing = true;
+                    _model.firstPt = e.Location;
+                }
             };
-            drawingView.PlotMouseUp += (object o, MouseEventArgs e) => drawingView.graph.Cursor = Cursors.Default;
+            drawingView.PlotMouseUp += (object o, MouseEventArgs e) =>
+            {
+                if (drawingView.DrawState == DrawState.None)
+                    drawingView.graph.Cursor = Cursors.Default;
+                else
+                {
+                    _model.isDrawing = false;
+                    _model.ApdateFiguresList();
+                }
+            };
             drawingView.ApdateCurvesList += DrawingView_PlotAction;
             drawingView.FillCurveFields += (string s) =>
             {
@@ -197,6 +226,34 @@ namespace TestMyDrawing.Presenter
             else if (e.EventType == EventType.Zoom)
             {
                 _model.ZoomPlot(e.Zoom);
+            }
+            else if (e.EventType == EventType.DrawFigure && _model.isDrawing)
+            {
+                Figure f;
+                if (drawingView.DrawState == DrawState.Rectangle)
+                {
+                    f = new MyDrawing.Figures.Rectangle(_model.firstPt, e.mouseLocation);
+                }
+                else if (drawingView.DrawState == DrawState.Circle)
+                {
+                    f = new MyDrawing.Figures.Circle(_model.firstPt, e.mouseLocation);
+                }
+                else if (drawingView.DrawState == DrawState.Line)
+                {
+                    f = new MyDrawing.Figures.Line(_model.firstPt, e.mouseLocation);
+                }
+                else if (drawingView.DrawState == DrawState.Arrow)
+                {
+                    f = new MyDrawing.Figures.Arrow(_model.firstPt, e.mouseLocation);
+                }
+                else f = new MyDrawing.Figures.Text(_model.firstPt, "asfsdgsg");
+
+                
+                f.FillColor = drawingView.FillColor;
+                f.StrokeColor = drawingView.StrokeColor;
+                f.Smooth = drawingView.SmoothAngles;
+                f.StrokeWidth = (int)drawingView.StrokeWidth;
+                _model.crrFigure = f;
             }
         }
 

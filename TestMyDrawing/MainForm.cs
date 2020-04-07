@@ -288,10 +288,25 @@ namespace TestMyDrawing
             get { return btn_Back; }
         }
 
-        public Color FillColor { get => pcb_FillColor.BackColor; set => pcb_FillColor.BackColor = value; }
-        public Color StrokeColor { get => pcb_StrokeColor.BackColor; set => pcb_StrokeColor.BackColor = value; }
+        public Color FillColor {
+            get
+            {
+                if (chb_EnableFillColor.Checked)
+                    return pcb_FillColor.BackColor;
+                else return Color.Transparent;
+            }
+            set => pcb_FillColor.BackColor = value; }
+        public Color StrokeColor {
+            get
+            {
+                if (chb_EnableStrokeColor.Checked)
+                    return pcb_StrokeColor.BackColor;
+                else return Color.Transparent;
+            }
+            set => pcb_StrokeColor.BackColor = value; }
         public bool SmoothAngles { get => chb_SmoothFigure.Checked; set => chb_SmoothFigure.Checked = value; }
         public double StrokeWidth { get => (double)nud_StrokeWidth.Value; set => nud_StrokeWidth.Value = (decimal)value; }
+        public DrawState DrawState { get; set; }
 
         Color lblChecked = Color.FromArgb(9, 154, 185);
         Color lblFree = Color.FromArgb(5, 89, 107);
@@ -302,6 +317,7 @@ namespace TestMyDrawing
             InitializeComponent();
             _obj = this;
             graph = pictureBox1;
+            pcb_NormalCursor_Click(this, EventArgs.Empty);
         }
 
         // Метод для перемещения формы.
@@ -574,8 +590,17 @@ namespace TestMyDrawing
         }
         private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
         {
-            GraphicEventArgs eventArgs = new GraphicEventArgs(EventType.MovePlot);
-            eventArgs.mouseLocation = e.Location;
+            GraphicEventArgs eventArgs;
+            if (DrawState == DrawState.None)
+            {
+                eventArgs = new GraphicEventArgs(EventType.MovePlot);
+                eventArgs.mouseLocation = e.Location;
+            } 
+            else
+            {
+                eventArgs = new GraphicEventArgs(EventType.DrawFigure);
+                eventArgs.mouseLocation = e.Location;
+            }
             PlotAction?.Invoke(this, eventArgs);
         }
         private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
@@ -656,7 +681,28 @@ namespace TestMyDrawing
 
             AddNewCurve?.Invoke(this, graphicEvent);
         }
-        
+        private void chb_ShowDots_CheckedChanged(object sender, EventArgs e)
+        {
+
+            if (chb_ShowDots.Checked)
+            {
+                groupBox5.Enabled = true;
+            }
+            else groupBox5.Enabled = false;
+
+            chb_ShowDots.Enabled = true;
+        }
+        private void pcb_DotColor_Click(object sender, EventArgs e)
+        {
+            using (ColorDialog cd = new ColorDialog())
+            {
+                if (cd.ShowDialog() == DialogResult.OK)
+                {
+                    pcb_DotColor.BackColor = cd.Color;
+                }
+            }
+        }
+
         // Применить новые параметры диаграммы.
         private void btn_Apply_Click(object sender, EventArgs e)
         {
@@ -687,62 +733,50 @@ namespace TestMyDrawing
             SpiralAction?.Invoke(false);
         }
 
-        private void chb_ShowDots_CheckedChanged(object sender, EventArgs e)
-        {
-            
-            if (chb_ShowDots.Checked)
-            {
-                groupBox5.Enabled = true;
-            }
-            else groupBox5.Enabled = false;
-
-            chb_ShowDots.Enabled = true;
-        }
-
-        private void pcb_DotColor_Click(object sender, EventArgs e)
-        {
-            using (ColorDialog cd = new ColorDialog())
-            {
-                if (cd.ShowDialog() == DialogResult.OK)
-                {
-                    pcb_DotColor.BackColor = cd.Color;
-                }
-            }
-        }
+        
 
         Color pcbFigureChecked = Color.FromArgb(130, 175, 255);
         Color onPcbFigure = Color.FromArgb(177, 204, 222, 255);
         private void pcb_Rectangle_Click(object sender, EventArgs e)
         {
             pcb_Rectangle.BackColor = pcbFigureChecked;
-            pcb_Circle.BackColor = pcb_Line.BackColor = pcb_Arrow.BackColor = pcb_Text.BackColor = 
+            DrawState = DrawState.Rectangle;
+            pcb_NormalCursor.BackColor = pcb_Circle.BackColor = pcb_Line.BackColor = pcb_Arrow.BackColor = pcb_Text.BackColor = 
                 Color.LightCyan;
         }
         private void pcb_Circle_Click(object sender, EventArgs e)
         {
             pcb_Circle.BackColor = pcbFigureChecked;
-            pcb_Rectangle.BackColor = pcb_Line.BackColor = pcb_Arrow.BackColor = pcb_Text.BackColor =
+            DrawState = DrawState.Circle;
+            pcb_NormalCursor.BackColor = pcb_Rectangle.BackColor = pcb_Line.BackColor = pcb_Arrow.BackColor = pcb_Text.BackColor =
                 Color.LightCyan;
         }
-
         private void pcb_Line_Click(object sender, EventArgs e)
         {
             pcb_Line.BackColor = pcbFigureChecked;
-            pcb_Rectangle.BackColor = pcb_Circle.BackColor = pcb_Arrow.BackColor = pcb_Text.BackColor =
+            DrawState = DrawState.Line;
+            pcb_NormalCursor.BackColor = pcb_Rectangle.BackColor = pcb_Circle.BackColor = pcb_Arrow.BackColor = pcb_Text.BackColor =
                 Color.LightCyan;
         }
-
         private void pcb_Arrow_Click(object sender, EventArgs e)
         {
             pcb_Arrow.BackColor = pcbFigureChecked;
-            pcb_Rectangle.BackColor = pcb_Line.BackColor = pcb_Circle.BackColor = pcb_Text.BackColor =
+            DrawState = DrawState.Arrow;
+            pcb_NormalCursor.BackColor = pcb_Rectangle.BackColor = pcb_Line.BackColor = pcb_Circle.BackColor = pcb_Text.BackColor =
                 Color.LightCyan;
         }
-
         private void pcb_Text_Click(object sender, EventArgs e)
         {
             pcb_Text.BackColor = pcbFigureChecked;
-            pcb_Rectangle.BackColor = pcb_Line.BackColor = pcb_Arrow.BackColor = pcb_Circle.BackColor =
+            DrawState = DrawState.Text;
+            pcb_NormalCursor.BackColor = pcb_Rectangle.BackColor = pcb_Line.BackColor = pcb_Arrow.BackColor = pcb_Circle.BackColor =
+                Color.LightCyan;
+        }
+        private void pcb_NormalCursor_Click(object sender, EventArgs e)
+        {
+            pcb_NormalCursor.BackColor = pcbFigureChecked;
+            DrawState = DrawState.None;
+            pcb_Text.BackColor = pcb_Rectangle.BackColor = pcb_Line.BackColor = pcb_Arrow.BackColor = pcb_Circle.BackColor =
                 Color.LightCyan;
         }
 
@@ -786,7 +820,6 @@ namespace TestMyDrawing
             if (pcb_Arrow.BackColor != pcbFigureChecked)
                 pcb_Arrow.BackColor = Color.LightCyan;
         }
-
         private void pcb_Text_MouseEnter(object sender, EventArgs e)
         {
             if (pcb_Text.BackColor != pcbFigureChecked)
@@ -796,6 +829,16 @@ namespace TestMyDrawing
         {
             if (pcb_Text.BackColor != pcbFigureChecked)
                 pcb_Text.BackColor = Color.LightCyan;
+        }
+        private void pcb_NormalCursor_MouseEnter(object sender, EventArgs e)
+        {
+            if (pcb_NormalCursor.BackColor != pcbFigureChecked)
+                pcb_NormalCursor.BackColor = onPcbFigure;
+        }
+        private void pcb_NormalCursor_MouseLeave(object sender, EventArgs e)
+        {
+            if (pcb_NormalCursor.BackColor != pcbFigureChecked)
+                pcb_NormalCursor.BackColor = Color.LightCyan;
         }
 
         private void chb_EnableFillColor_CheckedChanged(object sender, EventArgs e)
@@ -807,7 +850,6 @@ namespace TestMyDrawing
             }
             else pcb_FillColor.BackgroundImage = null;
         }
-
         private void chb_EnableStrokeColor_CheckedChanged(object sender, EventArgs e)
         {
             pcb_StrokeColor.Enabled = chb_EnableStrokeColor.Checked;
@@ -816,6 +858,24 @@ namespace TestMyDrawing
                 pcb_StrokeColor.BackgroundImage = Properties.Resources.pcb_disable;
             }
             else pcb_StrokeColor.BackgroundImage = null;
+        }
+
+        private void pcb_FillColor_Click(object sender, EventArgs e)
+        {
+            using (ColorDialog cd = new ColorDialog())
+            {
+                if (cd.ShowDialog() == DialogResult.OK)
+                    pcb_FillColor.BackColor = cd.Color;
+            }
+        }
+
+        private void pcb_StrokeColor_Click(object sender, EventArgs e)
+        {
+            using (ColorDialog cd = new ColorDialog())
+            {
+                if (cd.ShowDialog() == DialogResult.OK)
+                    pcb_StrokeColor.BackColor = cd.Color;
+            }
         }
     }
 }
