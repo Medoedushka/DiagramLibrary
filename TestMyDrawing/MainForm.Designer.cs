@@ -44,7 +44,22 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel5 = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
+            this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.chb_EnableStrokeColor = new System.Windows.Forms.CheckBox();
+            this.chb_EnableFillColor = new System.Windows.Forms.CheckBox();
+            this.nud_StrokeWidth = new System.Windows.Forms.NumericUpDown();
+            this.pcb_StrokeColor = new System.Windows.Forms.PictureBox();
+            this.pcb_FillColor = new System.Windows.Forms.PictureBox();
+            this.label27 = new System.Windows.Forms.Label();
+            this.label26 = new System.Windows.Forms.Label();
+            this.label25 = new System.Windows.Forms.Label();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.pcb_Text = new System.Windows.Forms.PictureBox();
+            this.pcb_Arrow = new System.Windows.Forms.PictureBox();
+            this.pcb_Line = new System.Windows.Forms.PictureBox();
+            this.pcb_Circle = new System.Windows.Forms.PictureBox();
+            this.pcb_Rectangle = new System.Windows.Forms.PictureBox();
             this.label24 = new System.Windows.Forms.Label();
             this.pnl_CreateSpiral = new System.Windows.Forms.Panel();
             this.chb_SaveToFile = new System.Windows.Forms.CheckBox();
@@ -127,21 +142,7 @@
             this.rtb_TableTxt = new System.Windows.Forms.RichTextBox();
             this.pnl_StripElements = new System.Windows.Forms.Panel();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.pcb_Rectangle = new System.Windows.Forms.PictureBox();
-            this.pcb_Circle = new System.Windows.Forms.PictureBox();
-            this.pcb_Line = new System.Windows.Forms.PictureBox();
-            this.pcb_Arrow = new System.Windows.Forms.PictureBox();
-            this.pcb_Text = new System.Windows.Forms.PictureBox();
-            this.groupBox7 = new System.Windows.Forms.GroupBox();
-            this.label25 = new System.Windows.Forms.Label();
-            this.label26 = new System.Windows.Forms.Label();
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
-            this.pictureBox4 = new System.Windows.Forms.PictureBox();
-            this.label27 = new System.Windows.Forms.Label();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
-            this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.chb_SmoothFigure = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pcb_Minimize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pcb_Normalize)).BeginInit();
@@ -150,7 +151,16 @@
             this.panel2.SuspendLayout();
             this.panel5.SuspendLayout();
             this.panel4.SuspendLayout();
+            this.groupBox7.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nud_StrokeWidth)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pcb_StrokeColor)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pcb_FillColor)).BeginInit();
             this.groupBox6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pcb_Text)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pcb_Arrow)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pcb_Line)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pcb_Circle)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pcb_Rectangle)).BeginInit();
             this.pnl_CreateSpiral.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.pnl_DiagramParams.SuspendLayout();
@@ -166,15 +176,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.nud_Thickness)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pcb_CurveColor)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pcb_Rectangle)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pcb_Circle)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pcb_Line)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pcb_Arrow)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pcb_Text)).BeginInit();
-            this.groupBox7.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -380,6 +381,121 @@
             this.panel4.Size = new System.Drawing.Size(353, 461);
             this.panel4.TabIndex = 7;
             // 
+            // groupBox8
+            // 
+            this.groupBox8.Location = new System.Drawing.Point(13, 270);
+            this.groupBox8.Name = "groupBox8";
+            this.groupBox8.Size = new System.Drawing.Size(316, 174);
+            this.groupBox8.TabIndex = 3;
+            this.groupBox8.TabStop = false;
+            this.groupBox8.Text = "Настройки текста";
+            // 
+            // groupBox7
+            // 
+            this.groupBox7.Controls.Add(this.label27);
+            this.groupBox7.Controls.Add(this.nud_StrokeWidth);
+            this.groupBox7.Controls.Add(this.chb_SmoothFigure);
+            this.groupBox7.Controls.Add(this.chb_EnableStrokeColor);
+            this.groupBox7.Controls.Add(this.chb_EnableFillColor);
+            this.groupBox7.Controls.Add(this.pcb_StrokeColor);
+            this.groupBox7.Controls.Add(this.pcb_FillColor);
+            this.groupBox7.Controls.Add(this.label26);
+            this.groupBox7.Controls.Add(this.label25);
+            this.groupBox7.Location = new System.Drawing.Point(13, 112);
+            this.groupBox7.Name = "groupBox7";
+            this.groupBox7.Size = new System.Drawing.Size(316, 152);
+            this.groupBox7.TabIndex = 2;
+            this.groupBox7.TabStop = false;
+            this.groupBox7.Text = "Свойства фигуры";
+            // 
+            // chb_EnableStrokeColor
+            // 
+            this.chb_EnableStrokeColor.AutoSize = true;
+            this.chb_EnableStrokeColor.Checked = true;
+            this.chb_EnableStrokeColor.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chb_EnableStrokeColor.Location = new System.Drawing.Point(188, 63);
+            this.chb_EnableStrokeColor.Name = "chb_EnableStrokeColor";
+            this.chb_EnableStrokeColor.Size = new System.Drawing.Size(15, 14);
+            this.chb_EnableStrokeColor.TabIndex = 5;
+            this.chb_EnableStrokeColor.UseVisualStyleBackColor = true;
+            this.chb_EnableStrokeColor.CheckedChanged += new System.EventHandler(this.chb_EnableStrokeColor_CheckedChanged);
+            // 
+            // chb_EnableFillColor
+            // 
+            this.chb_EnableFillColor.AutoSize = true;
+            this.chb_EnableFillColor.Checked = true;
+            this.chb_EnableFillColor.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chb_EnableFillColor.Location = new System.Drawing.Point(188, 30);
+            this.chb_EnableFillColor.Name = "chb_EnableFillColor";
+            this.chb_EnableFillColor.Size = new System.Drawing.Size(15, 14);
+            this.chb_EnableFillColor.TabIndex = 5;
+            this.chb_EnableFillColor.UseVisualStyleBackColor = true;
+            this.chb_EnableFillColor.CheckedChanged += new System.EventHandler(this.chb_EnableFillColor_CheckedChanged);
+            // 
+            // nud_StrokeWidth
+            // 
+            this.nud_StrokeWidth.Location = new System.Drawing.Point(172, 88);
+            this.nud_StrokeWidth.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nud_StrokeWidth.Name = "nud_StrokeWidth";
+            this.nud_StrokeWidth.Size = new System.Drawing.Size(51, 25);
+            this.nud_StrokeWidth.TabIndex = 2;
+            this.nud_StrokeWidth.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // pcb_StrokeColor
+            // 
+            this.pcb_StrokeColor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pcb_StrokeColor.Location = new System.Drawing.Point(79, 59);
+            this.pcb_StrokeColor.Name = "pcb_StrokeColor";
+            this.pcb_StrokeColor.Size = new System.Drawing.Size(100, 22);
+            this.pcb_StrokeColor.TabIndex = 1;
+            this.pcb_StrokeColor.TabStop = false;
+            // 
+            // pcb_FillColor
+            // 
+            this.pcb_FillColor.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.pcb_FillColor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pcb_FillColor.Location = new System.Drawing.Point(79, 26);
+            this.pcb_FillColor.Name = "pcb_FillColor";
+            this.pcb_FillColor.Size = new System.Drawing.Size(100, 22);
+            this.pcb_FillColor.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pcb_FillColor.TabIndex = 1;
+            this.pcb_FillColor.TabStop = false;
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Location = new System.Drawing.Point(6, 92);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(160, 17);
+            this.label27.TabIndex = 0;
+            this.label27.Text = "Толщина обводки(px):";
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Location = new System.Drawing.Point(6, 59);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(69, 17);
+            this.label26.TabIndex = 0;
+            this.label26.Text = "Обводка:";
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(6, 28);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(67, 17);
+            this.label25.TabIndex = 0;
+            this.label25.Text = "Заливка:";
+            // 
             // groupBox6
             // 
             this.groupBox6.Controls.Add(this.pcb_Text);
@@ -393,6 +509,71 @@
             this.groupBox6.TabIndex = 1;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Тип фигуры";
+            // 
+            // pcb_Text
+            // 
+            this.pcb_Text.Image = global::TestMyDrawing.Properties.Resources.icons8_text_30px_1;
+            this.pcb_Text.Location = new System.Drawing.Point(229, 24);
+            this.pcb_Text.Name = "pcb_Text";
+            this.pcb_Text.Size = new System.Drawing.Size(35, 35);
+            this.pcb_Text.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.pcb_Text.TabIndex = 0;
+            this.pcb_Text.TabStop = false;
+            this.pcb_Text.Click += new System.EventHandler(this.pcb_Text_Click);
+            this.pcb_Text.MouseEnter += new System.EventHandler(this.pcb_Text_MouseEnter);
+            this.pcb_Text.MouseLeave += new System.EventHandler(this.pcb_Text_MouseLeave);
+            // 
+            // pcb_Arrow
+            // 
+            this.pcb_Arrow.Image = global::TestMyDrawing.Properties.Resources.icons8_right_arrow_30px_2;
+            this.pcb_Arrow.Location = new System.Drawing.Point(188, 24);
+            this.pcb_Arrow.Name = "pcb_Arrow";
+            this.pcb_Arrow.Size = new System.Drawing.Size(35, 35);
+            this.pcb_Arrow.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.pcb_Arrow.TabIndex = 0;
+            this.pcb_Arrow.TabStop = false;
+            this.pcb_Arrow.Click += new System.EventHandler(this.pcb_Arrow_Click);
+            this.pcb_Arrow.MouseEnter += new System.EventHandler(this.pcb_Arrow_MouseEnter);
+            this.pcb_Arrow.MouseLeave += new System.EventHandler(this.pcb_Arrow_MouseLeave);
+            // 
+            // pcb_Line
+            // 
+            this.pcb_Line.Image = global::TestMyDrawing.Properties.Resources.icons8_horizontal_line_30px_3;
+            this.pcb_Line.Location = new System.Drawing.Point(147, 24);
+            this.pcb_Line.Name = "pcb_Line";
+            this.pcb_Line.Size = new System.Drawing.Size(35, 35);
+            this.pcb_Line.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.pcb_Line.TabIndex = 0;
+            this.pcb_Line.TabStop = false;
+            this.pcb_Line.Click += new System.EventHandler(this.pcb_Line_Click);
+            this.pcb_Line.MouseEnter += new System.EventHandler(this.pcb_Line_MouseEnter);
+            this.pcb_Line.MouseLeave += new System.EventHandler(this.pcb_Line_MouseLeave);
+            // 
+            // pcb_Circle
+            // 
+            this.pcb_Circle.Image = global::TestMyDrawing.Properties.Resources.icons8_filled_circle_30px_2;
+            this.pcb_Circle.Location = new System.Drawing.Point(106, 24);
+            this.pcb_Circle.Name = "pcb_Circle";
+            this.pcb_Circle.Size = new System.Drawing.Size(35, 35);
+            this.pcb_Circle.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.pcb_Circle.TabIndex = 0;
+            this.pcb_Circle.TabStop = false;
+            this.pcb_Circle.Click += new System.EventHandler(this.pcb_Circle_Click);
+            this.pcb_Circle.MouseEnter += new System.EventHandler(this.pcb_Circle_MouseEnter);
+            this.pcb_Circle.MouseLeave += new System.EventHandler(this.pcb_Circle_MouseLeave);
+            // 
+            // pcb_Rectangle
+            // 
+            this.pcb_Rectangle.Image = global::TestMyDrawing.Properties.Resources.icons8_rectangle_30px_3;
+            this.pcb_Rectangle.Location = new System.Drawing.Point(65, 24);
+            this.pcb_Rectangle.Name = "pcb_Rectangle";
+            this.pcb_Rectangle.Size = new System.Drawing.Size(35, 35);
+            this.pcb_Rectangle.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.pcb_Rectangle.TabIndex = 0;
+            this.pcb_Rectangle.TabStop = false;
+            this.pcb_Rectangle.Click += new System.EventHandler(this.pcb_Rectangle_Click);
+            this.pcb_Rectangle.MouseEnter += new System.EventHandler(this.pcb_Rectangle_MouseEnter);
+            this.pcb_Rectangle.MouseLeave += new System.EventHandler(this.pcb_Rectangle_MouseLeave);
             // 
             // label24
             // 
@@ -1411,176 +1592,15 @@
             this.pnl_StripElements.Size = new System.Drawing.Size(1030, 60);
             this.pnl_StripElements.TabIndex = 0;
             // 
-            // pcb_Rectangle
+            // chb_SmoothFigure
             // 
-            this.pcb_Rectangle.Image = global::TestMyDrawing.Properties.Resources.icons8_rectangle_30px_3;
-            this.pcb_Rectangle.Location = new System.Drawing.Point(65, 24);
-            this.pcb_Rectangle.Name = "pcb_Rectangle";
-            this.pcb_Rectangle.Size = new System.Drawing.Size(35, 35);
-            this.pcb_Rectangle.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.pcb_Rectangle.TabIndex = 0;
-            this.pcb_Rectangle.TabStop = false;
-            this.pcb_Rectangle.Click += new System.EventHandler(this.pcb_Rectangle_Click);
-            this.pcb_Rectangle.MouseEnter += new System.EventHandler(this.pcb_Rectangle_MouseEnter);
-            this.pcb_Rectangle.MouseLeave += new System.EventHandler(this.pcb_Rectangle_MouseLeave);
-            // 
-            // pcb_Circle
-            // 
-            this.pcb_Circle.Image = global::TestMyDrawing.Properties.Resources.icons8_filled_circle_30px_2;
-            this.pcb_Circle.Location = new System.Drawing.Point(106, 24);
-            this.pcb_Circle.Name = "pcb_Circle";
-            this.pcb_Circle.Size = new System.Drawing.Size(35, 35);
-            this.pcb_Circle.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.pcb_Circle.TabIndex = 0;
-            this.pcb_Circle.TabStop = false;
-            this.pcb_Circle.Click += new System.EventHandler(this.pcb_Circle_Click);
-            this.pcb_Circle.MouseEnter += new System.EventHandler(this.pcb_Circle_MouseEnter);
-            this.pcb_Circle.MouseLeave += new System.EventHandler(this.pcb_Circle_MouseLeave);
-            // 
-            // pcb_Line
-            // 
-            this.pcb_Line.Image = global::TestMyDrawing.Properties.Resources.icons8_horizontal_line_30px_3;
-            this.pcb_Line.Location = new System.Drawing.Point(147, 24);
-            this.pcb_Line.Name = "pcb_Line";
-            this.pcb_Line.Size = new System.Drawing.Size(35, 35);
-            this.pcb_Line.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.pcb_Line.TabIndex = 0;
-            this.pcb_Line.TabStop = false;
-            this.pcb_Line.Click += new System.EventHandler(this.pcb_Line_Click);
-            this.pcb_Line.MouseEnter += new System.EventHandler(this.pcb_Line_MouseEnter);
-            this.pcb_Line.MouseLeave += new System.EventHandler(this.pcb_Line_MouseLeave);
-            // 
-            // pcb_Arrow
-            // 
-            this.pcb_Arrow.Image = global::TestMyDrawing.Properties.Resources.icons8_right_arrow_30px_2;
-            this.pcb_Arrow.Location = new System.Drawing.Point(188, 24);
-            this.pcb_Arrow.Name = "pcb_Arrow";
-            this.pcb_Arrow.Size = new System.Drawing.Size(35, 35);
-            this.pcb_Arrow.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.pcb_Arrow.TabIndex = 0;
-            this.pcb_Arrow.TabStop = false;
-            this.pcb_Arrow.Click += new System.EventHandler(this.pcb_Arrow_Click);
-            this.pcb_Arrow.MouseEnter += new System.EventHandler(this.pcb_Arrow_MouseEnter);
-            this.pcb_Arrow.MouseLeave += new System.EventHandler(this.pcb_Arrow_MouseLeave);
-            // 
-            // pcb_Text
-            // 
-            this.pcb_Text.Image = global::TestMyDrawing.Properties.Resources.icons8_text_30px_1;
-            this.pcb_Text.Location = new System.Drawing.Point(229, 24);
-            this.pcb_Text.Name = "pcb_Text";
-            this.pcb_Text.Size = new System.Drawing.Size(35, 35);
-            this.pcb_Text.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.pcb_Text.TabIndex = 0;
-            this.pcb_Text.TabStop = false;
-            this.pcb_Text.Click += new System.EventHandler(this.pcb_Text_Click);
-            this.pcb_Text.MouseEnter += new System.EventHandler(this.pcb_Text_MouseEnter);
-            this.pcb_Text.MouseLeave += new System.EventHandler(this.pcb_Text_MouseLeave);
-            // 
-            // groupBox7
-            // 
-            this.groupBox7.Controls.Add(this.checkBox2);
-            this.groupBox7.Controls.Add(this.checkBox1);
-            this.groupBox7.Controls.Add(this.numericUpDown1);
-            this.groupBox7.Controls.Add(this.pictureBox4);
-            this.groupBox7.Controls.Add(this.pictureBox3);
-            this.groupBox7.Controls.Add(this.label27);
-            this.groupBox7.Controls.Add(this.label26);
-            this.groupBox7.Controls.Add(this.label25);
-            this.groupBox7.Location = new System.Drawing.Point(13, 112);
-            this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(316, 123);
-            this.groupBox7.TabIndex = 2;
-            this.groupBox7.TabStop = false;
-            this.groupBox7.Text = "Свойства фигуры";
-            // 
-            // label25
-            // 
-            this.label25.AutoSize = true;
-            this.label25.Location = new System.Drawing.Point(6, 28);
-            this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(67, 17);
-            this.label25.TabIndex = 0;
-            this.label25.Text = "Заливка:";
-            // 
-            // label26
-            // 
-            this.label26.AutoSize = true;
-            this.label26.Location = new System.Drawing.Point(6, 59);
-            this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(69, 17);
-            this.label26.TabIndex = 0;
-            this.label26.Text = "Обводка:";
-            // 
-            // pictureBox3
-            // 
-            this.pictureBox3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBox3.Location = new System.Drawing.Point(79, 26);
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(100, 22);
-            this.pictureBox3.TabIndex = 1;
-            this.pictureBox3.TabStop = false;
-            // 
-            // pictureBox4
-            // 
-            this.pictureBox4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBox4.Location = new System.Drawing.Point(79, 59);
-            this.pictureBox4.Name = "pictureBox4";
-            this.pictureBox4.Size = new System.Drawing.Size(100, 22);
-            this.pictureBox4.TabIndex = 1;
-            this.pictureBox4.TabStop = false;
-            // 
-            // label27
-            // 
-            this.label27.AutoSize = true;
-            this.label27.Location = new System.Drawing.Point(6, 94);
-            this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(160, 17);
-            this.label27.TabIndex = 0;
-            this.label27.Text = "Толщина обводки(px):";
-            // 
-            // numericUpDown1
-            // 
-            this.numericUpDown1.Location = new System.Drawing.Point(172, 90);
-            this.numericUpDown1.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(51, 25);
-            this.numericUpDown1.TabIndex = 2;
-            this.numericUpDown1.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(188, 30);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(15, 14);
-            this.checkBox1.TabIndex = 5;
-            this.checkBox1.UseVisualStyleBackColor = true;
-            // 
-            // checkBox2
-            // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(188, 63);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(15, 14);
-            this.checkBox2.TabIndex = 5;
-            this.checkBox2.UseVisualStyleBackColor = true;
-            // 
-            // groupBox8
-            // 
-            this.groupBox8.Location = new System.Drawing.Point(13, 240);
-            this.groupBox8.Name = "groupBox8";
-            this.groupBox8.Size = new System.Drawing.Size(316, 204);
-            this.groupBox8.TabIndex = 3;
-            this.groupBox8.TabStop = false;
-            this.groupBox8.Text = "Настройки текста";
+            this.chb_SmoothFigure.AutoSize = true;
+            this.chb_SmoothFigure.Location = new System.Drawing.Point(9, 119);
+            this.chb_SmoothFigure.Name = "chb_SmoothFigure";
+            this.chb_SmoothFigure.Size = new System.Drawing.Size(116, 21);
+            this.chb_SmoothFigure.TabIndex = 6;
+            this.chb_SmoothFigure.Text = "Сглаживание";
+            this.chb_SmoothFigure.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
@@ -1609,7 +1629,17 @@
             this.panel5.ResumeLayout(false);
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
+            this.groupBox7.ResumeLayout(false);
+            this.groupBox7.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nud_StrokeWidth)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pcb_StrokeColor)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pcb_FillColor)).EndInit();
             this.groupBox6.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pcb_Text)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pcb_Arrow)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pcb_Line)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pcb_Circle)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pcb_Rectangle)).EndInit();
             this.pnl_CreateSpiral.ResumeLayout(false);
             this.pnl_CreateSpiral.PerformLayout();
             this.groupBox4.ResumeLayout(false);
@@ -1632,16 +1662,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.nud_Thickness)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pcb_CurveColor)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pcb_Rectangle)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pcb_Circle)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pcb_Line)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pcb_Arrow)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pcb_Text)).EndInit();
-            this.groupBox7.ResumeLayout(false);
-            this.groupBox7.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1751,15 +1771,16 @@
         private System.Windows.Forms.PictureBox pcb_Circle;
         private System.Windows.Forms.PictureBox pcb_Rectangle;
         private System.Windows.Forms.GroupBox groupBox7;
-        private System.Windows.Forms.PictureBox pictureBox4;
-        private System.Windows.Forms.PictureBox pictureBox3;
+        private System.Windows.Forms.PictureBox pcb_StrokeColor;
+        private System.Windows.Forms.PictureBox pcb_FillColor;
         private System.Windows.Forms.Label label26;
         private System.Windows.Forms.Label label25;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.NumericUpDown nud_StrokeWidth;
         private System.Windows.Forms.Label label27;
         private System.Windows.Forms.GroupBox groupBox8;
-        private System.Windows.Forms.CheckBox checkBox2;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox chb_EnableStrokeColor;
+        private System.Windows.Forms.CheckBox chb_EnableFillColor;
+        private System.Windows.Forms.CheckBox chb_SmoothFigure;
     }
 }
 

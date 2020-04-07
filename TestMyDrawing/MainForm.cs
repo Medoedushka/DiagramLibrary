@@ -792,5 +792,25 @@ namespace TestMyDrawing
             if (pcb_Text.BackColor != pcbFigureChecked)
                 pcb_Text.BackColor = Color.LightCyan;
         }
+
+        private void chb_EnableFillColor_CheckedChanged(object sender, EventArgs e)
+        {
+            pcb_FillColor.Enabled = chb_EnableFillColor.Checked;
+            if (!pcb_FillColor.Enabled)
+            {
+                pcb_FillColor.BackgroundImage = Properties.Resources.pcb_disable;
+            }
+            else pcb_FillColor.BackgroundImage = null;
+        }
+
+        private void chb_EnableStrokeColor_CheckedChanged(object sender, EventArgs e)
+        {
+            pcb_StrokeColor.Enabled = chb_EnableStrokeColor.Checked;
+            if (!pcb_StrokeColor.Enabled)
+            {
+                pcb_StrokeColor.BackgroundImage = Properties.Resources.pcb_disable;
+            }
+            else pcb_StrokeColor.BackgroundImage = null;
+        }
     }
 }

@@ -17,6 +17,7 @@ namespace MyDrawing.Figures
         public Color StrokeColor { get; set; }
         public int StrokeWidth { get; set; }
         public Graphics GraphPlace { get; set; }
+        public bool Smooth { get; set; } = false;
 
         public PointF DotA { get; set; }
         public PointF DotB { get; set; }
@@ -29,7 +30,6 @@ namespace MyDrawing.Figures
     public class Line : Figure
     {
         LineCap lineCap;
-        public bool SmoothLine { get; set; }
         protected Pen LinePen { get; set; }
         public Line(PointF a, PointF b, Graphics g)
         {
@@ -39,12 +39,11 @@ namespace MyDrawing.Figures
             StrokeWidth = 3;
             DotA = a;
             DotB = b;
-            SmoothLine = false;
         }
 
         public override void DrawFigure()
         {
-            if (SmoothLine)
+            if (Smooth)
                 lineCap = LineCap.Round;
             else lineCap = LineCap.Flat;
             LinePen = new Pen(StrokeColor, StrokeWidth);
@@ -130,6 +129,9 @@ namespace MyDrawing.Figures
             if (StrokeWidth > 0)
             {
                 Pen pen = new Pen(StrokeColor, StrokeWidth);
+                if(Smooth)
+                    pen.LineJoin = LineJoin.Round;
+
                 GraphPlace.DrawRectangle(pen, new System.Drawing.Rectangle((int)pt.X, (int)pt.Y, (int)w, (int)h));
             }
             //Рисование заливки

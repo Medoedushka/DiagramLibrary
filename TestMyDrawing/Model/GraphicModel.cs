@@ -65,6 +65,10 @@ namespace TestMyDrawing.Model
         }
         private void PlaceToDraw_Paint(object sender, PaintEventArgs e)
         {
+            MyDrawing.Figures.Rectangle rectangle = new MyDrawing.Figures.Rectangle(gr.ConvertValues(1, 1, CoordType.GetControlCoord),
+                gr.ConvertValues(5, 5, CoordType.GetControlCoord), e.Graphics);
+            rectangle.StrokeWidth = 20;
+            rectangle.DrawFigure();
         }
 
         private void Timer_Tick(object sender, EventArgs e)
