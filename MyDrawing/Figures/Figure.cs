@@ -100,38 +100,29 @@ namespace MyDrawing.Figures
             DotB = b;
         }
 
-        protected void InitRectParams(out PointF pt, out float w, out float h)
+        protected void InitRectParams(out float w, out float h)
         {
-            w = Math.Abs(DotB.X - DotA.X) * 2;
-            h = Math.Abs(DotB.Y - DotA.Y) * 2;
-            pt = new PointF();
-            if (DotB.X < DotA.X && DotB.Y < DotA.Y)
-                pt = DotB;
-            else if (DotB.X < DotA.X && DotB.Y > DotA.Y)
-                pt = new PointF(DotB.X, DotB.Y - h);
-            else if (DotB.X > DotA.X && DotB.Y < DotA.Y)
-                pt = new PointF(DotB.X - w, DotB.Y);
-            else if (DotB.X > DotA.X && DotB.Y > DotA.Y)
-                pt = new PointF(DotB.X - w, DotB.Y - h);
+            w = DotB.X - DotA.X;
+            h = DotB.Y - DotA.Y;
         }
 
         public override void DrawFigure(Graphics GraphPlace)
         {
             float w, h;
-            PointF pt;
-            InitRectParams(out pt, out w, out h);
+            InitRectParams(out w, out h);
             GraphPlace.SmoothingMode = SmoothingMode.AntiAlias;
             //рисование контура
-            if (StrokeWidth > 0)
+            if (StrokeWidth > 0 && StrokeColor != Color.Transparent)
             {
                 Pen pen = new Pen(StrokeColor, StrokeWidth);
                 if(Smooth)
                     pen.LineJoin = LineJoin.Round;
 
-                GraphPlace.DrawRectangle(pen, new System.Drawing.Rectangle((int)pt.X, (int)pt.Y, (int)w, (int)h));
+                GraphPlace.DrawRectangle(pen, new System.Drawing.Rectangle((int)DotA.X, (int)DotA.Y, (int)w, (int)h));
             }
             //Рисование заливки
-            GraphPlace.FillRectangle(new SolidBrush(FillColor), new RectangleF(pt.X, pt.Y, w, h));
+            if (FillColor != Color.Transparent)
+                GraphPlace.FillRectangle(new SolidBrush(FillColor), new RectangleF(DotA.X, DotA.Y, w, h));
         }
     }
     /// <summary>
@@ -145,16 +136,16 @@ namespace MyDrawing.Figures
         {
             GraphPlace.SmoothingMode = SmoothingMode.AntiAlias;
             float w, h;
-            PointF pt;
-            InitRectParams(out pt, out w, out h);
+            InitRectParams(out w, out h);
             //контур
-            if (StrokeWidth > 0)
+            if (StrokeWidth > 0 && StrokeColor != Color.Transparent)
             {
                 Pen pen = new Pen(StrokeColor, StrokeWidth);
-                GraphPlace.DrawEllipse(pen, new System.Drawing.Rectangle((int)pt.X, (int)pt.Y, (int)w, (int)h));
+                GraphPlace.DrawEllipse(pen, new System.Drawing.Rectangle((int)DotA.X, (int)DotA.Y, (int)w, (int)h));
             }
             //Рисование заливки
-            GraphPlace.FillEllipse(new SolidBrush(FillColor), new RectangleF(pt.X, pt.Y, w, h));
+            if (FillColor != Color.Transparent)
+                GraphPlace.FillEllipse(new SolidBrush(FillColor), new RectangleF(DotA.X, DotA.Y, w, h));
         }
     }
     /// <summary>
