@@ -288,6 +288,11 @@ namespace TestMyDrawing
             get { return btn_Back; }
         }
 
+        public Color FillColor { get => pcb_FillColor.BackColor; set => pcb_FillColor.BackColor = value; }
+        public Color StrokeColor { get => pcb_StrokeColor.BackColor; set => pcb_StrokeColor.BackColor = value; }
+        public bool SmoothAngles { get => chb_SmoothFigure.Checked; set => chb_SmoothFigure.Checked = value; }
+        public double StrokeWidth { get => (double)nud_StrokeWidth.Value; set => nud_StrokeWidth.Value = (decimal)value; }
+
         Color lblChecked = Color.FromArgb(9, 154, 185);
         Color lblFree = Color.FromArgb(5, 89, 107);
         Color controlEnter = Color.FromArgb(177, 34, 207, 244);

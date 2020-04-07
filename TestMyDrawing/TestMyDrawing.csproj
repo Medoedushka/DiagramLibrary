@@ -189,6 +189,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="icons8_plot.ico" />
+    <None Include="Resources\icons8_cursor_30px.png" />
     <None Include="Resources\pcb_disable.png" />
     <None Include="Resources\Image1.bmp" />
     <None Include="Resources\icons8_text_30px_1.png" />

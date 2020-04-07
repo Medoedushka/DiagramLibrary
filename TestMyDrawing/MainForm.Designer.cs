@@ -46,12 +46,13 @@
             this.panel4 = new System.Windows.Forms.Panel();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.label27 = new System.Windows.Forms.Label();
+            this.nud_StrokeWidth = new System.Windows.Forms.NumericUpDown();
+            this.chb_SmoothFigure = new System.Windows.Forms.CheckBox();
             this.chb_EnableStrokeColor = new System.Windows.Forms.CheckBox();
             this.chb_EnableFillColor = new System.Windows.Forms.CheckBox();
-            this.nud_StrokeWidth = new System.Windows.Forms.NumericUpDown();
             this.pcb_StrokeColor = new System.Windows.Forms.PictureBox();
             this.pcb_FillColor = new System.Windows.Forms.PictureBox();
-            this.label27 = new System.Windows.Forms.Label();
             this.label26 = new System.Windows.Forms.Label();
             this.label25 = new System.Windows.Forms.Label();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
@@ -142,7 +143,7 @@
             this.rtb_TableTxt = new System.Windows.Forms.RichTextBox();
             this.pnl_StripElements = new System.Windows.Forms.Panel();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.chb_SmoothFigure = new System.Windows.Forms.CheckBox();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pcb_Minimize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pcb_Normalize)).BeginInit();
@@ -176,6 +177,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.nud_Thickness)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pcb_CurveColor)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -408,6 +410,42 @@
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "Свойства фигуры";
             // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Location = new System.Drawing.Point(6, 92);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(160, 17);
+            this.label27.TabIndex = 0;
+            this.label27.Text = "Толщина обводки(px):";
+            // 
+            // nud_StrokeWidth
+            // 
+            this.nud_StrokeWidth.Location = new System.Drawing.Point(172, 88);
+            this.nud_StrokeWidth.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nud_StrokeWidth.Name = "nud_StrokeWidth";
+            this.nud_StrokeWidth.Size = new System.Drawing.Size(51, 25);
+            this.nud_StrokeWidth.TabIndex = 2;
+            this.nud_StrokeWidth.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // chb_SmoothFigure
+            // 
+            this.chb_SmoothFigure.AutoSize = true;
+            this.chb_SmoothFigure.Location = new System.Drawing.Point(9, 119);
+            this.chb_SmoothFigure.Name = "chb_SmoothFigure";
+            this.chb_SmoothFigure.Size = new System.Drawing.Size(116, 21);
+            this.chb_SmoothFigure.TabIndex = 6;
+            this.chb_SmoothFigure.Text = "Сглаживание";
+            this.chb_SmoothFigure.UseVisualStyleBackColor = true;
+            // 
             // chb_EnableStrokeColor
             // 
             this.chb_EnableStrokeColor.AutoSize = true;
@@ -432,23 +470,6 @@
             this.chb_EnableFillColor.UseVisualStyleBackColor = true;
             this.chb_EnableFillColor.CheckedChanged += new System.EventHandler(this.chb_EnableFillColor_CheckedChanged);
             // 
-            // nud_StrokeWidth
-            // 
-            this.nud_StrokeWidth.Location = new System.Drawing.Point(172, 88);
-            this.nud_StrokeWidth.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.nud_StrokeWidth.Name = "nud_StrokeWidth";
-            this.nud_StrokeWidth.Size = new System.Drawing.Size(51, 25);
-            this.nud_StrokeWidth.TabIndex = 2;
-            this.nud_StrokeWidth.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            // 
             // pcb_StrokeColor
             // 
             this.pcb_StrokeColor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -468,15 +489,6 @@
             this.pcb_FillColor.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pcb_FillColor.TabIndex = 1;
             this.pcb_FillColor.TabStop = false;
-            // 
-            // label27
-            // 
-            this.label27.AutoSize = true;
-            this.label27.Location = new System.Drawing.Point(6, 92);
-            this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(160, 17);
-            this.label27.TabIndex = 0;
-            this.label27.Text = "Толщина обводки(px):";
             // 
             // label26
             // 
@@ -502,6 +514,7 @@
             this.groupBox6.Controls.Add(this.pcb_Arrow);
             this.groupBox6.Controls.Add(this.pcb_Line);
             this.groupBox6.Controls.Add(this.pcb_Circle);
+            this.groupBox6.Controls.Add(this.pictureBox3);
             this.groupBox6.Controls.Add(this.pcb_Rectangle);
             this.groupBox6.Location = new System.Drawing.Point(13, 35);
             this.groupBox6.Name = "groupBox6";
@@ -1592,15 +1605,17 @@
             this.pnl_StripElements.Size = new System.Drawing.Size(1030, 60);
             this.pnl_StripElements.TabIndex = 0;
             // 
-            // chb_SmoothFigure
+            // pictureBox3
             // 
-            this.chb_SmoothFigure.AutoSize = true;
-            this.chb_SmoothFigure.Location = new System.Drawing.Point(9, 119);
-            this.chb_SmoothFigure.Name = "chb_SmoothFigure";
-            this.chb_SmoothFigure.Size = new System.Drawing.Size(116, 21);
-            this.chb_SmoothFigure.TabIndex = 6;
-            this.chb_SmoothFigure.Text = "Сглаживание";
-            this.chb_SmoothFigure.UseVisualStyleBackColor = true;
+            this.pictureBox3.Image = global::TestMyDrawing.Properties.Resources.icons8_cursor_30px;
+            this.pictureBox3.Location = new System.Drawing.Point(24, 24);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(35, 35);
+            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.pictureBox3.TabIndex = 0;
+            this.pictureBox3.TabStop = false;
+            this.pictureBox3.MouseEnter += new System.EventHandler(this.pcb_Rectangle_MouseEnter);
+            this.pictureBox3.MouseLeave += new System.EventHandler(this.pcb_Rectangle_MouseLeave);
             // 
             // MainForm
             // 
@@ -1662,6 +1677,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.nud_Thickness)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pcb_CurveColor)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1781,6 +1797,7 @@
         private System.Windows.Forms.CheckBox chb_EnableStrokeColor;
         private System.Windows.Forms.CheckBox chb_EnableFillColor;
         private System.Windows.Forms.CheckBox chb_SmoothFigure;
+        private System.Windows.Forms.PictureBox pictureBox3;
     }
 }
 

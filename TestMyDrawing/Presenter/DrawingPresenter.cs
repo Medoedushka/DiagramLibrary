@@ -21,8 +21,6 @@ namespace TestMyDrawing.Presenter
         PrintDocument pd;
         PrintPreviewDialog ppd;
 
-        
-
         public DrawingPresenter(IView _drawingView)
         {
             drawingView = _drawingView;

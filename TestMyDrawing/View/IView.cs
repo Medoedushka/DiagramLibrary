@@ -62,6 +62,12 @@ namespace TestMyDrawing.View
         double CoefSpiral { get; set; }
         bool SaveToFile { get; set; }
 
+        //Свойства фигур
+        Color FillColor { get; set; }
+        Color StrokeColor { get; set; }
+        bool SmoothAngles { get; set; }
+        double StrokeWidth { get; set; }
+
         event EventHandler<EventArgs> CreateNewFile;
         event Func<bool> SaveCreatedFile;
         event Action<bool> CloseFile;
