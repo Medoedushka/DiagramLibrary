@@ -79,6 +79,13 @@ namespace TestMyDrawing.View
         double StrokeWidth { get; set; }
         bool EnableDeleteFigure { get; set; }
         bool EnableApdateFigure { get; set; }
+        //
+        // Свойства текста
+        //
+        Font LableFont { get; set; }
+        Color LableColor { get; set; }
+        Color LableBackColor { get; set; }
+        string LableValue { get; set; }
 
         event EventHandler<EventArgs> ApdateFigure;
         event EventHandler<EventArgs> DeleteFigure;

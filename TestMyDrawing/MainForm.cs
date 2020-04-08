@@ -311,6 +311,11 @@ namespace TestMyDrawing
         public DrawState DrawState { get; set; }
         public bool EnableDeleteFigure { get => btn_DeleteFigure.Enabled; set => btn_DeleteFigure.Enabled = value; }
         public bool EnableApdateFigure { get => btn_ApdataFigure.Enabled; set => btn_ApdataFigure.Enabled = value; }
+        Font _lableFont = new Font("Arial", 10);
+        public Font LableFont { get => _lableFont; set => _lableFont = value; }
+        public Color LableColor { get => pcb_TextColor.BackColor; set => pcb_TextColor.BackColor = value; }
+        public Color LableBackColor { get => pcb_TextBackColor.BackColor; set => pcb_TextBackColor.BackColor = value; }
+        public string LableValue { get => txb_Value.Text; set => txb_Value.Text = value; }
 
         Color lblChecked = Color.FromArgb(9, 154, 185);
         Color lblFree = Color.FromArgb(5, 89, 107);
@@ -322,6 +327,8 @@ namespace TestMyDrawing
             _obj = this;
             graph = pictureBox1;
             pcb_NormalCursor_Click(this, EventArgs.Empty);
+            txb_Font.Text = _lableFont.FontFamily.Name + ", " + _lableFont.Size;
+            txb_Value.Text = "Текст";
         }
 
         // Метод для перемещения формы.
@@ -745,6 +752,8 @@ namespace TestMyDrawing
         {
             pcb_Rectangle.BackColor = pcbFigureChecked;
             DrawState = DrawState.Rectangle;
+            groupBox8.Enabled = false;
+            groupBox7.Enabled = true;
             pcb_NormalCursor.BackColor = pcb_Circle.BackColor = pcb_Line.BackColor = pcb_Arrow.BackColor = pcb_Text.BackColor = 
                 Color.LightCyan;
         }
@@ -752,6 +761,8 @@ namespace TestMyDrawing
         {
             pcb_Circle.BackColor = pcbFigureChecked;
             DrawState = DrawState.Circle;
+            groupBox8.Enabled = false;
+            groupBox7.Enabled = true;
             pcb_NormalCursor.BackColor = pcb_Rectangle.BackColor = pcb_Line.BackColor = pcb_Arrow.BackColor = pcb_Text.BackColor =
                 Color.LightCyan;
         }
@@ -759,6 +770,8 @@ namespace TestMyDrawing
         {
             pcb_Line.BackColor = pcbFigureChecked;
             DrawState = DrawState.Line;
+            groupBox8.Enabled = false;
+            groupBox7.Enabled = true;
             pcb_NormalCursor.BackColor = pcb_Rectangle.BackColor = pcb_Circle.BackColor = pcb_Arrow.BackColor = pcb_Text.BackColor =
                 Color.LightCyan;
         }
@@ -766,6 +779,8 @@ namespace TestMyDrawing
         {
             pcb_Arrow.BackColor = pcbFigureChecked;
             DrawState = DrawState.Arrow;
+            groupBox8.Enabled = false;
+            groupBox7.Enabled = true;
             pcb_NormalCursor.BackColor = pcb_Rectangle.BackColor = pcb_Line.BackColor = pcb_Circle.BackColor = pcb_Text.BackColor =
                 Color.LightCyan;
         }
@@ -773,6 +788,8 @@ namespace TestMyDrawing
         {
             pcb_Text.BackColor = pcbFigureChecked;
             DrawState = DrawState.Text;
+            groupBox8.Enabled = true;
+            groupBox7.Enabled = false;
             pcb_NormalCursor.BackColor = pcb_Rectangle.BackColor = pcb_Line.BackColor = pcb_Arrow.BackColor = pcb_Circle.BackColor =
                 Color.LightCyan;
         }
@@ -780,6 +797,7 @@ namespace TestMyDrawing
         {
             pcb_NormalCursor.BackColor = pcbFigureChecked;
             DrawState = DrawState.None;
+            groupBox7.Enabled = true;
             pcb_Text.BackColor = pcb_Rectangle.BackColor = pcb_Line.BackColor = pcb_Arrow.BackColor = pcb_Circle.BackColor =
                 Color.LightCyan;
         }
@@ -900,6 +918,29 @@ namespace TestMyDrawing
         private void btn_ApdataFigure_Click(object sender, EventArgs e)
         {
             ApdateFigure?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void btn_ShowFont_Click(object sender, EventArgs e)
+        {
+            using (FontDialog fd = new FontDialog())
+            {
+                fd.ShowDialog();
+            }
+        }
+
+        private void chb_TextBackColor_CheckedChanged(object sender, EventArgs e)
+        {
+            pcb_TextBackColor.Enabled = chb_TextBackColor.Checked;
+            if (!pcb_TextBackColor.Enabled)
+            {
+                pcb_TextBackColor.BackColor = Color.FromArgb(0, pcb_FillColor.BackColor.R, pcb_FillColor.BackColor.G, pcb_FillColor.BackColor.B);
+                pcb_TextBackColor.BackgroundImage = Properties.Resources.pcb_disable;
+            }
+            else
+            {
+                pcb_TextBackColor.BackgroundImage = null;
+                pcb_TextBackColor.BackColor = Color.FromArgb(255, pcb_FillColor.BackColor.R, pcb_FillColor.BackColor.G, pcb_FillColor.BackColor.B);
+            }
         }
     }
 }

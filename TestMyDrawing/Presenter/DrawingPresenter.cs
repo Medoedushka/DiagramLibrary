@@ -96,9 +96,10 @@ namespace TestMyDrawing.Presenter
                     drawingView.EnableDeleteFigure = _model.CheckFigures(e.Location, out crrfigure);
                     drawingView.EnableApdateFigure = drawingView.EnableDeleteFigure;
                 }
-                    
-                else
+                else if (drawingView.DrawState == DrawState.Text && _model.isDrawing)
                 {
+                    Text t = new Text(_model.firstPt, "Hello world!");
+                    _model.crrFigure = t;
                     _model.isDrawing = false;
                     _model.ApdateFiguresList();
                 }
@@ -248,7 +249,7 @@ namespace TestMyDrawing.Presenter
             }
             else if (e.EventType == EventType.DrawFigure && _model.isDrawing)
             {
-                Figure f;
+                Figure f = null;
                 if (drawingView.DrawState == DrawState.Rectangle)
                 {
                     f = new MyDrawing.Figures.Rectangle(_model.firstPt, e.mouseLocation);
@@ -266,9 +267,7 @@ namespace TestMyDrawing.Presenter
                     f = new MyDrawing.Figures.Arrow(_model.firstPt, e.mouseLocation);
                     (f as Arrow).FillArrowEnd = true;
                 }
-                else f = new MyDrawing.Figures.Text(_model.firstPt, "asfsdgsg");
 
-                
                 f.FillColor = drawingView.FillColor;
                 f.StrokeColor = drawingView.StrokeColor;
                 f.Smooth = drawingView.SmoothAngles;

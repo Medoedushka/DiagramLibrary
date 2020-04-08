@@ -46,12 +46,23 @@
             this.panel5 = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.btn_ShowFont = new System.Windows.Forms.Button();
+            this.txb_Font = new System.Windows.Forms.TextBox();
+            this.panel12 = new System.Windows.Forms.Panel();
+            this.chb_TextBackColor = new System.Windows.Forms.CheckBox();
+            this.txb_Value = new System.Windows.Forms.TextBox();
+            this.panel11 = new System.Windows.Forms.Panel();
+            this.label29 = new System.Windows.Forms.Label();
+            this.label28 = new System.Windows.Forms.Label();
+            this.pcb_TextBackColor = new System.Windows.Forms.PictureBox();
+            this.pcb_TextColor = new System.Windows.Forms.PictureBox();
+            this.label31 = new System.Windows.Forms.Label();
+            this.label30 = new System.Windows.Forms.Label();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
             this.label27 = new System.Windows.Forms.Label();
             this.nud_StrokeWidth = new System.Windows.Forms.NumericUpDown();
             this.chb_SmoothFigure = new System.Windows.Forms.CheckBox();
             this.chb_EnableStrokeColor = new System.Windows.Forms.CheckBox();
-            this.btn_ApdataFigure = new System.Windows.Forms.Button();
             this.chb_EnableFillColor = new System.Windows.Forms.CheckBox();
             this.pcb_StrokeColor = new System.Windows.Forms.PictureBox();
             this.pcb_FillColor = new System.Windows.Forms.PictureBox();
@@ -65,6 +76,7 @@
             this.pcb_NormalCursor = new System.Windows.Forms.PictureBox();
             this.pcb_Rectangle = new System.Windows.Forms.PictureBox();
             this.label24 = new System.Windows.Forms.Label();
+            this.btn_ApdataFigure = new System.Windows.Forms.Button();
             this.pnl_CreateSpiral = new System.Windows.Forms.Panel();
             this.chb_SaveToFile = new System.Windows.Forms.CheckBox();
             this.btn_DeleteSpiral = new System.Windows.Forms.Button();
@@ -154,6 +166,9 @@
             this.panel2.SuspendLayout();
             this.panel5.SuspendLayout();
             this.panel4.SuspendLayout();
+            this.groupBox8.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pcb_TextBackColor)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pcb_TextColor)).BeginInit();
             this.groupBox7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nud_StrokeWidth)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pcb_StrokeColor)).BeginInit();
@@ -344,12 +359,13 @@
             // 
             // btn_DeleteFigure
             // 
+            this.btn_DeleteFigure.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btn_DeleteFigure.BackgroundImage = global::TestMyDrawing.Properties.Resources.icons8_delete_30px;
             this.btn_DeleteFigure.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.btn_DeleteFigure.Enabled = false;
             this.btn_DeleteFigure.FlatAppearance.BorderSize = 0;
             this.btn_DeleteFigure.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_DeleteFigure.Location = new System.Drawing.Point(285, 121);
+            this.btn_DeleteFigure.Location = new System.Drawing.Point(300, 32);
             this.btn_DeleteFigure.Name = "btn_DeleteFigure";
             this.btn_DeleteFigure.Size = new System.Drawing.Size(25, 25);
             this.btn_DeleteFigure.TabIndex = 3;
@@ -393,6 +409,8 @@
             this.panel4.Controls.Add(this.groupBox7);
             this.panel4.Controls.Add(this.groupBox6);
             this.panel4.Controls.Add(this.label24);
+            this.panel4.Controls.Add(this.btn_ApdataFigure);
+            this.panel4.Controls.Add(this.btn_DeleteFigure);
             this.panel4.Font = new System.Drawing.Font("Cambria", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.panel4.Location = new System.Drawing.Point(674, 9);
             this.panel4.Name = "panel4";
@@ -401,12 +419,144 @@
             // 
             // groupBox8
             // 
-            this.groupBox8.Location = new System.Drawing.Point(13, 270);
+            this.groupBox8.Controls.Add(this.btn_ShowFont);
+            this.groupBox8.Controls.Add(this.txb_Font);
+            this.groupBox8.Controls.Add(this.panel12);
+            this.groupBox8.Controls.Add(this.chb_TextBackColor);
+            this.groupBox8.Controls.Add(this.txb_Value);
+            this.groupBox8.Controls.Add(this.panel11);
+            this.groupBox8.Controls.Add(this.label29);
+            this.groupBox8.Controls.Add(this.label28);
+            this.groupBox8.Controls.Add(this.pcb_TextBackColor);
+            this.groupBox8.Controls.Add(this.pcb_TextColor);
+            this.groupBox8.Controls.Add(this.label31);
+            this.groupBox8.Controls.Add(this.label30);
+            this.groupBox8.Enabled = false;
+            this.groupBox8.Location = new System.Drawing.Point(13, 289);
             this.groupBox8.Name = "groupBox8";
-            this.groupBox8.Size = new System.Drawing.Size(316, 174);
+            this.groupBox8.Size = new System.Drawing.Size(316, 177);
             this.groupBox8.TabIndex = 3;
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "Настройки текста";
+            // 
+            // btn_ShowFont
+            // 
+            this.btn_ShowFont.Location = new System.Drawing.Point(195, 68);
+            this.btn_ShowFont.Name = "btn_ShowFont";
+            this.btn_ShowFont.Size = new System.Drawing.Size(18, 18);
+            this.btn_ShowFont.TabIndex = 6;
+            this.btn_ShowFont.UseVisualStyleBackColor = true;
+            this.btn_ShowFont.Click += new System.EventHandler(this.btn_ShowFont_Click);
+            // 
+            // txb_Font
+            // 
+            this.txb_Font.BackColor = System.Drawing.Color.LightCyan;
+            this.txb_Font.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txb_Font.ForeColor = System.Drawing.Color.Black;
+            this.txb_Font.Location = new System.Drawing.Point(70, 65);
+            this.txb_Font.Name = "txb_Font";
+            this.txb_Font.Size = new System.Drawing.Size(119, 18);
+            this.txb_Font.TabIndex = 5;
+            // 
+            // panel12
+            // 
+            this.panel12.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(5)))), ((int)(((byte)(89)))), ((int)(((byte)(107)))));
+            this.panel12.Location = new System.Drawing.Point(70, 85);
+            this.panel12.Name = "panel12";
+            this.panel12.Size = new System.Drawing.Size(119, 3);
+            this.panel12.TabIndex = 4;
+            // 
+            // chb_TextBackColor
+            // 
+            this.chb_TextBackColor.AutoSize = true;
+            this.chb_TextBackColor.Checked = true;
+            this.chb_TextBackColor.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chb_TextBackColor.Location = new System.Drawing.Point(219, 144);
+            this.chb_TextBackColor.Name = "chb_TextBackColor";
+            this.chb_TextBackColor.Size = new System.Drawing.Size(15, 14);
+            this.chb_TextBackColor.TabIndex = 5;
+            this.chb_TextBackColor.UseVisualStyleBackColor = true;
+            this.chb_TextBackColor.CheckedChanged += new System.EventHandler(this.chb_TextBackColor_CheckedChanged);
+            // 
+            // txb_Value
+            // 
+            this.txb_Value.BackColor = System.Drawing.Color.LightCyan;
+            this.txb_Value.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txb_Value.ForeColor = System.Drawing.Color.Black;
+            this.txb_Value.Location = new System.Drawing.Point(60, 30);
+            this.txb_Value.Name = "txb_Value";
+            this.txb_Value.Size = new System.Drawing.Size(200, 18);
+            this.txb_Value.TabIndex = 5;
+            // 
+            // panel11
+            // 
+            this.panel11.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(5)))), ((int)(((byte)(89)))), ((int)(((byte)(107)))));
+            this.panel11.Location = new System.Drawing.Point(60, 50);
+            this.panel11.Name = "panel11";
+            this.panel11.Size = new System.Drawing.Size(200, 3);
+            this.panel11.TabIndex = 4;
+            // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.Location = new System.Drawing.Point(6, 68);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(61, 17);
+            this.label29.TabIndex = 0;
+            this.label29.Text = "Шрифт:";
+            // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.Location = new System.Drawing.Point(6, 33);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(50, 17);
+            this.label28.TabIndex = 0;
+            this.label28.Text = "Текст:";
+            // 
+            // pcb_TextBackColor
+            // 
+            this.pcb_TextBackColor.BackColor = System.Drawing.Color.Black;
+            this.pcb_TextBackColor.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.pcb_TextBackColor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pcb_TextBackColor.Location = new System.Drawing.Point(113, 139);
+            this.pcb_TextBackColor.Name = "pcb_TextBackColor";
+            this.pcb_TextBackColor.Size = new System.Drawing.Size(100, 22);
+            this.pcb_TextBackColor.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pcb_TextBackColor.TabIndex = 1;
+            this.pcb_TextBackColor.TabStop = false;
+            this.pcb_TextBackColor.Click += new System.EventHandler(this.pcb_FillColor_Click);
+            // 
+            // pcb_TextColor
+            // 
+            this.pcb_TextColor.BackColor = System.Drawing.Color.Black;
+            this.pcb_TextColor.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.pcb_TextColor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pcb_TextColor.Location = new System.Drawing.Point(113, 106);
+            this.pcb_TextColor.Name = "pcb_TextColor";
+            this.pcb_TextColor.Size = new System.Drawing.Size(100, 22);
+            this.pcb_TextColor.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pcb_TextColor.TabIndex = 1;
+            this.pcb_TextColor.TabStop = false;
+            this.pcb_TextColor.Click += new System.EventHandler(this.pcb_FillColor_Click);
+            // 
+            // label31
+            // 
+            this.label31.AutoSize = true;
+            this.label31.Location = new System.Drawing.Point(25, 141);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(82, 17);
+            this.label31.TabIndex = 0;
+            this.label31.Text = "Цвет фона:";
+            // 
+            // label30
+            // 
+            this.label30.AutoSize = true;
+            this.label30.Location = new System.Drawing.Point(6, 106);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(102, 17);
+            this.label30.TabIndex = 0;
+            this.label30.Text = "Цвет шрифта:";
             // 
             // groupBox7
             // 
@@ -414,14 +564,12 @@
             this.groupBox7.Controls.Add(this.nud_StrokeWidth);
             this.groupBox7.Controls.Add(this.chb_SmoothFigure);
             this.groupBox7.Controls.Add(this.chb_EnableStrokeColor);
-            this.groupBox7.Controls.Add(this.btn_ApdataFigure);
-            this.groupBox7.Controls.Add(this.btn_DeleteFigure);
             this.groupBox7.Controls.Add(this.chb_EnableFillColor);
             this.groupBox7.Controls.Add(this.pcb_StrokeColor);
             this.groupBox7.Controls.Add(this.pcb_FillColor);
             this.groupBox7.Controls.Add(this.label26);
             this.groupBox7.Controls.Add(this.label25);
-            this.groupBox7.Location = new System.Drawing.Point(13, 112);
+            this.groupBox7.Location = new System.Drawing.Point(13, 131);
             this.groupBox7.Name = "groupBox7";
             this.groupBox7.Size = new System.Drawing.Size(316, 152);
             this.groupBox7.TabIndex = 2;
@@ -475,20 +623,6 @@
             this.chb_EnableStrokeColor.TabIndex = 5;
             this.chb_EnableStrokeColor.UseVisualStyleBackColor = true;
             this.chb_EnableStrokeColor.CheckedChanged += new System.EventHandler(this.chb_EnableStrokeColor_CheckedChanged);
-            // 
-            // btn_ApdataFigure
-            // 
-            this.btn_ApdataFigure.BackgroundImage = global::TestMyDrawing.Properties.Resources.icons8_checkmark_50px_1;
-            this.btn_ApdataFigure.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.btn_ApdataFigure.Enabled = false;
-            this.btn_ApdataFigure.FlatAppearance.BorderSize = 0;
-            this.btn_ApdataFigure.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_ApdataFigure.Location = new System.Drawing.Point(254, 121);
-            this.btn_ApdataFigure.Name = "btn_ApdataFigure";
-            this.btn_ApdataFigure.Size = new System.Drawing.Size(25, 25);
-            this.btn_ApdataFigure.TabIndex = 3;
-            this.btn_ApdataFigure.UseVisualStyleBackColor = true;
-            this.btn_ApdataFigure.Click += new System.EventHandler(this.btn_ApdataFigure_Click);
             // 
             // chb_EnableFillColor
             // 
@@ -552,7 +686,7 @@
             this.groupBox6.Controls.Add(this.pcb_Circle);
             this.groupBox6.Controls.Add(this.pcb_NormalCursor);
             this.groupBox6.Controls.Add(this.pcb_Rectangle);
-            this.groupBox6.Location = new System.Drawing.Point(13, 35);
+            this.groupBox6.Location = new System.Drawing.Point(13, 54);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Size = new System.Drawing.Size(316, 71);
             this.groupBox6.TabIndex = 1;
@@ -646,6 +780,21 @@
             this.label24.Size = new System.Drawing.Size(75, 21);
             this.label24.TabIndex = 0;
             this.label24.Text = "Фигуры";
+            // 
+            // btn_ApdataFigure
+            // 
+            this.btn_ApdataFigure.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_ApdataFigure.BackgroundImage = global::TestMyDrawing.Properties.Resources.icons8_checkmark_50px_1;
+            this.btn_ApdataFigure.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btn_ApdataFigure.Enabled = false;
+            this.btn_ApdataFigure.FlatAppearance.BorderSize = 0;
+            this.btn_ApdataFigure.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_ApdataFigure.Location = new System.Drawing.Point(269, 32);
+            this.btn_ApdataFigure.Name = "btn_ApdataFigure";
+            this.btn_ApdataFigure.Size = new System.Drawing.Size(25, 25);
+            this.btn_ApdataFigure.TabIndex = 3;
+            this.btn_ApdataFigure.UseVisualStyleBackColor = true;
+            this.btn_ApdataFigure.Click += new System.EventHandler(this.btn_ApdataFigure_Click);
             // 
             // pnl_CreateSpiral
             // 
@@ -1681,6 +1830,10 @@
             this.panel5.ResumeLayout(false);
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
+            this.groupBox8.ResumeLayout(false);
+            this.groupBox8.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pcb_TextBackColor)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pcb_TextColor)).EndInit();
             this.groupBox7.ResumeLayout(false);
             this.groupBox7.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nud_StrokeWidth)).EndInit();
@@ -1837,6 +1990,18 @@
         private System.Windows.Forms.PictureBox pcb_NormalCursor;
         private System.Windows.Forms.Button btn_DeleteFigure;
         private System.Windows.Forms.Button btn_ApdataFigure;
+        private System.Windows.Forms.Label label28;
+        private System.Windows.Forms.Button btn_ShowFont;
+        private System.Windows.Forms.TextBox txb_Font;
+        private System.Windows.Forms.Panel panel12;
+        private System.Windows.Forms.CheckBox chb_TextBackColor;
+        private System.Windows.Forms.TextBox txb_Value;
+        private System.Windows.Forms.Panel panel11;
+        private System.Windows.Forms.Label label29;
+        private System.Windows.Forms.PictureBox pcb_TextBackColor;
+        private System.Windows.Forms.PictureBox pcb_TextColor;
+        private System.Windows.Forms.Label label31;
+        private System.Windows.Forms.Label label30;
     }
 }
 
