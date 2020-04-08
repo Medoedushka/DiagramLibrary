@@ -77,8 +77,10 @@ namespace TestMyDrawing.View
         Color StrokeColor { get; set; }
         bool SmoothAngles { get; set; }
         double StrokeWidth { get; set; }
-        bool EnableDelete { get; set; }
+        bool EnableDeleteFigure { get; set; }
+        bool EnableApdateFigure { get; set; }
 
+        event EventHandler<EventArgs> ApdateFigure;
         event EventHandler<EventArgs> DeleteFigure;
         event EventHandler<EventArgs> CreateNewFile;
         event Func<bool> SaveCreatedFile;

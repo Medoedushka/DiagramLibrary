@@ -44,6 +44,7 @@ namespace TestMyDrawing
         public event Action<bool> DrawSpiral;
         public event Action<bool> SpiralAction;
         public event EventHandler<EventArgs> DeleteFigure;
+        public event EventHandler<EventArgs> ApdateFigure;
         #endregion
         #region<---Свойства для изменения параметров кривой--->
         public string TableTxt { get => rtb_TableTxt.Text; set => rtb_TableTxt.Text = value; }
@@ -308,7 +309,8 @@ namespace TestMyDrawing
         public bool SmoothAngles { get => chb_SmoothFigure.Checked; set => chb_SmoothFigure.Checked = value; }
         public double StrokeWidth { get => (double)nud_StrokeWidth.Value; set => nud_StrokeWidth.Value = (decimal)value; }
         public DrawState DrawState { get; set; }
-        public bool EnableDelete { get => btn_DeleteFigure.Visible; set => btn_DeleteFigure.Visible = value; }
+        public bool EnableDeleteFigure { get => btn_DeleteFigure.Enabled; set => btn_DeleteFigure.Enabled = value; }
+        public bool EnableApdateFigure { get => btn_ApdataFigure.Enabled; set => btn_ApdataFigure.Enabled = value; }
 
         Color lblChecked = Color.FromArgb(9, 154, 185);
         Color lblFree = Color.FromArgb(5, 89, 107);
@@ -848,18 +850,28 @@ namespace TestMyDrawing
             pcb_FillColor.Enabled = chb_EnableFillColor.Checked;
             if (!pcb_FillColor.Enabled)
             {
+                pcb_FillColor.BackColor = Color.FromArgb(0, pcb_FillColor.BackColor.R, pcb_FillColor.BackColor.G, pcb_FillColor.BackColor.B);
                 pcb_FillColor.BackgroundImage = Properties.Resources.pcb_disable;
             }
-            else pcb_FillColor.BackgroundImage = null;
+            else
+            {
+                pcb_FillColor.BackgroundImage = null;
+                pcb_FillColor.BackColor = Color.FromArgb(255, pcb_FillColor.BackColor.R, pcb_FillColor.BackColor.G, pcb_FillColor.BackColor.B);
+            }
         }
         private void chb_EnableStrokeColor_CheckedChanged(object sender, EventArgs e)
         {
             pcb_StrokeColor.Enabled = chb_EnableStrokeColor.Checked;
             if (!pcb_StrokeColor.Enabled)
             {
+                pcb_StrokeColor.BackColor = Color.FromArgb(0, pcb_FillColor.BackColor.R, pcb_FillColor.BackColor.G, pcb_FillColor.BackColor.B);
                 pcb_StrokeColor.BackgroundImage = Properties.Resources.pcb_disable;
             }
-            else pcb_StrokeColor.BackgroundImage = null;
+            else
+            {
+                pcb_StrokeColor.BackgroundImage = null;
+                pcb_StrokeColor.BackColor = Color.FromArgb(255, pcb_FillColor.BackColor.R, pcb_FillColor.BackColor.G, pcb_FillColor.BackColor.B);
+            }
         }
 
         private void pcb_FillColor_Click(object sender, EventArgs e)
@@ -883,6 +895,11 @@ namespace TestMyDrawing
         private void btn_DeleteFigure_Click(object sender, EventArgs e)
         {
             DeleteFigure.Invoke(this, EventArgs.Empty);
+        }
+
+        private void btn_ApdataFigure_Click(object sender, EventArgs e)
+        {
+            ApdateFigure?.Invoke(this, EventArgs.Empty);
         }
     }
 }

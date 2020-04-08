@@ -232,8 +232,9 @@ namespace TestMyDrawing.Model
             crrFigure = null;
         }
 
-        public bool CheckFigures(PointF loc)
+        public bool CheckFigures(PointF loc, out Figure f)
         {
+            
             if (Figures.Count > 0)
             {
                 for(int i = 0; i < Figures.Count; i++)
@@ -241,23 +242,32 @@ namespace TestMyDrawing.Model
                     if (Figures[i].FigureChecked(loc))
                     {
                         foundIndex = i;
+                        f = Figures[i];
                         return true;
                     }
                     
                 }
                 foundIndex = -1;
+                f = null;
                 return false;
             }
+            f = null;
             return false;
         }
 
-       public void DeleteIndex(int index = -1)
-       {
+        public void DeleteIndex(int index = -1)
+        {
             if (index != -1)
             {
                 Figures.Remove(Figures[index]);
             }
             else Figures.Remove(Figures[foundIndex]);
-       }
+        }
+
+        public void ApdatecrrFigure(Figure newFigure)
+        {
+            Figures[foundIndex] = newFigure;
+        }
+    
     }
 }

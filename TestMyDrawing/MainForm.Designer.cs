@@ -41,6 +41,7 @@
             this.lbl_Edit = new System.Windows.Forms.Label();
             this.lbl_Service = new System.Windows.Forms.Label();
             this.lbl_File = new System.Windows.Forms.Label();
+            this.btn_DeleteFigure = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel5 = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
@@ -50,6 +51,7 @@
             this.nud_StrokeWidth = new System.Windows.Forms.NumericUpDown();
             this.chb_SmoothFigure = new System.Windows.Forms.CheckBox();
             this.chb_EnableStrokeColor = new System.Windows.Forms.CheckBox();
+            this.btn_ApdataFigure = new System.Windows.Forms.Button();
             this.chb_EnableFillColor = new System.Windows.Forms.CheckBox();
             this.pcb_StrokeColor = new System.Windows.Forms.PictureBox();
             this.pcb_FillColor = new System.Windows.Forms.PictureBox();
@@ -144,7 +146,6 @@
             this.rtb_TableTxt = new System.Windows.Forms.RichTextBox();
             this.pnl_StripElements = new System.Windows.Forms.Panel();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.btn_DeleteFigure = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pcb_Minimize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pcb_Normalize)).BeginInit();
@@ -188,7 +189,6 @@
             this.panel1.Controls.Add(this.pcb_Normalize);
             this.panel1.Controls.Add(this.pcb_CloseApp);
             this.panel1.Controls.Add(this.pictureBox2);
-            this.panel1.Controls.Add(this.btn_DeleteFigure);
             this.panel1.Controls.Add(this.btn_Back);
             this.panel1.Controls.Add(this.lbl_CurrentFile);
             this.panel1.Controls.Add(this.lbl_Tools);
@@ -342,6 +342,20 @@
             this.lbl_File.MouseEnter += new System.EventHandler(this.lbl_File_MouseEnter);
             this.lbl_File.MouseLeave += new System.EventHandler(this.lbl_File_MouseLeave);
             // 
+            // btn_DeleteFigure
+            // 
+            this.btn_DeleteFigure.BackgroundImage = global::TestMyDrawing.Properties.Resources.icons8_delete_30px;
+            this.btn_DeleteFigure.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btn_DeleteFigure.Enabled = false;
+            this.btn_DeleteFigure.FlatAppearance.BorderSize = 0;
+            this.btn_DeleteFigure.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_DeleteFigure.Location = new System.Drawing.Point(285, 121);
+            this.btn_DeleteFigure.Name = "btn_DeleteFigure";
+            this.btn_DeleteFigure.Size = new System.Drawing.Size(25, 25);
+            this.btn_DeleteFigure.TabIndex = 3;
+            this.btn_DeleteFigure.UseVisualStyleBackColor = true;
+            this.btn_DeleteFigure.Click += new System.EventHandler(this.btn_DeleteFigure_Click);
+            // 
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.LightCyan;
@@ -400,6 +414,8 @@
             this.groupBox7.Controls.Add(this.nud_StrokeWidth);
             this.groupBox7.Controls.Add(this.chb_SmoothFigure);
             this.groupBox7.Controls.Add(this.chb_EnableStrokeColor);
+            this.groupBox7.Controls.Add(this.btn_ApdataFigure);
+            this.groupBox7.Controls.Add(this.btn_DeleteFigure);
             this.groupBox7.Controls.Add(this.chb_EnableFillColor);
             this.groupBox7.Controls.Add(this.pcb_StrokeColor);
             this.groupBox7.Controls.Add(this.pcb_FillColor);
@@ -459,6 +475,20 @@
             this.chb_EnableStrokeColor.TabIndex = 5;
             this.chb_EnableStrokeColor.UseVisualStyleBackColor = true;
             this.chb_EnableStrokeColor.CheckedChanged += new System.EventHandler(this.chb_EnableStrokeColor_CheckedChanged);
+            // 
+            // btn_ApdataFigure
+            // 
+            this.btn_ApdataFigure.BackgroundImage = global::TestMyDrawing.Properties.Resources.icons8_checkmark_50px_1;
+            this.btn_ApdataFigure.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btn_ApdataFigure.Enabled = false;
+            this.btn_ApdataFigure.FlatAppearance.BorderSize = 0;
+            this.btn_ApdataFigure.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_ApdataFigure.Location = new System.Drawing.Point(254, 121);
+            this.btn_ApdataFigure.Name = "btn_ApdataFigure";
+            this.btn_ApdataFigure.Size = new System.Drawing.Size(25, 25);
+            this.btn_ApdataFigure.TabIndex = 3;
+            this.btn_ApdataFigure.UseVisualStyleBackColor = true;
+            this.btn_ApdataFigure.Click += new System.EventHandler(this.btn_ApdataFigure_Click);
             // 
             // chb_EnableFillColor
             // 
@@ -1624,20 +1654,6 @@
             this.pnl_StripElements.Size = new System.Drawing.Size(1030, 60);
             this.pnl_StripElements.TabIndex = 0;
             // 
-            // btn_DeleteFigure
-            // 
-            this.btn_DeleteFigure.BackgroundImage = global::TestMyDrawing.Properties.Resources.icons8_delete_30px;
-            this.btn_DeleteFigure.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.btn_DeleteFigure.FlatAppearance.BorderSize = 0;
-            this.btn_DeleteFigure.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_DeleteFigure.Location = new System.Drawing.Point(74, 2);
-            this.btn_DeleteFigure.Name = "btn_DeleteFigure";
-            this.btn_DeleteFigure.Size = new System.Drawing.Size(30, 30);
-            this.btn_DeleteFigure.TabIndex = 3;
-            this.btn_DeleteFigure.UseVisualStyleBackColor = true;
-            this.btn_DeleteFigure.Visible = false;
-            this.btn_DeleteFigure.Click += new System.EventHandler(this.btn_DeleteFigure_Click);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1820,6 +1836,7 @@
         private System.Windows.Forms.CheckBox chb_SmoothFigure;
         private System.Windows.Forms.PictureBox pcb_NormalCursor;
         private System.Windows.Forms.Button btn_DeleteFigure;
+        private System.Windows.Forms.Button btn_ApdataFigure;
     }
 }
 

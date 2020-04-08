@@ -22,8 +22,6 @@ namespace MyDrawing.Figures
         public PointF DotB { get; set; }
 
         public abstract void DrawFigure(Graphics GraphPlace);
-        //public abstract void DrawCheckedFigure(Graphics GraphPlace);
-        //public abstract bool FigureChecked(PointF cursor);
 
         public virtual void DrawCheckedFigure(Graphics GraphPlace)
         {
@@ -42,7 +40,6 @@ namespace MyDrawing.Figures
             {
                 return true;
             }
-
             return false;
         }
     }
@@ -130,16 +127,24 @@ namespace MyDrawing.Figures
             DotB = b;
         }
 
-        protected void InitRectParams(out float w, out float h)
+        protected void InitRectParams(out PointF pt, out float w, out float h)
         {
-            w = DotB.X - DotA.X;
-            h = DotB.Y - DotA.Y;
+            w = Math.Abs(DotB.X - DotA.X);
+            h = Math.Abs(DotB.Y - DotA.Y);
+            if (DotA.X < DotB.X && DotA.Y < DotB.Y)
+                pt = new PointF(DotA.X + w / 2, DotA.Y + h / 2);
+            else if (DotA.X > DotB.X && DotA.Y > DotB.Y)
+                pt = new PointF(DotA.X - w / 2, DotA.Y - h / 2);
+            else if (DotA.X < DotB.X && DotA.Y > DotB.Y)
+                pt = new PointF(DotA.X + w / 2, DotA.Y - h / 2);
+            else pt = new PointF(DotA.X - w / 2, DotA.Y + h / 2);
         }
 
         public override void DrawFigure(Graphics GraphPlace)
         {
             float w, h;
-            InitRectParams(out w, out h);
+            PointF pt;
+            InitRectParams(out pt, out w, out h);
             GraphPlace.SmoothingMode = SmoothingMode.AntiAlias;
             //рисование контура
             if (StrokeWidth > 0 && StrokeColor != Color.Transparent)
@@ -147,12 +152,34 @@ namespace MyDrawing.Figures
                 Pen pen = new Pen(StrokeColor, StrokeWidth);
                 if(Smooth)
                     pen.LineJoin = LineJoin.Round;
-
-                GraphPlace.DrawRectangle(pen, new System.Drawing.Rectangle((int)DotA.X, (int)DotA.Y, (int)w, (int)h));
+                
+                GraphPlace.DrawRectangle(pen, new System.Drawing.Rectangle((int)(pt.X - w / 2), (int)(pt.Y - h /2), (int)w, (int)h));
             }
             //Рисование заливки
             if (FillColor != Color.Transparent)
-                GraphPlace.FillRectangle(new SolidBrush(FillColor), new RectangleF(DotA.X, DotA.Y, w, h));
+                GraphPlace.FillRectangle(new SolidBrush(FillColor), new RectangleF(pt.X - w / 2, pt.Y - h / 2, w, h));
+        }
+
+        public override bool FigureChecked(PointF cursor)
+        {
+            float w, h;
+            PointF pt;
+            InitRectParams(out pt, out w, out h);
+
+            if (FillColor != Color.Transparent)
+            {
+                if (cursor.X >= pt.X - w / 2 && cursor.X <= pt.X + w / 2 && cursor.Y >= pt.Y - h / 2 && cursor.Y <= pt.Y + h / 2)
+                    return true;
+                else return false;
+            }
+            else
+            {
+                double shift = StrokeWidth;
+                if (Math.Abs(pt.X - w/2 - cursor.X) <= shift || Math.Abs(pt.X + w / 2 - cursor.X) <= shift ||
+                    Math.Abs(pt.Y - h / 2 - cursor.Y) <= shift || Math.Abs(pt.Y + h / 2 - cursor.Y) <= shift)
+                    return true;
+                else return false;
+            }
         }
     }
     /// <summary>
@@ -166,16 +193,38 @@ namespace MyDrawing.Figures
         {
             GraphPlace.SmoothingMode = SmoothingMode.AntiAlias;
             float w, h;
-            InitRectParams(out w, out h);
+            PointF pt;
+            InitRectParams(out pt, out w, out h);
             //контур
             if (StrokeWidth > 0 && StrokeColor != Color.Transparent)
             {
                 Pen pen = new Pen(StrokeColor, StrokeWidth);
-                GraphPlace.DrawEllipse(pen, new System.Drawing.Rectangle((int)DotA.X, (int)DotA.Y, (int)w, (int)h));
+                GraphPlace.DrawEllipse(pen, new System.Drawing.Rectangle((int)(pt.X - w / 2), (int)(pt.Y - h / 2), (int)w, (int)h));
             }
             //Рисование заливки
             if (FillColor != Color.Transparent)
-                GraphPlace.FillEllipse(new SolidBrush(FillColor), new RectangleF(DotA.X, DotA.Y, w, h));
+                GraphPlace.FillEllipse(new SolidBrush(FillColor), new RectangleF(pt.X - w / 2, pt.Y - h / 2, w, h));
+        }
+
+        public override bool FigureChecked(PointF cursor)
+        {
+            float w, h;
+            PointF pt;
+            InitRectParams(out pt, out w, out h);
+            if (FillColor != Color.Transparent)
+            {
+                if (cursor.X >= pt.X - w / 2 && cursor.X <= pt.X + w / 2 && cursor.Y >= pt.Y - h / 2 && cursor.Y <= pt.Y + h / 2)
+                    return true;
+                else return false;
+            }
+            else
+            {
+                double shift = 0.05;
+                double val = Math.Pow((pt.X - cursor.X) * 2 / w, 2) + Math.Pow((pt.Y - cursor.Y) * 2 / h, 2);
+                if (Math.Abs(1 - val) <= shift)
+                    return true;
+                else return false;
+            }
         }
     }
     /// <summary>
@@ -199,7 +248,6 @@ namespace MyDrawing.Figures
 
         public override void DrawFigure(Graphics GraphPlace)
         {
-
             GraphPlace.SmoothingMode = SmoothingMode.AntiAlias;
             if (Background)
             {
@@ -207,6 +255,14 @@ namespace MyDrawing.Figures
                 GraphPlace.FillRectangle(new SolidBrush(FillColor), new RectangleF(DotA, size));
             }
             GraphPlace.DrawString(Value, Font, new SolidBrush(TextColor), DotA);
+        }
+
+        public override void DrawCheckedFigure(Graphics GraphPlace)
+        {
+            DrawFigure(GraphPlace);
+            float shift = 5;
+            GraphPlace.DrawEllipse(new Pen(Color.Gray, 3), new RectangleF(DotA.X - shift, DotA.Y - shift, 2 * shift, 2 * shift));
+            GraphPlace.FillEllipse(new SolidBrush(Color.White), new RectangleF(DotA.X - shift, DotA.Y - shift, 2 * shift, 2 * shift));
         }
     }
 }

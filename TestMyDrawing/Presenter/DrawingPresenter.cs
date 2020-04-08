@@ -21,6 +21,7 @@ namespace TestMyDrawing.Presenter
         PrintDialog printDialog;
         PrintDocument pd;
         PrintPreviewDialog ppd;
+        Figure crrfigure;
 
         public DrawingPresenter(IView _drawingView)
         {
@@ -92,7 +93,8 @@ namespace TestMyDrawing.Presenter
                 if (drawingView.DrawState == DrawState.None)
                 {
                     drawingView.graph.Cursor = Cursors.Default;
-                    drawingView.EnableDelete = _model.CheckFigures(e.Location);
+                    drawingView.EnableDeleteFigure = _model.CheckFigures(e.Location, out crrfigure);
+                    drawingView.EnableApdateFigure = drawingView.EnableDeleteFigure;
                 }
                     
                 else
@@ -187,7 +189,19 @@ namespace TestMyDrawing.Presenter
                 _model.SpiralAction(b);
                 if (b) InitCurvesNames();
             };
-            drawingView.DeleteFigure += (object o, EventArgs e) => { _model.DeleteIndex(); };
+            drawingView.DeleteFigure += (object o, EventArgs e) => {
+                _model.DeleteIndex();
+                drawingView.EnableDeleteFigure = false;
+                drawingView.EnableApdateFigure = false;
+            };
+            drawingView.ApdateFigure += (object o, EventArgs e) =>
+            {
+                crrfigure.FillColor = drawingView.FillColor;
+                crrfigure.StrokeColor = drawingView.StrokeColor;
+                crrfigure.StrokeWidth = (int)drawingView.StrokeWidth;
+                crrfigure.Smooth = drawingView.SmoothAngles;
+                _model.ApdatecrrFigure(crrfigure);
+            };
         }
 
         private void Pd_PrintPage(object sender, PrintPageEventArgs e)
@@ -250,6 +264,7 @@ namespace TestMyDrawing.Presenter
                 else if (drawingView.DrawState == DrawState.Arrow)
                 {
                     f = new MyDrawing.Figures.Arrow(_model.firstPt, e.mouseLocation);
+                    (f as Arrow).FillArrowEnd = true;
                 }
                 else f = new MyDrawing.Figures.Text(_model.firstPt, "asfsdgsg");
 
