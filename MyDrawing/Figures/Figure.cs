@@ -22,6 +22,29 @@ namespace MyDrawing.Figures
         public PointF DotB { get; set; }
 
         public abstract void DrawFigure(Graphics GraphPlace);
+        //public abstract void DrawCheckedFigure(Graphics GraphPlace);
+        //public abstract bool FigureChecked(PointF cursor);
+
+        public virtual void DrawCheckedFigure(Graphics GraphPlace)
+        {
+            DrawFigure(GraphPlace);
+            float shift = StrokeWidth + 3;
+            GraphPlace.DrawEllipse(new Pen(Color.Gray, 3), new RectangleF(DotA.X - shift, DotA.Y - shift, 2 * shift, 2 * shift));
+            GraphPlace.DrawEllipse(new Pen(Color.Gray, 3), new RectangleF(DotB.X - shift, DotB.Y - shift, 2 * shift, 2 * shift));
+            GraphPlace.FillEllipse(new SolidBrush(Color.White), new RectangleF(DotA.X - shift, DotA.Y - shift, 2 * shift, 2 * shift));
+            GraphPlace.FillEllipse(new SolidBrush(Color.White), new RectangleF(DotB.X - shift, DotB.Y - shift, 2 * shift, 2 * shift));
+        }
+
+        public virtual bool FigureChecked(PointF cursor)
+        {
+            if (Math.Abs(cursor.X - DotA.X) <= 5 && Math.Abs(cursor.Y - DotA.Y) <= 5 ||
+                Math.Abs(cursor.X - DotB.X) <= 5 && Math.Abs(cursor.Y - DotB.Y) <= 5)
+            {
+                return true;
+            }
+
+            return false;
+        }
     }
     /// <summary>
     /// Наследник класса Figure для отрисовки обычной прямой линии.
@@ -30,6 +53,11 @@ namespace MyDrawing.Figures
     {
         LineCap lineCap;
         protected Pen LinePen { get; set; }
+        /// <summary>
+        /// Создание эземпляра линии, которая содержит точки построения в системе координат области построения класса Graphics.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
         public Line(PointF a, PointF b)
         {
             StrokeColor = Color.Black;
@@ -49,6 +77,8 @@ namespace MyDrawing.Figures
 
             GraphPlace.DrawLine(LinePen, DotA, DotB);
         }
+
+        
     }
     /// <summary>
     /// Наследник класса Line для отрисовки прямой стрелки.

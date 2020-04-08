@@ -90,7 +90,11 @@ namespace TestMyDrawing.Presenter
             drawingView.PlotMouseUp += (object o, MouseEventArgs e) =>
             {
                 if (drawingView.DrawState == DrawState.None)
+                {
                     drawingView.graph.Cursor = Cursors.Default;
+                    drawingView.EnableDelete = _model.CheckFigures(e.Location);
+                }
+                    
                 else
                 {
                     _model.isDrawing = false;
@@ -183,6 +187,7 @@ namespace TestMyDrawing.Presenter
                 _model.SpiralAction(b);
                 if (b) InitCurvesNames();
             };
+            drawingView.DeleteFigure += (object o, EventArgs e) => { _model.DeleteIndex(); };
         }
 
         private void Pd_PrintPage(object sender, PrintPageEventArgs e)

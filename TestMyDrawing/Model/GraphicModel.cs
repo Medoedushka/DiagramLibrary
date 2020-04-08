@@ -19,6 +19,7 @@ namespace TestMyDrawing.Model
 
         List<Figure> Figures = new List<Figure>();
         public Figure crrFigure;
+        int foundIndex = 0;
         public PointF firstPt;
 
         Timer timer;
@@ -75,11 +76,15 @@ namespace TestMyDrawing.Model
         {
             if (Figures.Count > 0)
             {
-                foreach (Figure f in Figures)
-                    f?.DrawFigure(e.Graphics);
+               for(int i = 0; i < Figures.Count; i++)
+                {
+                    if (i == foundIndex)
+                        Figures[i].DrawCheckedFigure(e.Graphics);
+                    else Figures[i].DrawFigure(e.Graphics);
+                }
             }
-                if (isDrawing && crrFigure != null)
-                    crrFigure.DrawFigure(e.Graphics);
+            if (isDrawing && crrFigure != null)
+                crrFigure.DrawFigure(e.Graphics);
             
         }
 
@@ -222,8 +227,37 @@ namespace TestMyDrawing.Model
 
         public void ApdateFiguresList()
         {
-            Figures.Add(crrFigure);
+            if (crrFigure != null)
+                Figures.Add(crrFigure);
             crrFigure = null;
         }
+
+        public bool CheckFigures(PointF loc)
+        {
+            if (Figures.Count > 0)
+            {
+                for(int i = 0; i < Figures.Count; i++)
+                {
+                    if (Figures[i].FigureChecked(loc))
+                    {
+                        foundIndex = i;
+                        return true;
+                    }
+                    
+                }
+                foundIndex = -1;
+                return false;
+            }
+            return false;
+        }
+
+       public void DeleteIndex(int index = -1)
+       {
+            if (index != -1)
+            {
+                Figures.Remove(Figures[index]);
+            }
+            else Figures.Remove(Figures[foundIndex]);
+       }
     }
 }

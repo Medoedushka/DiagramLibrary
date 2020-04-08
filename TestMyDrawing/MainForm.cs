@@ -43,6 +43,7 @@ namespace TestMyDrawing
         public event EventHandler<EventArgs> ApdateDiagramParams;
         public event Action<bool> DrawSpiral;
         public event Action<bool> SpiralAction;
+        public event EventHandler<EventArgs> DeleteFigure;
         #endregion
         #region<---Свойства для изменения параметров кривой--->
         public string TableTxt { get => rtb_TableTxt.Text; set => rtb_TableTxt.Text = value; }
@@ -307,6 +308,7 @@ namespace TestMyDrawing
         public bool SmoothAngles { get => chb_SmoothFigure.Checked; set => chb_SmoothFigure.Checked = value; }
         public double StrokeWidth { get => (double)nud_StrokeWidth.Value; set => nud_StrokeWidth.Value = (decimal)value; }
         public DrawState DrawState { get; set; }
+        public bool EnableDelete { get => btn_DeleteFigure.Visible; set => btn_DeleteFigure.Visible = value; }
 
         Color lblChecked = Color.FromArgb(9, 154, 185);
         Color lblFree = Color.FromArgb(5, 89, 107);
@@ -876,6 +878,11 @@ namespace TestMyDrawing
                 if (cd.ShowDialog() == DialogResult.OK)
                     pcb_StrokeColor.BackColor = cd.Color;
             }
+        }
+
+        private void btn_DeleteFigure_Click(object sender, EventArgs e)
+        {
+            DeleteFigure.Invoke(this, EventArgs.Empty);
         }
     }
 }

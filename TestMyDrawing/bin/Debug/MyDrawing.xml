@@ -113,6 +113,13 @@
             Наследник класса Figure для отрисовки обычной прямой линии.
             </summary>
         </member>
+        <member name="M:MyDrawing.Figures.Line.#ctor(System.Drawing.PointF,System.Drawing.PointF)">
+            <summary>
+            Создание эземпляра линии, которая содержит точки построения в системе координат области построения класса Graphics.
+            </summary>
+            <param name="a"></param>
+            <param name="b"></param>
+        </member>
         <member name="T:MyDrawing.Figures.Arrow">
             <summary>
             Наследник класса Line для отрисовки прямой стрелки.
