@@ -13,6 +13,126 @@ namespace MyDrawing.Figures
     /// </summary>
     public abstract class Figure
     {
+        private static char[] bottomChars =
+        {
+            '₀',
+            '₁',
+            '₂',
+            '₃',
+            '₄',
+            '₅',
+            '₆',
+            '₇',
+            '₈',
+            '₉'
+        };
+        private static char[] topChars =
+        {
+            '⁰',
+            '¹',
+            '²',
+            '³',
+            '⁴',
+            '⁵',
+            '⁶',
+            '⁷',
+            '⁸',
+            '⁹'
+        };
+
+        /// <summary>
+        /// Конвертирует строковое представление числа в эквивалентное число в надстрочном или подстрочном формате.
+        /// </summary>
+        /// <param name="num">строковое прдствление числа</param>
+        /// <param name="mode">параметр указывающий тип конвертации: false - в подстрочный формат, true - в надстрочный</param>
+        /// <returns></returns>
+        public static string ConvertToSmallChars(string num, bool mode = false)
+        {
+            string str = "";
+            for (int i = 0; i < num.Length; i++)
+            {
+                if (!char.IsDigit(num[i]))
+                    throw new ArgumentException("Передаваемая строка содержит нечисловые символы.");
+            }
+
+            for (int k = 0; k < num.Length; k++)
+            {
+                if (!mode)
+                {
+                    str += BottomChars[int.Parse(num[k].ToString())];
+                }
+                else str += TopChars[int.Parse(num[k].ToString())];
+            }
+            return str;
+        }
+        public static void DrawString(string strToDraw, PointF pt, Font strFont, Color textColor, Graphics g)
+        {
+            // шрифт маленьких символов
+            Font smallFont = new Font(strFont.FontFamily, strFont.Size * 0.85f);
+            int k = -1; // позиция последнего символа '}'
+            for (int i = 0; i < strToDraw.Length; i++)
+            {
+                SizeF _size = new SizeF();
+                bool specchar = false; // найдена ли последовательность спец символов: _{ }
+                if (strToDraw[i] == '_' && i != (strToDraw.Length - 1)) // если найден спец символ нижнего индекса, который не является последним в строке
+                {
+                    // проверка на наличие больше чем одного символа для перевода в нижний индекс между фигурными скобками
+                    if (strToDraw[i + 1] == '{' && strToDraw.IndexOf('}') >= (i + 3))
+                    {
+                        specchar = true;
+                        k = strToDraw.IndexOf('}');
+                        for (int j = i + 2; j < k; j++) //отрисовка символов в нижний индекс между { }
+                        {
+                            _size = g.MeasureString(strToDraw[j].ToString(), smallFont, 2, StringFormat.GenericTypographic);
+                            g.DrawString(strToDraw[j].ToString(), smallFont, new SolidBrush(textColor), pt.X, pt.Y + strFont.Height / 4);
+                            pt.X += _size.Width;
+                        }
+                    }
+                    else specchar = false; // если между {} нет символов, то спец последовательность символов не найдена
+                }
+                // аналогичные действия для верхнего индекса
+                else if (strToDraw[i] == '^' && i != (strToDraw.Length - 1))
+                {
+                    if (strToDraw[i + 1] == '{' && strToDraw.IndexOf('}') >= (i + 3))
+                    {
+                        specchar = true;
+                        k = strToDraw.IndexOf('}');
+                        for (int j = i + 2; j < k; j++)
+                        {
+                            _size = g.MeasureString(strToDraw[j].ToString(), smallFont, 2, StringFormat.GenericTypographic);
+                            g.DrawString(strToDraw[j].ToString(), smallFont, new SolidBrush(textColor), pt.X, pt.Y - strFont.Height / 4);
+                            pt.X += _size.Width;
+                        }
+                    }
+                    else specchar = false;
+                }
+                // после того как отрисованны маленькие символы, пропускать спец символы в исходной строке и уже отрисованные символы между { } 
+                if (i <= k)
+                {
+                    if (i == k) // когда достигнуто первое вхождение символа '}'
+                    {
+                        strToDraw = strToDraw.Remove(0, k + 1); //удалить все символы с начала текущей строки и до первого символа '}'
+                        if (strToDraw == "")
+                            break;
+                        // обнуление параметров
+                        i = 0;
+                        k = -1;
+                        specchar = false;
+                    }
+                    else continue;
+                }
+                // отрисовка неспец символов
+                if (!specchar)
+                {
+                    _size = g.MeasureString(strToDraw[i].ToString(), strFont, 1, StringFormat.GenericTypographic);
+                    g.DrawString(strToDraw[i].ToString(), strFont, new SolidBrush(textColor), pt.X, pt.Y);
+                    pt.X += _size.Width;
+                }
+
+            }
+        }
+
+
         public Color FillColor { get; set; }
         public Color StrokeColor { get; set; }
         public int StrokeWidth { get; set; }
@@ -20,6 +140,8 @@ namespace MyDrawing.Figures
 
         public PointF DotA { get; set; }
         public PointF DotB { get; set; }
+        public static char[] TopChars { get => topChars;}
+        public static char[] BottomChars { get => bottomChars;}
 
         public abstract void DrawFigure(Graphics GraphPlace);
 
@@ -235,7 +357,8 @@ namespace MyDrawing.Figures
         public string Value { get; set; }
         public Font Font { get; set; }
         public Color TextColor { get; set; }
-        public bool Background { get; set; }
+        public Color Background { get; set; }
+        public System.Drawing.RectangleF Area { get; set; }
 
         public Text(PointF a, string text = "")
         {
@@ -243,26 +366,67 @@ namespace MyDrawing.Figures
             Value = text;
             TextColor = Color.Black;
             Font = new Font("Arial", 12);
-            FillColor = Color.White;
+            Background = Color.Transparent;
         }
 
         public override void DrawFigure(Graphics GraphPlace)
         {
             GraphPlace.SmoothingMode = SmoothingMode.AntiAlias;
-            if (Background)
+            GraphPlace.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
+
+            SizeF size = GraphPlace.MeasureString(Value, Font);
+            Area = new RectangleF(DotA, size);
+
+            //for (int i = 0; i < Value.Length; i++)
+            //{
+            //    if (Value[i] == '_' && i != (Value.Length - 1))
+            //     {
+            //        if (Value[i+1] == '{')
+            //        {
+            //            int k = Value.IndexOf('}');
+            //            if (k >= (i + 3))
+            //            {
+            //                string val = Value.Substring(i + 2, k - i - 2);
+            //                Value = Value.Replace("_{" + val + "}", ConvertToSmallChars(val));
+            //            }
+            //            else continue;
+            //        }
+            //    } 
+            //    else if (Value[i] == '^' && i != (Value.Length - 1))
+            //    {
+            //        if (Value[i + 1] == '{')
+            //        {
+            //            int k = Value.IndexOf('}');
+            //            if (k >= (i + 3))
+            //            {
+            //                string val = Value.Substring(i + 2, k - i - 2);
+            //                Value = Value.Replace("^{" + val + "}", ConvertToSmallChars(val, true));
+            //            }
+            //            else continue;
+            //        }
+            //    }
+            //}
+
+            if (Background != Color.Transparent)
             {
-                SizeF size = GraphPlace.MeasureString(Value, Font);
-                GraphPlace.FillRectangle(new SolidBrush(FillColor), new RectangleF(DotA, size));
+                GraphPlace.FillRectangle(new SolidBrush(Background), Area);
             }
-            GraphPlace.DrawString(Value, Font, new SolidBrush(TextColor), DotA);
+            Figure.DrawString(Value, DotA, Font, TextColor, GraphPlace);
         }
 
         public override void DrawCheckedFigure(Graphics GraphPlace)
         {
             DrawFigure(GraphPlace);
-            float shift = 5;
+            float shift = 3;
             GraphPlace.DrawEllipse(new Pen(Color.Gray, 3), new RectangleF(DotA.X - shift, DotA.Y - shift, 2 * shift, 2 * shift));
             GraphPlace.FillEllipse(new SolidBrush(Color.White), new RectangleF(DotA.X - shift, DotA.Y - shift, 2 * shift, 2 * shift));
+        }
+
+        public override bool FigureChecked(PointF cursor)
+        {
+            if (cursor.X >= DotA.X && cursor.X <= (DotA.X + Area.Width) && cursor.Y >= DotA.Y && cursor.Y <= (DotA.Y + Area.Height))
+                return true;
+            else return false;
         }
     }
 }

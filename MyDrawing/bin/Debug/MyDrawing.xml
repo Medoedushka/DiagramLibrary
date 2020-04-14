@@ -108,6 +108,14 @@
             Абстрактный класс, представляющий характеристики рисуемых фигур.
             </summary>
         </member>
+        <member name="M:MyDrawing.Figures.Figure.ConvertToSmallChars(System.String,System.Boolean)">
+            <summary>
+            Конвертирует строковое представление числа в эквивалентное число в надстрочном или подстрочном формате.
+            </summary>
+            <param name="num">строковое прдствление числа</param>
+            <param name="mode">параметр указывающий тип конвертации: false - в подстрочный формат, true - в надстрочный</param>
+            <returns></returns>
+        </member>
         <member name="T:MyDrawing.Figures.Line">
             <summary>
             Наследник класса Figure для отрисовки обычной прямой линии.

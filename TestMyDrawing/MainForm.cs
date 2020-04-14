@@ -314,7 +314,14 @@ namespace TestMyDrawing
         Font _lableFont = new Font("Arial", 10);
         public Font LableFont { get => _lableFont; set => _lableFont = value; }
         public Color LableColor { get => pcb_TextColor.BackColor; set => pcb_TextColor.BackColor = value; }
-        public Color LableBackColor { get => pcb_TextBackColor.BackColor; set => pcb_TextBackColor.BackColor = value; }
+        public Color LableBackColor {
+            get
+            {
+                if (chb_TextBackColor.Checked)
+                    return pcb_TextBackColor.BackColor;
+                else return Color.Transparent;
+            }
+            set => pcb_TextBackColor.BackColor = value; }
         public string LableValue { get => txb_Value.Text; set => txb_Value.Text = value; }
 
         Color lblChecked = Color.FromArgb(9, 154, 185);
@@ -924,7 +931,11 @@ namespace TestMyDrawing
         {
             using (FontDialog fd = new FontDialog())
             {
-                fd.ShowDialog();
+                if (fd.ShowDialog() == DialogResult.OK)
+                {
+                    _lableFont = fd.Font;
+                    txb_Font.Text = fd.Font.FontFamily.Name + ", " + fd.Font.Size;
+                }
             }
         }
 
@@ -935,11 +946,30 @@ namespace TestMyDrawing
             {
                 pcb_TextBackColor.BackColor = Color.FromArgb(0, pcb_FillColor.BackColor.R, pcb_FillColor.BackColor.G, pcb_FillColor.BackColor.B);
                 pcb_TextBackColor.BackgroundImage = Properties.Resources.pcb_disable;
+                
             }
             else
             {
                 pcb_TextBackColor.BackgroundImage = null;
                 pcb_TextBackColor.BackColor = Color.FromArgb(255, pcb_FillColor.BackColor.R, pcb_FillColor.BackColor.G, pcb_FillColor.BackColor.B);
+            }
+        }
+
+        private void pcb_TextColor_Click(object sender, EventArgs e)
+        {
+            using (ColorDialog cd = new ColorDialog())
+            {
+                if (cd.ShowDialog() == DialogResult.OK)
+                    pcb_TextColor.BackColor = cd.Color;
+            }
+        }
+
+        private void pcb_TextBackColor_Click(object sender, EventArgs e)
+        {
+            using (ColorDialog cd = new ColorDialog())
+            {
+                if (cd.ShowDialog() == DialogResult.OK)
+                    pcb_TextBackColor.BackColor = cd.Color;
             }
         }
     }

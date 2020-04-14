@@ -441,7 +441,7 @@
             // 
             // btn_ShowFont
             // 
-            this.btn_ShowFont.Location = new System.Drawing.Point(195, 68);
+            this.btn_ShowFont.Location = new System.Drawing.Point(195, 67);
             this.btn_ShowFont.Name = "btn_ShowFont";
             this.btn_ShowFont.Size = new System.Drawing.Size(18, 18);
             this.btn_ShowFont.TabIndex = 6;
@@ -455,6 +455,7 @@
             this.txb_Font.ForeColor = System.Drawing.Color.Black;
             this.txb_Font.Location = new System.Drawing.Point(70, 65);
             this.txb_Font.Name = "txb_Font";
+            this.txb_Font.ReadOnly = true;
             this.txb_Font.Size = new System.Drawing.Size(119, 18);
             this.txb_Font.TabIndex = 5;
             // 
@@ -516,7 +517,7 @@
             // 
             // pcb_TextBackColor
             // 
-            this.pcb_TextBackColor.BackColor = System.Drawing.Color.Black;
+            this.pcb_TextBackColor.BackColor = System.Drawing.Color.White;
             this.pcb_TextBackColor.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.pcb_TextBackColor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pcb_TextBackColor.Location = new System.Drawing.Point(113, 139);
@@ -525,7 +526,7 @@
             this.pcb_TextBackColor.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pcb_TextBackColor.TabIndex = 1;
             this.pcb_TextBackColor.TabStop = false;
-            this.pcb_TextBackColor.Click += new System.EventHandler(this.pcb_FillColor_Click);
+            this.pcb_TextBackColor.Click += new System.EventHandler(this.pcb_TextBackColor_Click);
             // 
             // pcb_TextColor
             // 
@@ -538,7 +539,7 @@
             this.pcb_TextColor.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pcb_TextColor.TabIndex = 1;
             this.pcb_TextColor.TabStop = false;
-            this.pcb_TextColor.Click += new System.EventHandler(this.pcb_FillColor_Click);
+            this.pcb_TextColor.Click += new System.EventHandler(this.pcb_TextColor_Click);
             // 
             // label31
             // 

@@ -98,11 +98,15 @@ namespace TestMyDrawing.Presenter
                 }
                 else if (drawingView.DrawState == DrawState.Text && _model.isDrawing)
                 {
-                    Text t = new Text(_model.firstPt, "Hello world!");
+                    Text t = new Text(_model.firstPt, drawingView.LableValue);
+                    t.Font = drawingView.LableFont;
+                    t.TextColor = drawingView.LableColor;
+                    t.Background = drawingView.LableBackColor;
+
                     _model.crrFigure = t;
-                    _model.isDrawing = false;
-                    _model.ApdateFiguresList();
                 }
+                _model.isDrawing = false;
+                _model.ApdateFiguresList();
             };
             drawingView.ApdateCurvesList += DrawingView_PlotAction;
             drawingView.FillCurveFields += (string s) =>
@@ -197,10 +201,20 @@ namespace TestMyDrawing.Presenter
             };
             drawingView.ApdateFigure += (object o, EventArgs e) =>
             {
-                crrfigure.FillColor = drawingView.FillColor;
-                crrfigure.StrokeColor = drawingView.StrokeColor;
-                crrfigure.StrokeWidth = (int)drawingView.StrokeWidth;
-                crrfigure.Smooth = drawingView.SmoothAngles;
+                if (crrfigure is Text)
+                {
+                    (crrfigure as Text).Value = drawingView.LableValue;
+                    (crrfigure as Text).Font = drawingView.LableFont;
+                    (crrfigure as Text).Background = drawingView.LableBackColor;
+                    (crrfigure as Text).TextColor = drawingView.LableColor;
+                }
+                else
+                {
+                    crrfigure.FillColor = drawingView.FillColor;
+                    crrfigure.StrokeColor = drawingView.StrokeColor;
+                    crrfigure.StrokeWidth = (int)drawingView.StrokeWidth;
+                    crrfigure.Smooth = drawingView.SmoothAngles;
+                }
                 _model.ApdatecrrFigure(crrfigure);
             };
         }
@@ -267,12 +281,14 @@ namespace TestMyDrawing.Presenter
                     f = new MyDrawing.Figures.Arrow(_model.firstPt, e.mouseLocation);
                     (f as Arrow).FillArrowEnd = true;
                 }
-
-                f.FillColor = drawingView.FillColor;
-                f.StrokeColor = drawingView.StrokeColor;
-                f.Smooth = drawingView.SmoothAngles;
-                f.StrokeWidth = (int)drawingView.StrokeWidth;
-                _model.crrFigure = f;
+                if (f != null)
+                {
+                    f.FillColor = drawingView.FillColor;
+                    f.StrokeColor = drawingView.StrokeColor;
+                    f.Smooth = drawingView.SmoothAngles;
+                    f.StrokeWidth = (int)drawingView.StrokeWidth;
+                    _model.crrFigure = f;
+                }
             }
         }
 
